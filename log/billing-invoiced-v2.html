@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Billing — Invoiced · Octen Console</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
+.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;align-items:center;justify-content:center;padding:16px}
+.modal-bg.open{display:flex}
+input:focus,select:focus{outline:none;border-color:#039855 !important;box-shadow:0 0 0 1px #039855}
+</style>
+</head>
+<body class="bg-slate-50 min-h-screen">
+
+<!-- ── Toast ── -->
+<div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[99] hidden px-4 py-2.5 rounded-lg text-sm font-medium text-white shadow-lg" style="background:#0f172a"></div>
+
+<!-- ── Demo status switcher (floating, top-right) ── -->
+<div class="fixed top-4 right-4 z-40 bg-white border border-slate-200 rounded-xl shadow-lg p-2.5 text-xs text-slate-500 space-y-1" style="width:110px">
+  <div class="font-semibold text-slate-700 mb-2">Demo: Invoiced state</div>
+  <button onclick="setStatus('normal')"     id="s-normal"    class="w-full text-left px-2 py-1 rounded hover:bg-slate-50 transition-colors">Normal</button>
+  <button onclick="setStatus('warn80')"     id="s-warn80"    class="w-full text-left px-2 py-1 rounded hover:bg-slate-50 transition-colors">80% warning</button>
+  <button onclick="setStatus('warn90')"     id="s-warn90"    class="w-full text-left px-2 py-1 rounded hover:bg-slate-50 transition-colors">90% warning</button>
+  <button onclick="setStatus('overdue')"    id="s-overdue"   class="w-full text-left px-2 py-1 rounded hover:bg-slate-50 transition-colors">Overdue</button>
+  <button onclick="setStatus('suspended')"  id="s-suspended" class="w-full text-left px-2 py-1 rounded hover:bg-slate-50 transition-colors">Suspended</button>
+  <button onclick="setStatus('firstMonth')" id="s-firstMonth" class="w-full text-left px-2 py-1 rounded hover:bg-slate-50 transition-colors">First month</button>
+</div>
+
+<!-- ── Page content (no sidebar) ── -->
+<div class="max-w-7xl mx-auto p-6">
+
+  <!-- Page-top banner -->
+  <div id="billing-postpaid-banner" class="hidden mb-6 px-4 py-3.5 rounded-xl flex items-start gap-3 border">
+    <svg id="bpb-icon" class="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    <p id="bpb-text" class="flex-1 text-sm"></p>
+    <button id="bpb-action" onclick="openRechargeModal(true)" class="hidden shrink-0 px-3.5 py-1.5 rounded-lg text-sm font-medium text-white hover:opacity-90" style="background:#dc2626">Pay now</button>
+  </div>
+
+  <div class="mb-8">
+    <h1 class="text-slate-900 text-2xl font-semibold">Billing</h1>
+  </div>
+
+  <!-- Unpaid Invoice 置顶警告卡片 (方案A) -->
+  <div id="unpaid-invoice-card" class="hidden mb-6 bg-white rounded-xl border p-5 flex flex-col md:flex-row md:items-center justify-between gap-4" style="border-left-width: 6px; box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);">
+    <div class="flex items-start gap-3">
+      <div class="p-2 rounded-lg bg-orange-50 text-orange-600 shrink-0">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+      </div>
+      <div>
+        <h3 id="uic-title" class="text-slate-900 font-semibold text-base">Unpaid Invoice <span class="text-xs font-normal text-slate-500 ml-1.5">(2026/5/1 - 2026/5/31)</span></h3>
+        <p id="uic-subtext" class="text-xs text-slate-500 mt-1">INV-2026-05 · due Jul 1</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="text-right">
+        <span class="text-xs text-slate-400 block">Amount due</span>
+        <span id="uic-amount" class="text-2xl font-bold text-slate-900 tabular-nums">$1,820.40</span>
+      </div>
+      <button onclick="openRechargeModal(true)" class="px-5 py-2.5 text-white rounded-lg text-sm font-medium hover:opacity-90 transition-opacity shrink-0" style="background:#039855">Pay invoice</button>
+    </div>
+  </div>
+
+  <!-- ① Balance hero -->
+  <div class="mb-6">
+    <div class="rounded-xl p-8 text-white relative overflow-hidden" style="background:linear-gradient(180deg,#0c1f1a 0%,#122a22 50%,#0f3d2e 100%)">
+
+      <!-- Prepaid hero (hidden in postpaid mode) -->
+      <div id="billing-hero-prepaid" class="hidden relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div>
+          <p class="text-green-100 mb-2 text-sm">Current balance</p>
+          <h2 class="text-white text-4xl font-semibold mb-4">$125.50</h2>
+          <div class="flex flex-wrap gap-2 text-xs">
+            <span class="inline-flex items-center rounded-full bg-white/10 border border-white/20 px-3 py-1 text-green-50">Pay as you go · active</span>
+            <span class="inline-flex items-center rounded-full bg-white/5 border border-white/15 px-3 py-1 text-green-50">QPS Plan · Free · up to 50</span>
+          </div>
+        </div>
+        <div class="flex flex-col items-start md:items-end gap-2">
+          <button onclick="openRechargeModal(false)" class="px-6 py-2.5 bg-white rounded-lg text-sm font-medium transition-colors hover:bg-green-50" style="color:#039855">Add credits</button>
+        </div>
+      </div>
+
+      <!-- Postpaid hero -->
+      <div id="billing-hero-postpaid" class="relative z-10">
+        <div class="flex flex-col lg:flex-row lg:items-stretch gap-6">
+          <!-- Left: credit usage + breakdown -->
+          <div class="min-w-0 flex-1">
+            <div class="flex items-baseline justify-between gap-3 mb-2">
+              <p class="text-green-100 text-sm">Total outstanding</p>
+              <span id="bp-status-chip" class="inline-flex items-center rounded-full bg-white/10 border border-white/20 px-3 py-1 text-xs text-green-50">Invoiced</span>
+            </div>
+            <div class="flex items-baseline justify-between gap-3 mb-3">
+              <h2 class="text-white text-4xl font-semibold"><span id="bp-owed">$3,723.50</span></h2>
+              <span class="flex items-baseline gap-1.5"><span id="bp-limit" style="font-size:18px;color:rgba(255,255,255,0.8);font-weight:600">$5,000.00</span> <span class="text-xs font-normal" style="color:rgba(255,255,255,0.6)">limit</span></span>
+            </div>
+            <!-- progress bar -->
+            <div class="w-full h-2.5 rounded-full overflow-hidden bg-white/15">
+              <div id="bp-bar" class="h-full rounded-full transition-all" style="width:74%;background:#22c55e"></div>
+            </div>
+            <div class="flex items-center justify-between text-green-100/80 text-xs mt-1.5 mb-4">
+              <span id="bp-bar-used">74% used</span>
+              <span id="bp-bar-avail" style="color:rgba(0,255,140,0.8);font-weight:400">$1,276.50 available</span>
+            </div>
+
+            <!-- Breakdown rows -->
+            <div class="rounded-lg bg-white/5 border border-white/10 divide-y divide-white/10 backdrop-blur-sm">
+              <div id="bp-unpaid-row" class="flex items-center justify-between gap-3 px-3.5 py-3">
+                <div class="min-w-0">
+                  <div class="text-sm text-white font-medium">Unpaid invoice <span class="text-xs font-normal text-green-100/60 ml-1.5">(2026/5/1 - 2026/5/31)</span></div>
+                  <div id="bp-unpaid-sub" class="text-xs text-green-100/70 mt-0.5">INV-2026-05 · due Jul 1</div>
+                </div>
+                <div class="flex items-center gap-3 shrink-0">
+                  <span id="bp-unpaid-amt" class="text-sm font-semibold text-white tabular-nums">$1,820.40</span>
+                  <button id="bp-pay-invoice-btn" onclick="openRechargeModal(true)" class="px-3 py-1.5 bg-white rounded-md text-xs font-medium hover:bg-green-50 transition-colors" style="color:#039855">Pay invoice</button>
+                </div>
+              </div>
+              <div id="bp-cycle-row" class="flex items-center justify-between gap-3 px-3.5 py-3">
+                <div class="min-w-0">
+                  <div class="text-sm text-white font-medium">Current cycle <span class="text-xs font-normal text-green-100/60 ml-1.5">(2026/6/1 - 2026/6/30)</span></div>
+                  <div id="bp-cycle-sub" class="text-xs text-green-100/70 mt-0.5">Bills Jul 1 · NET 30 · not payable yet</div>
+                </div>
+                <span id="bp-cycle-amt" class="text-sm font-semibold text-white/90 tabular-nums shrink-0">$1,903.10</span>
+              </div>
+              <div id="bp-breakdown-empty" class="hidden px-3.5 py-4 text-center text-[13px] text-green-100/70">
+                No charges yet. This cycle bills on Jul 1.
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: prepaid balance + actions -->
+          <div id="billing-postpaid-btns" class="shrink-0 w-full lg:w-72 flex flex-col gap-4 lg:border-l lg:border-white/10 lg:pl-6">
+            <div>
+              <div class="flex items-center gap-1.5 mb-1">
+                <svg class="w-4 h-4 text-green-200" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M16 12h.01M2 10h20"/></svg>
+                <p class="text-green-100 text-sm">Total Balance</p>
+              </div>
+              <div class="text-white text-3xl font-semibold tabular-nums"><span id="bp-balance-amt">$125.50</span></div>
+              <p id="bp-balance-note" class="text-xs text-green-100/70 mt-1">Auto-applied to your next invoice (Jul 1)</p>
+            </div>
+            <div class="mt-auto flex flex-col gap-2">
+              <button id="bp-add-credits-btn" onclick="openRechargeModal(false)" class="w-full px-5 py-2 rounded-lg text-sm font-medium bg-white hover:bg-green-50 transition-colors" style="color:#039855">Add credits</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ③ Spend + Pay as you go + Plan (3 cols) -->
+  <div class="grid lg:grid-cols-3 gap-6 mb-6 items-stretch">
+
+    <!-- Spend / Current cycle usage -->
+    <div class="bg-white rounded-lg border border-slate-200 p-6 h-full flex flex-col transition-all hover:border-slate-300 hover:shadow-sm">
+      <div class="flex items-start justify-between gap-4 mb-4">
+        <h2 id="billing-spend-title" class="text-slate-900 text-base font-semibold">Current Cycle Usage</h2>
+        <div class="text-slate-900 text-lg font-semibold tabular-nums">$189.47</div>
+      </div>
+      <!-- Stacked bar -->
+      <div class="mb-4"><div class="w-full h-2 rounded-md overflow-hidden bg-slate-100 flex">
+        <div style="width:4.8%;background:#a855f7" title="Broad Search"></div>
+        <div style="width:5.9%;background:#14b8a6" title="Web Search"></div>
+        <div style="width:3.0%;background:#d946ef" title="Image Search"></div>
+        <div style="width:1.0%;background:#eab308" title="Video Search"></div>
+        <div style="width:2.9%;background:#3b82f6" title="Extract"></div>
+        <div style="width:9.4%;background:#f43f5e" title="Model"></div>
+        <div style="width:2.0%;background:#f59e0b" title="Embedding"></div>
+        <div style="width:0.3%;background:#06b6d4" title="VL Embedding"></div>
+        <div style="width:36.8%;background:#6366f1" title="Collect"></div>
+        <div style="width:4.6%;background:#039855" title="Answer"></div>
+        <div style="width:6.4%;background:#8b5cf6" title="Deep Research"></div>
+        <div style="width:22.8%;background:#ec4899" title="Multimodal Chat"></div>
+      </div></div>
+      <!-- Tabs -->
+      <div class="flex items-center gap-1 mb-3 border-b border-slate-200 -mx-6 px-6">
+        <button data-spend-tab="search" class="spend-tab px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors" style="color:#039855;border-color:#039855">Search <span class="text-xs text-slate-400 ml-0.5 font-normal tabular-nums">$23.24</span></button>
+        <button data-spend-tab="content" class="spend-tab px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors text-slate-500 border-transparent hover:text-slate-700">Content <span class="text-xs text-slate-400 ml-0.5 font-normal tabular-nums">$62.50</span></button>
+        <button data-spend-tab="models" class="spend-tab px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors text-slate-500 border-transparent hover:text-slate-700">Models <span class="text-xs text-slate-400 ml-0.5 font-normal tabular-nums">$18.53</span></button>
+        <button data-spend-tab="apps" class="spend-tab px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors text-slate-500 border-transparent hover:text-slate-700">Apps <span class="text-xs text-slate-400 ml-0.5 font-normal tabular-nums">$85.20</span></button>
+      </div>
+      <div class="flex-1">
+        <div data-spend-panel="search" class="spend-panel space-y-2">
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#a855f7"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Broad Search</span><span class="text-xs text-slate-400 ml-1.5">4.8%</span><p class="text-xs text-slate-400 mt-0.5">3,000 sub-queries · 1.5M full content tokens</p></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$7.50</div></div>
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#14b8a6"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Web Search</span><span class="text-xs text-slate-400 ml-1.5">5.9%</span><p class="text-xs text-slate-400 mt-0.5">4,500 calls · 300k full content tokens</p></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$9.30</div></div>
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#d946ef"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Image Search</span><span class="text-xs text-slate-400 ml-1.5">3.0%</span><p class="text-xs text-slate-400 mt-0.5">960 calls · 5.8k images</p></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$4.80</div></div>
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#eab308"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Video Search</span><span class="text-xs text-slate-400 ml-1.5">1.0%</span><p class="text-xs text-slate-400 mt-0.5">328 calls · 1.3k videos</p></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$1.64</div></div>
+        </div>
+        <div data-spend-panel="content" class="spend-panel hidden space-y-2">
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#3b82f6"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Extract</span><span class="text-xs text-slate-400 ml-1.5">2.9%</span><p class="text-xs text-slate-400 mt-0.5">4,500 URLs</p></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$4.50</div></div>
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#6366f1"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Collect</span><span class="text-xs text-slate-400 ml-1.5">36.8%</span><p class="text-xs text-slate-400 mt-0.5">29k matches (text 19k · image 7k · video 3k)</p></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$58.00</div></div>
+        </div>
+        <div data-spend-panel="models" class="spend-panel hidden space-y-2">
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#f43f5e"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Model</span><span class="text-xs text-slate-400 ml-1.5">9.4%</span><p class="text-xs text-slate-400 mt-0.5">1.1M tokens · 92 image &amp; video gen</p></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$14.80</div></div>
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#f59e0b"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Embedding</span><span class="text-xs text-slate-400 ml-1.5">2.0%</span><p class="text-xs text-slate-400 mt-0.5">46M tokens</p></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$3.23</div></div>
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#06b6d4"></span><div class="min-w-0"><span class="text-slate-700 text-sm">VL Embedding</span><span class="text-xs text-slate-400 ml-1.5">0.3%</span><p class="text-xs text-slate-400 mt-0.5">2M image · video tokens</p></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$0.50</div></div>
+        </div>
+        <div data-spend-panel="apps" class="spend-panel hidden space-y-2">
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#039855"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Answer</span><span class="text-xs text-slate-400 ml-1.5">4.6%</span></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$7.20</div></div>
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#8b5cf6"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Deep Research</span><span class="text-xs text-slate-400 ml-1.5">6.3%</span></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$10.00</div></div>
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#ec4899"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Multimodal Chat</span><span class="text-xs text-slate-400 ml-1.5">22.8%</span></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$36.00</div></div>
+          <div class="flex items-start justify-between gap-3"><div class="flex items-start gap-2 min-w-0"><span class="mt-1.5 inline-block w-2 h-2 rounded-sm shrink-0" style="background:#a16207"></span><div class="min-w-0"><span class="text-slate-700 text-sm">Grounded Generation</span><span class="text-xs text-slate-400 ml-1.5">20.3%</span></div></div><div class="text-slate-900 text-sm font-medium tabular-nums shrink-0">$32.00</div></div>
+        </div>
+      </div>
+      <script>
+        (function(){
+          const tabs = document.querySelectorAll('.spend-tab');
+          const panels = document.querySelectorAll('.spend-panel');
+          tabs.forEach(t => t.addEventListener('click', () => {
+            const key = t.dataset.spendTab;
+            tabs.forEach(x => {
+              const active = x.dataset.spendTab === key;
+              x.style.color = active ? '#039855' : '';
+              x.style.borderColor = active ? '#039855' : '';
+              x.classList.toggle('text-slate-500', !active);
+              x.classList.toggle('border-transparent', !active);
+            });
+            panels.forEach(p => p.classList.toggle('hidden', p.dataset.spendPanel !== key));
+          }));
+        })();
+      </script>
+      <p id="billing-spend-note" class="text-xs text-slate-400 mt-1 pt-2 border-t border-slate-100">Updated daily · final amounts per your monthly invoice.</p>
+      <button class="text-xs text-left mt-2 hover:opacity-80" style="color:#039855">View spend details in Usage →</button>
+    </div>
+
+    <!-- Pay as you go -->
+    <div class="bg-white rounded-lg border border-slate-200 p-6 h-full flex flex-col relative">
+      <span class="absolute right-4 top-4 rounded-full text-xs font-medium px-2 py-0.5 bg-slate-100 text-slate-600 border border-slate-200">Pay as you go</span>
+      <h2 class="text-slate-900 mb-3 text-base font-semibold">Usage Price</h2>
+      <div class="flex items-center gap-1 mb-4 border-b border-slate-200 -mx-6 px-6">
+        <button data-payg-tab="search" class="payg-tab px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors" style="color:#039855;border-color:#039855">Search</button>
+        <button data-payg-tab="content" class="payg-tab px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors text-slate-500 border-transparent hover:text-slate-700">Content</button>
+        <button data-payg-tab="models" class="payg-tab px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors text-slate-500 border-transparent hover:text-slate-700">Models</button>
+        <button data-payg-tab="apps" class="payg-tab px-3 py-2 text-sm font-medium border-b-2 -mb-px transition-colors text-slate-500 border-transparent hover:text-slate-700">Apps</button>
+      </div>
+      <div data-payg-panel="search" class="payg-panel flex-1">
+        <div class="grid gap-y-2 gap-x-6 items-baseline" style="grid-template-columns:auto auto 1fr">
+          <span class="text-sm text-slate-600">Broad Search</span><span class="text-sm font-semibold text-slate-900 tabular-nums">$2.00</span><span class="text-xs text-slate-500">/ 1k sub-queries</span>
+          <span></span><span class="text-sm font-semibold text-slate-900 tabular-nums">$0.001</span><span class="text-xs text-slate-500">/ 1k full content tokens</span>
+          <span class="text-sm text-slate-600 pt-2 border-t border-slate-100">Web Search</span><span class="text-sm font-semibold text-slate-900 tabular-nums pt-2 border-t border-slate-100">$2.00</span><span class="text-xs text-slate-500 pt-2 border-t border-slate-100">/ 1k calls</span>
+          <span></span><span class="text-sm font-semibold text-slate-900 tabular-nums">$0.001</span><span class="text-xs text-slate-500">/ 1k full content tokens</span>
+          <span class="text-sm text-slate-600 pt-2 border-t border-slate-100">Image Search</span><span class="text-sm font-semibold text-slate-900 tabular-nums pt-2 border-t border-slate-100">$5.00</span><span class="text-xs text-slate-500 pt-2 border-t border-slate-100">/ 1k calls</span>
+          <span class="text-sm text-slate-600 pt-2 border-t border-slate-100">Video Search</span><span class="text-sm font-semibold text-slate-900 tabular-nums pt-2 border-t border-slate-100">$5.00</span><span class="text-xs text-slate-500 pt-2 border-t border-slate-100">/ 1k calls</span>
+        </div>
+      </div>
+      <div data-payg-panel="content" class="payg-panel hidden flex-1">
+        <div class="grid gap-y-2 gap-x-6 items-baseline" style="grid-template-columns:auto auto 1fr">
+          <span class="text-sm text-slate-600">Extract</span><span class="text-sm font-semibold text-slate-900 tabular-nums">$1.00</span><span class="text-xs text-slate-500">/ 1k URLs</span>
+          <span class="text-sm text-slate-600 pt-2 border-t border-slate-100">Collect</span><span class="text-sm font-semibold text-slate-900 tabular-nums pt-2 border-t border-slate-100">Custom</span><span class="text-xs text-slate-500 pt-2 border-t border-slate-100">Contact sales</span>
+        </div>
+      </div>
+      <div data-payg-panel="models" class="payg-panel hidden flex-1">
+        <div class="grid gap-y-2 gap-x-6 items-baseline" style="grid-template-columns:auto auto 1fr">
+          <span class="text-sm text-slate-600">Model</span><span class="text-sm font-semibold text-slate-900 tabular-nums">$1 ~ $25</span><span class="text-xs text-slate-500">/ 1M tokens</span>
+          <span class="text-sm text-slate-600 pt-2 border-t border-slate-100">Embedding</span><span class="text-sm font-semibold text-slate-900 tabular-nums pt-2 border-t border-slate-100">$0.01 ~ $0.07</span><span class="text-xs text-slate-500 pt-2 border-t border-slate-100">/ 1M tokens</span>
+          <span class="text-sm text-slate-600 pt-2 border-t border-slate-100">VL Embedding</span><span class="text-sm font-semibold text-slate-900 tabular-nums pt-2 border-t border-slate-100">$0.10</span><span class="text-xs text-slate-500 pt-2 border-t border-slate-100">/ 1M text tokens</span>
+          <span></span><span class="text-sm font-semibold text-slate-900 tabular-nums">$0.25</span><span class="text-xs text-slate-500">/ 1M image · video tokens</span>
+        </div>
+      </div>
+      <div data-payg-panel="apps" class="payg-panel hidden flex-1">
+        <div class="grid gap-y-2 gap-x-6 items-baseline" style="grid-template-columns:auto auto 1fr">
+          <span class="text-sm text-slate-600">Answer</span><span class="text-sm font-semibold text-slate-900 tabular-nums">$2.00</span><span class="text-xs text-slate-500">/ 1k calls</span>
+          <span class="text-sm text-slate-600 pt-2 border-t border-slate-100">Deep Research</span><span class="text-sm font-semibold text-slate-900 tabular-nums pt-2 border-t border-slate-100">$0.20</span><span class="text-xs text-slate-500 pt-2 border-t border-slate-100">Lite</span>
+          <span></span><span class="text-sm font-semibold text-slate-900 tabular-nums">$1.00</span><span class="text-xs text-slate-500">Standard</span>
+          <span></span><span class="text-sm font-semibold text-slate-900 tabular-nums">$2.50</span><span class="text-xs text-slate-500">Pro</span>
+          <span class="text-sm text-slate-600 pt-2 border-t border-slate-100">Multimodal Chat</span><span class="text-sm font-semibold text-slate-900 tabular-nums pt-2 border-t border-slate-100">$5.00</span><span class="text-xs text-slate-500 pt-2 border-t border-slate-100">/ 1k queries</span>
+          <span class="text-sm text-slate-600 pt-2 border-t border-slate-100">Grounded Gen</span><span class="text-sm font-semibold text-slate-900 tabular-nums pt-2 border-t border-slate-100">$0.25</span><span class="text-xs text-slate-500 pt-2 border-t border-slate-100">/ image</span>
+          <span style="grid-column:1/-1" class="text-xs text-slate-400 pt-3 mt-1 border-t border-slate-100">Answer also bills underlying model tokens at model rates.</span>
+        </div>
+      </div>
+      <div class="mt-4 pt-3 border-t border-slate-100">
+        <button class="inline-flex items-center gap-1 text-xs font-medium hover:opacity-80" style="color:#039855">View full pricing →</button>
+      </div>
+      <script>
+        (function(){
+          const tabs = document.querySelectorAll('.payg-tab');
+          const panels = document.querySelectorAll('.payg-panel');
+          tabs.forEach(t => t.addEventListener('click', () => {
+            const key = t.dataset.paygTab;
+            tabs.forEach(x => {
+              const active = x.dataset.paygTab === key;
+              x.style.color = active ? '#039855' : '';
+              x.style.borderColor = active ? '#039855' : '';
+              x.classList.toggle('text-slate-500', !active);
+              x.classList.toggle('border-transparent', !active);
+            });
+            panels.forEach(p => p.classList.toggle('hidden', p.dataset.paygPanel !== key));
+          }));
+        })();
+      </script>
+    </div>
+
+    <!-- Plan card -->
+    <div class="bg-white rounded-lg border border-slate-200 p-6 flex flex-col relative">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-slate-900 text-base font-semibold">QPS Plan</h2>
+        <span class="rounded-full text-xs font-medium px-2 py-0.5 bg-slate-100 text-slate-600 border border-slate-200">Current plan</span>
+      </div>
+      <div class="flex items-baseline justify-between mb-3">
+        <span class="text-slate-900 text-sm font-medium">Free</span>
+        <p class="text-slate-900 text-lg font-semibold tabular-nums"><span class="text-sm font-normal text-slate-500">Up to</span> 50 <span class="text-sm font-normal text-slate-500">QPS</span></p>
+      </div>
+      <p class="text-sm text-slate-600 mb-4">Upgrade to unlock guaranteed throughput and SLA.</p>
+      <div class="pt-4 border-t border-slate-200 mt-auto">
+        <button class="w-full px-4 py-2 text-white rounded-lg text-sm font-medium hover:opacity-90" style="background:#039855">Upgrade plan</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Payment Methods (postpaid: note visible) -->
+  <div id="billing-payment-methods" class="bg-white rounded-lg border border-slate-200 p-6 mb-8">
+    <div class="flex items-center justify-between">
+      <div>
+        <h2 class="text-slate-900 font-medium">Payment Methods</h2>
+        <p id="billing-payment-note" class="text-slate-500 text-sm mt-1">Settlement: monthly invoice · NET 30.</p>
+      </div>
+      <button onclick="toast('Opening Stripe Customer Portal…')" class="flex items-center gap-2 px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+        Add
+      </button>
+    </div>
+    <div class="mt-4">
+      <div class="rounded-lg border border-slate-200 divide-y divide-slate-100">
+        <div class="flex items-center justify-between px-4 py-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="shrink-0 w-9 h-9 rounded-md flex items-center justify-center" style="background:#1a1f71">
+              <span class="text-white text-xs font-bold tracking-wider italic">VISA</span>
+            </div>
+            <div class="min-w-0 flex items-center gap-2 flex-wrap">
+              <span class="text-sm font-medium text-slate-900">Visa debit</span>
+              <span class="text-sm text-slate-500 tabular-nums">•••• 1876</span>
+              <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium" style="background:#f1f5f9;color:#475569">
+                <svg class="w-3 h-3" style="color:#039855" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
+                Default
+              </span>
+            </div>
+          </div>
+          <span class="text-xs text-slate-500 shrink-0">Valid until 11/2030</span>
+        </div>
+        <div class="flex items-center justify-between px-4 py-3">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="shrink-0 w-9 h-9 rounded-md flex items-center justify-center" style="background:#0f172b">
+              <span class="text-white text-xs font-bold tracking-wider">UPI</span>
+            </div>
+            <div class="min-w-0 flex items-center gap-2 flex-wrap">
+              <span class="text-sm font-medium text-slate-900">Unionpay credit</span>
+              <span class="text-sm text-slate-500 tabular-nums">•••• 4986</span>
+            </div>
+          </div>
+          <span class="text-xs text-slate-500 shrink-0">Valid until 12/2028</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Invoices — Postpaid -->
+  <div class="bg-white rounded-lg border border-slate-200 p-6 mb-16">
+    <h2 class="text-slate-900 mb-6 font-medium">Invoices</h2>
+    <div id="billing-invoices-postpaid">
+      <!-- Unpaid / outstanding invoices -->
+      <div id="bp-outstanding-section" class="mb-8">
+        <div class="flex items-center gap-2 mb-3">
+          <h3 class="text-slate-900 text-sm font-semibold">Unpaid Invoices</h3>
+          <span id="bp-outstanding-summary" class="text-xs text-slate-500"></span>
+        </div>
+        <div id="bp-outstanding-empty" class="hidden rounded-xl border border-slate-200 bg-slate-50/60 py-8 text-center text-sm text-slate-400">No unpaid invoices at this time</div>
+        <div id="bp-outstanding-table-wrap" class="rounded-xl border border-slate-200 bg-white p-2">
+          <table class="w-full text-sm">
+            <thead><tr class="border-b border-slate-200 text-slate-600">
+              <th class="text-left py-2.5 px-4 font-medium">Invoice #</th>
+              <th class="text-left py-2.5 px-4 font-medium">Period</th>
+              <th class="text-left py-2.5 px-4 font-medium">Due Date</th>
+              <th class="text-left py-2.5 px-4 font-medium">Amount</th>
+              <th class="text-left py-2.5 px-4 font-medium">Status</th>
+              <th class="text-right py-2.5 px-4 font-medium">Actions</th>
+            </tr></thead>
+            <tbody id="bp-outstanding-body"></tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Invoice history -->
+      <div class="flex items-center gap-2 mb-3">
+        <h3 class="text-slate-900 text-sm font-semibold">Invoice History</h3>
+        <span class="text-xs text-slate-400">Monthly invoices &amp; recharge receipts</span>
+      </div>
+      <table class="w-full text-sm">
+        <thead><tr class="border-b border-slate-200 text-slate-700">
+          <th class="text-left py-3 px-4">Document</th>
+          <th class="text-left py-3 px-4">Date / Period</th>
+          <th class="text-left py-3 px-4">Amount</th>
+          <th class="text-left py-3 px-4">Status</th>
+          <th class="text-right py-3 px-4">Actions</th>
+        </tr></thead>
+        <tbody id="bp-history-body"></tbody>
+      </table>
+      <div id="bp-history-empty" class="hidden py-8 text-center text-sm text-slate-400">No invoices yet. Your first invoice will be issued on Jul 1.</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ── Invoice detail modal ── -->
+<div id="m-invoice-detail" class="modal-bg" onclick="if(event.target===this)closeModal('m-invoice-detail')">
+  <div class="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-y-auto" style="max-height:90vh">
+    <div class="px-6 pt-6 pb-4 border-b border-slate-100">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <div id="bpd-status" class="mb-1"></div>
+          <h2 id="bpd-number" class="text-slate-900 text-lg font-semibold"></h2>
+          <p id="bpd-paidline" class="text-sm text-slate-500 mb-1"></p>
+          <p class="text-2xl font-bold text-slate-900 tabular-nums" id="bpd-amount"></p>
+        </div>
+        <button onclick="closeModal('m-invoice-detail')" class="text-slate-400 hover:text-slate-600 shrink-0 mt-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="flex flex-wrap gap-2 mt-4" id="bpd-actions"></div>
+    </div>
+    <div class="px-6 py-4">
+      <div class="grid grid-cols-2 gap-x-6 gap-y-3 text-sm mb-5">
+        <div><div class="text-xs text-slate-400 mb-0.5">Invoice date</div><div id="bpd-invdate" class="text-slate-900"></div></div>
+        <div><div class="text-xs text-slate-400 mb-0.5">Due date</div><div id="bpd-due" class="text-slate-900"></div></div>
+        <div><div class="text-xs text-slate-400 mb-0.5">Billed to</div><div id="bpd-billto" class="text-slate-900"></div></div>
+      </div>
+      <table class="w-full text-sm mb-4">
+        <thead><tr class="border-b border-slate-100"><th class="text-left py-2 text-slate-500 font-normal text-xs">Item</th><th class="text-right py-2 text-slate-500 font-normal text-xs">Amount</th></tr></thead>
+        <tbody id="bpd-lines"></tbody>
+      </table>
+      <div class="border-t border-slate-100 pt-3 space-y-1.5 text-sm">
+        <div class="flex justify-between text-slate-600"><span>Subtotal</span><span id="bpd-subtotal" class="tabular-nums"></span></div>
+        <div id="bpd-balrow" class="flex justify-between text-emerald-700"><span>Prepaid balance applied</span><span id="bpd-bal" class="tabular-nums"></span></div>
+        <div class="flex justify-between font-semibold text-slate-900 pt-1 border-t border-slate-100"><span id="bpd-total-label">Total</span><span id="bpd-total" class="tabular-nums"></span></div>
+        <div class="flex justify-between text-slate-600 pt-2"><span>Amount due</span><span id="bpd-amountdue" class="tabular-nums text-slate-900 font-medium"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Credits / Pay Modal -->
+<div id="m-recharge" class="modal-bg" onclick="if(event.target===this)closeModal('m-recharge')">
+  <div class="bg-white rounded-xl w-full max-w-md p-6 shadow-2xl">
+    <div class="flex items-center justify-between mb-4">
+      <h2 id="m-recharge-title" class="text-slate-900 text-base font-semibold">Add Credits</h2>
+      <button onclick="closeModal('m-recharge')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
+    </div>
+    <div class="mb-5">
+      <label id="m-recharge-label" class="block text-xs text-slate-500 mb-2">Amount</label>
+      <div id="m-recharge-presets" class="grid grid-cols-4 gap-2 mb-3">
+        <button onclick="setRechargeAmount(25, this)" class="py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors">$25</button>
+        <button onclick="setRechargeAmount(50, this)" class="py-2 border-2 rounded-lg text-sm font-medium" style="border-color:#039855;color:#039855;background:#0398550d">$50</button>
+        <button onclick="setRechargeAmount(100, this)" class="py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors">$100</button>
+        <button onclick="setRechargeAmount(200, this)" class="py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors">$200</button>
+      </div>
+      <input id="m-recharge-input" type="number" value="50" min="1" oninput="onRechargeInput(this)" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none" placeholder="Custom amount"/>
+    </div>
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-recharge')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button id="m-recharge-action" onclick="submitRecharge()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Add credits</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Utilities ──
+function toast(msg, isErr) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.style.background = isErr ? '#dc2626' : '#0f172a';
+  el.classList.remove('hidden');
+  setTimeout(() => el.classList.add('hidden'), 2500);
+}
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+function fmt(n){ return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+let currentIsPayInvoice = false;
+
+function openRechargeModal(isPayInvoice = false) {
+  currentIsPayInvoice = isPayInvoice;
+  const title = document.getElementById('m-recharge-title');
+  const label = document.getElementById('m-recharge-label');
+  const presets = document.getElementById('m-recharge-presets');
+  const input = document.getElementById('m-recharge-input');
+  const action = document.getElementById('m-recharge-action');
+
+  if (isPayInvoice) {
+    title.textContent = 'Pay Invoice';
+    label.textContent = 'Payment Amount (USD)';
+    presets.classList.add('hidden');
+    
+    const sc = POSTPAID_SCENARIOS[currentStatus] || POSTPAID_SCENARIOS.normal;
+    input.value = sc.unpaid.toFixed(2);
+    action.textContent = 'Pay invoice';
+  } else {
+    title.textContent = 'Add Credits';
+    label.textContent = 'Amount';
+    presets.classList.remove('hidden');
+    
+    input.value = "50";
+    action.textContent = 'Add credits';
+    
+    const buttons = presets.querySelectorAll('button');
+    buttons.forEach(b => {
+      if (b.textContent === '$50') {
+        b.className = 'py-2 border-2 rounded-lg text-sm font-medium';
+        b.style.cssText = 'border-color:#039855;color:#039855;background:#0398550d';
+      } else {
+        b.className = 'py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors';
+        b.style.cssText = '';
+      }
+    });
+  }
+  openModal('m-recharge');
+}
+
+function setRechargeAmount(amt, btn) {
+  const input = document.getElementById('m-recharge-input');
+  if (input) input.value = amt;
+  
+  const presets = document.getElementById('m-recharge-presets');
+  const buttons = presets.querySelectorAll('button');
+  buttons.forEach(b => {
+    if (b === btn) {
+      b.className = 'py-2 border-2 rounded-lg text-sm font-medium';
+      b.style.cssText = 'border-color:#039855;color:#039855;background:#0398550d';
+    } else {
+      b.className = 'py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors';
+      b.style.cssText = '';
+    }
+  });
+}
+
+function onRechargeInput(input) {
+  const val = parseFloat(input.value);
+  const presets = document.getElementById('m-recharge-presets');
+  const buttons = presets.querySelectorAll('button');
+  buttons.forEach(b => {
+    const amt = parseFloat(b.textContent.replace('$', ''));
+    if (amt === val) {
+      b.className = 'py-2 border-2 rounded-lg text-sm font-medium';
+      b.style.cssText = 'border-color:#039855;color:#039855;background:#0398550d';
+    } else {
+      b.className = 'py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors';
+      b.style.cssText = '';
+    }
+  });
+}
+
+function submitRecharge() {
+  const input = document.getElementById('m-recharge-input');
+  const amount = parseFloat(input.value) || 0;
+  if (amount <= 0) {
+    toast('Please enter a valid amount', true);
+    return;
+  }
+
+  closeModal('m-recharge');
+  
+  if (currentIsPayInvoice) {
+    const sc = POSTPAID_SCENARIOS[currentStatus] || POSTPAID_SCENARIOS.normal;
+    sc.unpaid = 0;
+    sc.hasOverdue = false;
+    sc.suspended = false;
+    sc.chip = 'Invoiced';
+    applyStatus(currentStatus);
+    toast('Payment processed successfully. Invoice paid.');
+  } else {
+    const sc = POSTPAID_SCENARIOS[currentStatus] || POSTPAID_SCENARIOS.normal;
+    sc.balance += amount;
+    applyStatus(currentStatus);
+    toast('Credits added successfully: ' + fmt(amount));
+  }
+}
+
+// ── State ──
+const LIMIT = 5000;
+const POSTPAID_SCENARIOS = {
+  firstMonth:{used:0,       unpaid:0,       balance:0,      hasOverdue:false, suspended:false, firstMonth:true,  chip:'Invoiced'},
+  normal:    {used:1903.10, unpaid:1820.40, balance:125.50, hasOverdue:false, suspended:false, chip:'Invoiced'},
+  warn80:    {used:2100.00, unpaid:2200.00, balance:0,      hasOverdue:false, suspended:false, chip:'Invoiced'},
+  warn90:    {used:2300.00, unpaid:2300.00, balance:0,      hasOverdue:false, suspended:false, chip:'Invoiced'},
+  overdue:   {used:1500.00, unpaid:2300.00, balance:0,      hasOverdue:true,  suspended:false, chip:'Invoiced'},
+  suspended: {used:2700.00, unpaid:2300.00, balance:0,      hasOverdue:true,  suspended:true,  chip:'Suspended · unpaid invoice'},
+};
+
+let currentStatus = 'normal';
+let bpRecords = {};
+
+const INV_VIEW = (n) => '<button onclick="event.stopPropagation();openInvoiceDetail(\''+n+'\')" class="inline-flex items-center gap-1.5 hover:opacity-80" style="color:#039855">View <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></button>';
+
+function invoiceStatusBadge(st) {
+  const map = {
+    OPEN:    ['bg-blue-50','text-blue-700','border-blue-200'],
+    PAID:    ['bg-slate-100','text-slate-600','border-slate-200'],
+    OVERDUE: ['bg-red-50','text-red-700','border-red-200'],
+    VOID:    ['bg-slate-50','text-slate-400','border-slate-200']
+  };
+  const c = map[st] || map.PAID;
+  return '<span class="px-3 py-1 rounded-full text-xs '+c[0]+' '+c[1]+' border '+c[2]+'">'+st+'</span>';
+}
+
+function applyStatus(status) {
+  currentStatus = status;
+  const sc = POSTPAID_SCENARIOS[status] || POSTPAID_SCENARIOS.normal;
+  const owed = sc.used + sc.unpaid;
+  const avail = LIMIT + sc.balance;
+  const pct = Math.min(100, Math.round(owed / avail * 100));
+  const overdue = sc.suspended || sc.hasOverdue;
+  const hasUnpaid = sc.unpaid > 0;
+  const set = (id,v) => { const e=document.getElementById(id); if(e) e.textContent=v; };
+
+  // Hero values
+  set('bp-owed', fmt(owed));
+  set('bp-limit', fmt(LIMIT));
+  let barLbl = pct+'% used · '+fmt(Math.max(0, avail-owed))+' available';
+  set('bp-bar-used', pct+'% used');
+  set('bp-bar-avail', fmt(Math.max(0, avail-owed))+' available');
+  set('bp-cycle-amt', fmt(sc.used));
+
+  // Progress bar
+  const bar = document.getElementById('bp-bar');
+  if (bar) {
+    bar.style.width = pct+'%';
+    bar.style.background = pct>=100 ? '#dc2626' : pct>=80 ? '#f59e0b' : '#22c55e';
+  }
+
+  // Status chip
+  const chip = document.getElementById('bp-status-chip');
+  if (chip) {
+    chip.textContent = sc.chip;
+    if (sc.suspended) chip.className='inline-flex items-center rounded-full bg-red-500/20 border border-red-300/40 px-3 py-1 text-xs text-red-100';
+    else chip.className='inline-flex items-center rounded-full bg-white/10 border border-white/20 px-3 py-1 text-xs text-green-50';
+  }
+
+  // Unpaid row (remains inside hero breakdown for total math consistency, but hides if paid)
+  const unpaidRow = document.getElementById('bp-unpaid-row');
+  if (unpaidRow) unpaidRow.classList.toggle('hidden', !hasUnpaid);
+  set('bp-unpaid-amt', fmt(sc.unpaid));
+  const unpaidSub = document.getElementById('bp-unpaid-sub');
+  if (unpaidSub) unpaidSub.innerHTML = overdue
+    ? 'INV-2026-05 · <span style="color:#fca5a5">overdue since Jun 1</span>'
+    : 'INV-2026-05 · due Jul 1';
+
+  // Unpaid置顶警告卡片 (方案A)
+  const uic = document.getElementById('unpaid-invoice-card');
+  if (uic) {
+    uic.classList.toggle('hidden', !hasUnpaid);
+    if (hasUnpaid) {
+      set('uic-amount', fmt(sc.unpaid));
+      const uicTitle = document.getElementById('uic-title');
+      const uicSub = document.getElementById('uic-subtext');
+      const uicIconContainer = uic.querySelector('.shrink-0');
+      
+      if (overdue) {
+        if (uicTitle) uicTitle.innerHTML = '<span class="text-red-600 font-semibold">Overdue Invoice</span> <span class="text-xs font-normal text-red-500/80 ml-1.5">(2026/5/1 - 2026/5/31)</span>';
+        if (uicSub) uicSub.innerHTML = 'INV-2026-05 · <span class="text-red-500 font-medium">overdue since Jun 1</span>';
+        uic.className = 'mb-6 bg-red-50/30 rounded-xl border border-red-200 shadow-sm p-5 flex flex-col md:flex-row md:items-center justify-between gap-4';
+        uic.style.borderLeft = '6px solid #ef4444';
+        if (uicIconContainer) {
+          uicIconContainer.className = 'p-2 rounded-lg bg-red-50 text-red-600 shrink-0';
+          uicIconContainer.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>';
+        }
+      } else {
+        if (uicTitle) uicTitle.innerHTML = 'Unpaid Invoice <span class="text-xs font-normal text-slate-500 ml-1.5">(2026/5/1 - 2026/5/31)</span>';
+        if (uicSub) uicSub.textContent = 'INV-2026-05 · due Jul 1';
+        uic.className = 'mb-6 bg-orange-50/20 rounded-xl border border-orange-200 shadow-sm p-5 flex flex-col md:flex-row md:items-center justify-between gap-4';
+        uic.style.borderLeft = '6px solid #f97316';
+        if (uicIconContainer) {
+          uicIconContainer.className = 'p-2 rounded-lg bg-orange-50 text-orange-600 shrink-0';
+          uicIconContainer.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+        }
+      }
+    }
+  }
+
+  const cycleRow = document.getElementById('bp-cycle-row');
+  if (cycleRow) cycleRow.classList.toggle('hidden', sc.used <= 0);
+  const bdEmpty = document.getElementById('bp-breakdown-empty');
+  if (bdEmpty) bdEmpty.classList.toggle('hidden', !(sc.unpaid<=0 && sc.used<=0));
+
+  // Prepaid balance
+  set('bp-balance-amt', fmt(sc.balance));
+  const balNote = document.getElementById('bp-balance-note');
+  if (balNote) balNote.textContent = sc.balance > 0 ? 'Auto-applied to your next invoice (Jul 1)' : 'Add credits to offset future invoices';
+
+  // Cycle sub-text (merged from former settlement bar)
+  const cycleSub = document.getElementById('bp-cycle-sub');
+  if (cycleSub) {
+    const estDue = Math.max(0, sc.used - sc.balance);
+    const balPart = sc.balance > 0 ? ' · − balance '+fmt(sc.balance) : '';
+    let txt = 'Bills Jul 1 · NET 30';
+    if (sc.used > 0) txt += ' · est. due '+fmt(estDue)+balPart;
+    txt += ' · not payable yet';
+    cycleSub.textContent = txt;
+  }
+
+  // Page-top banner
+  const banner = document.getElementById('billing-postpaid-banner');
+  const bpbTxt = document.getElementById('bpb-text');
+  const bpbAct = document.getElementById('bpb-action');
+  const bpbIcon = document.getElementById('bpb-icon');
+  let show=false, color='', textColor='', msg='', showAct=false;
+  if (sc.suspended) {
+    show=true; showAct=true; color='border-red-200 bg-red-50'; textColor='text-red-700';
+    msg='<strong>Service suspended</strong> due to an overdue invoice. Pay now to restore access automatically.';
+  } else if (sc.hasOverdue) {
+    show=true; showAct=true; color='border-red-200 bg-red-50'; textColor='text-red-700';
+    msg='Invoice <strong>INV-2026-05</strong> is overdue. Pay now to avoid service interruption.';
+  } else if (pct>=90) {
+    show=true; color='border-red-200 bg-red-50'; textColor='text-red-700';
+    msg="You've used <strong>"+pct+"%</strong> of your "+fmt(LIMIT)+" credit limit this cycle. Service will be suspended at 100%.";
+  } else if (pct>=80) {
+    show=true; color='border-orange-200 bg-orange-50'; textColor='text-orange-700';
+    msg="You've used <strong>"+pct+"%</strong> of your "+fmt(LIMIT)+" credit limit this cycle.";
+  }
+  if (banner) {
+    banner.classList.toggle('hidden', !show);
+    if (show) {
+      banner.className = 'mb-6 px-4 py-3.5 rounded-xl flex items-start gap-3 border '+color;
+      if (bpbTxt){ bpbTxt.className='flex-1 text-sm '+textColor; bpbTxt.innerHTML=msg; }
+      if (bpbIcon) bpbIcon.className='w-5 h-5 shrink-0 mt-0.5 '+textColor;
+      if (bpbAct) bpbAct.classList.toggle('hidden', !showAct);
+    }
+  }
+
+  renderInvoices(sc);
+  updateStatusButtons(status);
+}
+
+function renderInvoices(sc) {
+  const overdue = sc.suspended || sc.hasOverdue;
+  const latest = {
+    kind:'invoice', n:'INV-2026-05', date:'2026-06-01', period:'2026/5/1 - 2026/5/31',
+    due: overdue ? '2026-06-01' : '2026-07-01',
+    amt: sc.unpaid, status: overdue ? 'OVERDUE' : 'OPEN',
+    balApplied: sc.balance > 0 ? sc.balance : 0,
+  };
+  const invoices = [
+    latest,
+    {kind:'invoice', n:'INV-2026-04', date:'2026-05-01', period:'2026/4/1 - 2026/4/30', due:'2026-05-31', amt:1820.40, status:'PAID', paidDate:'2026-05-12'},
+    {kind:'invoice', n:'INV-2026-03', date:'2026-04-01', period:'2026/3/1 - 2026/3/31', due:'2026-04-30', amt:1710.00, status:'VOID', note:'Voided — reissued as INV-2026-03R'},
+    {kind:'invoice', n:'INV-2026-03R', date:'2026-04-01', period:'2026/3/1 - 2026/3/31', due:'2026-04-30', amt:1640.10, status:'PAID', paidDate:'2026-04-15'},
+    {kind:'invoice', n:'INV-2026-02', date:'2026-03-01', period:'2026/2/1 - 2026/2/28', due:'2026-03-30', amt:1402.75, status:'PAID', paidDate:'2026-03-09'},
+    {kind:'invoice', n:'INV-2026-01', date:'2026-02-01', period:'2026/1/1 - 2026/1/31', due:'2026-03-02', amt:1180.30, status:'PAID', paidDate:'2026-02-20'},
+  ];
+  const receipts = [
+    {kind:'receipt', n:'RCPT-2026-0412', date:'2026-04-12', amt:500.00, method:'Visa ···· 4242'},
+    {kind:'receipt', n:'RCPT-2026-0228', date:'2026-02-28', amt:300.00, method:'Visa ···· 4242'},
+    {kind:'receipt', n:'RCPT-2026-0105', date:'2026-01-05', amt:1000.00, method:'Wire transfer'},
+  ];
+  if (sc.firstMonth) { invoices.length = 0; receipts.length = 0; }
+
+  bpRecords = {};
+  [...invoices, ...receipts].forEach(r => { bpRecords[r.n] = r; });
+
+  // Outstanding (unpaid) section
+  const oBody = document.getElementById('bp-outstanding-body');
+  const summary = document.getElementById('bp-outstanding-summary');
+  const emptyEl = document.getElementById('bp-outstanding-empty');
+  const tableWrap = document.getElementById('bp-outstanding-table-wrap');
+  const hasOutstanding = sc.unpaid > 0;
+  if (emptyEl) emptyEl.classList.toggle('hidden', hasOutstanding);
+  if (tableWrap) tableWrap.classList.toggle('hidden', !hasOutstanding);
+  if (tableWrap) tableWrap.className = 'rounded-xl border p-2 ' + (overdue ? 'border-red-200 bg-red-50/40' : 'border-slate-200 bg-white');
+  if (summary) summary.textContent = '';
+  if (oBody && hasOutstanding) {
+    const dueCls = latest.status==='OVERDUE' ? 'text-red-600 font-medium' : 'text-slate-700';
+    const balNote = latest.balApplied > 0
+      ? '<div class="text-xs text-slate-500 mt-0.5">Usage '+fmt(sc.unpaid+latest.balApplied)+' − balance '+fmt(latest.balApplied)+' applied</div>'
+      : '';
+    const payBtn = '<button onclick="event.stopPropagation();openRechargeModal(true)" class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium text-white hover:opacity-90" style="background:#039855">Pay now</button>';
+    oBody.innerHTML = '<tr onclick="openInvoiceDetail(\''+latest.n+'\')" class="cursor-pointer hover:bg-slate-50">'
+      +'<td class="py-3 px-4 text-slate-900 font-medium">'+latest.n+balNote+'</td>'
+      +'<td class="py-3 px-4 text-slate-600">'+latest.period+'</td>'
+      +'<td class="py-3 px-4 '+dueCls+'">'+latest.due+'</td>'
+      +'<td class="py-3 px-4 text-slate-900 font-semibold">'+fmt(latest.amt)+'</td>'
+      +'<td class="py-3 px-4">'+invoiceStatusBadge(latest.status)+'</td>'
+      +'<td class="py-3 px-4 text-right whitespace-nowrap">'+payBtn+' <span class="inline-block w-2"></span>'+INV_VIEW(latest.n)+'</td>'
+      +'</tr>';
+    if (summary) summary.textContent = '1 invoice · '+fmt(latest.amt)+' due'+(latest.status==='OVERDUE' ? ' · overdue' : '');
+  }
+
+  // History
+  const hBody = document.getElementById('bp-history-body');
+  if (hBody) {
+    const history = [...invoices.filter(r=>r.status!=='OPEN'&&r.status!=='OVERDUE'), ...receipts].sort((a,b)=>a.date<b.date?1:a.date>b.date?-1:0);
+    const hEmpty = document.getElementById('bp-history-empty');
+    if (hEmpty) hEmpty.classList.toggle('hidden', history.length>0);
+    hBody.innerHTML = history.map(r=>{
+      const isVoid = r.status==='VOID';
+      const isReceipt = r.kind==='receipt';
+      const dateOrPeriod = isReceipt ? r.date : r.period;
+      const docSub = isReceipt ? 'Recharge · '+r.method : (r.note || '');
+      const docCell = '<span class="'+(isVoid?'text-slate-400 line-through':'text-slate-900 font-medium')+'">'+r.n+'</span>'
+        + (docSub ? '<div class="text-xs text-slate-400 mt-0.5">'+docSub+'</div>' : '');
+      const amtCell = isVoid ? '<span class="text-slate-400 line-through">'+fmt(r.amt)+'</span>'
+        : isReceipt ? '<span class="text-slate-900">+'+fmt(r.amt)+'</span>'
+        : '<span class="text-slate-900">'+fmt(r.amt)+'</span>';
+      const statusCell = isReceipt ? invoiceStatusBadge('PAID') : invoiceStatusBadge(r.status);
+      return '<tr onclick="openInvoiceDetail(\''+r.n+'\')" class="border-b border-slate-100 cursor-pointer hover:bg-slate-50'+(isVoid?' bg-slate-50/40':'')+'">'
+        +'<td class="py-4 px-4">'+docCell+'</td>'
+        +'<td class="py-4 px-4 text-slate-600">'+dateOrPeriod+'</td>'
+        +'<td class="py-4 px-4">'+amtCell+'</td>'
+        +'<td class="py-4 px-4">'+statusCell+'</td>'
+        +'<td class="py-4 px-4 text-right whitespace-nowrap">'+INV_VIEW(r.n)+'</td>'
+        +'</tr>';
+    }).join('');
+  }
+}
+
+function bpLineItems(r) {
+  if (r.kind==='receipt') return [{label:'Prepaid credit top-up', desc:r.method, amt:r.amt}];
+  const gross = r.amt + (r.balApplied||0);
+  const sub = 200;
+  const usage = Math.max(0, gross - sub);
+  return [
+    {label:'Search',           desc:'API · calls + content tokens', amt:+(usage*0.50).toFixed(2)},
+    {label:'Extract',          desc:'API · successful URLs',        amt:+(usage*0.10).toFixed(2)},
+    {label:'Embedding',        desc:'API · tokens',                 amt:+(usage*0.08).toFixed(2)},
+    {label:'Application',      desc:'Web Chat · Broad · Deep',      amt:+(usage*0.32).toFixed(2)},
+    {label:'Plan subscription',desc:'Pro · 100 QPS / month',        amt:sub},
+  ];
+}
+
+function openInvoiceDetail(n) {
+  const r = bpRecords[n];
+  if (!r) return;
+  const isReceipt = r.kind==='receipt';
+  const isVoid = r.status==='VOID';
+  const unpaid = r.status==='OPEN' || r.status==='OVERDUE';
+  const set = (id,v)=>{ const e=document.getElementById(id); if(e) e.textContent=v; };
+
+  const statusEl = document.getElementById('bpd-status');
+  if (statusEl) statusEl.innerHTML = invoiceStatusBadge(isReceipt ? 'PAID' : r.status);
+  set('bpd-number', r.n);
+  set('bpd-amount', fmt(r.amt));
+
+  let paid = '';
+  if (isReceipt) paid = 'Paid on '+r.date;
+  else if (r.status==='PAID') paid = 'Paid on '+(r.paidDate||r.date);
+  else if (r.status==='OVERDUE') paid = 'Overdue since '+r.due;
+  else if (r.status==='OPEN') paid = 'Due '+r.due;
+  else if (isVoid) paid = 'Voided'+(r.note?' · '+r.note.replace('Voided — ',''):'');
+  const paidEl = document.getElementById('bpd-paidline');
+  if (paidEl) { paidEl.textContent=paid; paidEl.className='text-sm mb-4 '+(r.status==='OVERDUE'?'text-red-600':'text-slate-500'); }
+
+  set('bpd-invdate', r.date||'—');
+  set('bpd-due', isReceipt ? '—' : (r.due||'—'));
+  const billto = document.getElementById('bpd-billto');
+  if (billto) billto.innerHTML = 'Acme Inc<br>jane@acmeinc.com';
+
+  const dlInvoice = '<button onclick="toast(\'Invoice PDF downloaded\')" class="px-4 py-2 rounded-lg text-sm font-medium border border-slate-300 text-slate-700 hover:bg-slate-50">Download invoice</button>';
+  const dlReceipt = (p)=>'<button onclick="toast(\'Receipt PDF downloaded\')" class="px-4 py-2 rounded-lg text-sm font-medium '+(p?'text-white hover:opacity-90':'border border-slate-300 text-slate-700 hover:bg-slate-50')+'" '+(p?'style="background:#039855"':'')+'>Download receipt</button>';
+  const payInvoice = '<button onclick="closeModal(\'m-invoice-detail\');openRechargeModal(true)" class="px-4 py-2 rounded-lg text-sm font-medium text-white hover:opacity-90" style="background:#039855">Pay invoice</button>';
+  const share = '<button onclick="toast(\'Share link copied\')" class="px-4 py-2 rounded-lg text-sm font-medium border border-slate-300 text-slate-700 hover:bg-slate-50">Share</button>';
+  let actions;
+  if (isReceipt) actions = dlReceipt(true)+dlInvoice+share;
+  else if (unpaid) actions = payInvoice+dlInvoice+share;
+  else if (isVoid) actions = dlInvoice;
+  else actions = dlReceipt(true)+dlInvoice+share;
+  const actEl = document.getElementById('bpd-actions');
+  if (actEl) actEl.innerHTML = actions;
+
+  const lines = bpLineItems(r);
+  const linesEl = document.getElementById('bpd-lines');
+  if (linesEl) linesEl.innerHTML = lines.map(li=>
+    '<tr class="border-b border-slate-100">'
+    +'<td class="py-2.5 pr-4"><div class="text-slate-900">'+li.label+'</div><div class="text-xs text-slate-400">'+li.desc+'</div></td>'
+    +'<td class="py-2.5 pl-4 text-right text-slate-900 tabular-nums align-top">'+fmt(li.amt)+'</td>'
+    +'</tr>'
+  ).join('');
+
+  const gross = lines.reduce((s,li)=>s+li.amt,0);
+  set('bpd-subtotal', fmt(gross));
+  const balRow = document.getElementById('bpd-balrow');
+  const bal = r.balApplied||0;
+  if (balRow) balRow.classList.toggle('hidden', !(bal>0));
+  if (bal>0) set('bpd-bal', '−'+fmt(bal));
+  set('bpd-total-label', isReceipt ? 'Total' : 'Total ('+r.period+')');
+  set('bpd-total', fmt(r.amt));
+  set('bpd-amountdue', unpaid ? fmt(r.amt) : fmt(0));
+
+  openModal('m-invoice-detail');
+}
+
+function setStatus(s) {
+  applyStatus(s);
+}
+
+function updateStatusButtons(active) {
+  ['normal','warn80','warn90','overdue','suspended','firstMonth'].forEach(k => {
+    const b = document.getElementById('s-'+k);
+    if (!b) return;
+    if (k===active) {
+      b.style.cssText = 'background:#0398551a;color:#039855;font-weight:600';
+    } else {
+      b.style.cssText = '';
+    }
+  });
+}
+
+// Init with normal invoiced state
+applyStatus('normal');
+</script>
+</body>
+</html>
