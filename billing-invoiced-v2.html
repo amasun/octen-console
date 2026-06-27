@@ -313,19 +313,68 @@ input:focus,select:focus{outline:none;border-color:#039855 !important;box-shadow
     </div>
 
     <!-- Plan card -->
-    <div class="bg-white rounded-lg border border-slate-200 p-6 flex flex-col relative">
-      <div class="flex items-center justify-between mb-4">
+    <div class="bg-white rounded-lg border border-slate-200 p-6 flex flex-col">
+      <!-- Header -->
+      <div class="flex items-center justify-between mb-5">
         <h2 class="text-slate-900 text-base font-semibold">QPS Plan</h2>
-        <span class="rounded-full text-xs font-medium px-2 py-0.5 bg-slate-100 text-slate-600 border border-slate-200">Current plan</span>
+        <span class="rounded-full text-xs font-medium px-2.5 py-0.5 bg-blue-50 text-blue-600 border border-blue-200">Current plan</span>
       </div>
-      <div class="flex items-baseline justify-between mb-3">
-        <span class="text-slate-900 text-sm font-medium">Free</span>
-        <p class="text-slate-900 text-lg font-semibold tabular-nums"><span class="text-sm font-normal text-slate-500">Up to</span> 50 <span class="text-sm font-normal text-slate-500">QPS</span></p>
+      <!-- Usage meter -->
+      <div class="mb-4 rounded-lg border border-slate-100 bg-slate-50/60 px-3.5 py-3">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs text-slate-500">Current QPS usage</span>
+          <span class="text-sm font-bold text-slate-900 tabular-nums">12 / 50 QPS</span>
+        </div>
+        <div class="w-full h-1.5 rounded-full bg-slate-200 overflow-hidden mb-2">
+          <div class="h-full rounded-full bg-blue-500" style="width:24%"></div>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-xs text-slate-400">24% utilized</span>
+          <span class="flex items-center gap-1 text-xs font-medium text-emerald-600">
+            <span class="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Healthy
+          </span>
+        </div>
       </div>
-      <p class="text-sm text-slate-600 mb-4">Upgrade to unlock guaranteed throughput and SLA.</p>
-      <div class="pt-4 border-t border-slate-200 mt-auto">
-        <button class="w-full px-4 py-2 text-white rounded-lg text-sm font-medium hover:opacity-90" style="background:#039855">Upgrade plan</button>
+      <!-- Plan options -->
+      <div class="space-y-2 mb-4">
+        <div class="flex items-center justify-between px-3.5 py-3 rounded-lg border-2 border-blue-300 bg-blue-50 cursor-pointer">
+          <span class="flex items-center gap-2 text-sm font-semibold text-blue-700">
+            <span class="w-2 h-2 rounded-full bg-blue-500 shrink-0"></span>Free
+          </span>
+          <div class="text-right">
+            <div class="text-sm font-bold text-slate-900">50 QPS</div>
+            <div class="text-xs text-slate-400">Free</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between px-3.5 py-3 rounded-lg border border-slate-200 cursor-pointer hover:border-slate-300 hover:bg-slate-50 transition-colors">
+          <span class="text-sm text-slate-700">Pro · 100</span>
+          <div class="text-right">
+            <div class="text-sm font-bold text-slate-900">100 QPS</div>
+            <div class="text-xs text-slate-400">$49/mo</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between px-3.5 py-3 rounded-lg border border-slate-200 cursor-pointer hover:border-slate-300 hover:bg-slate-50 transition-colors">
+          <span class="text-sm text-slate-700">Pro · 500</span>
+          <div class="text-right">
+            <div class="text-sm font-bold text-slate-900">500 QPS</div>
+            <div class="text-xs text-slate-400">$199/mo</div>
+          </div>
+        </div>
+        <div class="flex items-center justify-between px-3.5 py-3 rounded-lg border border-slate-200 cursor-pointer hover:border-slate-300 hover:bg-slate-50 transition-colors">
+          <span class="text-sm text-slate-700">Enterprise</span>
+          <div class="text-right">
+            <div class="text-sm font-bold text-slate-900">Custom</div>
+            <div class="text-xs text-slate-400">Contact us</div>
+          </div>
+        </div>
       </div>
+      <!-- Upsell hint -->
+      <div class="flex items-center gap-2 px-3.5 py-2.5 rounded-lg mb-4 border border-yellow-200" style="background:#fefce8">
+        <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="#f97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span class="text-xs text-amber-800">Upgrade to unlock guaranteed throughput and SLA</span>
+      </div>
+      <!-- CTA -->
+      <button class="w-full py-2.5 text-white rounded-lg text-sm font-semibold hover:opacity-90 mt-auto" style="background:#039855">Upgrade plan</button>
     </div>
 
   </div>
