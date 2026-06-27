@@ -33,5 +33,13 @@
 
 ---
 
+## Git History
+
+| Hash | Date | Message |
+|------|------|---------|
+| `71b1072` | 2026-06-27 | Initial commit: billing tab work in progress |
+
+---
+
 ## Pending / Notes
 - `octen-console-prototype-sun.html` billing tab 固定初始状态待解除（用户确认后恢复 `go('overview')`）
