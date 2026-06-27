@@ -1,0 +1,330 @@
+<div id="page-overview" class="page active max-w-7xl mx-auto p-4">
+
+  <!-- Header -->
+  <div class="mb-6 flex items-center justify-between gap-6">
+    <h1 class="text-slate-900 text-2xl font-semibold">Overview</h1>
+
+    <!-- API Key widget -->
+    <div class="bg-white border border-slate-200 rounded-xl flex items-stretch shrink-0 overflow-hidden">
+      <div class="flex items-center gap-2.5 px-4 py-2.5">
+        <svg class="w-3.5 h-3.5 shrink-0" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+        <span class="text-[11px] text-slate-400 font-medium">API Key</span>
+        <div id="ov-key-display" class="bg-slate-50 rounded-md px-2.5 py-1 flex items-center gap-1.5 border border-slate-100">
+          <code id="ov-key-val" class="text-xs text-slate-700 font-mono whitespace-nowrap">sk_live_1234••••••••••wxyz</code>
+          <button id="ov-key-eye" onclick="toggleOvKeyVis()" class="p-0.5 hover:bg-slate-200 rounded text-slate-400 transition-colors">
+            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          </button>
+          <button onclick="copyOvKey()" class="p-0.5 hover:bg-slate-200 rounded text-slate-400 transition-colors">
+            <svg id="ov-copy-icon" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="w-px bg-slate-100 my-2"></div>
+      <a href="#" class="flex items-center gap-1.5 px-4 hover:bg-slate-50 transition-colors group">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+        <span class="text-[11px] text-slate-400 group-hover:text-slate-600 transition-colors">Operational →</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Payment Banner (role-aware in org mode) -->
+  <div id="ov-payment-banner"></div>
+
+  <!-- API 产品卡片 -->
+  <section class="mb-8">
+    <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">API</h2>
+    <div class="grid md:grid-cols-2 gap-4">
+      <!-- Broad Search · Recommended -->
+      <a href="#" onclick="go('broad-search');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8"/></svg><span class="text-slate-900 font-semibold text-base">Broad Search</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Auto-decomposes one query into many parallel subqueries. Ready for production.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>&lt;62ms latency · Scales to 1M+ QPS · Broader coverage in a single call.</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best for research agents, hard questions, and comprehensive lookup.</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" onclick="go('web-search');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg><span class="text-slate-900 font-semibold text-base">Web Search</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Ranked web results, highlights, and summaries. Ready for generation.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>&lt;62ms latency · Scales to 1M+ QPS</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best with structured queries generated by LLMs.</span>
+          </div>
+        </div>
+      </a>
+      <!-- Image Search -->
+      <a href="#" onclick="openRequestAccess('Image Search');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="text-slate-900 font-semibold text-base">Image Search</span><span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium" style="background:#0398551a;color:#039855">Early Access</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Image retrieval across the open web. Ready for design and creative workflows.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best for design references, asset lookup, and content creation.</span>
+          </div>
+        </div>
+      </a>
+      <!-- Video Search -->
+      <a href="#" onclick="openRequestAccess('Video Search');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg><span class="text-slate-900 font-semibold text-base">Video Search</span><span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium" style="background:#0398551a;color:#039855">Early Access</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Video retrieval across the open web. Ready for media discovery and research.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best for video discovery, tutorial lookup, and clip sourcing.</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" onclick="go('extract');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span class="text-slate-900 font-semibold text-base">Extract</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Clean markdown, intent-focused highlights, and page classification. Ready for ingestion.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>Clean markdown extraction · success-only pricing</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best for AI agents, RAG pipelines, and content monitoring.</span>
+          </div>
+        </div>
+      </a>
+      <!-- Model -->
+      <a href="#" onclick="go('model');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg><span class="text-slate-900 font-semibold text-base">Model</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">One API to call any LLM, with unified billing. Ready for production.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>OpenAI-compatible · Switch providers without rewriting code.</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best for multi-model apps, fallback chains, and cost routing.</span>
+          </div>
+        </div>
+      </a>
+      <a href="https://docs.octen.ai/api-reference/embedding" target="_blank" rel="noreferrer" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg><span class="text-slate-900 font-semibold text-base">Embedding</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Vector embeddings for retrieval, similarity, and ranking. Ready for production.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>#1 on RTEB (0.7953) · Strong multilingual performance.</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best for RAG, semantic search, and recommendations.</span>
+          </div>
+        </div>
+      </a>
+      <!-- VL Embedding -->
+      <a href="https://docs.octen.ai/api-reference/vl-embedding" target="_blank" rel="noreferrer" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg><span class="text-slate-900 font-semibold text-base">VL Embedding</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Multimodal embeddings for cross-modal retrieval, similarity, and ranking. Ready for production.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>#1 on MMEB-V2 (80.09) · Unified vision-language space.</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best for multimodal RAG, visual document search, and image-text retrieval.</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Application -->
+  <section class="mb-8">
+    <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-3">Application</h2>
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <!-- Answer (formerly Broad Search Application) -->
+      <a href="#" onclick="go('broad-search');return false" class="group bg-white border border-slate-200 rounded-xl p-5 flex flex-col gap-3 hover:shadow-md hover:border-slate-300 transition-all cursor-pointer">
+        <div class="flex-1">
+          <div class="flex items-center gap-2.5 mb-2">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style="background:#0398551a;color:#039855"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/></svg></span>
+            <p class="text-slate-900 font-semibold">Answer</p>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">Experience conversational search. Get verifiable AI answers grounded in live web sources.</p>
+        </div>
+        <div class="flex flex-col gap-1.5 pt-2 border-t border-slate-100">
+          <span class="inline-flex items-center gap-1 text-xs font-medium w-fit" style="color:#039855">Try now <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+      <!-- Deep Research -->
+      <a href="#" onclick="go('deep-research');return false" class="group bg-white border border-slate-200 rounded-xl p-5 flex flex-col gap-3 hover:shadow-md hover:border-slate-300 transition-all cursor-pointer">
+        <div class="flex-1">
+          <div class="flex items-center gap-2.5 mb-2">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style="background:#0398551a;color:#039855"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18h8M3 22h18M14 22a7 7 0 100-14h-1M9 14h2M9 12a2 2 0 01-2-2V6h6v4a2 2 0 01-2 2zM12 6V3a1 1 0 00-1-1H9a1 1 0 00-1 1v3"/></svg></span>
+            <p class="text-slate-900 font-semibold">Deep Research</p>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">Experience Deep Research. Get comprehensive reports distilled from thousands of sources.</p>
+        </div>
+        <div class="flex flex-col gap-1.5 pt-2 border-t border-slate-100">
+          <span class="inline-flex items-center gap-1 text-xs font-medium w-fit" style="color:#039855">Try now <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+      <!-- Multimodal Chat -->
+      <a href="#" onclick="openRequestAccess('Multimodal Chat');return false" class="group bg-white border border-slate-200 rounded-xl p-5 flex flex-col gap-3 hover:shadow-md hover:border-slate-300 transition-all cursor-pointer">
+        <div class="flex-1">
+          <div class="flex items-center gap-2.5 mb-2">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style="background:#0398551a;color:#039855"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg></span>
+            <p class="text-slate-900 font-semibold">Multimodal Chat</p>
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium" style="background:#0398551a;color:#039855">Early Access</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">Experience multimodal chat. Get answers grounded in text, image, and video sources.</p>
+        </div>
+        <div class="flex flex-col gap-1.5 pt-2 border-t border-slate-100">
+          <span class="inline-flex items-center gap-1 text-xs font-medium w-fit" style="color:#039855">Try now <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+      <!-- Grounded Generation -->
+      <a href="#" onclick="openRequestAccess('Grounded Generation');return false" class="group bg-white border border-slate-200 rounded-xl p-5 flex flex-col gap-3 hover:shadow-md hover:border-slate-300 transition-all cursor-pointer">
+        <div class="flex-1">
+          <div class="flex items-center gap-2.5 mb-2">
+            <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style="background:#0398551a;color:#039855"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg></span>
+            <p class="text-slate-900 font-semibold">Grounded Generation</p>
+            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium" style="background:#0398551a;color:#039855">Early Access</span>
+          </div>
+          <p class="text-xs text-slate-600 leading-relaxed">Generate images and videos grounded in web-sourced references.</p>
+        </div>
+        <div class="flex flex-col gap-1.5 pt-2 border-t border-slate-100">
+          <span class="inline-flex items-center gap-1 text-xs font-medium w-fit" style="color:#039855">Try now <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Getting Started -->
+  <section>
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Getting Started</h2>
+      <a href="https://docs.octen.ai/introduction/getting-started/quickstart" target="_blank" rel="noreferrer" class="text-xs font-medium hover:opacity-75 transition-opacity" style="color:#039855">Quickstart guide →</a>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="group bg-white border border-slate-200 rounded-xl p-5 flex flex-col gap-3 hover:shadow-md hover:border-slate-300 transition-all">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg text-sm font-bold shrink-0" style="background:#0398551a;color:#039855">01</span>
+        <div class="flex-1"><p class="text-slate-900 font-semibold mb-2">Get your API key</p><p class="text-xs text-slate-600 leading-relaxed">One API key for all Octen APIs.</p></div>
+        <div class="flex flex-col gap-1.5 pt-2 border-t border-slate-100">
+          <a href="#" onclick="go('api-keys');return false" class="inline-flex items-center gap-1 text-xs font-medium w-fit" style="color:#039855" onmouseenter="this.style.opacity='0.75'" onmouseleave="this.style.opacity='1'">Manage API keys <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+      <div class="group bg-white border border-slate-200 rounded-xl p-5 flex flex-col gap-3 hover:shadow-md hover:border-slate-300 transition-all">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg text-sm font-bold shrink-0" style="background:#0398551a;color:#039855">02</span>
+        <div class="flex-1"><p class="text-slate-900 font-semibold mb-2">Make your first call</p><p class="text-xs text-slate-600 leading-relaxed">Call via API or SDK. Pick the endpoint that fits your use case.</p></div>
+        <div class="flex flex-col gap-1.5 pt-2 border-t border-slate-100">
+          <a href="https://docs.octen.ai/api-reference" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1 text-xs font-medium w-fit" style="color:#039855" onmouseenter="this.style.opacity='0.75'" onmouseleave="this.style.opacity='1'">API Reference <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+      <div class="group bg-white border border-slate-200 rounded-xl p-5 flex flex-col gap-3 hover:shadow-md hover:border-slate-300 transition-all">
+        <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg text-sm font-bold shrink-0" style="background:#0398551a;color:#039855">03</span>
+        <div class="flex-1"><p class="text-slate-900 font-semibold mb-2">Integrate into your app</p><p class="text-xs text-slate-600 leading-relaxed">Use as an LLM tool or skill, or integrate into RAG pipelines.</p></div>
+        <div class="flex flex-col gap-1.5 pt-2 border-t border-slate-100">
+          <a href="https://docs.octen.ai/llm-&-agent-interfaces/llm-tool-use/connect-llms-to-octen-search" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1 text-xs font-medium w-fit" style="color:#039855" onmouseenter="this.style.opacity='0.75'" onmouseleave="this.style.opacity='1'">Integration guide <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Built with MCP & Skills -->
+    <div class="mt-4 bg-white border border-slate-200 rounded-xl p-6 grid lg:grid-cols-2 gap-6 hover:shadow-md hover:border-slate-300 transition-all">
+      <!-- Left: intro -->
+      <div class="min-w-0">
+        <p class="text-slate-900 font-semibold mb-1.5">Built with MCP &amp; Skills</p>
+        <p class="text-xs text-slate-600 leading-relaxed">Connect once, and your agent gets Search, Extract, and every tool we ship next — native to Claude Desktop, Cursor, VS Code, and any MCP client.</p>
+      </div>
+      <!-- Right: tabs + install + actions -->
+      <div class="min-w-0 lg:border-l lg:border-slate-200 lg:pl-6">
+        <!-- Tabs -->
+        <div class="flex items-center gap-1 mb-3 border-b border-slate-200">
+          <button data-mcps-tab="mcp" class="mcps-tab px-3 py-1.5 text-sm font-medium border-b-2 -mb-px transition-colors" style="color:#039855;border-color:#039855">MCP</button>
+          <button data-mcps-tab="skills" class="mcps-tab px-3 py-1.5 text-sm font-medium border-b-2 -mb-px transition-colors text-slate-500 border-transparent hover:text-slate-700">Skills</button>
+        </div>
+        <!-- MCP panel -->
+        <div data-mcps-panel="mcp" class="mcps-panel">
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="flex-1 min-w-[200px] flex items-center justify-between gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 font-mono text-xs text-slate-800">
+              <span id="mcps-cmd-mcp">npm install -g octen-mcp</span>
+              <button onclick="navigator.clipboard.writeText('npm install -g octen-mcp')" class="text-slate-400 hover:text-slate-700 shrink-0" title="Copy">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              </button>
+            </div>
+            <a href="https://github.com/Octen-Team/octen-mcp" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1.5 px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-50">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+            <a href="https://docs.octen.ai/llm-&-agent-interfaces/llm-tool-use/octen-mcp-server" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1 px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-50">Docs</a>
+          </div>
+        </div>
+        <!-- Skills panel -->
+        <div data-mcps-panel="skills" class="mcps-panel hidden">
+          <div class="flex items-center gap-2 flex-wrap">
+            <div class="flex-1 min-w-[200px] flex items-center justify-between gap-2 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2 font-mono text-xs text-slate-800">
+              <span>git clone https://github.com/Octen-Team/web-search-skills</span>
+              <button onclick="navigator.clipboard.writeText('git clone https://github.com/Octen-Team/web-search-skills')" class="text-slate-400 hover:text-slate-700 shrink-0" title="Copy">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+              </button>
+            </div>
+            <a href="https://github.com/Octen-Team" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1.5 px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-50">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.4 3-.405 1.02.005 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </a>
+            <a href="https://docs.octen.ai/llm-&-agent-interfaces/llm-tool-use/octen-skills" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1 px-3 py-2 border border-slate-200 rounded-lg text-xs font-medium text-slate-700 hover:bg-slate-50">Docs</a>
+          </div>
+        </div>
+      </div>
+      <script>
+        (function(){
+          const tabs = document.querySelectorAll('.mcps-tab');
+          const panels = document.querySelectorAll('.mcps-panel');
+          tabs.forEach(t => t.addEventListener('click', () => {
+            const key = t.dataset.mcpsTab;
+            tabs.forEach(x => {
+              const active = x.dataset.mcpsTab === key;
+              x.style.color = active ? '#039855' : '';
+              x.style.borderColor = active ? '#039855' : '';
+              x.classList.toggle('text-slate-500', !active);
+              x.classList.toggle('border-transparent', !active);
+            });
+            panels.forEach(p => p.classList.toggle('hidden', p.dataset.mcpsPanel !== key));
+          }));
+        })();
+      </script>
+    </div>
+  </section>
+</div>

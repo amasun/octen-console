@@ -1,0 +1,210 @@
+<aside class="h-screen w-64 bg-white border-r border-slate-200 flex flex-col">
+
+  <!-- Logo & Organization Switcher — single row, h-16 -->
+  <div class="h-16 flex items-center px-4 shrink-0 gap-3">
+    <!-- Logo icon -->
+    <a href="#" class="shrink-0">
+      <img src="octen-logo.png" alt="Octen" class="w-7 h-7"/>
+    </a>
+
+    <!-- Organization Switcher -->
+    <div class="flex-1 relative" id="ws-wrap">
+      <button id="ws-btn" type="button" onclick="toggleWsDrop()" class="w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors hover:bg-slate-50">
+        <span id="ws-name" class="text-sm font-medium text-slate-900 truncate">Acme Inc</span>
+        <svg id="ws-chevron" class="w-4 h-4 text-slate-400 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+
+      <!-- Dropdown -->
+      <div id="ws-drop" class="hidden absolute -left-11 right-0 top-[calc(100%+8px)] z-50 rounded-xl border border-slate-200 bg-white shadow-lg overflow-hidden max-h-80 overflow-y-auto">
+        <!-- Personal Account -->
+        <button type="button" onclick="switchWs('personal')" class="w-full flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors">
+          <span class="text-sm text-slate-900">Jane Niu's Personal</span>
+          <svg id="chk-personal" class="w-4 h-4 shrink-0 hidden" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </button>
+
+        <!-- Organizations -->
+        <button type="button" onclick="switchWs('org')" class="w-full flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors">
+          <span class="text-sm text-slate-900">Acme Inc</span>
+          <svg id="chk-org" class="w-4 h-4 shrink-0" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </button>
+        <button type="button" onclick="switchWs('org2')" class="w-full flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors">
+          <span class="text-sm text-slate-900">Tech Corp</span>
+          <svg id="chk-org2" class="w-4 h-4 shrink-0 hidden" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </button>
+
+        <div class="border-t border-slate-100"></div>
+        <button type="button" onclick="openCreateOrg()" class="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-[#0398551a] transition-colors" style="color:#039855">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          <span class="text-sm font-medium">Create Organization</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation — matches ConsoleLayout.tsx structure -->
+  <nav class="flex-1 p-4 space-y-4 overflow-y-auto">
+
+    <!-- Overview -->
+    <div class="nav-item active" onclick="go('overview')">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Overview</span>
+    </div>
+
+    <!-- API Group -->
+    <div class="space-y-1">
+      <div class="nav-section-label">API</div>
+      <!-- Broad Search (API) -->
+      <div class="nav-item" onclick="go('broad-search-api')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-3.5-3.5M11 8v6M8 11h6"/></svg>
+        <span>Broad Search</span>
+      </div>
+      <div class="nav-item" onclick="go('web-search')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
+        <span>Web Search</span>
+      </div>
+      <!-- Image Search -->
+      <div class="nav-item" onclick="go('image-search')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg>
+        <span>Image Search</span>
+      </div>
+      <!-- Video Search -->
+      <div class="nav-item" onclick="go('video-search')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        <span>Video Search</span>
+      </div>
+      <!-- Multimodal Search -->
+      <div class="nav-item" onclick="go('multimodal-search')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg>
+        <span>Omni Search</span>
+      </div>
+      <div class="nav-item" onclick="go('extract')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+        <span>Extract</span>
+      </div>
+      <!-- Model -->
+      <div class="nav-item" onclick="go('model')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4M13 3l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5L13 3z"/></svg>
+        <span>Model</span>
+      </div>
+      <!-- Flow — hidden from nav (page retained) -->
+      <div class="nav-item" style="display:none" onclick="go('web-flow')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16"/><circle cx="18" cy="12" r="3"/></svg>
+        <span>Flow</span>
+      </div>
+      <!-- Collect — hidden from nav (page retained) -->
+      <div class="nav-item" style="display:none" onclick="go('collect')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 10V7"/></svg>
+        <span>Collect</span>
+      </div>
+    </div>
+
+    <!-- Application -->
+    <div class="space-y-1">
+      <div class="nav-section-label">APPLICATION</div>
+      <div class="nav-item" onclick="go('broad-search')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        <span>Answer</span>
+      </div>
+      <!-- Deep Research -->
+      <div class="nav-item" onclick="go('deep-research')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4-4M11 8v6M8 11h6"/></svg>
+        <span>Deep Research</span>
+      </div>
+    </div>
+
+    <!-- Management Group -->
+    <div class="space-y-1">
+      <div class="nav-section-label">MANAGEMENT</div>
+      <div class="nav-item" onclick="go('api-keys')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+        <span>API Keys</span>
+      </div>
+      <div class="nav-item" onclick="go('usage')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        <span>Usage</span>
+      </div>
+      <div id="mgmt-billing" class="nav-item" onclick="go('billing')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+        <span>Billing</span>
+      </div>
+
+      <!-- [NEW] Settings — org mode only (contains Members + Service Keys + General) -->
+      <div id="mgmt-settings" class="nav-item" onclick="go('settings')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>Settings</span>
+      </div>
+    </div>
+
+    <!-- Developers -->
+    <div class="space-y-1">
+      <div class="nav-section-label">DEVELOPERS</div>
+      <a href="#" class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>Docs</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Bottom — account info (matches ConsoleLayout.tsx) -->
+  <div class="shrink-0">
+    <div class="p-4 border-t border-slate-200">
+      <div class="w-full rounded-xl transition-colors px-2 py-2 border border-transparent hover:bg-slate-50 hover:border-slate-200 cursor-pointer">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-9 h-9 rounded-full bg-[#0F172B] text-white flex items-center justify-center font-medium shrink-0">J</div>
+            <div class="min-w-0 text-left">
+              <div class="text-slate-900 text-sm font-medium truncate">Jane Niu</div>
+              <div class="text-slate-500 text-xs truncate">user@example.com</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-400 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo switches (prototype only) -->
+  <div class="px-4 pb-3 space-y-2">
+    <div>
+      <div class="text-[10px] text-slate-400 mb-1.5">Demo: view as</div>
+      <div class="flex gap-1">
+        <button onclick="setRole('owner')" id="rb-owner" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Owner</button>
+        <button onclick="setRole('manager')" id="rb-manager" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Manager</button>
+        <button onclick="setRole('member')" id="rb-member" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Member</button>
+      </div>
+    </div>
+    <div>
+      <div class="text-[10px] text-slate-400 mb-1.5">Demo: payment</div>
+      <div class="flex gap-1">
+        <button onclick="setPayment(false)" id="rb-nocard" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">No card</button>
+        <button onclick="setPayment(true)" id="rb-active" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Active</button>
+      </div>
+    </div>
+    <div>
+      <div class="text-[10px] text-slate-400 mb-1.5">Demo: billing mode</div>
+      <div class="flex gap-1">
+        <button onclick="setBillingMode('prepaid')" id="bm-prepaid" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Prepaid</button>
+        <button onclick="setBillingMode('postpaid')" id="bm-postpaid" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Invoiced</button>
+      </div>
+    </div>
+    <div class="mt-2.5">
+      <div class="text-[10px] text-slate-400 mb-1.5">Demo: access state</div>
+      <div class="flex gap-1">
+        <button onclick="setAccessState('signed-out')" id="ax-signed-out" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Signed out</button>
+        <button onclick="setAccessState('apply')" id="ax-apply" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Apply</button>
+        <button onclick="setAccessState('approved')" id="ax-approved" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Approved</button>
+      </div>
+    </div>
+    <div id="bm-status-wrap" class="hidden">
+      <div class="text-[10px] text-slate-400 mb-1.5">Demo: postpaid status</div>
+      <select id="bm-status" onchange="setPostpaidStatus(this.value)" class="w-full text-[10px] py-1 px-1.5 rounded border border-slate-200 text-slate-600 bg-white outline-none">
+        <option value="firstMonth">First month (no usage yet)</option>
+        <option value="normal">Normal (&lt;80%)</option>
+        <option value="warn80">Warning ≥80%</option>
+        <option value="warn90">Warning ≥90%</option>
+        <option value="overdue">Invoice overdue</option>
+        <option value="suspended">Suspended (≥100% / D+37)</option>
+      </select>
+    </div>
+  </div>
+</aside>
