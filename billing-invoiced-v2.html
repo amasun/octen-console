@@ -496,19 +496,10 @@ function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function formatDate(dStr) {
   if (!dStr) return '';
-  if (dStr.includes('~') || dStr.includes('–') || (dStr.includes('-') && dStr.split('-').length > 3)) {
-    const parts = dStr.split(/\s*[\-~–]\s*/);
-    if (parts.length === 2) {
-      return formatDate(parts[0]) + ' – ' + formatDate(parts[1]);
-    }
-  }
-  const match = dStr.match(/^(\d{4})[-/](\d{1,2})[-/](\d{1,2})$/);
-  if (match) {
-    const year = match[1];
-    const month = parseInt(match[2], 10);
-    const day = parseInt(match[3], 10);
-    return `${year}/${month}/${day}`;
-  }
+  const single = dStr.trim().match(/^(\d{4})[-\/](\d{1,2})[-\/](\d{1,2})$/);
+  if (single) return `${single[1]}/${parseInt(single[2], 10)}/${parseInt(single[3], 10)}`;
+  const parts = dStr.split(/\s*[~–]\s*/);
+  if (parts.length === 2) return formatDate(parts[0]) + ' – ' + formatDate(parts[1]);
   return dStr;
 }
 function fmt(n){ return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
