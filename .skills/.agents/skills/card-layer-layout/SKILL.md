@@ -29,11 +29,11 @@ To implement this layout, designers and developers must structure the UI using t
   - A high-contrast background color (e.g., pure white `#ffffff` or `oklch(100% 0 0)`) that stands out sharply against a slightly darker base background, creating a crisp, premium layer contrast.
 
 ### C. The Outer Control Ribbon (Card-Adjacent Depth)
-- **Role**: Houses global navigation icons or toolbars (like Obsidian's left ribbon bar).
-- **Styling**: It must reside **outside the workspace cards**.
+- **Role**: Houses global navigation icons, toolbars, or **full left-side navigation sidebars**.
+- **Styling**: It must reside **outside the workspace cards**, sitting directly on the Base Layer.
 - **Rules**:
-  - The Ribbon has **no solid background color** (it is transparent, letting the Base Layer show through).
-  - Hover states on ribbon buttons should trigger a soft, semi-transparent background bubble, rather than lighting up the entire column.
+  - The Ribbon/Sidebar has **no solid background color** (it is transparent, letting the Base Layer show through). It is NOT a white floating card.
+  - Hover states on ribbon buttons or sidebar links should trigger a soft, semi-transparent background bubble, rather than lighting up the entire column.
 
 ---
 
@@ -187,6 +187,6 @@ Use this HTML/CSS skeleton as the starting boilerplate for any card-layered dash
 When tasked to build or audit a card-layered visual interface:
 1. **[ ] Ambient Depth**: Does the `body` use a clean, solid light grey (for high contrast light mode) or a subtle dark vignette (for dark mode)?
 2. **[ ] Gap Isolation**: Are there pronounced Gaps/Paddings (e.g., `10px`) between the cards and the outer sidebar/screen edges? (Cards must NEVER touch the ribbon or each other directly).
-3. **[ ] Outer Control Separation**: Does the left icon ribbon sit directly on the base layer WITHOUT a white background? (It must be transparent, blending into the base layer).
+3. **[ ] Outer Control Separation**: Does the left control ribbon or navigation sidebar sit directly on the base layer WITHOUT a white card background? (It must be transparent, blending into the base layer).
 4. **[ ] Rounded Card Borders**: Do the panels (`.pane`, `.editor-pane`) have a rounded corner border-radius of `12px` (or `8px` for inner elements)?
 5. **[ ] Card High-Contrast Separation**: Do the cards pop with a pure white background (`#ffffff`) and a fine shadow outline to separate them from the grey base, avoiding muddy "glass" inset shadows?
