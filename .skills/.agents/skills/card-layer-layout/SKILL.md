@@ -1,5 +1,6 @@
 ---
 name: card-layer-layout
+version: 0.1
 description: Guidelines for building modern card-layered UI layouts, canvas-based dashboards, multi-pane application layouts, or floating panel interfaces (like Obsidian, Linear, or Figma). Triggers on requests involving: Floating Panel, Card Layout, Z-Axis Elevation, Depth System, split panel layout, sidebar layout, white cards on gray background, high-contrast light mode UI, Z-depth shadows, outer toolbars, or dashboard structures.
 ---
 
