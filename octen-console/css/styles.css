@@ -507,7 +507,7 @@ code, pre, pre code, .font-mono {
   border: 1px solid rgba(115, 115, 115, 0.20);
   border-radius: 8px;
   background: var(--background-primary, #ffffff);
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 8px 30px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: none;
 }
 
 .octen-query-card + .octen-query-card {
