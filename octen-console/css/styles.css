@@ -491,15 +491,21 @@ code, pre, pre code, .font-mono {
    keeps cards off the pane edges (#2 gap isolation). */
 #bsa-resp-body {
   width: 100%;
-  padding: var(--vl-layout-padding, 10px);
+  padding: 0 20px var(--vl-layout-padding, 10px);
   background-color: transparent;
   background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
 }
 
+/* Request pane toolbar (Python/JS/cURL + Copy): 20px sides, 16px top/bottom. */
+#bsa-pane-request > .flex.items-center.justify-between { padding: 16px 20px; }
+
+/* Request pane code area: 0 top, 20px sides, 20px bottom. */
+#bsa-pane-request > .relative.flex-1 { padding: 0 20px 20px; }
+
 .octen-query-card {
   overflow: hidden;
   border: 1px solid rgba(115, 115, 115, 0.20);
-  border-radius: 16px;
+  border-radius: 8px;
   background: var(--background-primary, #ffffff);
   box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.04), 0 8px 30px 0 rgba(0, 0, 0, 0.05);
 }
@@ -513,8 +519,7 @@ code, pre, pre code, .font-mono {
   align-items: center;
   gap: 16px;
   width: 100%;
-  min-height: 70px;
-  padding: 16px 28px;
+  padding: 10px 20px;
   cursor: pointer;
   list-style: none;
   transition: background-color 160ms ease;
@@ -550,7 +555,7 @@ code, pre, pre code, .font-mono {
   flex: 1 1 auto;
   overflow: hidden;
   color: var(--text-normal, #0a0a0a);
-  font-size: 1.125rem;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.75rem;
   text-overflow: ellipsis;
@@ -613,7 +618,7 @@ code, pre, pre code, .font-mono {
 .octen-result-title {
   overflow: hidden;
   color: var(--text-normal, #0a0a0a);
-  font-size: 1.125rem;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.75rem;
   text-overflow: ellipsis;
@@ -625,7 +630,7 @@ code, pre, pre code, .font-mono {
   margin-top: 4px;
   overflow: hidden;
   color: var(--text-muted, #737373);
-  font-size: 1rem;
+  font-size: 14px;
   line-height: 1.75rem;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -635,7 +640,7 @@ code, pre, pre code, .font-mono {
   margin-top: 4px;
   overflow: hidden;
   color: var(--text-faint, #a3a3a3);
-  font-size: 0.875rem;
+  font-size: 12px;
   line-height: 1.25rem;
   text-overflow: ellipsis;
   white-space: nowrap;
