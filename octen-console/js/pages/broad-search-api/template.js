@@ -161,10 +161,10 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
           <!-- Request pane -->
           <div id="bsa-pane-request" class="flex-1 flex flex-col min-h-0">
             <div class="flex items-center justify-between shrink-0 px-6 py-4">
-              <div class="flex p-1 bg-[#f5f5f5] rounded-lg">
-                <button type="button" class="bsa-lang px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer bg-white shadow-sm text-[#0a0a0a]" data-l="python" onclick="bsaSetLang('python')">Python</button>
-                <button type="button" class="bsa-lang px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="javascript" onclick="bsaSetLang('javascript')">JavaScript</button>
-                <button type="button" class="bsa-lang px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="curl" onclick="bsaSetLang('curl')">cURL</button>
+              <div class="flex h-[30px] items-stretch p-1 bg-[#f5f5f5] rounded-lg">
+                <button type="button" class="bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-white shadow-sm text-[#0a0a0a]" data-l="python" onclick="bsaSetLang('python')">Python</button>
+                <button type="button" class="bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="javascript" onclick="bsaSetLang('javascript')">JavaScript</button>
+                <button type="button" class="bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="curl" onclick="bsaSetLang('curl')">cURL</button>
               </div>
               <button type="button" onclick="bsaCopyReq()" id="bsa-copyreq" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-[#dbdbdb] bg-white text-[#737373] hover:bg-slate-50 text-xs shadow-sm transition-colors">
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>

@@ -122,7 +122,7 @@
     else { el.textContent=reqCode(); }
     document.querySelectorAll('.bsa-lang').forEach(b=>{
       const on = b.dataset.l === bsaLang;
-      b.className = 'bsa-lang px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+      b.className = 'bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
       b.style.cssText = '';
     });
   }
