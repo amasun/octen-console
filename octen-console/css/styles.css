@@ -411,7 +411,6 @@ html, body {
 .layout-pane {
   background: #FFF;
   border-radius: 16px;
-  border: 1px solid rgba(115, 115, 115, 0.20);
   box-sizing: border-box;
   display: flex;
   flex-direction: column;

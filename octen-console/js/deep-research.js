@@ -279,8 +279,8 @@
     if(window.PGS_codeBlock){ el.innerHTML=window.PGS_codeBlock(reqCode(),hl); el.firstChild&&(el.firstChild.style.maxHeight="560px"); }
     else { el.textContent=reqCode(); }
     document.querySelectorAll('.bsa-lang').forEach(b=>{
-      const on=b.getAttribute('data-l')===bsaLang;
-      b.className = 'bsa-lang px-3 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer ' + (on ? 'bg-white shadow text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a] hover:bg-[#e5e5e5]');
+      const on = b.dataset.l === bsaLang;
+      b.className = 'bsa-lang px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
       b.style.cssText = '';
     });
   }
@@ -318,15 +318,15 @@
     $('bsa-tab-req').style.cssText = '';
     $('bsa-tab-res').style.cssText = '';
     
-    const activeCls = 'px-1 py-1.5 text-sm font-medium text-[#0a0a0a] border-b-[1.5px] border-slate-900 transition-colors';
-    const inactiveCls = 'px-1 py-1.5 text-sm font-medium text-[#737373] border-b-[1.5px] border-transparent hover:text-[#737373] transition-colors';
+    const activeCls = 'py-4 text-base font-medium text-[#0a0a0a] border-b-[2px] border-[#0a0a0a] transition-colors relative top-[1px]';
+    const inactiveCls = 'py-4 text-base font-medium text-[#737373] border-b-[2px] border-transparent hover:text-[#0a0a0a] transition-colors relative top-[1px]';
     
     $('bsa-tab-req').className = req ? activeCls : inactiveCls;
     $('bsa-tab-res').className = req ? inactiveCls : activeCls;
   };
   window.bsaRtab=function(t){ rtab=t;
-    const activeCls = 'px-3 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer bg-white shadow text-[#0a0a0a]';
-    const inactiveCls = 'px-3 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer bg-transparent text-[#737373] hover:text-[#0a0a0a] hover:bg-[#e5e5e5]';
+    const activeCls = 'px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer bg-white shadow-sm text-[#0a0a0a]';
+    const inactiveCls = 'px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer bg-transparent text-[#737373] hover:text-[#0a0a0a]';
     $('bsa-rt-preview').className = t === 'preview' ? activeCls : inactiveCls;
     $('bsa-rt-json').className = t === 'json' ? activeCls : inactiveCls;
     $('bsa-rt-preview').style.cssText = '';

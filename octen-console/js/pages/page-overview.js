@@ -1,5 +1,6 @@
 window.pageHtml = window.pageHtml || {};
-window.pageHtml["page-overview"] = `<div id="page-overview" class="page active max-w-[1440px] mx-auto p-4">
+window.pageHtml["page-overview"] = `<div id="page-overview" class="page active p-4 h-full flex flex-col min-h-0">
+<div class="layout-pane max-w-[1440px] w-full mx-auto h-full flex-1 flex flex-col px-6 py-6 md:px-10 md:py-8 overflow-y-auto relative">
 
   <!-- Header -->
   <div class="mb-6 flex items-center justify-between gap-6">
@@ -38,7 +39,87 @@ window.pageHtml["page-overview"] = `<div id="page-overview" class="page active m
       <!-- Broad Search · Recommended -->
       <a href="#" onclick="go('broad-search');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
         <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 18 18" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path d="M15.75 8.99991V5.99242C15.7495 5.73073 15.68 5.47379 15.5482 5.24765C15.4166 5.02152 15.2274 4.83419 15 4.70467L9.74997 1.69868C9.52146 1.56846 9.26298 1.5 9 1.5C8.73697 1.5 8.47852 1.56846 8.25 1.69868L3 4.70467C2.53575 4.97092 2.25 5.46217 2.25 5.99317V12.0066C2.25 12.5384 2.53575 13.0289 3 13.2944L8.25 16.3004C8.715 16.5659 9.28503 16.5659 9.74997 16.3004M9 16.4999V8.99991M9 8.99991L15.5475 5.21993M9 8.99991L2.4525 5.21993" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.89 11.2396C15.2515 11.0572 16.503 12.0132 16.6856 13.3747C16.7683 13.9915 16.6168 14.5855 16.3004 15.068L17.114 16.1235C17.3252 16.3973 17.2743 16.7904 17.0006 17.0017C16.7266 17.2127 16.3336 17.162 16.1224 16.8881L15.3694 15.9111C15.1205 16.0407 14.8451 16.1309 14.5507 16.1703C13.1891 16.3525 11.9381 15.3968 11.7557 14.0353C11.5734 12.6739 12.5286 11.4222 13.89 11.2396ZM14.0569 12.4811C13.3811 12.5717 12.906 13.1932 12.9965 13.869C13.087 14.5449 13.7084 15.0192 14.3843 14.9289C15.0603 14.8383 15.5347 14.2169 15.4442 13.5409C15.3535 12.8653 14.7326 12.3908 14.0569 12.4811Z" fill="currentColor"/></svg><span class="text-slate-900 font-semibold text-base">Model Gateway</span></div>
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path stroke-linecap="round" stroke-linejoin="round" d="M5 16v-3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3M12 12V8"/></svg><span class="text-slate-900 font-semibold text-base">Broad Search</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Auto-decomposes one query into many parallel subqueries. Ready for production.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>&lt;62ms latency · Scales to 1M+ QPS · Broader coverage in a single call.</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best for research agents, hard questions, and comprehensive lookup.</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" onclick="go('web-search');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg><span class="text-slate-900 font-semibold text-base">Web Search</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Ranked web results, highlights, and summaries. Ready for generation.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>&lt;62ms latency · Scales to 1M+ QPS</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best with structured queries generated by LLMs.</span>
+          </div>
+        </div>
+      </a>
+      <!-- Image Search -->
+      <a href="#" onclick="openRequestAccess('Image Search');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span class="text-slate-900 font-semibold text-base">Image Search</span><span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium" style="background:#0398551a;color:#039855">Early Access</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Image retrieval across the open web. Ready for design and creative workflows.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best for design references, asset lookup, and content creation.</span>
+          </div>
+        </div>
+      </a>
+      <!-- Video Search -->
+      <a href="#" onclick="openRequestAccess('Video Search');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg><span class="text-slate-900 font-semibold text-base">Video Search</span><span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium" style="background:#0398551a;color:#039855">Early Access</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Video retrieval across the open web. Ready for media discovery and research.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best for video discovery, tutorial lookup, and clip sourcing.</span>
+          </div>
+        </div>
+      </a>
+      <a href="#" onclick="go('extract');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg><span class="text-slate-900 font-semibold text-base">Extract</span></div>
+          <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </div>
+        <p class="text-sm text-slate-600 leading-relaxed">Clean markdown, intent-focused highlights, and page classification. Ready for ingestion.</p>
+        <div class="flex flex-col gap-2.5">
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <span>Clean markdown extraction · success-only pricing</span>
+          </div>
+          <div class="flex items-start gap-2 text-sm text-slate-600">
+            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            <span>Works best for AI agents, RAG pipelines, and content monitoring.</span>
+          </div>
+        </div>
+      </a>
+      <!-- Model -->
+      <a href="#" onclick="go('model');return false" class="group bg-white rounded-xl border border-slate-200 p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3"><svg class="w-6 h-6 text-slate-400 group-hover:text-[#039855] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456z"/></svg><span class="text-slate-900 font-semibold text-base">Model</span></div>
           <svg class="w-5 h-5 text-slate-300 transition-transform group-hover:translate-x-1 group-hover:text-[#039855]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </div>
         <p class="text-sm text-slate-600 leading-relaxed">One API to call any LLM, with unified billing. Ready for production.</p>

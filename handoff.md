@@ -1,26 +1,93 @@
-# AI Handoff Context (交接文档)
+﻿# Octen Console — 项目交接文档
 
-## 1. 项目当前状态与架构说明
-- **项目结构演进**：项目正在从单一的 HTML 原型 (`octen-console-prototype.html`) 迁移到模块化的文件结构中。此前存放原型的目录 `octen-broad-search` 已正式更名为 `octen-console`，作为统一的模块化基座。
-- **全局规则 (`.agents/AGENTS.md`)**：强制要求在重大修改后保存 Git 记录，并及时更新技术栈到 `TECH_STACK.md` 或 `README.md` 中。
-- **自定义技能 (`skills/`)**：工作区中存在 `skills` 目录（例如 `skills/preview.html`），用于指导 AI 将原始版本转换为新版本。
+> **更新时间**：2026-07-16  
+> **当前分支**：master  
+> **最新 commit**：2106409
 
-## 2. 本次会话已完成的工作
-1. **代码高亮引擎替换 (PrismJS)**：
-   - 废弃了原有的自定义正则高亮方案。
-   - 在 `index.html` 中引入了 PrismJS 核心库、相关语言包以及 **Holi Theme** (`prism-holi-theme.min.css`)。
-   - 完全重写了 `js/syntax-highlight.js`，改为使用 `Prism.highlight` 渲染，同时完美保留了原有的 Flexbox 双列（左侧行号，右侧代码）布局。
-2. **样式冲突与暗色主题修复**：
-   - 清理了 `css/styles.css` 中针对 `#bsa-code *` 的粗暴颜色覆盖（原来强制染成了浅蓝色），使 Prism 的 Token 颜色得以正常应用。
-   - 针对 Holi Theme 缺失的部分高亮类名（如 Python 中的 `namespace`、`module` 等），在 `syntax-highlight.js` 中动态注入了强制补丁样式（冰蓝色 `#d6e7ff`），彻底解决了暗色背景下出现黑色或深蓝字看不清的问题。
-3. **UI 还原 (Figma 像素级对齐)**：
-   - 根据提供的 Figma 设计稿，重构了 Request / Response 标签页的外观。
-   - 更新了 `index.html` 的 HTML 结构及 Tailwind 类名。
-   - 重构了 `js/app.js` 和 `js/deep-research.js` 中的 `bsaTab` 切换逻辑，从原先直接写入 `style.cssText` 改进为更清晰的 Tailwind CSS Class 切换。
+---
 
-## 3. 下一步计划 (Next Steps)
-- **全面模块化迁移**：按照既定计划，继续逐步将 `octen-console-prototype.html` 中的所有其他模块一点点挪入目前的 `octen-console` 目录结构中。
-- **规则维护**：继续遵循 `.agents/AGENTS.md`，并在引入新依赖或大重构时，保持 `TECH_STACK.md` 的同步。
+## 一、本轮完成的重大改动（SPA 架构重构）
 
-> **给下一个 AI 的提示**：
-> 请先阅读本文件以恢复上下文，然后继续询问用户今天希望搬运哪个新模块，或进行何种调整！
+### 文件拆分（原 2239 行 → 56 行）
+
+| 文件 | 说明 |
+|------|------|
+| index.html | 56 行骨架，仅含容器 + script 引用 |
+| js/app.js | SPA 路由器，go(pageId) 函数 |
+| js/sidebar.js | 侧边栏 HTML 模板（动态注入） |
+| js/modals.js | 全部弹窗 HTML（动态注入 body） |
+| js/pages/page-overview.js | Overview 页面模板 |
+| js/pages/page-billing.js | Billing 页面模板 |
+| js/pages/page-broad-search-api.js | Broad Search API 页面模板 |
+
+### 修复列表
+
+| 问题 | 修复方案 |
+|------|------|
+| Overview 布局错乱 | 从 prototype 重新提取正确 HTML |
+| Model 未改为 Model Gateway | 侧边栏和卡片均已统一，SVG viewBox="0 0 18 18" |
+| Overview 最大宽度 | max-w-[1440px] |
+| Broad Search API Python 代码空白 | go() 后调用 bsaSetLang('python') |
+| 乱码（U+FFFD） | 修复 index.html、sidebar.js、modals.js |
+
+---
+
+## 二、路由机制
+
+`
+window.go(pageId):
+  1. 更新侧边栏 active 状态
+  2. 将 window.pageHtml[page-pageId] 注入 #page-container
+  3. 调用页面初始化 hook
+
+DOMContentLoaded → go('overview')
+`
+
+### 页面 Hook 注册（app.js）
+
+- overview → setupOverviewTabs()  
+- broad-search-api → initBroadSearchApi() + bsaSetLang('python')
+
+---
+
+## 三、Script 加载顺序（重要！）
+
+modals.js → app.js → sidebar.js → page-*.js
+
+---
+
+## 四、未完成事项
+
+- [ ] 其余页面未拆分：broad-search、web-search、image-search、video-search、extract、model、api-keys、usage、settings、deep-research 等，仍在 octen-console-prototype.html 中
+- [ ] response-preview-fragment.html 已删除（git status 显示 D），需确认
+
+---
+
+## 五、设计规范要点
+
+- 主色：#039855（green）
+- 文字：#0a0a0a / #737373 / #a3a3a3
+- 边框：#dbdbdb
+- Overview 最大宽度：max-w-[1440px]
+- Model Gateway SVG：viewBox="0 0 18 18"，stroke+fill 组合
+- 侧边栏 icon 与 Overview 卡片 icon 保持一致
+
+---
+
+## 六、关键文件路径
+
+- octen-console/index.html ← 骨架 56 行
+- octen-console/js/app.js ← SPA 路由器
+- octen-console/js/sidebar.js ← 侧边栏模板
+- octen-console/js/modals.js ← 所有弹窗
+- octen-console/js/pages/ ← 页面模板目录
+- octen-console-prototype.html ← 原始参考文件，勿删
+- .agents/skills/octen-ui-design/ ← Cult UI 设计规范 Skill
+
+---
+
+## 七、多 AI 协同注意事项
+
+- 修改前先读取最新文件内容，不依赖上下文记忆
+- 怀疑冲突时先 git status 确认，发现不一致立即报告用户
+- 不自动覆盖可能被另一 AI 修改的内容
