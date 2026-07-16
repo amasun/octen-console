@@ -215,8 +215,15 @@
   }
 
   function renderRespBody(){
-    if(!lastResp){ renderEmpty(); return; }
-    $('bsa-meta').textContent=lastResp.meta.usage.num_search_queries+' queries è·?'+lastResp.meta.latency+' ms';
+    if(!lastResp){
+      // No query run yet. JSON has nothing to show, but Preview shows the
+      // snippet's sample layout (expandable query cards) as a demo.
+      if(rtab==='json'){ renderEmpty(); return; }
+      $('bsa-meta').textContent='sample preview';
+      $('bsa-resp-body').innerHTML=renderFigmaPreview();
+      return;
+    }
+    $('bsa-meta').textContent=lastResp.meta.usage.num_search_queries+' queries · '+lastResp.meta.latency+' ms';
     if(rtab==='json'){ $('bsa-resp-body').innerHTML='<div class="bg-slate-900 rounded-md p-4 overflow-auto max-h-[28rem]"><pre class="text-xs text-slate-100 whitespace-pre font-mono">'+esc(JSON.stringify(lastResp,null,2))+'</pre></div>'; return; }
     $('bsa-resp-body').innerHTML=renderFigmaPreview();
   }
@@ -246,9 +253,12 @@
           ch--; 
           if(ch<=0){del=false; ph=(ph+1)%EX.length;}
         } 
-        if(!currentInp.value) currentInp.setAttribute('placeholder',cur.slice(0,Math.max(0,ch))); 
-        window.bsaTypeTimer=setTimeout(tick, del?40:95); 
+        if(!currentInp.value) currentInp.setAttribute('placeholder',cur.slice(0,Math.max(0,ch)));
+        window.bsaTypeTimer=setTimeout(tick, del?40:95);
       })();
     }
+    // Seed the Response→Preview pane with the snippet sample so it's not empty
+    // on first visit (before any Run).
+    if($('bsa-resp-body')) renderRespBody();
   };
 })();
