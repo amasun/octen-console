@@ -211,7 +211,7 @@
       const resultsHtml=(group.results||[]).map((r,k)=>'<a class="octen-result" href="#" onclick="return false">'+(k===4?'<span class="octen-result-icon">W</span>':'')+'<div class="octen-result-body"><div class="octen-result-title">'+esc(r[0])+'</div><div class="octen-result-summary">'+esc(r[1])+'</div><div class="octen-result-meta">'+esc(r[2])+'</div></div></a>').join('');
       return '<details class="octen-query-card"'+(group.open?' open':'')+'>'+'<summary>'+globeSvg+'<span class="octen-query-text">'+esc(group.query)+'</span>'+'<span class="octen-result-count">5 results</span>'+'<span class="octen-latency">'+group.latency+'ms</span>'+chevronSvg+'</summary>'+(resultsHtml?'<div class="octen-results">'+resultsHtml+'</div>':'')+'</details>';
     }).join('');
-    return '<div class="octen-response-preview">'+cards+'</div>';
+    return cards;
   }
 
   function renderRespBody(){
