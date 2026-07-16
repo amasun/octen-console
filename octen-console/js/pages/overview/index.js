@@ -13,7 +13,7 @@
         const active = x.dataset.mcpsTab === key;
         x.style.color = active ? '#039855' : '';
         x.style.borderColor = active ? '#039855' : '';
-        x.classList.toggle('text-slate-500', !active);
+        x.classList.toggle('text-[#737373]', !active);
         x.classList.toggle('border-transparent', !active);
       });
       panels.forEach(p => p.classList.toggle('hidden', p.dataset.mcpsPanel !== key));

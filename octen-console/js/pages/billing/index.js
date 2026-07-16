@@ -32,15 +32,15 @@
     const tb=document.getElementById('billing-model-rows'); if(!tb)return;
     let h='';
     GROUPS.forEach(g=>{
-      h+='<tr><td colspan="5" class="pt-4 pb-1.5"><span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium text-white" style="background:'+g.color+'">'+g.name+'</span></td></tr>';
+      h+='<tr><td colspan="5" class="pt-4 pb-1.5"><span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium text-white" style="background:'+g.color+'">'+g.name+'</span></td></tr>';
       g.rows.forEach((r,i)=>{
         const last=i===g.rows.length-1;
         h+='<tr class="'+(last?'':'border-b border-slate-50')+'">'+
-          '<td class="py-2.5 pr-4 text-slate-900 font-mono text-xs">'+r[0]+'</td>'+
-          '<td class="py-2.5 px-3 text-right text-slate-900 font-medium tabular-nums text-xs">'+r[1]+'</td>'+
-          '<td class="py-2.5 px-3 text-right text-slate-900 font-medium tabular-nums text-xs">'+r[2]+'</td>'+
-          '<td class="py-2.5 px-3 text-right text-slate-600 tabular-nums text-xs">'+r[3]+'</td>'+
-          '<td class="py-2.5 pl-3 text-right text-slate-600 tabular-nums text-xs">'+r[4]+'</td>'+
+          '<td class="py-3 pr-4 text-[#0a0a0a] font-mono text-xs">'+r[0]+'</td>'+
+          '<td class="py-3 px-3 text-right text-[#0a0a0a] font-medium tabular-nums text-xs">'+r[1]+'</td>'+
+          '<td class="py-3 px-3 text-right text-[#0a0a0a] font-medium tabular-nums text-xs">'+r[2]+'</td>'+
+          '<td class="py-3 px-3 text-right text-[#737373] tabular-nums text-xs">'+r[3]+'</td>'+
+          '<td class="py-3 pl-3 text-right text-[#737373] tabular-nums text-xs">'+r[4]+'</td>'+
         '</tr>';
       });
     });
@@ -58,7 +58,7 @@
         const active = x.dataset[tabKey] === key;
         x.style.color = active ? '#039855' : '';
         x.style.borderColor = active ? '#039855' : '';
-        x.classList.toggle('text-slate-500', !active);
+        x.classList.toggle('text-[#737373]', !active);
         x.classList.toggle('border-transparent', !active);
       });
       panels.forEach(p => p.classList.toggle('hidden', p.dataset[panelKey] !== key));

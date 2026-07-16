@@ -98,19 +98,19 @@ function renderPaymentBanner() {
     // Manager/Member in org: passive info, no CTA
     el.innerHTML = `<div class="mb-6 rounded-xl px-5 py-4 flex items-center gap-3 border" style="background:#0398550F;border-color:#03985530">
       <svg class="w-5 h-5 shrink-0" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
-      <p class="text-sm text-slate-800 flex-1">API keys are inactive. Please contact an owner to add credits.</p>
+      <p class="text-sm text-[#0a0a0a] flex-1">API keys are inactive. Please contact an owner to add credits.</p>
     </div>`;
   } else if (isOrg) {
     el.innerHTML = `<div class="mb-6 rounded-xl px-5 py-4 flex items-center gap-3 border" style="background:#0398550F;border-color:#03985530">
       <svg class="w-5 h-5 shrink-0" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
-      <p class="text-sm text-slate-800 flex-1">Add credits to activate your organization's API keys.</p>
-      <a href="#" onclick="go('billing');return false" class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-white transition-opacity hover:opacity-90" style="background:#039855">Add credits <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a>
+      <p class="text-sm text-[#0a0a0a] flex-1">Add credits to activate your organization's API keys.</p>
+      <a href="#" onclick="go('billing');return false" class="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white transition-opacity hover:opacity-90" style="background:#039855">Add credits <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a>
     </div>`;
   } else {
     el.innerHTML = `<div class="mb-6 rounded-xl px-5 py-4 flex items-center gap-3 border" style="background:#0398550F;border-color:#03985530">
       <svg class="w-5 h-5 shrink-0" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
-      <p class="text-sm text-slate-800 flex-1">Add a payment method and get <span class="font-semibold" style="color:#039855">$5 free credits</span> to start building.</p>
-      <a href="#" onclick="go('billing');return false" class="shrink-0 inline-flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium text-white transition-opacity hover:opacity-90" style="background:#039855">Add payment method <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a>
+      <p class="text-sm text-[#0a0a0a] flex-1">Add a payment method and get <span class="font-semibold" style="color:#039855">$5 free credits</span> to start building.</p>
+      <a href="#" onclick="go('billing');return false" class="shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white transition-opacity hover:opacity-90" style="background:#039855">Add payment method <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg></a>
     </div>`;
   }
 }
@@ -187,7 +187,7 @@ function setBillingMode(mode) {
     const b = document.getElementById('bm-'+x);
     if (!b) return;
     if (x===mode) { b.style.cssText='background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)'; }
-    else { b.style.cssText=''; b.className='flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500'; }
+    else { b.style.cssText=''; b.className='flex-1 text-xs py-1 rounded border border-[#e7e7e7] text-[#737373]'; }
   });
   const wrap = document.getElementById('bm-status-wrap');
   if (wrap) wrap.classList.toggle('hidden', mode!=='postpaid');
@@ -300,7 +300,7 @@ function applyPostpaid() {
     const balPart = sc.balance>0
       ? ' (usage '+fmt(sc.used)+' − balance '+fmt(sc.balance)+')'
       : '';
-    sbText.innerHTML = 'Next invoice: <span class="font-medium text-slate-900">Jul 1, 2026</span> · est. due <span class="font-medium text-slate-900">'+fmt(estDue)+'</span>'+balPart+' · NET 30';
+    sbText.innerHTML = 'Next invoice: <span class="font-medium text-[#0a0a0a]">Jul 1, 2026</span> · est. due <span class="font-medium text-[#0a0a0a]">'+fmt(estDue)+'</span>'+balPart+' · NET 30';
   }
 
   renderPostpaidBanner(true, sc, owed, pct);
@@ -342,22 +342,22 @@ function renderPostpaidBanner(isPost, sc, owed, pct) {
 }
 
 function invoiceStatusBadge(st) {
-  const map={OPEN:['bg-blue-50','text-blue-700','border-blue-200'],PAID:['bg-slate-100','text-slate-600','border-slate-200'],OVERDUE:['bg-red-50','text-red-700','border-red-200'],VOID:['bg-slate-50','text-slate-400','border-slate-200']};
+  const map={OPEN:['bg-blue-50','text-blue-700','border-blue-200'],PAID:['bg-[#f5f5f5]','text-[#737373]','border-[#e7e7e7]'],OVERDUE:['bg-red-50','text-red-700','border-red-200'],VOID:['bg-[#f5f5f5]','text-[#a3a3a3]','border-[#e7e7e7]']};
   const c=map[st]||map.PAID;
   return '<span class="px-3 py-1 rounded-full text-xs '+c[0]+' '+c[1]+' border '+c[2]+'">'+st+'</span>';
 }
-const INV_DOWNLOAD = '<button onclick="toast(\'Invoice downloaded\')" class="inline-flex items-center gap-1.5 hover:opacity-80" style="color:#039855"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</button>';
+const INV_DOWNLOAD = '<button onclick="toast(\'Invoice downloaded\')" class="inline-flex items-center gap-2 hover:opacity-80" style="color:#039855"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>Download</button>';
 const INV_PAYNOW = '<button onclick="openModal(\'m-recharge\')" class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium text-white hover:opacity-90" style="background:#039855">Pay now</button>';
 
 function typeTag(kind) {
   return kind==='invoice'
-    ? '<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-slate-100 text-slate-600 border border-slate-200">Invoice</span>'
-    : '<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium bg-violet-50 text-violet-700 border border-violet-200">Receipt</span>';
+    ? '<span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-[#f5f5f5] text-[#737373] border border-[#e7e7e7]">Invoice</span>'
+    : '<span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-violet-50 text-violet-700 border border-violet-200">Receipt</span>';
 }
 
 // All billing records keyed by document number — shared by the list and the detail modal.
 let bpRecords = {};
-const INV_VIEW = (n)=>'<button onclick="event.stopPropagation();openInvoiceDetail(\''+n+'\')" class="inline-flex items-center gap-1.5 hover:opacity-80" style="color:#039855">View <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></button>';
+const INV_VIEW = (n)=>'<button onclick="event.stopPropagation();openInvoiceDetail(\''+n+'\')" class="inline-flex items-center gap-2 hover:opacity-80" style="color:#039855">View <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg></button>';
 
 function renderPostpaidInvoices(sc) {
   const overdue = sc.suspended || sc.hasOverdue;
@@ -400,20 +400,20 @@ function renderPostpaidInvoices(sc) {
   if (emptyEl) emptyEl.classList.toggle('hidden', hasOutstanding);
   if (tableWrap) tableWrap.classList.toggle('hidden', !hasOutstanding);
   // Neutral by default; only an actually overdue invoice tints the card red
-  if (tableWrap) tableWrap.className = 'rounded-xl border p-2 ' + (overdue ? 'border-red-200 bg-red-50/40' : 'border-slate-200 bg-white');
+  if (tableWrap) tableWrap.className = 'rounded-xl border p-2 ' + (overdue ? 'border-red-200 bg-red-50/40' : 'border-[#e7e7e7] bg-white');
   if (summary) summary.textContent = '';
   if (oBody && hasOutstanding) {
-    const dueCls = latest.status==='OVERDUE' ? 'text-red-600 font-medium' : 'text-slate-700';
+    const dueCls = latest.status==='OVERDUE' ? 'text-red-600 font-medium' : 'text-[#737373]';
     // balance applied at invoicing → show what reduced the amount due
     const balNote = latest.balApplied>0
-      ? '<div class="text-[11px] text-slate-500 mt-0.5">Usage '+fmt(sc.unpaid+latest.balApplied)+' − balance '+fmt(latest.balApplied)+' applied</div>'
+      ? '<div class="text-xs text-[#737373] mt-0.5">Usage '+fmt(sc.unpaid+latest.balApplied)+' − balance '+fmt(latest.balApplied)+' applied</div>'
       : '';
     const payBtn = '<button onclick="event.stopPropagation();openModal(\'m-recharge\')" class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-medium text-white hover:opacity-90" style="background:#039855">Pay now</button>';
-    oBody.innerHTML = '<tr onclick="openInvoiceDetail(\''+latest.n+'\')" class="cursor-pointer hover:bg-slate-50">'
-      +'<td class="py-3 px-4 text-slate-900 font-medium">'+latest.n+balNote+'</td>'
-      +'<td class="py-3 px-4 text-slate-600">'+latest.period+'</td>'
+    oBody.innerHTML = '<tr onclick="openInvoiceDetail(\''+latest.n+'\')" class="cursor-pointer hover:bg-[#f5f5f5]">'
+      +'<td class="py-3 px-4 text-[#0a0a0a] font-medium">'+latest.n+balNote+'</td>'
+      +'<td class="py-3 px-4 text-[#737373]">'+latest.period+'</td>'
       +'<td class="py-3 px-4 '+dueCls+'">'+latest.due+'</td>'
-      +'<td class="py-3 px-4 text-slate-900 font-semibold">'+fmt(latest.amt)+'</td>'
+      +'<td class="py-3 px-4 text-[#0a0a0a] font-semibold">'+fmt(latest.amt)+'</td>'
       +'<td class="py-3 px-4">'+invoiceStatusBadge(latest.status)+'</td>'
       +'<td class="py-3 px-4 text-right whitespace-nowrap">'+payBtn+' <span class="inline-block w-2"></span>'+INV_VIEW(latest.n)+'</td>'
       +'</tr>';
@@ -431,15 +431,15 @@ function renderPostpaidInvoices(sc) {
       const isReceipt = r.kind==='receipt';
       const dateOrPeriod = isReceipt ? r.date : r.period;
       const docSub = isReceipt ? 'Recharge · '+r.method : (r.note || '');
-      const docCell = '<span class="'+(isVoid?'text-slate-400 line-through':'text-slate-900 font-medium')+'">'+r.n+'</span>'
-        + (docSub ? '<div class="text-[11px] text-slate-400 mt-0.5">'+docSub+'</div>' : '');
-      const amtCell = isVoid ? '<span class="text-slate-400 line-through">'+fmt(r.amt)+'</span>'
-        : isReceipt ? '<span class="text-slate-900">+'+fmt(r.amt)+'</span>'
-        : '<span class="text-slate-900">'+fmt(r.amt)+'</span>';
+      const docCell = '<span class="'+(isVoid?'text-[#a3a3a3] line-through':'text-[#0a0a0a] font-medium')+'">'+r.n+'</span>'
+        + (docSub ? '<div class="text-xs text-[#a3a3a3] mt-0.5">'+docSub+'</div>' : '');
+      const amtCell = isVoid ? '<span class="text-[#a3a3a3] line-through">'+fmt(r.amt)+'</span>'
+        : isReceipt ? '<span class="text-[#0a0a0a]">+'+fmt(r.amt)+'</span>'
+        : '<span class="text-[#0a0a0a]">'+fmt(r.amt)+'</span>';
       const statusCell = isReceipt ? invoiceStatusBadge('PAID') : invoiceStatusBadge(r.status);
-      return '<tr onclick="openInvoiceDetail(\''+r.n+'\')" class="border-b border-slate-100 cursor-pointer hover:bg-slate-50'+(isVoid?' bg-slate-50/40':'')+'">'
+      return '<tr onclick="openInvoiceDetail(\''+r.n+'\')" class="border-b border-[#f5f5f5] cursor-pointer hover:bg-[#f5f5f5]'+(isVoid?' bg-[#f5f5f5]/40':'')+'">'
         +'<td class="py-4 px-4">'+docCell+'</td>'
-        +'<td class="py-4 px-4 text-slate-600">'+dateOrPeriod+'</td>'
+        +'<td class="py-4 px-4 text-[#737373]">'+dateOrPeriod+'</td>'
         +'<td class="py-4 px-4">'+amtCell+'</td>'
         +'<td class="py-4 px-4">'+statusCell+'</td>'
         +'<td class="py-4 px-4 text-right whitespace-nowrap">'+INV_VIEW(r.n)+'</td>'
@@ -483,17 +483,17 @@ function openInvoiceDetail(n) {
   else if (r.status==='OPEN') paid = 'Due '+r.due;
   else if (isVoid) paid = 'Voided' + (r.note?' · '+r.note.replace('Voided — ',''):'');
   const paidEl = document.getElementById('bpd-paidline');
-  if (paidEl) { paidEl.textContent = paid; paidEl.className = 'text-sm mb-4 '+(r.status==='OVERDUE'?'text-red-600':'text-slate-500'); }
+  if (paidEl) { paidEl.textContent = paid; paidEl.className = 'text-sm mb-4 '+(r.status==='OVERDUE'?'text-red-600':'text-[#737373]'); }
 
   set('bpd-invdate', r.date || '—');
   set('bpd-due', isReceipt ? '—' : (r.due||'—'));
   const billto = document.getElementById('bpd-billto');
   if (billto) billto.innerHTML = 'Acme Inc<br>jane@acmeinc.com';
 
-  const dlInvoice = '<button onclick="toast(\'Invoice PDF downloaded\')" class="px-4 py-2 rounded-lg text-sm font-medium border border-slate-300 text-slate-700 hover:bg-slate-50">Download invoice</button>';
-  const dlReceipt = (primary)=>'<button onclick="toast(\'Receipt PDF downloaded\')" class="px-4 py-2 rounded-lg text-sm font-medium '+(primary?'text-white hover:opacity-90':'border border-slate-300 text-slate-700 hover:bg-slate-50')+'" '+(primary?'style="background:#039855"':'')+'>Download receipt</button>';
+  const dlInvoice = '<button onclick="toast(\'Invoice PDF downloaded\')" class="px-4 py-2 rounded-lg text-sm font-medium border border-[#dbdbdb] text-[#737373] hover:bg-[#f5f5f5]">Download invoice</button>';
+  const dlReceipt = (primary)=>'<button onclick="toast(\'Receipt PDF downloaded\')" class="px-4 py-2 rounded-lg text-sm font-medium '+(primary?'text-white hover:opacity-90':'border border-[#dbdbdb] text-[#737373] hover:bg-[#f5f5f5]')+'" '+(primary?'style="background:#039855"':'')+'>Download receipt</button>';
   const payInvoice = '<button onclick="closeModal(\'m-invoice-detail\');openModal(\'m-recharge\')" class="px-4 py-2 rounded-lg text-sm font-medium text-white hover:opacity-90" style="background:#039855">Pay invoice</button>';
-  const share = '<button onclick="toast(\'Share link copied\')" class="px-4 py-2 rounded-lg text-sm font-medium border border-slate-300 text-slate-700 hover:bg-slate-50">Share</button>';
+  const share = '<button onclick="toast(\'Share link copied\')" class="px-4 py-2 rounded-lg text-sm font-medium border border-[#dbdbdb] text-[#737373] hover:bg-[#f5f5f5]">Share</button>';
   let actions;
   if (isReceipt) actions = dlReceipt(true) + dlInvoice + share;
   else if (unpaid) actions = payInvoice + dlInvoice + share;
@@ -505,9 +505,9 @@ function openInvoiceDetail(n) {
   const lines = bpLineItems(r);
   const linesEl = document.getElementById('bpd-lines');
   if (linesEl) linesEl.innerHTML = lines.map(li=>
-    '<tr class="border-b border-slate-100">'
-    +'<td class="py-2.5 pr-4"><div class="text-slate-900">'+li.label+'</div><div class="text-xs text-slate-400">'+li.desc+'</div></td>'
-    +'<td class="py-2.5 pl-4 text-right text-slate-900 tabular-nums align-top">'+fmt(li.amt)+'</td>'
+    '<tr class="border-b border-[#f5f5f5]">'
+    +'<td class="py-3 pr-4"><div class="text-[#0a0a0a]">'+li.label+'</div><div class="text-xs text-[#a3a3a3]">'+li.desc+'</div></td>'
+    +'<td class="py-3 pl-4 text-right text-[#0a0a0a] tabular-nums align-top">'+fmt(li.amt)+'</td>'
     +'</tr>'
   ).join('');
 
@@ -541,7 +541,7 @@ function setPayment(active) {
     if (!b) return;
     const isOn = (x==='nocard' && !active) || (x==='active' && active);
     if (isOn) { b.style.cssText='background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)'; }
-    else { b.style.cssText=''; b.className='flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500'; }
+    else { b.style.cssText=''; b.className='flex-1 text-xs py-1 rounded border border-[#e7e7e7] text-[#737373]'; }
   });
   if (currentPage==='api-keys') renderApiKeys();
   applyRole();
@@ -553,7 +553,7 @@ function setRole(r) {
   ['owner','manager','member'].forEach(x => {
     const b = document.getElementById('rb-'+x);
     if (x===r) { b.style.cssText='background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)'; }
-    else { b.style.cssText=''; b.className='flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500'; }
+    else { b.style.cssText=''; b.className='flex-1 text-xs py-1 rounded border border-[#e7e7e7] text-[#737373]'; }
   });
   if (currentPage==='api-keys') renderApiKeys();
   applyRole();
@@ -612,8 +612,8 @@ function applyRole() {
   // Payment method button state (Add vs Manage)
   const addPayBtn = document.getElementById('billing-add-payment-btn');
   if (addPayBtn) {
-    if (hasPayment) { addPayBtn.textContent = 'Manage'; addPayBtn.classList.remove('text-white'); addPayBtn.style.background = ''; addPayBtn.classList.add('border','border-slate-300','text-slate-700','hover:bg-slate-50'); }
-    else { addPayBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Add'; addPayBtn.classList.add('text-white'); addPayBtn.style.background = '#039855'; addPayBtn.classList.remove('border','border-slate-300','text-slate-700','hover:bg-slate-50'); }
+    if (hasPayment) { addPayBtn.textContent = 'Manage'; addPayBtn.classList.remove('text-white'); addPayBtn.style.background = ''; addPayBtn.classList.add('border','border-[#dbdbdb]','text-[#737373]','hover:bg-[#f5f5f5]'); }
+    else { addPayBtn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>Add'; addPayBtn.classList.add('text-white'); addPayBtn.style.background = '#039855'; addPayBtn.classList.remove('border','border-[#dbdbdb]','text-[#737373]','hover:bg-[#f5f5f5]'); }
   }
   const noPayText = document.getElementById('billing-no-payment-text');
   if (noPayText) noPayText.style.display = hasPayment ? 'none' : '';
@@ -857,29 +857,29 @@ function renderApiKeys() {
     const canDel  = role!=='member';
     const ownerCell = showOwner
       ? (k.owner
-          ? `<td class="py-3 px-4 text-slate-600">${k.ownerName}</td>`
-          : `<td class="py-3 px-4 text-slate-500 text-xs">Shared</td>`)
+          ? `<td class="py-3 px-4 text-[#737373]">${k.ownerName}</td>`
+          : `<td class="py-3 px-4 text-[#737373] text-xs">Shared</td>`)
       : '';
-    return `<tr class="border-b border-slate-100">
-      <td class="py-3 px-4 text-slate-900">${k.name}${k.name==='default'?' <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-400 rounded">default</span>':''}</td>
-      <td class="py-3 px-4 text-slate-700"><code class="text-xs bg-slate-50 rounded px-2 py-1">${maskKey(k.val)}</code></td>
+    return `<tr class="border-b border-[#f5f5f5]">
+      <td class="py-3 px-4 text-[#0a0a0a]">${k.name}${k.name==='default'?' <span class="text-xs px-2 py-1 bg-[#f5f5f5] text-[#a3a3a3] rounded">default</span>':''}</td>
+      <td class="py-3 px-4 text-[#737373]"><code class="text-xs bg-[#f5f5f5] rounded px-2 py-1">${maskKey(k.val)}</code></td>
       ${ownerCell}
-      <td class="py-3 px-4 text-slate-600">${k.created}</td>
-      <td class="py-3 px-4 text-slate-700">${k.qps>0?k.qps+' QPS':'Unlimited'}</td>
+      <td class="py-3 px-4 text-[#737373]">${k.created}</td>
+      <td class="py-3 px-4 text-[#737373]">${k.qps>0?k.qps+' QPS':'Unlimited'}</td>
       <td class="py-3 px-4 text-right">
         <div class="inline-flex items-center gap-2">
-          ${canEdit?`<button onclick="openEditKey('${k.id}')" class="p-1 hover:bg-slate-100 rounded" title="Edit"><svg class="w-4 h-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>`:''}
-          ${canDel?`<button onclick="openDelKey('${k.id}','${k.name}')" class="p-1 hover:bg-slate-100 rounded" title="Delete"><svg class="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>`:''}
+          ${canEdit?`<button onclick="openEditKey('${k.id}')" class="p-1 hover:bg-[#f5f5f5] rounded" title="Edit"><svg class="w-4 h-4 text-[#737373]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>`:''}
+          ${canDel?`<button onclick="openDelKey('${k.id}','${k.name}')" class="p-1 hover:bg-[#f5f5f5] rounded" title="Delete"><svg class="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>`:''}
         </div>
       </td>
     </tr>`;
-  }).join('') || `<tr><td colspan="6" class="py-10 text-center text-slate-500 text-sm">No API keys yet.</td></tr>`;
+  }).join('') || `<tr><td colspan="6" class="py-10 text-center text-[#737373] text-sm">No API keys yet.</td></tr>`;
 
   // create modal: member auto-assigns to self
   const ownerWrap = document.getElementById('ck-owner-wrap');
   if (ownerWrap) {
-    if (role==='member') ownerWrap.innerHTML = '<p class="text-xs text-slate-400">This key will be assigned to you.</p>';
-    else ownerWrap.innerHTML = `<label class="block text-xs text-slate-500 mb-1">Owner</label><select id="ck-owner" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none"><option value="" selected>Shared (all members)</option><option value="jane">Jane Niu (you)</option><option value="alex">Alex Johnson</option><option value="sarah">Sarah Chen</option><option value="bob">Bob Smith</option></select><p class="mt-1 text-xs text-slate-400">Shared keys are accessible by all org members. Assigning a member enables per-member usage tracking.</p>`;
+    if (role==='member') ownerWrap.innerHTML = '<p class="text-xs text-[#a3a3a3]">This key will be assigned to you.</p>';
+    else ownerWrap.innerHTML = `<label class="block text-xs text-[#737373] mb-1">Owner</label><select id="ck-owner" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-lg text-sm bg-white focus:outline-none"><option value="" selected>Shared (all members)</option><option value="jane">Jane Niu (you)</option><option value="alex">Alex Johnson</option><option value="sarah">Sarah Chen</option><option value="bob">Bob Smith</option></select><p class="mt-1 text-xs text-[#a3a3a3]">Shared keys are accessible by all org members. Assigning a member enables per-member usage tracking.</p>`;
   }
   // QPS field: Member cannot set QPS
   const qpsWrap = document.getElementById('ck-qps-wrap');
@@ -953,17 +953,17 @@ function renderSvcKeys() {
   const count = document.getElementById('svc-count');
   if (count) count.textContent = 'Keys: '+svcKeys.length+' / '+SVC_KEY_LIMIT;
 
-  tbody.innerHTML = svcKeys.map(k => `<tr class="border-b border-slate-100">
-    <td class="py-3 px-4 text-slate-900">${k.name}</td>
-    <td class="py-3 px-4 text-slate-700"><code class="text-xs bg-slate-50 rounded px-2 py-1">${maskKey(k.val)}</code></td>
-    <td class="py-3 px-4 text-slate-600">${k.created}</td>
+  tbody.innerHTML = svcKeys.map(k => `<tr class="border-b border-[#f5f5f5]">
+    <td class="py-3 px-4 text-[#0a0a0a]">${k.name}</td>
+    <td class="py-3 px-4 text-[#737373]"><code class="text-xs bg-[#f5f5f5] rounded px-2 py-1">${maskKey(k.val)}</code></td>
+    <td class="py-3 px-4 text-[#737373]">${k.created}</td>
     <td class="py-3 px-4 text-right">
       <div class="inline-flex items-center gap-2">
-        <button onclick="openEditSvc('${k.id}')" class="p-1 hover:bg-slate-100 rounded" title="Edit"><svg class="w-4 h-4 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>
-        <button onclick="openDelSvc('${k.id}','${k.name}')" class="p-1 hover:bg-slate-100 rounded" title="Delete"><svg class="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+        <button onclick="openEditSvc('${k.id}')" class="p-1 hover:bg-[#f5f5f5] rounded" title="Edit"><svg class="w-4 h-4 text-[#737373]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></button>
+        <button onclick="openDelSvc('${k.id}','${k.name}')" class="p-1 hover:bg-[#f5f5f5] rounded" title="Delete"><svg class="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
       </div>
     </td>
-  </tr>`).join('') || '<tr><td colspan="4" class="py-10 text-center text-slate-500 text-sm">No service keys yet.</td></tr>';
+  </tr>`).join('') || '<tr><td colspan="4" class="py-10 text-center text-[#737373] text-sm">No service keys yet.</td></tr>';
 
   // Update create button state in header when on svc tab
   updateCreateBtnState();
@@ -1083,21 +1083,21 @@ function renderDestinations() {
   const body = document.getElementById('dest-list-body');
   body.innerHTML = destinations.map(d => {
     const statusBadge = ({
-      active:   '<span class="px-2 py-0.5 rounded-full text-[11px] bg-[#0398551a] text-[#039855] border border-[#03985533]">active</span>',
-      pending:  '<span class="px-2 py-0.5 rounded-full text-[11px] bg-slate-100 text-slate-600 border border-slate-200">pending</span>',
-      error:    '<span class="px-2 py-0.5 rounded-full text-[11px] bg-red-50 text-red-600 border border-red-200">error</span>'
+      active:   '<span class="px-2 py-1 rounded-full text-xs bg-[#0398551a] text-[#039855] border border-[#03985533]">active</span>',
+      pending:  '<span class="px-2 py-1 rounded-full text-xs bg-[#f5f5f5] text-[#737373] border border-[#e7e7e7]">pending</span>',
+      error:    '<span class="px-2 py-1 rounded-full text-xs bg-red-50 text-red-600 border border-red-200">error</span>'
     })[d.status];
-    return `<tr class="border-b border-slate-100 last:border-b-0">
-      <td class="py-3 px-4 text-slate-900">${d.name}</td>
-      <td class="py-3 px-4 text-slate-600">S3</td>
-      <td class="py-3 px-4 text-slate-600 font-mono text-xs">${d.bucket}/${d.prefix||''}</td>
-      <td class="py-3 px-4"><div class="flex items-center gap-1.5"><code class="text-xs font-mono text-slate-700">${d.id}</code><button onclick="navigator.clipboard.writeText('${d.id}');toast('Copied')" class="text-slate-400 hover:text-slate-600"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button></div></td>
+    return `<tr class="border-b border-[#f5f5f5] last:border-b-0">
+      <td class="py-3 px-4 text-[#0a0a0a]">${d.name}</td>
+      <td class="py-3 px-4 text-[#737373]">S3</td>
+      <td class="py-3 px-4 text-[#737373] font-mono text-xs">${d.bucket}/${d.prefix||''}</td>
+      <td class="py-3 px-4"><div class="flex items-center gap-2"><code class="text-xs font-mono text-[#737373]">${d.id}</code><button onclick="navigator.clipboard.writeText('${d.id}');toast('Copied')" class="text-[#a3a3a3] hover:text-[#737373]"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button></div></td>
       <td class="py-3 px-4">${statusBadge}</td>
       <td class="py-3 px-4 text-right">
         <div class="inline-flex items-center gap-0.5">
-          <span class="relative group/tip inline-block"><button onclick="testDestinationRow('${d.id}')" class="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M10 8l5 4-5 4V8z"/></svg></button><span class="dest-tip">Test connection</span></span>
-          <span class="relative group/tip inline-block"><button onclick="openEditDestination('${d.id}')" class="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button><span class="dest-tip">Edit</span></span>
-          <span class="relative group/tip inline-block"><button onclick="openDeleteDestination('${d.id}')" class="p-1.5 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button><span class="dest-tip">Delete</span></span>
+          <span class="relative group/tip inline-block"><button onclick="testDestinationRow('${d.id}')" class="p-1.5 text-[#737373] hover:text-[#0a0a0a] hover:bg-[#f5f5f5] rounded transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M10 8l5 4-5 4V8z"/></svg></button><span class="dest-tip">Test connection</span></span>
+          <span class="relative group/tip inline-block"><button onclick="openEditDestination('${d.id}')" class="p-1.5 text-[#737373] hover:text-[#0a0a0a] hover:bg-[#f5f5f5] rounded transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button><span class="dest-tip">Edit</span></span>
+          <span class="relative group/tip inline-block"><button onclick="openDeleteDestination('${d.id}')" class="p-1.5 text-[#a3a3a3] hover:text-red-600 hover:bg-red-50 rounded transition-colors"><svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button><span class="dest-tip">Delete</span></span>
         </div>
       </td>
     </tr>`;
@@ -1140,8 +1140,8 @@ function destWizardGoTo(step) {
     document.getElementById('dest-step-'+n).classList.toggle('hidden', n!==step);
     const s = document.getElementById('dws-'+n);
     const dot = s.querySelector('span:first-child');
-    if (n<=step) { s.classList.remove('text-slate-400'); s.querySelector('span:last-child').className = 'text-slate-900 font-medium'; dot.className = 'w-5 h-5 rounded-full bg-[#039855] text-white flex items-center justify-center text-[11px] font-medium'; }
-    else { s.classList.add('text-slate-400'); s.querySelector('span:last-child').className = ''; dot.className = 'w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[11px] font-medium'; }
+    if (n<=step) { s.classList.remove('text-[#a3a3a3]'); s.querySelector('span:last-child').className = 'text-[#0a0a0a] font-medium'; dot.className = 'w-5 h-5 rounded-full bg-[#039855] text-white flex items-center justify-center text-xs font-medium'; }
+    else { s.classList.add('text-[#a3a3a3]'); s.querySelector('span:last-child').className = ''; dot.className = 'w-5 h-5 rounded-full bg-[#e5e5e5] text-[#737373] flex items-center justify-center text-xs font-medium'; }
   });
   document.getElementById('dest-back-btn').classList.toggle('hidden', step===1);
   const nextBtn = document.getElementById('dest-next-btn');
@@ -1198,8 +1198,8 @@ function switchDestPolTab(which) {
   const trustPre = document.getElementById('dest-trust-json');
   const permPre = document.getElementById('dest-perm-json');
   const isTrust = which==='trust';
-  trustTab.className = `flex-1 px-3 py-2 text-xs font-medium border-b-2 -mb-px ${isTrust?'text-slate-900 border-[#039855]':'text-slate-500 border-transparent'}`;
-  permTab.className = `flex-1 px-3 py-2 text-xs font-medium border-b-2 -mb-px ${!isTrust?'text-slate-900 border-[#039855]':'text-slate-500 border-transparent'}`;
+  trustTab.className = `flex-1 px-3 py-2 text-xs font-medium border-b-2 -mb-px ${isTrust?'text-[#0a0a0a] border-[#039855]':'text-[#737373] border-transparent'}`;
+  permTab.className = `flex-1 px-3 py-2 text-xs font-medium border-b-2 -mb-px ${!isTrust?'text-[#0a0a0a] border-[#039855]':'text-[#737373] border-transparent'}`;
   trustPre.classList.toggle('hidden', !isTrust);
   permPre.classList.toggle('hidden', isTrust);
 }
@@ -1213,9 +1213,9 @@ function runDestinationTest() {
   // Reset step icons
   const setStep = (n, state) => {
     const el = document.getElementById('dts-'+n);
-    if (state==='running') { el.className = 'flex items-center gap-2 text-xs text-slate-600'; el.querySelector('span').className = 'w-4 h-4 rounded-full border-2 border-slate-300 border-t-[#039855] animate-spin'; }
-    else if (state==='done') { el.className = 'flex items-center gap-2 text-xs text-slate-600'; el.querySelector('span').outerHTML = '<svg class="w-4 h-4" fill="none" stroke="#039855" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>'; }
-    else { el.className = 'flex items-center gap-2 text-xs text-slate-400'; el.querySelector('span').className = 'w-4 h-4 rounded-full border border-slate-200'; }
+    if (state==='running') { el.className = 'flex items-center gap-2 text-xs text-[#737373]'; el.querySelector('span').className = 'w-4 h-4 rounded-full border-2 border-[#dbdbdb] border-t-[#039855] animate-spin'; }
+    else if (state==='done') { el.className = 'flex items-center gap-2 text-xs text-[#737373]'; el.querySelector('span').outerHTML = '<svg class="w-4 h-4" fill="none" stroke="#039855" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>'; }
+    else { el.className = 'flex items-center gap-2 text-xs text-[#a3a3a3]'; el.querySelector('span').className = 'w-4 h-4 rounded-full border border-[#e7e7e7]'; }
   };
   // Simulate sequential steps
   setTimeout(()=>{ setStep(1,'done'); setStep(2,'running'); }, 700);
@@ -1313,9 +1313,9 @@ function applyRoleChange(picker, roleName, memberName) {
     const label = opt.querySelector('.text-xs');
     const optRole = label.textContent.trim().split(' ')[0];
     const isCurrent = optRole === roleName;
-    opt.className = 'role-opt w-full text-left px-3 py-2.5 rounded-lg ' + (isCurrent ? 'bg-slate-50' : 'hover:bg-slate-50 transition-colors');
+    opt.className = 'role-opt w-full text-left px-3 py-3 rounded-lg ' + (isCurrent ? 'bg-[#f5f5f5]' : 'hover:bg-[#f5f5f5] transition-colors');
     if (isCurrent) { label.innerHTML = optRole + ' ' + checkSvg; label.className = 'text-xs font-medium flex items-center justify-between'; label.style.color = '#039855'; }
-    else { label.textContent = optRole; label.className = 'text-xs font-medium text-slate-900'; label.style.color = ''; }
+    else { label.textContent = optRole; label.className = 'text-xs font-medium text-[#0a0a0a]'; label.style.color = ''; }
   });
   toast(memberName + "'s role updated to " + roleName);
 }
@@ -1361,7 +1361,7 @@ function openRemove(name, email) {
     const list = document.getElementById('rem-key-list');
     const visible = keys.slice(0, 5);
     const rest = keys.length - visible.length;
-    list.innerHTML = visible.map(k => '<div>• ' + k + '</div>').join('') + (rest > 0 ? '<div class="text-slate-500">+' + rest + ' more</div>' : '');
+    list.innerHTML = visible.map(k => '<div>• ' + k + '</div>').join('') + (rest > 0 ? '<div class="text-[#737373]">+' + rest + ' more</div>' : '');
     // Populate transfer select — exclude the member being removed
     const sel = document.getElementById('rem-transfer-select');
     if (sel) {
@@ -1423,7 +1423,7 @@ function openLeave() {
     const list = document.getElementById('leave-key-list');
     const visible = keys.slice(0, 5);
     const rest = keys.length - visible.length;
-    list.innerHTML = visible.map(k => '<div>• ' + k + '</div>').join('') + (rest > 0 ? '<div class="text-slate-500">+' + rest + ' more</div>' : '');
+    list.innerHTML = visible.map(k => '<div>• ' + k + '</div>').join('') + (rest > 0 ? '<div class="text-[#737373]">+' + rest + ' more</div>' : '');
     const sel = document.getElementById('leave-transfer-select');
     if (sel) sel.value = '';
   }
@@ -1456,9 +1456,9 @@ function wfShowState(state) {
 function wfNewFlow() {
   document.getElementById('wf-flow-name').textContent = 'New Flow';
   document.getElementById('wf-status-badge').textContent = 'Draft';
-  document.getElementById('wf-status-badge').className = 'px-2 py-0.5 rounded-full text-xs font-medium bg-slate-200 text-slate-700';
+  document.getElementById('wf-status-badge').className = 'px-2 py-1 rounded-full text-xs font-medium bg-[#e5e5e5] text-[#737373]';
   document.getElementById('wf-mode-badge').textContent = 'One-time';
-  document.getElementById('wf-mode-badge').className = 'px-1.5 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700';
+  document.getElementById('wf-mode-badge').className = 'px-2 py-1 rounded text-xs font-medium bg-[#f5f5f5] text-[#737373]';
   document.getElementById('wf-query').value = '';
   document.getElementById('wf-topic').value = 'general';
   document.getElementById('wf-time').value = 'any';
@@ -1469,11 +1469,11 @@ function wfNewFlow() {
 function wfLoadExample(name, desc, topic, query, mode) {
   document.getElementById('wf-flow-name').textContent = 'Example: ' + name;
   document.getElementById('wf-status-badge').textContent = 'Draft';
-  document.getElementById('wf-status-badge').className = 'px-2 py-0.5 rounded-full text-xs font-medium bg-slate-200 text-slate-700';
+  document.getElementById('wf-status-badge').className = 'px-2 py-1 rounded-full text-xs font-medium bg-[#e5e5e5] text-[#737373]';
   document.getElementById('wf-mode-badge').textContent = mode === 'incremental' ? 'Incremental' : 'One-time';
   document.getElementById('wf-mode-badge').className = mode === 'incremental'
-    ? 'px-1.5 py-0.5 rounded text-[11px] font-medium bg-blue-100 text-blue-700'
-    : 'px-1.5 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700';
+    ? 'px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-700'
+    : 'px-2 py-1 rounded text-xs font-medium bg-[#f5f5f5] text-[#737373]';
   document.getElementById('wf-query').value = query;
   document.getElementById('wf-topic').value = topic;
   document.getElementById('wf-time').value = mode === 'incremental' ? '180d' : 'any';
@@ -1484,11 +1484,11 @@ function wfLoadExample(name, desc, topic, query, mode) {
 function wfLoadSaved(name, topic, query, mode) {
   document.getElementById('wf-flow-name').textContent = name;
   document.getElementById('wf-status-badge').textContent = 'Saved';
-  document.getElementById('wf-status-badge').className = 'px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700';
+  document.getElementById('wf-status-badge').className = 'px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700';
   document.getElementById('wf-mode-badge').textContent = mode === 'incremental' ? 'Incremental' : 'One-time';
   document.getElementById('wf-mode-badge').className = mode === 'incremental'
-    ? 'px-1.5 py-0.5 rounded text-[11px] font-medium bg-blue-100 text-blue-700'
-    : 'px-1.5 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700';
+    ? 'px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-700'
+    : 'px-2 py-1 rounded text-xs font-medium bg-[#f5f5f5] text-[#737373]';
   document.getElementById('wf-query').value = query;
   document.getElementById('wf-topic').value = topic;
   document.getElementById('wf-time').value = mode === 'incremental' ? '180d' : 'any';
@@ -1516,8 +1516,8 @@ function wfToggleAdvanced() {
 function wfSetRefresh(mode) {
   document.getElementById('wf-mode-badge').textContent = mode === 'incremental' ? 'Incremental' : 'One-time';
   document.getElementById('wf-mode-badge').className = mode === 'incremental'
-    ? 'px-1.5 py-0.5 rounded text-[11px] font-medium bg-blue-100 text-blue-700'
-    : 'px-1.5 py-0.5 rounded text-[11px] font-medium bg-slate-100 text-slate-700';
+    ? 'px-2 py-1 rounded text-xs font-medium bg-blue-100 text-blue-700'
+    : 'px-2 py-1 rounded text-xs font-medium bg-[#f5f5f5] text-[#737373]';
   const hint = document.getElementById('wf-time-incremental-hint');
   if (mode === 'incremental') {
     hint.classList.remove('hidden');
@@ -1551,7 +1551,7 @@ function wfSaveFlow() {
   const name = document.getElementById('wf-settings-name').value.trim() || 'Untitled Flow';
   document.getElementById('wf-flow-name').textContent = name;
   document.getElementById('wf-status-badge').textContent = 'Saved';
-  document.getElementById('wf-status-badge').className = 'px-2 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-700';
+  document.getElementById('wf-status-badge').className = 'px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700';
   document.getElementById('wf-dirty').classList.add('hidden');
   closeModal('m-wf-settings');
   toast('Flow saved');
@@ -1643,9 +1643,9 @@ function updateInviteSummary() {
     text.textContent = parts.join(' · ');
     // Build details
     const rows = [];
-    c.members.forEach(e => rows.push(`<div>• <span class="text-slate-700">${e}</span> — already a member (skipped)</div>`));
-    c.pending.forEach(e => rows.push(`<div>• <span class="text-slate-700">${e}</span> — pending (previous link will be invalidated)</div>`));
-    c.fresh.forEach(e => rows.push(`<div>• <span class="text-slate-700">${e}</span> — new</div>`));
+    c.members.forEach(e => rows.push(`<div>• <span class="text-[#737373]">${e}</span> — already a member (skipped)</div>`));
+    c.pending.forEach(e => rows.push(`<div>• <span class="text-[#737373]">${e}</span> — pending (previous link will be invalidated)</div>`));
+    c.fresh.forEach(e => rows.push(`<div>• <span class="text-[#737373]">${e}</span> — new</div>`));
     details.innerHTML = rows.join('');
   }
 
@@ -1883,13 +1883,13 @@ function wsRespTab(v){
     body.innerHTML = '<div class="bg-slate-900 rounded-md p-4 overflow-auto max-h-96"><pre class="text-xs text-slate-100 whitespace-pre font-mono">'+JSON.stringify(wsResult,null,2).replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</pre></div>';
   } else {
     body.innerHTML = '<div class="space-y-3 max-h-96 overflow-y-auto">'+wsResult.results.map(r=>`
-      <div class="border border-slate-200 rounded-md p-3 hover:border-slate-300">
-        <a href="${r.url}" target="_blank" class="hover:underline mb-1 block text-sm font-medium text-slate-800">${r.title}</a>
+      <div class="border border-[#e7e7e7] rounded-md p-3 hover:border-[#dbdbdb]">
+        <a href="${r.url}" target="_blank" class="hover:underline mb-1 block text-sm font-medium text-[#0a0a0a]">${r.title}</a>
         <a href="${r.url}" target="_blank" class="text-xs text-blue-600 hover:underline mb-2 block">${r.url}</a>
-        <div class="mb-2"><p class="text-xs text-slate-600 font-medium mb-1">Highlights</p>
-          <div class="pl-3 border-l-2 border-slate-300"><p class="text-xs text-slate-600 leading-relaxed">${r.highlight}</p></div>
+        <div class="mb-2"><p class="text-xs text-[#737373] font-medium mb-1">Highlights</p>
+          <div class="pl-3 border-l-2 border-[#dbdbdb]"><p class="text-xs text-[#737373] leading-relaxed">${r.highlight}</p></div>
         </div>
-        <div class="text-xs text-slate-400">${wsFmtDate(r.time_published)}</div>
+        <div class="text-xs text-[#a3a3a3]">${wsFmtDate(r.time_published)}</div>
       </div>`).join('')+'</div>';
   }
 }
@@ -1899,23 +1899,23 @@ function wsRun() {
   if (!q || !q.value.trim()) { toast('Please enter a query'); return; }
   wsTabSwitch('response');
   const res = document.getElementById('ws-pane-response');
-  if (res) res.innerHTML = `<div class="flex flex-col items-center justify-center py-12 text-slate-400">
-    <div class="w-8 h-8 border-4 border-slate-200 rounded-full mb-3" style="border-top-color:#039855;animation:spin 0.8s linear infinite"></div>
+  if (res) res.innerHTML = `<div class="flex flex-col items-center justify-center py-12 text-[#a3a3a3]">
+    <div class="w-8 h-8 border-4 border-[#e7e7e7] rounded-full mb-3" style="border-top-color:#039855;animation:spin 0.8s linear infinite"></div>
     <p class="text-xs">Searching...</p>
   </div>`;
   setTimeout(() => {
     wsResult = { request_id:'req_'+Math.random().toString(36).slice(2,12), results:WS_RESULTS, meta:{ usage:{ num_search_queries:1 }, latency:101, warning:null } };
     if (res) res.innerHTML = `
       <div class="flex items-center justify-between mb-3">
-        <div class="inline-flex rounded-md border border-slate-200 overflow-hidden text-xs">
-          <button id="ws-resp-preview" class="px-3 py-1.5" style="background:#0398551a;color:#039855;font-weight:500" onclick="wsRespTab('preview')">Preview</button>
-          <button id="ws-resp-json" class="px-3 py-1.5 border-l border-slate-200 bg-white text-slate-600" onclick="wsRespTab('json')">JSON</button>
+        <div class="inline-flex rounded-md border border-[#e7e7e7] overflow-hidden text-xs">
+          <button id="ws-resp-preview" class="px-3 py-2" style="background:#0398551a;color:#039855;font-weight:500" onclick="wsRespTab('preview')">Preview</button>
+          <button id="ws-resp-json" class="px-3 py-2 border-l border-[#e7e7e7] bg-white text-[#737373]" onclick="wsRespTab('json')">JSON</button>
         </div>
-        <button onclick="copyCodeBlock(this)" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 text-xs">
+        <button onclick="copyCodeBlock(this)" class="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-[#e7e7e7] bg-white text-[#737373] hover:bg-[#f5f5f5] text-xs">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg><span>Copy</span>
         </button>
       </div>
-      <div class="text-xs text-slate-500 mb-3">Response 101 ms</div>
+      <div class="text-xs text-[#737373] mb-3">Response 101 ms</div>
       <div id="ws-resp-body"></div>`;
     wsRespTab('preview');
   }, 800);
@@ -1949,7 +1949,7 @@ function exUpdateBtn() {
   const counterEl = document.getElementById('ex-url-counter');
   const tooMany = unique.length > 20;
   if (counterEl) {
-    counterEl.className = 'text-xs ' + (tooMany ? 'text-red-500 font-medium' : 'text-slate-400');
+    counterEl.className = 'text-xs ' + (tooMany ? 'text-red-500 font-medium' : 'text-[#a3a3a3]');
     let html = `<span id="ex-url-count">${unique.length}</span> / 20 URLs`;
     if (tooMany) {
       html += ' — <span>max 20 exceeded</span>';
@@ -2095,8 +2095,8 @@ function exRun() {
   const res = document.getElementById('ex-pane-response');
   const scenario = (document.getElementById('ex-scenario')||{}).value||'normal';
 
-  res.innerHTML = `<div class="flex flex-col items-center justify-center py-12 text-slate-400">
-    <div class="w-8 h-8 border-4 border-slate-200 rounded-full mb-3" style="border-top-color:#039855;animation:spin 0.8s linear infinite"></div>
+  res.innerHTML = `<div class="flex flex-col items-center justify-center py-12 text-[#a3a3a3]">
+    <div class="w-8 h-8 border-4 border-[#e7e7e7] rounded-full mb-3" style="border-top-color:#039855;animation:spin 0.8s linear infinite"></div>
     <p class="text-xs">Extracting ${urls.length} URL${urls.length>1?'s':''}…</p>
   </div>`;
 
@@ -2122,11 +2122,11 @@ function exRun() {
       const color = isWarning ? 'amber' : 'red';
       res.innerHTML = `
         <div class="flex items-center justify-between mb-3">
-          <div class="inline-flex rounded-md border border-slate-200 overflow-hidden text-xs">
-            <button class="px-3 py-1.5" style="background:#0398551a;color:#039855;font-weight:500" onclick="exShowPreview(this)">Preview</button>
-            <button class="px-3 py-1.5 border-l border-slate-200 bg-white text-slate-600" onclick="exShowJson(this)">JSON</button>
+          <div class="inline-flex rounded-md border border-[#e7e7e7] overflow-hidden text-xs">
+            <button class="px-3 py-2" style="background:#0398551a;color:#039855;font-weight:500" onclick="exShowPreview(this)">Preview</button>
+            <button class="px-3 py-2 border-l border-[#e7e7e7] bg-white text-[#737373]" onclick="exShowJson(this)">JSON</button>
           </div>
-          <span class="text-xs text-slate-400">${latency} ms</span>
+          <span class="text-xs text-[#a3a3a3]">${latency} ms</span>
         </div>
         <div id="ex-results-preview" class="flex items-start gap-3 p-4 bg-${color}-50 border border-${color}-200 rounded-lg">
           <svg class="w-5 h-5 text-${color}-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
@@ -2134,7 +2134,7 @@ function exRun() {
             <p class="text-sm font-medium text-${color}-700">${errJson.code} ${({429:'Too Many Requests',403:'Forbidden',401:'Unauthorized',413:'Request Entity Too Large'})[errJson.code]}</p>
             <p class="text-xs text-${color}-600 mt-1">${errJson.msg.split(': ').slice(1).join(': ')}</p>
             ${scenario === 'balance' ? `<a href="#" onclick="go('billing');return false" class="inline-block mt-2 text-xs font-medium hover:underline" style="color:#039855">Add payment method →</a>` : ''}
-            <p class="text-[10px] text-${color}-400 mt-2 font-mono">${errJson.request_id}</p>
+            <p class="text-xs text-${color}-400 mt-2 font-mono">${errJson.request_id}</p>
           </div>
         </div>`;
       return;
@@ -2238,35 +2238,35 @@ function exRun() {
 
     res.innerHTML = `
       <div class="flex items-center justify-between mb-3 relative">
-        <div class="inline-flex rounded-md border border-slate-200 overflow-hidden text-xs">
-          <button class="px-3 py-1.5" style="background:#0398551a;color:#039855;font-weight:500" onclick="exShowPreview(this)">Preview</button>
-          <button class="px-3 py-1.5 border-l border-slate-200 bg-white text-slate-600" onclick="exShowJson(this)">JSON</button>
+        <div class="inline-flex rounded-md border border-[#e7e7e7] overflow-hidden text-xs">
+          <button class="px-3 py-2" style="background:#0398551a;color:#039855;font-weight:500" onclick="exShowPreview(this)">Preview</button>
+          <button class="px-3 py-2 border-l border-[#e7e7e7] bg-white text-[#737373]" onclick="exShowJson(this)">JSON</button>
         </div>
-        <div class="flex items-center gap-1.5">
-          <button id="ex-fb-up" onclick="exFeedback('up')" class="ex-fb-btn inline-flex items-center justify-center w-7 h-7 rounded-md border border-slate-200 bg-white text-slate-500 hover:bg-slate-50" title="Helpful">
+        <div class="flex items-center gap-2">
+          <button id="ex-fb-up" onclick="exFeedback('up')" class="ex-fb-btn inline-flex items-center justify-center w-7 h-7 rounded-md border border-[#e7e7e7] bg-white text-[#737373] hover:bg-[#f5f5f5]" title="Helpful">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"/></svg>
           </button>
-          <button id="ex-fb-down" onclick="exFeedback('down')" class="ex-fb-btn inline-flex items-center justify-center w-7 h-7 rounded-md border border-slate-200 bg-white text-slate-500 hover:bg-slate-50" title="Not helpful">
+          <button id="ex-fb-down" onclick="exFeedback('down')" class="ex-fb-btn inline-flex items-center justify-center w-7 h-7 rounded-md border border-[#e7e7e7] bg-white text-[#737373] hover:bg-[#f5f5f5]" title="Not helpful">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018a2 2 0 01.485.06L17 4m-7 10v5a2 2 0 002 2h.095c.5 0 .905-.405.905-.905 0-.714.211-1.412.608-2.006L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5"/></svg>
           </button>
-          <button onclick="copyCodeBlock(this)" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 text-xs">
+          <button onclick="copyCodeBlock(this)" class="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-[#e7e7e7] bg-white text-[#737373] hover:bg-[#f5f5f5] text-xs">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
             <span>Copy</span>
           </button>
         </div>
         <!-- Feedback popover -->
-        <div id="ex-fb-popover" class="hidden absolute right-0 top-9 z-20 w-80 bg-white border border-slate-200 rounded-lg shadow-lg p-3">
-          <div id="ex-fb-chips" class="flex flex-wrap gap-1.5 mb-2.5"></div>
-          <textarea id="ex-fb-text" rows="2" class="w-full px-2.5 py-1.5 border border-slate-200 rounded text-xs outline-none focus:border-[#039855] resize-none" placeholder=""></textarea>
+        <div id="ex-fb-popover" class="hidden absolute right-0 top-9 z-20 w-80 bg-white border border-[#e7e7e7] rounded-lg shadow-lg p-3">
+          <div id="ex-fb-chips" class="flex flex-wrap gap-2 mb-2.5"></div>
+          <textarea id="ex-fb-text" rows="2" class="w-full px-3 py-2 border border-[#e7e7e7] rounded text-xs outline-none focus:border-[#039855] resize-none" placeholder=""></textarea>
           <div class="flex items-center justify-end mt-2 gap-2">
-            <button onclick="exFeedbackClose()" class="px-2.5 py-1 text-xs text-slate-500 hover:text-slate-700">Cancel</button>
+            <button onclick="exFeedbackClose()" class="px-3 py-1 text-xs text-[#737373] hover:text-[#737373]">Cancel</button>
             <button onclick="exFeedbackSubmit()" class="px-3 py-1 text-xs font-medium text-white rounded" style="background:#039855">Submit</button>
           </div>
         </div>
       </div>
       <!-- Meta bar -->
-      <div class="flex items-center gap-3 mb-3 text-xs text-slate-500">
-        <span class="font-medium text-slate-700">${successCount} extracted</span>
+      <div class="flex items-center gap-3 mb-3 text-xs text-[#737373]">
+        <span class="font-medium text-[#737373]">${successCount} extracted</span>
         ${failedCount ? `<span class="text-red-500">${failedCount} failed</span>` : ''}
         <span>·</span>
         <span>${latency} ms</span>
@@ -2276,75 +2276,75 @@ function exRun() {
         ${mockResults.map(r => r.status==='failed' ? `
         <div class="border border-red-100 rounded-md p-3 bg-red-50">
           <div class="flex items-start justify-between gap-2 mb-1">
-            <a href="${r.url}" target="_blank" class="text-xs text-slate-600 hover:underline break-all flex-1">${r.url}</a>
-            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-red-100 text-red-600 shrink-0">
+            <a href="${r.url}" target="_blank" class="text-xs text-[#737373] hover:underline break-all flex-1">${r.url}</a>
+            <span class="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-red-100 text-red-600 shrink-0">
               <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
               failed
             </span>
           </div>
-          <div class="flex items-center gap-2 mt-1.5">
-            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-red-100 text-red-500">${r.error_code}</span>
-            <span class="text-[10px] text-red-500">${r.error_message}</span>
+          <div class="flex items-center gap-2 mt-2">
+            <span class="text-xs font-mono px-2 py-1 rounded bg-red-100 text-red-500">${r.error_code}</span>
+            <span class="text-xs text-red-500">${r.error_message}</span>
           </div>
         </div>` : `
-        <div class="border border-slate-200 rounded-md p-3 hover:border-slate-300 transition-colors">
+        <div class="border border-[#e7e7e7] rounded-md p-3 hover:border-[#dbdbdb] transition-colors">
           <div class="flex items-start justify-between gap-2 mb-2">
             <div class="flex items-start gap-2 min-w-0">
-              ${r.favicon ? `<img src="${r.favicon}" class="w-4 h-4 rounded-sm shrink-0 mt-0.5" onerror="this.style.display='none'" title="favicon"/>` : '<div class="w-4 h-4 shrink-0 mt-0.5 rounded-sm bg-slate-100"></div>'}
+              ${r.favicon ? `<img src="${r.favicon}" class="w-4 h-4 rounded-sm shrink-0 mt-0.5" onerror="this.style.display='none'" title="favicon"/>` : '<div class="w-4 h-4 shrink-0 mt-0.5 rounded-sm bg-[#f5f5f5]"></div>'}
               <div class="min-w-0">
-                <p class="text-sm font-medium text-slate-800 leading-snug">${r.title}</p>
+                <p class="text-sm font-medium text-[#0a0a0a] leading-snug">${r.title}</p>
                 <a href="${r.url}" target="_blank" class="text-xs text-blue-500 hover:underline break-all">${r.url}</a>
               </div>
             </div>
-            <span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-medium bg-green-50 text-green-700 shrink-0">
+            <span class="inline-flex items-center gap-1 px-2 py-1 rounded text-xs font-medium bg-green-50 text-green-700 shrink-0">
               <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
               success
             </span>
           </div>
           ${r.highlights ? `
           <div class="mb-2">
-            <p class="text-xs text-slate-500 font-medium mb-1.5">Highlights</p>
+            <p class="text-xs text-[#737373] font-medium mb-2">Highlights</p>
             <div class="pl-3 border-l-2 border-[#039855] space-y-2">
-              ${r.highlights.map(h=>`<p class="text-xs text-slate-600 leading-relaxed">${h}</p>`).join('')}
+              ${r.highlights.map(h=>`<p class="text-xs text-[#737373] leading-relaxed">${h}</p>`).join('')}
             </div>
           </div>` : `
           <div class="mb-2">
             <div class="flex items-center justify-between mb-1">
-              <p class="text-xs text-slate-500 font-medium">Content <span class="text-slate-400 font-normal">(markdown)</span></p>
-              <button onclick="exToggleContent(this)" class="inline-flex items-center gap-1 text-[10px] text-slate-400 hover:text-slate-600 transition-colors">
+              <p class="text-xs text-[#737373] font-medium">Content <span class="text-[#a3a3a3] font-normal">(markdown)</span></p>
+              <button onclick="exToggleContent(this)" class="inline-flex items-center gap-1 text-xs text-[#a3a3a3] hover:text-[#737373] transition-colors">
                 <svg class="w-3 h-3 ex-expand-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5v-4m0 4h-4m4 0l-5-5"/></svg>
                 <span class="ex-expand-label">Expand</span>
               </button>
             </div>
-            <div class="ex-content-box bg-slate-50 rounded p-2.5 max-h-80 overflow-y-auto transition-all">
-              <pre class="text-[11px] text-slate-600 whitespace-pre-wrap font-mono leading-relaxed">${r.content.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>
+            <div class="ex-content-box bg-[#f5f5f5] rounded p-2.5 max-h-80 overflow-y-auto transition-all">
+              <pre class="text-xs text-[#737373] whitespace-pre-wrap font-mono leading-relaxed">${r.content.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre>
             </div>
           </div>`}
-          <dl class="mt-2 space-y-1 text-[11px]">
-            ${r.category ? `<div class="flex items-center gap-3"><dt class="text-slate-400 w-14 shrink-0">Category</dt><dd><span class="inline-flex items-center bg-slate-50 rounded px-2 py-0.5 text-slate-600">${r.category.primary}${r.category.secondary ? `<span class="text-slate-300 mx-1.5">›</span>${r.category.secondary}` : ''}</span></dd></div>` : ''}
-            ${r.page_structure ? `<div class="flex items-center gap-3"><dt class="text-slate-400 w-14 shrink-0">Page</dt><dd><span class="inline-flex items-center bg-slate-50 rounded px-2 py-0.5 text-slate-600">${r.page_structure.primary}${r.page_structure.secondary ? `<span class="text-slate-300 mx-1.5">›</span>${r.page_structure.secondary}` : ''}</span></dd></div>` : ''}
-            <div class="flex items-center gap-3"><dt class="text-slate-400 w-14 shrink-0">Published</dt><dd class="text-slate-500">${r.time_published.slice(0,10)}</dd></div>
+          <dl class="mt-2 space-y-1 text-xs">
+            ${r.category ? `<div class="flex items-center gap-3"><dt class="text-[#a3a3a3] w-14 shrink-0">Category</dt><dd><span class="inline-flex items-center bg-[#f5f5f5] rounded px-2 py-1 text-[#737373]">${r.category.primary}${r.category.secondary ? `<span class="text-[#a3a3a3] mx-1.5">›</span>${r.category.secondary}` : ''}</span></dd></div>` : ''}
+            ${r.page_structure ? `<div class="flex items-center gap-3"><dt class="text-[#a3a3a3] w-14 shrink-0">Page</dt><dd><span class="inline-flex items-center bg-[#f5f5f5] rounded px-2 py-1 text-[#737373]">${r.page_structure.primary}${r.page_structure.secondary ? `<span class="text-[#a3a3a3] mx-1.5">›</span>${r.page_structure.secondary}` : ''}</span></dd></div>` : ''}
+            <div class="flex items-center gap-3"><dt class="text-[#a3a3a3] w-14 shrink-0">Published</dt><dd class="text-[#737373]">${r.time_published.slice(0,10)}</dd></div>
           </dl>
           ${r.images && r.images.length ? `
           <div class="mt-2">
-            <p class="text-[10px] text-slate-400 mb-1.5">${r.images.length} image${r.images.length>1?'s':''}</p>
-            <div class="flex gap-1.5 flex-wrap">
-              ${r.images.slice(0,4).map(img=>`<img src="${img}" class="w-16 h-12 object-cover rounded border border-slate-200 bg-slate-100" onerror="this.style.opacity='0.3'" title="${img}"/>`).join('')}
-              ${r.images.length > 4 ? `<div class="w-16 h-12 rounded border border-slate-200 bg-slate-100 flex items-center justify-center text-xs text-slate-400 font-medium">+${r.images.length-4}</div>` : ''}
+            <p class="text-xs text-[#a3a3a3] mb-2">${r.images.length} image${r.images.length>1?'s':''}</p>
+            <div class="flex gap-2 flex-wrap">
+              ${r.images.slice(0,4).map(img=>`<img src="${img}" class="w-16 h-12 object-cover rounded border border-[#e7e7e7] bg-[#f5f5f5]" onerror="this.style.opacity='0.3'" title="${img}"/>`).join('')}
+              ${r.images.length > 4 ? `<div class="w-16 h-12 rounded border border-[#e7e7e7] bg-[#f5f5f5] flex items-center justify-center text-xs text-[#a3a3a3] font-medium">+${r.images.length-4}</div>` : ''}
             </div>
           </div>` : ''}
           ${r.videos && r.videos.length ? `
           <div class="mt-2">
-            <p class="text-[10px] text-slate-400 mb-1.5">${r.videos.length} video${r.videos.length>1?'s':''}</p>
+            <p class="text-xs text-[#a3a3a3] mb-2">${r.videos.length} video${r.videos.length>1?'s':''}</p>
             <div class="space-y-0.5">
-              ${r.videos.map(v=>`<a href="${v}" target="_blank" class="block text-[11px] text-blue-500 hover:underline break-all">${v}</a>`).join('')}
+              ${r.videos.map(v=>`<a href="${v}" target="_blank" class="block text-xs text-blue-500 hover:underline break-all">${v}</a>`).join('')}
             </div>
           </div>` : ''}
           ${r.audio && r.audio.length ? `
           <div class="mt-2">
-            <p class="text-[10px] text-slate-400 mb-1.5">${r.audio.length} audio</p>
+            <p class="text-xs text-[#a3a3a3] mb-2">${r.audio.length} audio</p>
             <div class="space-y-0.5">
-              ${r.audio.map(a=>`<a href="${a}" target="_blank" class="block text-[11px] text-blue-500 hover:underline break-all">${a}</a>`).join('')}
+              ${r.audio.map(a=>`<a href="${a}" target="_blank" class="block text-xs text-blue-500 hover:underline break-all">${a}</a>`).join('')}
             </div>
           </div>` : ''}
         </div>`).join('')}
@@ -2371,7 +2371,7 @@ function exShowJson(btn) {
   // first time: build json pane
   const pre = document.createElement('pre');
   pre.id = 'ex-results-json';
-  pre.className = 'text-[11px] text-slate-700 bg-slate-50 rounded-md p-3 overflow-auto max-h-[460px] leading-relaxed whitespace-pre-wrap font-mono';
+  pre.className = 'text-xs text-[#737373] bg-[#f5f5f5] rounded-md p-3 overflow-auto max-h-[460px] leading-relaxed whitespace-pre-wrap font-mono';
   pre.textContent = JSON.stringify(exLastResponse, null, 2);
   if (preview) preview.parentElement.appendChild(pre);
 }
@@ -2412,7 +2412,7 @@ function exClear() {
   exUpdateBtn();
   exTabSwitch('request');
   const res = document.getElementById('ex-pane-response');
-  if (res) res.innerHTML = `<div class="flex flex-col items-center justify-center py-12 text-slate-400">
+  if (res) res.innerHTML = `<div class="flex flex-col items-center justify-center py-12 text-[#a3a3a3]">
     <svg class="w-10 h-10 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
     <p class="text-xs">Run a request to see results</p>
   </div>`;
@@ -2441,7 +2441,7 @@ function exFeedback(type) {
   exFbSelected.clear();
   const chipsWrap = document.getElementById('ex-fb-chips');
   chipsWrap.innerHTML = exFbChips[type].map(c =>
-    `<button onclick="exFbToggle(this,'${c.replace(/'/g,"\\'")}')" class="ex-fb-chip px-2.5 py-1 text-xs rounded-full border border-slate-200 bg-white text-slate-600 hover:border-slate-300">${c}</button>`
+    `<button onclick="exFbToggle(this,'${c.replace(/'/g,"\\'")}')" class="ex-fb-chip px-3 py-1 text-xs rounded-full border border-[#e7e7e7] bg-white text-[#737373] hover:border-[#dbdbdb]">${c}</button>`
   ).join('');
   document.getElementById('ex-fb-text').placeholder = exFbPlaceholder[type];
   document.getElementById('ex-fb-text').value = '';
@@ -2493,9 +2493,9 @@ function collectPreview() {
     document.getElementById('col-est-price').textContent = '$78.00';
     document.getElementById('col-est-breakdown').innerHTML = `
       <div class="text-left space-y-0.5 mt-1">
-        <div class="flex justify-between gap-3"><span>Text</span><span class="font-medium text-slate-700">100,000</span></div>
-        <div class="flex justify-between gap-3"><span>Image</span><span class="font-medium text-slate-700">40,000</span></div>
-        <div class="flex justify-between gap-3"><span>Video</span><span class="font-medium text-slate-700">16,000</span></div>
+        <div class="flex justify-between gap-3"><span>Text</span><span class="font-medium text-[#737373]">100,000</span></div>
+        <div class="flex justify-between gap-3"><span>Image</span><span class="font-medium text-[#737373]">40,000</span></div>
+        <div class="flex justify-between gap-3"><span>Video</span><span class="font-medium text-[#737373]">16,000</span></div>
       </div>`;
     const samples = [
       {doc_id:'doc_a1b2c3',type:'image',title:'护肤新手必看！20款平价宝藏好物推荐',snippet:'分享我用了半年的护肤心得，这些产品真的救了我的皮肤...',date:'2024-03-15'},
@@ -2504,15 +2504,15 @@ function collectPreview() {
       {doc_id:'doc_j1k2l3',type:'text',title:'素颜也好看？日常护肤步骤分享',snippet:'其实护肤并不复杂，掌握这几个步骤就够了...',date:'2024-09-05'},
       {doc_id:'doc_m4n5o6',type:'image',title:'换季护肤要注意！这些坑我帮你踩过了',snippet:'换季的时候皮肤特别敏感，这篇文章告诉你怎么应对...',date:'2024-10-12'},
     ];
-    const typeColor = {text:'bg-slate-100 text-slate-600',image:'bg-purple-50 text-purple-700',video:'bg-blue-50 text-blue-700'};
+    const typeColor = {text:'bg-[#f5f5f5] text-[#737373]',image:'bg-purple-50 text-purple-700',video:'bg-blue-50 text-blue-700'};
     document.getElementById('col-samples').innerHTML = samples.map(s=>`
-      <div class="border border-slate-100 rounded-md p-2.5 hover:bg-slate-50">
+      <div class="border border-[#f5f5f5] rounded-md p-2.5 hover:bg-[#f5f5f5]">
         <div class="flex items-start gap-2">
-          <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium shrink-0 mt-0.5 ${typeColor[s.type]||'bg-slate-100 text-slate-600'}">${s.type}</span>
+          <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium shrink-0 mt-0.5 ${typeColor[s.type]||'bg-[#f5f5f5] text-[#737373]'}">${s.type}</span>
           <div class="min-w-0 flex-1">
-            <p class="text-xs font-medium text-slate-800 truncate">${s.title}</p>
-            <p class="text-[11px] text-slate-500 mt-0.5 line-clamp-1">${s.snippet}</p>
-            <div class="flex items-center gap-3 mt-1"><span class="text-[10px] text-slate-400">${s.date}</span><span class="text-[10px] font-mono text-slate-300">${s.doc_id}</span></div>
+            <p class="text-xs font-medium text-[#0a0a0a] truncate">${s.title}</p>
+            <p class="text-xs text-[#737373] mt-0.5 line-clamp-1">${s.snippet}</p>
+            <div class="flex items-center gap-3 mt-1"><span class="text-xs text-[#a3a3a3]">${s.date}</span><span class="text-xs font-mono text-[#a3a3a3]">${s.doc_id}</span></div>
           </div>
         </div>
       </div>`).join('');
@@ -2561,9 +2561,9 @@ function collectComplete() {
   document.getElementById('col-done-price').textContent = '$78.00';
   document.getElementById('col-done-breakdown').innerHTML = `
     <div class="text-left space-y-0.5 mt-1">
-      <div class="flex justify-between gap-3"><span>Text</span><span class="font-medium text-slate-700">100,000</span></div>
-      <div class="flex justify-between gap-3"><span>Image</span><span class="font-medium text-slate-700">40,000</span></div>
-      <div class="flex justify-between gap-3"><span>Video</span><span class="font-medium text-slate-700">16,000</span></div>
+      <div class="flex justify-between gap-3"><span>Text</span><span class="font-medium text-[#737373]">100,000</span></div>
+      <div class="flex justify-between gap-3"><span>Image</span><span class="font-medium text-[#737373]">40,000</span></div>
+      <div class="flex justify-between gap-3"><span>Video</span><span class="font-medium text-[#737373]">16,000</span></div>
     </div>`;
   document.getElementById('col-done-path').textContent = path;
   document.getElementById('col-done-manifest').textContent = path+'manifest.json';

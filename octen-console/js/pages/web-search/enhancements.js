@@ -46,9 +46,9 @@
   window.wsPick=function(y,m,d){ cal.range=''; const dt=new Date(y,m,d); if(!cal.start||(cal.start&&cal.end)){cal.start=dt;cal.end=null;} else { if(dt<cal.start){cal.end=cal.start;cal.start=dt;} else cal.end=dt; } renderCal(); };
   function isoOf(d,end){ const pad=n=>String(n).padStart(2,'0'); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+(end?'23:59:59':'00:00:00')+'+08:00'; }
   function shortD(d){ return MONTHS[d.getMonth()].slice(0,3)+' '+d.getDate(); }
-  window.wsPreset=function(range,label){ cal.range=range; cal.start=null; cal.end=null; if($('ws-start'))$('ws-start').value=''; if($('ws-end'))$('ws-end').value=''; $('ws-date-label').textContent=label; $('ws-date-label').className='text-slate-700'; closeCal(); wsRefreshCode(); };
-  window.wsApplyRange=function(){ if(cal.start){ cal.range=''; $('ws-start').value=isoOf(cal.start,false); $('ws-end').value=isoOf(cal.end||cal.start,true); $('ws-date-label').textContent=cal.end?(shortD(cal.start)+' – '+shortD(cal.end)):shortD(cal.start); $('ws-date-label').className='text-slate-700'; } closeCal(); wsRefreshCode(); };
-  window.wsClearRange=function(){ cal.start=null; cal.end=null; cal.range=''; if($('ws-start'))$('ws-start').value=''; if($('ws-end'))$('ws-end').value=''; $('ws-date-label').textContent='Custom range'; $('ws-date-label').className='text-slate-400'; closeCal(); wsRefreshCode(); };
+  window.wsPreset=function(range,label){ cal.range=range; cal.start=null; cal.end=null; if($('ws-start'))$('ws-start').value=''; if($('ws-end'))$('ws-end').value=''; $('ws-date-label').textContent=label; $('ws-date-label').className='text-[#737373]'; closeCal(); wsRefreshCode(); };
+  window.wsApplyRange=function(){ if(cal.start){ cal.range=''; $('ws-start').value=isoOf(cal.start,false); $('ws-end').value=isoOf(cal.end||cal.start,true); $('ws-date-label').textContent=cal.end?(shortD(cal.start)+' – '+shortD(cal.end)):shortD(cal.start); $('ws-date-label').className='text-[#737373]'; } closeCal(); wsRefreshCode(); };
+  window.wsClearRange=function(){ cal.start=null; cal.end=null; cal.range=''; if($('ws-start'))$('ws-start').value=''; if($('ws-end'))$('ws-end').value=''; $('ws-date-label').textContent='Custom range'; $('ws-date-label').className='text-[#a3a3a3]'; closeCal(); wsRefreshCode(); };
   document.addEventListener('mousedown',function(e){ if(cal.open){ const wrap=$('ws-date-pop'); const btn=$('ws-date-btn'); if(wrap&&!wrap.contains(e.target)&&btn&&!btn.contains(e.target)) closeCal(); } });
 
   // ── Search request code-gen (3 langs, highlighted, dynamic) ──

@@ -14,8 +14,8 @@ window.setAccessState = function(state) {
     btn.style.background = active ? '#0398551a' : '';
     btn.style.color = active ? '#039855' : '';
     btn.style.borderColor = active ? 'rgba(3,152,85,.3)' : '';
-    btn.classList.toggle('text-slate-500', !active);
-    btn.classList.toggle('border-slate-200', !active);
+    btn.classList.toggle('text-[#737373]', !active);
+    btn.classList.toggle('border-[#e7e7e7]', !active);
     btn.classList.toggle('font-medium', active);
   });
   window.updateGateNotices();

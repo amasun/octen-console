@@ -4,29 +4,29 @@ registerPage("page-web-chat", `
   <div class="mb-6">
     <div class="flex items-center gap-3 mb-2">
       <svg class="w-8 h-8" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
-      <h1 class="text-slate-900 text-2xl font-semibold">Web Chat</h1>
+      <h1 class="text-[#0a0a0a] text-2xl font-semibold">Web Chat</h1>
     </div>
-    <p class="text-slate-600">Interactive chat interface powered by AI search technology.</p>
+    <p class="text-[#737373]">Interactive chat interface powered by AI search technology.</p>
   </div>
   <!-- Payment notice -->
   <div id="web-chat-pay-notice" class="mb-4 p-4 rounded-xl flex items-start gap-3 border border-orange-200 bg-orange-50">
     <svg class="w-5 h-5 text-orange-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
     <div class="flex-1 min-w-0">
-      <p class="text-sm text-slate-900 font-medium mb-1">Payment method required</p>
-      <p class="text-sm text-slate-600">Add a payment method in <a href="#" onclick="go('billing');return false" class="underline" style="color:#039855">Billing</a> to use the Web Chat feature.</p>
+      <p class="text-sm text-[#0a0a0a] font-medium mb-1">Payment method required</p>
+      <p class="text-sm text-[#737373]">Add a payment method in <a href="#" onclick="go('billing');return false" class="underline" style="color:#039855">Billing</a> to use the Web Chat feature.</p>
     </div>
   </div>
 
-  <div class="bg-white rounded-xl border border-slate-200 flex flex-col" style="height:calc(100vh - 20rem)">
+  <div class="bg-white rounded-xl border border-[#e7e7e7] flex flex-col" style="height:calc(100vh - 20rem)">
     <div class="flex-1 flex items-center justify-center">
-      <div class="text-center text-slate-400">
+      <div class="text-center text-[#a3a3a3]">
         <svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
         <p>Start a conversation to see AI-powered search in action</p>
       </div>
     </div>
-    <div class="border-t border-slate-200 p-4">
+    <div class="border-t border-[#e7e7e7] p-4">
       <div class="flex gap-3">
-        <input type="text" placeholder="Ask anything..." class="flex-1 px-4 py-3 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-[#039855]"/>
+        <input type="text" placeholder="Ask anything..." class="flex-1 px-4 py-3 border border-[#dbdbdb] rounded-lg text-sm focus:outline-none focus:border-[#039855]"/>
         <button class="px-4 py-3 rounded-lg text-white text-sm font-medium" style="background:#039855">
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
         </button>
