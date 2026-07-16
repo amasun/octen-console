@@ -31,6 +31,16 @@
     if (el && cmds[v]) el.textContent = cmds[v];
   };
 
+  window.updateOverviewUser = function() {
+    const title = document.getElementById('ov-welcome-title');
+    if (!title) return;
+    const currentUserName = (typeof role !== 'undefined') ? (role === 'owner' ? 'Jane Niu' : (role === 'manager' ? 'Alex Johnson' : 'Sarah Chen')) : 'Jane Niu';
+    title.textContent = 'Welcome, ' + currentUserName;
+  };
+
   window.pageInit = window.pageInit || {};
-  window.pageInit['overview'] = setupMcpsTabs;
+  window.pageInit['overview'] = function() {
+    setupMcpsTabs();
+    window.updateOverviewUser();
+  };
 })();

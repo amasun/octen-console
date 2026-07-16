@@ -336,6 +336,20 @@ html, body {
   display: block !important;
 }
 
+/* Hover bridge: extend demo-card upward with transparent padding to fill the gap.
+   Mouse moving from toggle → card passes through this invisible hit area. */
+#demo-card {
+  padding-top: 20px;        /* fills the visual gap between toggle and card */
+  margin-top: -20px;        /* compensates padding so card visually stays in place */
+  background-clip: padding-box;
+}
+/* Keep the card's actual white background starting at the border, not the transparent padding */
+#demo-card::before {
+  content: '';
+  display: block;
+  height: 12px; /* internal spacing above content */
+}
+
 .workspace-body {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
@@ -410,6 +424,7 @@ html, body {
 
 .layout-pane {
   background: #FFF;
+  border: 1px solid #E7E7E7;
   border-radius: 16px;
   box-sizing: border-box;
   display: flex;
@@ -447,8 +462,23 @@ html, body {
 }
 *::-webkit-scrollbar-thumb {
   background: rgba(148, 163, 184, 0.45);
-  border-radius: 9999px;
-  transition: background 0.15s ease;
+  border-radius: 3px;
+}
+
+/* Overview pane: allow vertical scrolling, hide scrollbar until hover */
+#page-overview .layout-pane {
+  overflow: hidden auto; /* override global overflow:hidden; vertical scrolling allowed */
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.3s ease;
+}
+#page-overview .layout-pane:hover {
+  scrollbar-color: rgba(148, 163, 184, 0.45) transparent;
+}
+#page-overview .layout-pane::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+#page-overview .layout-pane:hover::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.45);
 }
 *::-webkit-scrollbar-thumb:hover {
   background: rgba(100, 116, 139, 0.75);

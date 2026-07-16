@@ -47,3 +47,16 @@ Always use the default Tailwind spacing scale for margins and paddings, relying 
 - **4 (16px)**: `p-4`, `m-4`, `gap-4`
 - **6 (24px)**: `p-6`, `m-6`, `gap-6`
 - *(etc... following Tailwind's standard `0.25rem` multiplier scale)*
+
+## 5. Layout Panes (Containers)
+The primary layout panes (`.layout-pane`) must adhere to the following visual specifications:
+- **Border Radius**: 16px (`rounded-2xl`)
+- **Border**: 1px solid `#E7E7E7`
+- **Background**: `#FFFFFF` (Pure White)
+*(Note: These rules override standard border colors specifically for structural panes to create softer page boundaries).*
+
+## 6. Code Block Containers
+Containers for syntax-highlighted code or raw text areas (like `#bsa-code`) should use a subtle, semi-transparent background to blend seamlessly with pure white surfaces:
+- **Border Radius**: 8px (`rounded-lg`)
+- **Border**: 1px solid `#F5F5F5` (`border-[#f5f5f5]`)
+- **Background**: `rgba(245, 245, 245, 0.50)` (`bg-[#f5f5f5]/50`)

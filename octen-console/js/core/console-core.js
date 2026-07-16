@@ -565,6 +565,7 @@ function applyRole() {
   // ov: update key widget + payment banner
   updateOvKeyWidget();
   renderPaymentBanner();
+  if (window.updateOverviewUser) window.updateOverviewUser();
 
   // api keys: member notice, create btn, service keys tab
   const akNotice = document.getElementById('ak-member-notice');

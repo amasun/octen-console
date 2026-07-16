@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "octen-console",
+      "runtimeExecutable": "py",
+      "runtimeArgs": ["-m", "http.server", "9007", "--directory", "octen-console"],
+      "port": 9007
+    }
+  ]
+}

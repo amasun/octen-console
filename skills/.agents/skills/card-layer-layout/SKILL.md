@@ -25,7 +25,7 @@ To implement this layout, designers and developers must structure the UI using t
 - **Role**: Wraps all primary interactive workspaces (e.g., Folder Tree, Main Content Area, Sidebar Panels).
 - **Styling**: Cards (`.pane` / `.layout-pane`) are enclosed containers that must feature:
   - **Pronounced border-radius**: `border-radius: 16px`.
-  - **Crisp subtle border contour**: `border: 1px solid rgba(115, 115, 115, 0.20)`.
+  - **Crisp subtle border contour**: `border: 1px solid #E7E7E7`.
   - **Pure white card background**: `background: #FFF` (`#ffffff`) that stands out sharply against the `#F5F5F5` base background.
   - High-contrast text color (`#020617`).
 
@@ -57,7 +57,7 @@ Ensure the following design tokens are registered and consistently referenced:
   
   /* --- Card Pane Standard --- */
   --pane-bg: #FFF;
-  --pane-border: 1px solid rgba(115, 115, 115, 0.20);
+  --pane-border: 1px solid #E7E7E7;
   --pane-radius: 16px;
   
   /* --- Radii Scale --- */
@@ -138,7 +138,7 @@ Use this HTML/CSS skeleton as the starting boilerplate for any card-layered dash
 .workspace {
   display: grid;
   grid-template-columns: var(--ribbon-width) 1fr;
-  padding: 0 var(--vl-layout-padding) var(--vl-layout-padding) 0; /* Gap at bottom and right */
+  padding: var(--vl-layout-padding) var(--vl-layout-padding) var(--vl-layout-padding) 0; /* 10px 10px 10px 0 padding for pane parent */
   min-height: 0;
 }
 
@@ -186,7 +186,7 @@ Use this HTML/CSS skeleton as the starting boilerplate for any card-layered dash
 .pane, .layout-pane {
   background: #FFF;
   border-radius: 16px;
-  border: 1px solid rgba(115, 115, 115, 0.20);
+  border: 1px solid #E7E7E7;
   box-shadow: var(--shadow-workspace);
   display: flex;
   flex-direction: column;
@@ -214,8 +214,14 @@ pre code {
   background: none;
   padding: 0;
   color: var(--text-normal, #020617);
-  font-size: 0.84em;
   line-height: 1.55;
+}
+
+/* code block containers (e.g. #bsa-code) */
+.code-container, #bsa-code {
+  border-radius: 8px;
+  border: 1px solid #F5F5F5;
+  background: rgba(245, 245, 245, 0.50);
 }
 ```
 
@@ -227,6 +233,6 @@ When tasked to build or audit a card-layered visual interface:
 1. **[ ] Ambient Depth**: Does the `body` use clean neutral grey `#F5F5F5` (`--bg-workspace`) with `#020617` primary text (`--text-normal`) for high-contrast light mode?
 2. **[ ] Gap Isolation**: Are there pronounced Gaps/Paddings (`10px`) between cards and screen edges? (Cards must NEVER touch the ribbon or each other directly).
 3. **[ ] Outer Control Separation**: Do both `.ribbon` and `.sidebar` sit directly on the base layer WITHOUT a white card background? (Transparent, blending into base layer).
-4. **[ ] Card Borders & Radii**: Do the panels (`.pane`, `.layout-pane`) have `border-radius: 16px` and crisp contour `border: 1px solid rgba(115, 115, 115, 0.20)`?
+4. **[ ] Card Borders & Radii**: Do the panels (`.pane`, `.layout-pane`) have `border-radius: 16px` and crisp contour `border: 1px solid #E7E7E7`?
 5. **[ ] Card High-Contrast Separation**: Do the cards pop with pure white background (`#FFF` / `#ffffff`) against the `#F5F5F5` base?
 6. **[ ] Typography & Code Styling**: Does code content (`code`, `pre`) use **`JetBrains Mono`** (`font-family: "JetBrains Mono", monospace`) with clear background spacing and line-height?
