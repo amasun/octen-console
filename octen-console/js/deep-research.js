@@ -5,11 +5,11 @@
   const EXAMPLES=['What are AI agents actually being used for in production?','NVIDIA vs AMD stock performance','What are the most promising AI startups to watch right now?'];
   const SUBQ_SRC=[
     ['What is the current state of frontier AI models in 2026?',[['openai.com/blog/gpt-4o-benchmarks-2026','GPT-4o Benchmark Results & Performance Analysis'],['anthropic.com/news/claude-4-family','Introducing the Claude 4 Model Family'],['blog.google/gemini-2-5-pro-launch','Gemini 2.5 Pro: Next Generation AI Capabilities']]],
-    ['AI model company overview category:company',[['openai.com/about','About OpenAI — Mission & Research'],['anthropic.com/company','Anthropic — AI Safety Company'],['deepmind.google/about','Google DeepMind — Pioneering AI Research']]],
+    ['AI model company overview category:company',[['openai.com/about','About OpenAI �?Mission & Research'],['anthropic.com/company','Anthropic �?AI Safety Company'],['deepmind.google/about','Google DeepMind �?Pioneering AI Research']]],
     ['frontier AI models latest news 2026',[['techcrunch.com/2026/frontier-ai-models-comparison','Frontier AI Models Compared: Who Leads in 2026?'],['theverge.com/2026/3/ai-models-roundup','March 2026 AI Roundup'],['arstechnica.com/ai/2026/claude-4-gpt-5-comparison','Claude 4 vs GPT-5: Head-to-Head Comparison']]],
-    ['AI model capabilities and benchmarks comparison',[['huggingface.co/spaces/open-llm-leaderboard','Open LLM Leaderboard — Hugging Face'],['paperswithcode.com/sota','State-of-the-Art AI Results'],['lmsys.org/chatbot-arena-leaderboard','Chatbot Arena Leaderboard — LMSYS']]],
+    ['AI model capabilities and benchmarks comparison',[['huggingface.co/spaces/open-llm-leaderboard','Open LLM Leaderboard �?Hugging Face'],['paperswithcode.com/sota','State-of-the-Art AI Results'],['lmsys.org/chatbot-arena-leaderboard','Chatbot Arena Leaderboard �?LMSYS']]],
     ['open source LLM models progress 2026',[['ai.meta.com/blog/llama-4','Introducing Llama 4: Open Foundation Models'],['mistral.ai/news/mistral-large-2','Mistral Large 2: Enterprise-Grade Open Model'],['qwenlm.github.io/blog/qwen2.5','Qwen 2.5: Multilingual Open-Weight LLM']]],
-    ['AI industry market trends and adoption 2026',[['mckinsey.com/ai-enterprise-adoption-2026','Enterprise AI Adoption Trends — McKinsey'],['statista.com/ai-market-size-2026','AI Market Size & Growth Forecast 2026']]],
+    ['AI industry market trends and adoption 2026',[['mckinsey.com/ai-enterprise-adoption-2026','Enterprise AI Adoption Trends �?McKinsey'],['statista.com/ai-market-size-2026','AI Market Size & Growth Forecast 2026']]],
     ['Claude 4 model family features and pricing',[['anthropic.com/claude-4-pricing','Claude 4 Pricing & Model Tiers'],['anthropic.com/news/claude-4-opus','Claude 4 Opus: Extended Thinking & Reasoning']]],
     ['GPT-4o multimodal capabilities 2026',[['openai.com/gpt-4o-multimodal','GPT-4o Multimodal: Vision, Audio & Code'],['techcrunch.com/2026/gpt-4o-review','GPT-4o Review: The Most Versatile AI Model']]],
     ['Gemini 2.5 Pro technical specifications',[['blog.google/gemini-2-5-specs','Gemini 2.5 Pro: 2M Token Context'],['arxiv.org/abs/2026.gemini-technical','Gemini 2.5: Technical Report']]],
@@ -60,7 +60,7 @@
     let inner;
     if(!S.sessions.length){ inner='<div style="padding:24px 16px;text-align:center;font-size:11px;color:#94a3b8">No history yet</div>'; }
     else { inner=S.sessions.slice(S.historyPage*10,S.historyPage*10+10).map(s=>'<div onclick="bsLoad(\''+s.id+'\')" class="flex items-center" style="gap:12px;cursor:pointer;padding:10px 16px"><span class="shrink-0" style="width:8px;height:8px;border-radius:999px;border:1px solid #e2e8f0"></span><span class="truncate" style="flex:1;font-size:11px;color:#64748b">'+esc(s.turns[0].query)+'</span><button onclick="event.stopPropagation();bsDel(\''+s.id+'\')" class="shrink-0" style="padding:4px;border:none;background:none;color:#cbd5e1;cursor:pointer"><svg style="width:12px;height:12px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button></div>').join('');
-      if(S.sessions.length>10){ inner+='<div class="flex items-center justify-center" style="gap:8px;padding:8px 16px;border-top:1px solid #f1f5f9"><button onclick="bsHistPage(-1)" style="padding:4px;border:none;background:none;cursor:pointer;color:'+(S.historyPage===0?'#cbd5e1':'#64748b')+'">‹</button><span style="font-size:11px;color:#94a3b8">'+(S.historyPage+1)+' / '+pages+'</span><button onclick="bsHistPage(1)" style="padding:4px;border:none;background:none;cursor:pointer;color:'+(S.historyPage>=pages-1?'#cbd5e1':'#64748b')+'">›</button></div>'; }
+      if(S.sessions.length>10){ inner+='<div class="flex items-center justify-center" style="gap:8px;padding:8px 16px;border-top:1px solid #f1f5f9"><button onclick="bsHistPage(-1)" style="padding:4px;border:none;background:none;cursor:pointer;color:'+(S.historyPage===0?'#cbd5e1':'#64748b')+'">�?/button><span style="font-size:11px;color:#94a3b8">'+(S.historyPage+1)+' / '+pages+'</span><button onclick="bsHistPage(1)" style="padding:4px;border:none;background:none;cursor:pointer;color:'+(S.historyPage>=pages-1?'#cbd5e1':'#64748b')+'">�?/button></div>'; }
     }
     return '<div style="position:absolute;top:100%;right:0;margin-top:8px;width:300px;z-index:50;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.12)"><div style="padding:12px 16px;border-bottom:1px solid #f1f5f9"><span style="font-size:14px;font-weight:600;color:#334155">History</span></div><div style="padding:8px 0">'+inner+'</div></div>';
   }
@@ -120,7 +120,7 @@
       '<button onclick="bsShare()" class="flex items-center" style="gap:6px;padding:8px 12px;font-size:12px;font-weight:500;color:#64748b;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer">'+(S.linkCopied?ICON.check+'Link copied':'<svg style="width:14px;height:14px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share')+'</button>'+
       '<div style="position:relative"><button onclick="bsToggleHistory()" class="flex items-center" style="gap:6px;padding:8px 12px;font-size:12px;font-weight:500;color:#64748b;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer"><svg style="width:14px;height:14px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 3v5h5M3.05 13A9 9 0 106 5.3L3 8"/><path d="M12 7v5l4 2"/></svg> History</button>'+historyDrop()+'</div>'+
       '<button onclick="bsReset()" class="flex items-center" style="gap:6px;padding:8px 16px;font-size:12px;font-weight:500;color:#fff;border-radius:8px;border:none;cursor:pointer;background:'+PRIMARY+'"><svg style="width:14px;height:14px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Chat</button></div>';
-    const turnNav= S.sessionTurns.length>1?'<div class="flex items-center" style="gap:4px"><button onclick="bsTurn(-1)" '+(S.currentTurnIndex===0?'disabled':'')+' style="padding:4px;border:none;background:none;color:#94a3b8;cursor:pointer">‹</button><span style="font-size:12px;color:#64748b;font-weight:500;min-width:40px;text-align:center">'+(S.currentTurnIndex+1)+' / '+S.sessionTurns.length+'</span><button onclick="bsTurn(1)" '+(S.currentTurnIndex===S.sessionTurns.length-1?'disabled':'')+' style="padding:4px;border:none;background:none;color:#94a3b8;cursor:pointer">›</button></div>':'';
+    const turnNav= S.sessionTurns.length>1?'<div class="flex items-center" style="gap:4px"><button onclick="bsTurn(-1)" '+(S.currentTurnIndex===0?'disabled':'')+' style="padding:4px;border:none;background:none;color:#94a3b8;cursor:pointer">�?/button><span style="font-size:12px;color:#64748b;font-weight:500;min-width:40px;text-align:center">'+(S.currentTurnIndex+1)+' / '+S.sessionTurns.length+'</span><button onclick="bsTurn(1)" '+(S.currentTurnIndex===S.sessionTurns.length-1?'disabled':'')+' style="padding:4px;border:none;background:none;color:#94a3b8;cursor:pointer">�?/button></div>':'';
     const stats='<div class="flex items-center justify-center" style="gap:32px"><div style="text-align:center"><div style="font-weight:700;font-size:22px;color:'+PRIMARY+'">'+p.maxQueries+'</div><div style="font-size:12px;color:#94a3b8">Queries</div></div>'+(p.mode!=='queries_only'?'<div style="text-align:center"><div style="font-weight:700;font-size:22px;color:'+PRIMARY+'">'+totalResults+'</div><div style="font-size:12px;color:#94a3b8">Results</div></div><div style="text-align:center"><div style="font-weight:700;font-size:22px;color:'+PRIMARY+'">75 ms</div><div style="font-size:12px;color:#94a3b8">Latency</div></div>':'')+'</div>';
     return '<div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;height:100%"><div style="display:flex;flex-direction:column;height:100%">'+
       '<div class="shrink-0" style="border-bottom:1px solid #e2e8f0;text-align:center;padding:20px 32px 24px;position:relative">'+topRight+
@@ -167,7 +167,7 @@
   const SUBQ=[
     ['{q} market trends',[['globenewswire.com','SNS Insider','Market sized at multi-billion scale with strong double-digit CAGR through 2035.'],['marketsandmarkets.com','MarketsandMarkets','Demand is driven by data-center buildouts and edge deployments.'],['statista.com','Statista','Forecast shows sustained growth across all major regions.']]],
     ['{q} market share',[['reuters.com','Reuters','Leading vendor retained over 80% of the accelerator market.'],['bloomberg.com','Bloomberg','Share shifts as challengers ramp custom silicon.'],['counterpointresearch.com','Counterpoint','Quarterly share tracker shows incremental gains for rivals.']]],
-    ['top {q} manufacturers',[['tomshardware.com','Tom’s Hardware','Roundup of the leading manufacturers and their flagship parts.'],['anandtech.com','AnandTech','Deep dive into architectures from the top players.'],['theverge.com','The Verge','Who is shipping the most capable hardware right now.']]],
+    ['top {q} manufacturers',[['tomshardware.com','Tom鈥檚 Hardware','Roundup of the leading manufacturers and their flagship parts.'],['anandtech.com','AnandTech','Deep dive into architectures from the top players.'],['theverge.com','The Verge','Who is shipping the most capable hardware right now.']]],
     ['{q} leader analysis',[['nvidia.com','NVIDIA','Extended data-center GPU lead with new accelerator family.'],['semianalysis.com','SemiAnalysis','Supply and roadmap analysis of the market leader.'],['cnbc.com','CNBC','Earnings underscore continued dominance.']]],
     ['{q} challenger strategy',[['amd.com','AMD','Strategy update targeting inference and open ecosystems.'],['techcrunch.com','TechCrunch','How challengers plan to close the gap in 2026.'],['fool.com','The Motley Fool','Competitive positioning and outlook.']]],
     ['{q} pricing and cost',[['together.ai','Together AI','Per-unit pricing comparison across providers.'],['openrouter.ai','OpenRouter','Cost trends declined sharply year over year.'],['gartner.com','Gartner','Total cost of ownership framework.']]],
@@ -211,7 +211,7 @@
     return { query:p.query||'', max_queries:p.max_queries, search_options:so };
   }
 
-  // ── time basis pills ──
+  // 鈹€鈹€ time basis pills 鈹€鈹€
   let tbActive='auto';
   document.addEventListener('click',function(e){ const b=e.target.closest&&e.target.closest('.bsa-tb'); if(!b)return;
     tbActive=b.getAttribute('data-tb');
@@ -219,11 +219,11 @@
     refreshCode();
   });
 
-  // ── full content max-tokens visibility ──
+  // 鈹€鈹€ full content max-tokens visibility 鈹€鈹€
   document.addEventListener('change',function(e){ if(e.target&&e.target.id==='bsa-fc'){ const w=$('bsa-fc-wrap'); if(w)w.classList.toggle('hidden',!e.target.checked); }
     if(e.target&&e.target.id==='bsa-hl'){ const w=$('bsa-hl-wrap'); if(w)w.style.opacity=e.target.checked?'1':'0.4'; } });
 
-  // ── date range calendar ──
+  // 鈹€鈹€ date range calendar 鈹€鈹€
   const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
   const DOW=['Su','Mo','Tu','We','Th','Fr','Sa'];
   const cal={ open:false, y:2026, m:5, start:null, end:null, range:'' };
@@ -242,7 +242,7 @@
     const pop=$('bsa-date-pop'); if(!pop)return; const nm=nextM(cal);
     pop.innerHTML='<div style="display:flex;flex-direction:column;gap:2px;width:120px;border-right:1px solid #f1f5f9;padding-right:12px">'+
         [['Last 24 hours','day'],['Last week','week'],['Last month','month'],['Last year','year']].map(p=>'<button type="button" onclick="bsaPreset(\''+p[1]+'\',\''+p[0]+'\')" onmouseenter="if(!this.dataset.on)this.style.background=\'#f8fafc\'" onmouseleave="if(!this.dataset.on)this.style.background=\'transparent\'" '+(cal.range===p[1]?'data-on="1"':'')+' style="text-align:left;padding:8px 10px;border-radius:7px;border:none;cursor:pointer;font-size:13px;'+(cal.range===p[1]?'background:#0398551a;color:#039855;font-weight:500':'background:transparent;color:#475569')+'">'+p[0]+'</button>').join('')+'</div>'+
-      '<div><div style="display:flex;align-items:flex-start;gap:20px"><button type="button" onclick="bsaCalNav(-1)" style="border:none;background:none;cursor:pointer;color:#64748b;font-size:16px;line-height:24px">‹</button><div style="display:flex;gap:20px;flex:1">'+monthGrid(cal.y,cal.m)+monthGrid(nm.y,nm.m)+'</div><button type="button" onclick="bsaCalNav(1)" style="border:none;background:none;cursor:pointer;color:#64748b;font-size:16px;line-height:24px">›</button></div>'+
+      '<div><div style="display:flex;align-items:flex-start;gap:20px"><button type="button" onclick="bsaCalNav(-1)" style="border:none;background:none;cursor:pointer;color:#64748b;font-size:16px;line-height:24px">&larr;</button><div style="display:flex;gap:20px;flex:1">'+monthGrid(cal.y,cal.m)+monthGrid(nm.y,nm.m)+'</div><button type="button" onclick="bsaCalNav(1)" style="border:none;background:none;cursor:pointer;color:#64748b;font-size:16px;line-height:24px">&rarr;</button></div>'+
       '<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px"><button type="button" onclick="bsaClearRange()" style="padding:7px 14px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;color:#64748b">Clear</button><button type="button" onclick="bsaApplyRange()" style="padding:7px 14px;border-radius:8px;border:none;background:'+PRIMARY+';cursor:pointer;font-size:13px;color:#fff;font-weight:500">Apply</button></div></div>';
   }
   function closeCal(){ cal.open=false; const pop=$('bsa-date-pop'); if(pop)pop.style.display='none'; }
@@ -260,11 +260,11 @@
   window.bsaPick=function(y,m,d){ cal.range=''; const dt=new Date(y,m,d); if(!cal.start||(cal.start&&cal.end)){cal.start=dt;cal.end=null;} else { if(dt<cal.start){cal.end=cal.start;cal.start=dt;} else cal.end=dt; } renderCal(); };
   function isoOf(d,end){ const pad=n=>String(n).padStart(2,'0'); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+(end?'23:59:59':'00:00:00')+'+08:00'; }
   function shortD(d){ return MONTHS[d.getMonth()].slice(0,3)+' '+d.getDate(); }
-  // Left presets → time_range enum (mutually exclusive with custom start/end)
-  window.bsaPreset=function(range,label){ cal.range=range; cal.start=null; cal.end=null; $('bsa-start').value=''; $('bsa-end').value=''; $('bsa-date-label').textContent=label; $('bsa-date-label').className='text-slate-700'; closeCal(); refreshCode(); };
-  // Right calendar → custom start/end (clears time_range)
-  window.bsaApplyRange=function(){ if(cal.start){ cal.range=''; $('bsa-start').value=isoOf(cal.start,false); $('bsa-end').value=isoOf(cal.end||cal.start,true); $('bsa-date-label').textContent=cal.end?(shortD(cal.start)+' – '+shortD(cal.end)):shortD(cal.start); $('bsa-date-label').className='text-slate-700'; } closeCal(); refreshCode(); };
-  window.bsaClearRange=function(){ cal.start=null; cal.end=null; cal.range=''; $('bsa-start').value=''; $('bsa-end').value=''; $('bsa-date-label').textContent='Custom range'; $('bsa-date-label').className='text-slate-400'; closeCal(); refreshCode(); };
+  // Left presets &rarr;time_range enum (mutually exclusive with custom start/end)
+  window.bsaPreset=function(range,label){ cal.range=range; cal.start=null; cal.end=null; $('bsa-start').value=''; $('bsa-end').value=''; $('bsa-date-label').textContent=label; $('bsa-date-label').className='text-[#737373]'; closeCal(); refreshCode(); };
+  // Right calendar &rarr;custom start/end (clears time_range)
+  window.bsaApplyRange=function(){ if(cal.start){ cal.range=''; $('bsa-start').value=isoOf(cal.start,false); $('bsa-end').value=isoOf(cal.end||cal.start,true); $('bsa-date-label').textContent=cal.end?(shortD(cal.start)+' �?'+shortD(cal.end)):shortD(cal.start); $('bsa-date-label').className='text-[#737373]'; } closeCal(); refreshCode(); };
+  window.bsaClearRange=function(){ cal.start=null; cal.end=null; cal.range=''; $('bsa-start').value=''; $('bsa-end').value=''; $('bsa-date-label').textContent='Custom range'; $('bsa-date-label').className='text-[#a3a3a3]'; closeCal(); refreshCode(); };
   document.addEventListener('mousedown',function(e){ if(cal.open){ const wrap=$('bsa-date-pop'); const btn=$('bsa-date-btn'); if(wrap&&!wrap.contains(e.target)&&btn&&!btn.contains(e.target)){ closeCal(); } } });
   let bsaLang='python';
   const SZ=(window.PGS_serialize)||((v)=>JSON.stringify(v,null,2));
@@ -278,7 +278,11 @@
   function refreshCode(){ const el=$('bsa-code'); if(!el)return; const hl=bsaLang==='python'?window.PGS_hlCode:(bsaLang==='javascript'?window.PGS_hlCode:window.PGS_hlCode);
     if(window.PGS_codeBlock){ el.innerHTML=window.PGS_codeBlock(reqCode(),hl); el.firstChild&&(el.firstChild.style.maxHeight="560px"); }
     else { el.textContent=reqCode(); }
-    document.querySelectorAll('.bsa-lang').forEach(b=>{const on=b.getAttribute('data-l')===bsaLang;b.style.cssText='padding:6px 12px;font-size:12px;cursor:pointer;'+(b.getAttribute('data-l')!=='python'?'border-left:1px solid #e2e8f0;':'')+(on?'background:#0398551a;color:#039855;font-weight:500':'background:#fff;color:#475569');});
+    document.querySelectorAll('.bsa-lang').forEach(b=>{
+      const on=b.getAttribute('data-l')===bsaLang;
+      b.className = 'bsa-lang px-3 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer ' + (on ? 'bg-white shadow text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a] hover:bg-[#e5e5e5]');
+      b.style.cssText = '';
+    });
   }
   window.bsaSetLang=function(l){ bsaLang=l; refreshCode(); };
   window.bsaCopyReq=function(){ try{navigator.clipboard&&navigator.clipboard.writeText(reqCode());}catch(e){} const b=$('bsa-copyreq'); if(b){const o=b.innerHTML;b.innerHTML='<svg class="w-3.5 h-3.5" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Copied</span>';setTimeout(()=>b.innerHTML=o,1500);} };
@@ -290,7 +294,7 @@
     const search_results=subs.map((sq,i)=>{
       const qtext=sq[0].replace('{q}',p.query); const lat=LAT[i]||70; totalLat+=lat;
       const results=[]; for(let k=0;k<p.count;k++){ const base=sq[1][k%sq[1].length]; const host=base[0]; const slug=p.query.toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,40);
-        const item={ title:base[1]+' — '+capitalize(qtext), url:'https://www.'+host+'/2026/'+slug+(k?'-'+(k+1):''), authors:base[1] };
+        const item={ title:base[1]+' �?'+capitalize(qtext), url:'https://www.'+host+'/2026/'+slug+(k?'-'+(k+1):''), authors:base[1] };
         if(p.hl)item.highlight=base[2];
         item.time_published=HOST_DATES[k%HOST_DATES.length];
         item.time_last_crawled='2026-04-02T03:18:46Z';
@@ -314,15 +318,19 @@
     $('bsa-tab-req').style.cssText = '';
     $('bsa-tab-res').style.cssText = '';
     
-    const activeCls = 'px-1 py-1.5 text-sm font-medium text-slate-900 border-b-[1.5px] border-slate-900 transition-colors';
-    const inactiveCls = 'px-1 py-1.5 text-sm font-medium text-slate-500 border-b-[1.5px] border-transparent hover:text-slate-700 transition-colors';
+    const activeCls = 'px-1 py-1.5 text-sm font-medium text-[#0a0a0a] border-b-[1.5px] border-slate-900 transition-colors';
+    const inactiveCls = 'px-1 py-1.5 text-sm font-medium text-[#737373] border-b-[1.5px] border-transparent hover:text-[#737373] transition-colors';
     
     $('bsa-tab-req').className = req ? activeCls : inactiveCls;
     $('bsa-tab-res').className = req ? inactiveCls : activeCls;
   };
   window.bsaRtab=function(t){ rtab=t;
-    $('bsa-rt-preview').style.cssText=t==='preview'?'background:#0398551a;color:#039855;font-weight:500':'background:#fff;color:#475569';
-    $('bsa-rt-json').style.cssText=t==='json'?'background:#0398551a;color:#039855;font-weight:500':'background:#fff;color:#475569';
+    const activeCls = 'px-3 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer bg-white shadow text-[#0a0a0a]';
+    const inactiveCls = 'px-3 py-1 rounded-lg text-xs font-medium transition-colors cursor-pointer bg-transparent text-[#737373] hover:text-[#0a0a0a] hover:bg-[#e5e5e5]';
+    $('bsa-rt-preview').className = t === 'preview' ? activeCls : inactiveCls;
+    $('bsa-rt-json').className = t === 'json' ? activeCls : inactiveCls;
+    $('bsa-rt-preview').style.cssText = '';
+    $('bsa-rt-json').style.cssText = '';
     renderRespBody();
   };
   window.bsaRun=function(){
@@ -333,16 +341,42 @@
   window.bsaClear=function(){ $('bsa-query').value=''; lastResp=null; refreshCode(); renderEmpty(); };
   window.bsaToggleResult=function(i){ const el=$('bsa-r-'+i); const ch=$('bsa-c-'+i); if(!el)return; const open=el.style.display!=='none'; el.style.display=open?'none':'block'; if(ch)ch.style.transform=open?'':'rotate(180deg)'; };
 
-  function renderEmpty(){ $('bsa-meta').textContent=''; $('bsa-resp-body').innerHTML='<div class="flex flex-col items-center justify-center py-12 text-slate-400"><svg class="w-10 h-10 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg><p class="text-xs">Run a query to see expanded queries &amp; parallel results</p></div>'; }
+  function renderEmpty(){ $('bsa-meta').textContent=''; $('bsa-resp-body').innerHTML=`<div class="flex-1 flex flex-col items-center justify-center py-12 text-[#a3a3a3]">
+  <svg class="w-[36px] h-[36px] mb-2 shrink-0" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M29.2059 21.9674C29.2158 21.9191 29.285 21.9191 29.2949 21.9674C29.8082 24.4792 31.7711 26.4421 34.2829 26.9554C34.3312 26.9653 34.3312 27.0345 34.2829 27.0444C31.7711 27.5577 29.8082 29.5206 29.2949 32.0324C29.285 32.0808 29.2158 32.0808 29.2059 32.0324C28.6926 29.5206 26.7297 27.5577 24.2179 27.0444C24.1695 27.0345 24.1695 26.9653 24.2179 26.9554C26.7297 26.4421 28.6926 24.4792 29.2059 21.9674Z" stroke="#039855" stroke-width="2.25"/>
+<path d="M22.0791 15.5641C22.1729 15.1049 22.829 15.1049 22.9228 15.5641C23.1301 16.5783 23.9227 17.3708 24.9368 17.5781C25.396 17.6719 25.396 18.328 24.9368 18.4219C23.9227 18.6291 23.1301 19.4217 22.9228 20.4358C22.829 20.895 22.1729 20.895 22.0791 20.4358C21.8718 19.4217 21.0792 18.6291 20.0651 18.4219C19.6059 18.328 19.6059 17.6719 20.0651 17.5781C21.0792 17.3708 21.8718 16.5783 22.0791 15.5641Z" fill="#039855"/>
+<path d="M5.25 13.35H4.125V13.35H5.25ZM10.2789 30.5737L10.6347 31.641L10.6347 31.641L10.2789 30.5737ZM17.3433 31.1764L16.8046 30.1888V30.1888L17.3433 31.1764ZM20.0387 30.9876C20.5842 30.6901 20.7852 30.0067 20.4876 29.4613C20.1901 28.9158 19.5067 28.7148 18.9613 29.0124L19.5 30L20.0387 30.9876ZM29.625 17.25C29.625 17.8713 30.1287 18.375 30.75 18.375C31.3713 18.375 31.875 17.8713 31.875 17.25H30.75H29.625ZM13.5095 31.0063L12.8855 31.9424H12.8855L13.5095 31.0063ZM5.25001 28.0951L4.12501 28.0951L4.12501 28.0978L5.25001 28.0951ZM9.19172 30.9361L9.54486 32.0042L9.54747 32.0034L9.19172 30.9361ZM8.52606 4.40396L8.01532 3.40158L8.52606 4.40396ZM5.90396 7.02606L6.90634 7.5368L6.90634 7.5368L5.90396 7.02606ZM27.4739 4.40396L27.9847 3.40158V3.40158L27.4739 4.40396ZM30.096 7.02606L31.0984 6.51532V6.51532L30.096 7.02606ZM12.75 10.125C12.1287 10.125 11.625 10.6287 11.625 11.25C11.625 11.8713 12.1287 12.375 12.75 12.375V11.25V10.125ZM23.25 12.375C23.8713 12.375 24.375 11.8713 24.375 11.25C24.375 10.6287 23.8713 10.125 23.25 10.125V11.25V12.375ZM12.75 16.875C12.1287 16.875 11.625 17.3787 11.625 18C11.625 18.6213 12.1287 19.125 12.75 19.125V18V16.875ZM15.375 19.125C15.9963 19.125 16.5 18.6213 16.5 18C16.5 17.3787 15.9963 16.875 15.375 16.875V18V19.125ZM21.15 3.75V2.625H14.85V3.75V4.875H21.15V3.75ZM17.3433 31.1764L17.882 32.164L20.0387 30.9876L19.5 30L18.9613 29.0124L16.8046 30.1888L17.3433 31.1764ZM30.75 17.25H31.875V13.35H30.75H29.625V17.25H30.75ZM10.2789 30.5737L10.6347 31.641C11.3913 31.3888 12.2219 31.5 12.8855 31.9424L13.5095 31.0063L14.1335 30.0703C12.8922 29.2427 11.3384 29.0347 9.92316 29.5064L10.2789 30.5737ZM5.25001 28.0951L4.12501 28.0978C4.13188 30.9049 6.87968 32.8854 9.54486 32.0042L9.19172 30.9361L8.83857 29.8679C7.62713 30.2685 6.37813 29.3682 6.37501 28.0923L5.25001 28.0951ZM14.85 3.75V2.625C13.1884 2.625 11.8746 2.62413 10.8176 2.71048C9.74752 2.79791 8.84208 2.98032 8.01532 3.40158L8.52606 4.40396L9.0368 5.40634C9.49351 5.17364 10.0699 5.02907 11.0008 4.95301C11.9449 4.87587 13.1513 4.875 14.85 4.875V3.75ZM5.25 13.35H6.375C6.375 11.6513 6.37587 10.4449 6.45301 9.50082C6.52907 8.56988 6.67364 7.99351 6.90634 7.5368L5.90396 7.02606L4.90158 6.51532C4.48032 7.34208 4.29791 8.24752 4.21048 9.3176C4.12413 10.3746 4.125 11.6884 4.125 13.35H5.25ZM8.52606 4.40396L8.01532 3.40158C6.67466 4.08468 5.58468 5.17466 4.90158 6.51532L5.90396 7.02606L6.90634 7.5368C7.37373 6.61951 8.11951 5.87373 9.0368 5.40634L8.52606 4.40396ZM13.5095 31.0063L12.8855 31.9424C14.3804 32.939 16.3047 33.0244 17.882 32.164L17.3433 31.1764L16.8046 30.1888C15.9614 30.6487 14.9327 30.603 14.1335 30.0703L13.5095 31.0063ZM21.15 3.75V4.875C22.8487 4.875 24.0551 4.87587 24.9992 4.95301C25.9301 5.02907 26.5065 5.17364 26.9632 5.40634L27.4739 4.40396L27.9847 3.40158C27.1579 2.98032 26.2525 2.79791 25.1824 2.71048C24.1254 2.62413 22.8116 2.625 21.15 2.625V3.75ZM30.75 13.35H31.875C31.875 11.6884 31.8759 10.3746 31.7895 9.3176C31.7021 8.24752 31.5197 7.34208 31.0984 6.51532L30.096 7.02606L29.0937 7.5368C29.3264 7.99351 29.4709 8.56988 29.547 9.50082C29.6241 10.4449 29.625 11.6513 29.625 13.35H30.75ZM27.4739 4.40396L26.9632 5.40634C27.8805 5.87373 28.6263 6.61951 29.0937 7.5368L30.096 7.02606L31.0984 6.51532C30.4153 5.17466 29.3253 4.08468 27.9847 3.40158L27.4739 4.40396ZM12.75 11.25V12.375H23.25V11.25V10.125H12.75V11.25ZM12.75 18V19.125H15.375V18V16.875H12.75V18ZM5.25 13.35H4.125L4.12501 28.0951L5.25001 28.0951H6.37501L6.375 13.35L5.25 13.35ZM9.19172 30.9361L9.54747 32.0034L10.6347 31.641L10.2789 30.5737L9.92317 29.5064L8.83597 29.8688L9.19172 30.9361Z" fill="#A3A3A3"/>
+</svg>
+  <p class="text-sm">Run a query to see expanded queries &amp; parallel results</p>
+</div>`; }
+  function renderFigmaPreview(){
+    const previewQueries=[
+      {query:'latest central bank interest rate decisions 2026',latency:85,open:true,results:[
+        ['Central Bank Decisions & 2026 Interest Rate Outlook for NSE:TCS by GlobalWolfStreet - TradingView India','1. Central Bank Policy Trends in Early 2026. The U.S. Federal Reserve has held its key policy rate in a tight range after a series of cuts during 2025.','GlobalWolfStreet Follow - 2026/02/13 (UTC+8) - in.tradingview.com'],
+        ['Central Bank Interest Rate Decisions: How the Fed, ECB, and BoE Shape Your Economy - maseconomics','On March 18, 2026, the Federal Reserve, the European Central Bank, and the Bank of England held their benchmark interest rates steady.','Majid Ali Sanghro - 2026/04/04 (UTC+8) - maseconomics.com'],
+        ['Super Central Bank Week 2026: How Interest Rate Decisions Will Impact the Crypto Market | KuCoin','Super Central Bank Week 2026 explains how interest rate decisions may shape crypto market liquidity, risk appetite, and volatility.','2026/05/02 (UTC+8) - kucoin.com'],
+        ['Why are Interest Rate CFDs influenced by central bank decisions? - WalletInvestor Magazin - Investing news','Interest Rate CFDs are influenced by central bank decisions because policy rates affect borrowing costs, growth expectations, and market pricing.','Sylvia - 2022/02/07 (UTC+8) - walletinvestor.com'],
+        ['Why are Interest Rate CFDs influenced by central bank decisions? - Bitcoin News, Forecast, Technical Analysis, 8000+ Cryptocurrencies','Interest Rate CFDs allow traders to speculate on the future direction of rates, making central bank decisions a direct input to price expectations.','WalletInvestor - 2022/02/07 (UTC+8) - walletinvestor.com']
+      ]},
+      {query:'global central bank rate hikes 2026',latency:78},
+      {query:'recent monetary policy changes worldwide',latency:82},
+      {query:'central bank interest rate announcements today',latency:82},
+      {query:'Federal Reserve interest rate decision 2026',latency:68}
+    ];
+    const globe='<svg class="w-4 h-4 text-[#a3a3a3] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>';
+    const chevron='<svg class="w-4 h-4 text-[#a3a3a3] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>';
+    const rows=previewQueries.map((group,i)=>{
+      const results=(group.results||[]).map((r,k)=>'<a href="#" onclick="return false" class="group flex items-start gap-3 px-4 py-3 transition-colors hover:bg-[#f5f5f5]">'+(k===4?'<span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#f5f5f5] text-xs font-bold text-[#039855]">W</span>':'')+'<div class="min-w-0 flex-1"><div class="truncate text-sm font-medium text-[#0a0a0a]">'+esc(r[0])+'</div><div class="mt-1 line-clamp-2 text-xs leading-5 text-[#737373]">'+esc(r[1])+'</div><div class="mt-1 truncate text-xs text-[#a3a3a3]">'+esc(r[2])+'</div></div></a>').join('');
+      return '<section class="overflow-hidden rounded-[14px] border border-[#dbdbdb] bg-white"><button type="button" onclick="bsaToggleResult('+i+')" class="flex w-full items-center gap-3 bg-white px-4 py-3 text-left transition-colors hover:bg-[#f5f5f5]">'+globe+'<span class="min-w-0 flex-1 truncate text-sm font-medium text-[#0a0a0a]">'+esc(group.query)+'</span><span class="shrink-0 text-xs text-[#a3a3a3]">5 results</span><span class="shrink-0 text-xs font-medium text-[#039855]">'+group.latency+'ms</span>'+chevron+'</button><div id="bsa-r-'+i+'" style="display:'+(group.open?'block':'none')+'" class="border-t border-[#dbdbdb] py-2">'+results+'</div></section>';
+    }).join('<div class="h-2"></div>');
+    return '<div class="w-full p-3">'+rows+'</div>';
+  }
+
   function renderRespBody(){
     if(!lastResp){ renderEmpty(); return; }
-    $('bsa-meta').textContent=lastResp.meta.usage.num_search_queries+' queries · '+lastResp.meta.latency+' ms';
+    $('bsa-meta').textContent=lastResp.meta.usage.num_search_queries+' queries �?'+lastResp.meta.latency+' ms';
     if(rtab==='json'){ $('bsa-resp-body').innerHTML='<div class="bg-slate-900 rounded-md p-4 overflow-auto max-h-[28rem]"><pre class="text-xs text-slate-100 whitespace-pre font-mono">'+esc(JSON.stringify(lastResp,null,2))+'</pre></div>'; return; }
-    const rows=lastResp.search_results.map((sr,i)=>{
-      const results=sr.results.map((r,k)=>'<a href="'+esc(r.url)+'" target="_blank" rel="noopener noreferrer" class="flex items-start gap-2 py-1.5 rounded-md hover:bg-slate-50 px-1 transition-colors"><img src="'+esc(r.favicon)+'" onerror="this.style.visibility=\'hidden\'" class="shrink-0 mt-0.5 rounded" style="width:14px;height:14px"/><div class="min-w-0 flex-1"><div class="text-slate-700 truncate" style="font-size:11px">'+esc(r.title)+'</div>'+(r.highlight?'<div class="text-slate-500 mt-0.5" style="font-size:10px;line-height:1.35">'+esc(r.highlight)+'</div>':'')+'<div class="text-slate-400 truncate mt-0.5" style="font-size:9px;line-height:1.2">'+esc(r.authors)+' · '+fmtDate(r.time_published)+' · '+esc(r.url)+'</div></div></a>').join('');
-      return '<div class="rounded-lg overflow-hidden"><button onclick="bsaToggleResult('+i+')" class="w-full flex items-center gap-3 px-3 py-2.5 hover:bg-slate-50 transition-colors text-left rounded-lg"><svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg><span class="text-slate-700 flex-1 leading-snug truncate" style="font-size:11px">'+esc(sr.query)+'</span><span class="text-xs text-slate-400 shrink-0">'+sr.results.length+' results</span><span class="text-xs shrink-0" style="color:#039855">'+sr.latency+'ms</span><svg id="bsa-c-'+i+'" class="w-3.5 h-3.5 text-slate-300 shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button><div id="bsa-r-'+i+'" style="display:none" class="px-3 pb-2.5"><div style="margin-left:28px">'+results+'</div></div></div>';
-    }).join('');
-    $('bsa-resp-body').innerHTML='<div style="display:flex;flex-direction:column;gap:2px">'+rows+'</div>';
+    $('bsa-resp-body').innerHTML=renderFigmaPreview();
   }
 
   document.addEventListener('DOMContentLoaded',function(){ if($('bsa-code'))refreshCode();
