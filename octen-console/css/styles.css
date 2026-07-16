@@ -499,6 +499,9 @@ code, pre, pre code, .font-mono {
 /* Request pane toolbar (Python/JS/cURL + Copy): 20px sides, 16px top/bottom. */
 #bsa-pane-request > .flex.items-center.justify-between { gap: 0; padding: 10px 20px; }
 
+/* Response pane toolbar (Preview/JSON + Copy) */
+#bsa-pane-response > .flex.items-center.justify-between { gap: 0; padding-top: 10px; padding-bottom: 10px; padding-right: 24px; padding-left: 20px; }
+
 /* Request pane code area: 0 top, 20px sides, 20px bottom. */
 #bsa-pane-request > .relative.flex-1 { padding: 0 20px 20px; }
 

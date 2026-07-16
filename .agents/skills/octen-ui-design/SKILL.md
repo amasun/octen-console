@@ -38,3 +38,12 @@ The project strictly enforces a 6-level typography scale based on Tailwind's def
 - **lg (18px)**: Standard panel headers, modal titles (`text-lg`).
 - **xl (20px)**: Large modal titles or emphasis headers (`text-xl`).
 - **4xl (36px)**: Heroic typography and splash screen headers (`text-4xl`).
+
+## 4. Spacing Scale (Tailwind Default)
+Always use the default Tailwind spacing scale for margins and paddings, relying on increments of 4px. Custom arbitrary spacing values should be avoided.
+- **1 (4px)**: `p-1`, `m-1`, `gap-1`
+- **2 (8px)**: `p-2`, `m-2`, `gap-2`
+- **3 (12px)**: `p-3`, `m-3`, `gap-3`
+- **4 (16px)**: `p-4`, `m-4`, `gap-4`
+- **6 (24px)**: `p-6`, `m-6`, `gap-6`
+- *(etc... following Tailwind's standard `0.25rem` multiplier scale)*
