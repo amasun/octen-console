@@ -34,8 +34,7 @@
   window.updateOverviewUser = function() {
     const title = document.getElementById('ov-welcome-title');
     if (!title) return;
-    const currentUserName = (typeof role !== 'undefined') ? (role === 'owner' ? 'Jane Niu' : (role === 'manager' ? 'Alex Johnson' : 'Sarah Chen')) : 'Jane Niu';
-    title.textContent = 'Welcome, ' + currentUserName;
+    title.textContent = 'Welcome, Jane Niu';
   };
 
   window.pageInit = window.pageInit || {};
