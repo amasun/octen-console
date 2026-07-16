@@ -46,10 +46,36 @@
     });
     tb.innerHTML=h;
   }
-  
-  
 
-  document.addEventListener('DOMContentLoaded',render);
+  // Tab groups (spend-tab, payg-tab). These moved out of the template because
+  // innerHTML injection never executes inline <script>, so the tabs were dead.
+  function wireTabs(tabSel, panelSel, tabKey, panelKey){
+    const tabs = document.querySelectorAll(tabSel);
+    const panels = document.querySelectorAll(panelSel);
+    tabs.forEach(t => t.addEventListener('click', () => {
+      const key = t.dataset[tabKey];
+      tabs.forEach(x => {
+        const active = x.dataset[tabKey] === key;
+        x.style.color = active ? '#039855' : '';
+        x.style.borderColor = active ? '#039855' : '';
+        x.classList.toggle('text-slate-500', !active);
+        x.classList.toggle('border-transparent', !active);
+      });
+      panels.forEach(p => p.classList.toggle('hidden', p.dataset[panelKey] !== key));
+    }));
+  }
+
+  function init(){
+    render();
+    wireTabs('.spend-tab', '.spend-panel', 'spendTab', 'spendPanel');
+    wireTabs('.payg-tab', '.payg-panel', 'paygTab', 'paygPanel');
+  }
+
+  // SPA lifecycle: #billing-model-rows and the tab elements only exist after the
+  // billing page is injected, so DOMContentLoaded alone never fires against real DOM.
+  window.pageInit = window.pageInit || {};
+  window.pageInit['billing'] = init;
+  document.addEventListener('DOMContentLoaded',init);
 })();
 
 

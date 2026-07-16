@@ -1,141 +1,9 @@
-tailwind.config = {
-    darkMode: ['class', '[data-theme="dark"]'],
-    theme: {
-      extend: {
-        colors: {
-          slate: {
-            50: 'var(--trans-faint-10)',
-            100: 'var(--color-base-10)',
-            200: 'var(--color-base-20)',
-            300: 'var(--color-base-30)',
-            400: 'var(--color-base-40)',
-            500: 'var(--color-base-50)',
-            600: 'var(--color-base-60)',
-            700: 'var(--color-base-70)',
-            800: 'var(--color-base-80)',
-            900: 'var(--color-base-90)',
-            950: 'var(--color-base-100)',
-          },
-          white: 'var(--background-secondary)',
-          black: 'var(--text-normal)',
-          blue: {
-            50: 'var(--trans-faint-10)',
-            100: 'var(--color-accent-1)',
-            500: 'var(--color-accent)',
-            600: 'var(--color-accent)',
-            700: 'var(--color-accent)',
-          },
-          green: {
-            50: 'var(--trans-faint-10)',
-            500: 'var(--color-green)',
-            600: 'var(--color-green)',
-            700: 'var(--color-green)',
-          },
-          red: {
-            50: 'var(--trans-faint-10)',
-            500: 'var(--color-red)',
-            600: 'var(--color-red)',
-            700: 'var(--color-red)',
-          },
-          purple: {
-            50: 'var(--trans-faint-10)',
-            500: 'var(--color-purple)',
-            600: 'var(--color-purple)',
-            700: 'var(--color-purple)',
-          }
-        }
-      }
-    }
-  }
+// Console core state & behaviors (extracted from the prototype's main script).
+// Defines the global demo state (workspace, role, payment, billing) and all
+// onclick-referenced globals used by sidebar/modals/page templates.
+// NOTE: functions here are intentionally top-level (global) — inline onclick
+// handlers in templates resolve them on window at call time.
 
-if (!window.raCopyTemplate) {
-          window.raCopyTemplate = function(btn) {
-            const text = document.getElementById('ra-template').innerText;
-            const label = btn.querySelector('.ra-copy-label');
-            const copyIcon = btn.querySelector('.ra-copy-icon');
-            const checkIcon = btn.querySelector('.ra-check-icon');
-            const setCopied = () => {
-              label.textContent = 'Copied!';
-              copyIcon.classList.add('hidden');
-              checkIcon.classList.remove('hidden');
-              btn.style.color = '#039855';
-              setTimeout(() => {
-                label.textContent = 'Copy';
-                copyIcon.classList.remove('hidden');
-                checkIcon.classList.add('hidden');
-              }, 1500);
-              if (typeof toast === 'function') toast('Template copied');
-            };
-            if (navigator.clipboard && window.isSecureContext) {
-              navigator.clipboard.writeText(text).then(setCopied).catch(() => {
-                const ta = document.createElement('textarea');
-                ta.value = text;
-                document.body.appendChild(ta);
-                ta.select();
-                try { document.execCommand('copy'); setCopied(); } catch(e) {}
-                document.body.removeChild(ta);
-              });
-            } else {
-              const ta = document.createElement('textarea');
-              ta.value = text;
-              document.body.appendChild(ta);
-              ta.select();
-              try { document.execCommand('copy'); setCopied(); } catch(e) {}
-              document.body.removeChild(ta);
-            }
-          };
-        }
-
-window.accessState = window.accessState || 'apply'; // 'signed-out' | 'apply' | 'approved'
-window.updateGateNotices = function() {
-  const hide = window.accessState === 'approved';
-  document.querySelectorAll('.ra-gate-notice').forEach(el => {
-    el.style.display = hide ? 'none' : '';
-  });
-};
-window.setAccessState = function(state) {
-  window.accessState = state;
-  ['signed-out','apply','approved'].forEach(s => {
-    const btn = document.getElementById('ax-' + s);
-    if (!btn) return;
-    const active = s === state;
-    btn.style.background = active ? '#0398551a' : '';
-    btn.style.color = active ? '#039855' : '';
-    btn.style.borderColor = active ? 'rgba(3,152,85,.3)' : '';
-    btn.classList.toggle('text-slate-500', !active);
-    btn.classList.toggle('border-slate-200', !active);
-    btn.classList.toggle('font-medium', active);
-  });
-  window.updateGateNotices();
-};
-document.addEventListener('DOMContentLoaded', function(){ if (window.updateGateNotices) window.updateGateNotices(); });
-const PRODUCT_PAGE = {
-  'Image Search': 'image-search',
-  'Video Search': 'video-search',
-  'Multimodal Chat': 'multimodal-search',
-  'Grounded Generation': 'grounded-generation'
-};
-window.openRequestAccess = function(productName) {
-  productName = productName || 'this product';
-  // Approved → straight to product page
-  if (window.accessState === 'approved') {
-    const slug = PRODUCT_PAGE[productName];
-    if (slug && typeof go === 'function') go(slug);
-    else if (typeof toast === 'function') toast('Opening ' + productName + '…');
-    return;
-  }
-  // Set product name in all .ra-product spans
-  document.querySelectorAll('#m-request-access .ra-product').forEach(el => el.textContent = productName);
-  // Mailto link
-  const body = "Hi Octen team,\n\nI'd like to request access to " + productName + ".\n\n· Name: \n· Work email: \n· Company: \n· Country: \n· Use case: \n· Estimated scale (daily API calls): \n\nThanks!";
-  const subject = 'Octen access request — ' + productName;
-  const link = document.getElementById('ra-mailto');
-  if (link) link.href = 'mailto:support@octen.ai?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-  // Show sign-in hint only when signed-out
-  const hint = document.getElementById('ra-signin-hint');
-  if (hint) hint.classList.toggle('hidden', window.accessState !== 'signed-out');
-  if (typeof openModal === 'function') openModal('m-request-access');
-};
 
 const PRIMARY = 'var(--color-accent)';
 let wsMode = 'org'; // 'personal' | 'org'
@@ -264,24 +132,11 @@ let apiKeys = [
 ];
 
 // ── Navigation ─────────────────────────────────────────────────
-function go(page) {
-  // 'members' is now a tab inside settings
-  if (page==='members') {
-    page = 'settings';
-    // activate members tab after page switch
-    setTimeout(()=>{
-      const btn = document.getElementById('st-tab-members');
-      if (btn) { switchStTab('members', btn); }
-    }, 0);
-  }
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  const el = document.getElementById('page-'+page);
-  if (el) el.classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => {
-    n.classList.toggle('active', n.getAttribute('onclick') && n.getAttribute('onclick').includes("go('"+page+"')"));
-  });
+// Page-change hook — called by the SPA router (app.js go()) after each render.
+// Replaces the prototype's original go(); app.js owns routing now.
+function consolePageChanged(page) {
   currentPage = page;
-  if (page==='api-keys') renderApiKeys();
+  if (page === 'api-keys') renderApiKeys();
   applyRole();
 }
 
@@ -2766,9 +2621,12 @@ function collectReset() {
 }
 
 // ── Init ──────────────────────────────────────────────────────────
-renderApiKeys();
-renderSvcKeys();
-setPayment(true); // Demo: payment defaults to Active
-applyRole();
-// Welcome modal after 1.5s if no payment
-setTimeout(() => showWelcomeModal(), 1500);
+// Deferred to DOMContentLoaded: this file loads in <head>, before the DOM.
+document.addEventListener('DOMContentLoaded', function () {
+  renderApiKeys();
+  renderSvcKeys();
+  setPayment(true); // Demo: payment defaults to Active
+  applyRole();
+  // Welcome modal after 1.5s if no payment
+  setTimeout(() => showWelcomeModal(), 1500);
+});

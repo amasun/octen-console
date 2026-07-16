@@ -299,4 +299,10 @@
   };
   // Fallback for non-SPA direct load
   document.addEventListener('DOMContentLoaded', window.initBroadSearchApi);
+
+  // SPA lifecycle: these pages share the PGS instance system (is/vs/mm roots).
+  window.pageInit = window.pageInit || {};
+  ['image-search','video-search','multimodal-search'].forEach(function(id){
+    window.pageInit[id] = window.initBroadSearchApi;
+  });
 })();

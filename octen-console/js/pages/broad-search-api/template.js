@@ -1,5 +1,4 @@
-window.pageHtml = window.pageHtml || {};
-window.pageHtml["page-broad-search-api"] = `<div id="page-broad-search-api" class="page h-full">
+registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="page h-full">
   <div class="layout-columns cols-2 h-full min-h-0">
     <!-- Left: Parameters -->
     <div class="layout-pane min-w-[400px] flex flex-col min-h-0">
@@ -200,4 +199,4 @@ window.pageHtml["page-broad-search-api"] = `<div id="page-broad-search-api" clas
       </div>
     </div>
   </div>
-`;
+`);

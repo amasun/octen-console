@@ -1,5 +1,4 @@
-window.pageHtml = window.pageHtml || {};
-window.pageHtml["page-billing"] = `<div id="page-billing" class="page max-w-7xl mx-auto p-4">
+registerPage("page-billing", `<div id="page-billing" class="page max-w-7xl mx-auto p-4">
   <!-- 🆕 Postpaid page-top banner (80% / overdue / suspended) -->
   <div id="billing-postpaid-banner" class="hidden mb-6 px-4 py-3.5 rounded-xl flex items-start gap-3 border">
     <svg id="bpb-icon" class="w-5 h-5 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -211,23 +210,6 @@ window.pageHtml["page-billing"] = `<div id="page-billing" class="page max-w-7xl 
         </div>
       </div>
 
-      <script>
-        (function(){
-          const tabs = document.querySelectorAll('.spend-tab');
-          const panels = document.querySelectorAll('.spend-panel');
-          tabs.forEach(t => t.addEventListener('click', () => {
-            const key = t.dataset.spendTab;
-            tabs.forEach(x => {
-              const active = x.dataset.spendTab === key;
-              x.style.color = active ? '#039855' : '';
-              x.style.borderColor = active ? '#039855' : '';
-              x.classList.toggle('text-slate-500', !active);
-              x.classList.toggle('border-transparent', !active);
-            });
-            panels.forEach(p => p.classList.toggle('hidden', p.dataset.spendPanel !== key));
-          }));
-        })();
-      </script>
       <button onclick="go('usage')" class="text-xs text-left mt-4 hover:opacity-80" style="color:#039855">View spend details in Usage →</button>
       <p id="billing-spend-note" class="hidden text-xs text-slate-400 mt-1 pt-2 border-t border-slate-100">Updated daily · final amounts per your monthly invoice.</p>
     </div>
@@ -364,25 +346,6 @@ window.pageHtml["page-billing"] = `<div id="page-billing" class="page max-w-7xl 
       <div class="mt-4 pt-3 border-t border-slate-100">
         <button onclick="document.getElementById('billing-chat-pricing').classList.toggle('hidden');document.getElementById('billing-embed-pricing').classList.toggle('hidden')" class="inline-flex items-center gap-1 text-xs font-medium hover:opacity-80" style="color:#039855">View full pricing →</button>
       </div>
-
-      <!-- Tab switcher script -->
-      <script>
-        (function(){
-          const tabs = document.querySelectorAll('.payg-tab');
-          const panels = document.querySelectorAll('.payg-panel');
-          tabs.forEach(t => t.addEventListener('click', () => {
-            const key = t.dataset.paygTab;
-            tabs.forEach(x => {
-              const active = x.dataset.paygTab === key;
-              x.style.color = active ? '#039855' : '';
-              x.style.borderColor = active ? '#039855' : '';
-              x.classList.toggle('text-slate-500', !active);
-              x.classList.toggle('border-transparent', !active);
-            });
-            panels.forEach(p => p.classList.toggle('hidden', p.dataset.paygPanel !== key));
-          }));
-        })();
-      </script>
 
     </div>
 
@@ -577,4 +540,4 @@ window.pageHtml["page-billing"] = `<div id="page-billing" class="page max-w-7xl 
       <div id="bp-history-empty" class="hidden py-8 text-center text-sm text-slate-400">No invoices yet. Your first invoice will be issued on Jul 1.</div>
     </div>
   </div>
-</div>`;
+</div>`);

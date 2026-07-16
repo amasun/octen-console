@@ -1,4 +1,5 @@
-// Syntax Highlight and UI Components (Global)
+// Syntax Highlight and UI Components (exports window.PGS_* only)
+(function(){
 const CODE_BG='transparent';
 const MONO='"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace';
 const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
@@ -37,3 +38,4 @@ window.PGS_codeBlock = function(code, hl) {
          '<div class="language-'+lang+'" style="flex:1;padding-right:16px;white-space:pre;color:#334155">' + body + '</div>' +
          '</div></div>';
 };
+})();
