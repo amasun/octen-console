@@ -5,11 +5,11 @@
   const EXAMPLES=['What are AI agents actually being used for in production?','NVIDIA vs AMD stock performance','What are the most promising AI startups to watch right now?'];
   const SUBQ_SRC=[
     ['What is the current state of frontier AI models in 2026?',[['openai.com/blog/gpt-4o-benchmarks-2026','GPT-4o Benchmark Results & Performance Analysis'],['anthropic.com/news/claude-4-family','Introducing the Claude 4 Model Family'],['blog.google/gemini-2-5-pro-launch','Gemini 2.5 Pro: Next Generation AI Capabilities']]],
-    ['AI model company overview category:company',[['openai.com/about','About OpenAI �?Mission & Research'],['anthropic.com/company','Anthropic �?AI Safety Company'],['deepmind.google/about','Google DeepMind �?Pioneering AI Research']]],
+    ['AI model company overview category:company',[['openai.com/about','About OpenAI é?Mission & Research'],['anthropic.com/company','Anthropic é?AI Safety Company'],['deepmind.google/about','Google DeepMind é?Pioneering AI Research']]],
     ['frontier AI models latest news 2026',[['techcrunch.com/2026/frontier-ai-models-comparison','Frontier AI Models Compared: Who Leads in 2026?'],['theverge.com/2026/3/ai-models-roundup','March 2026 AI Roundup'],['arstechnica.com/ai/2026/claude-4-gpt-5-comparison','Claude 4 vs GPT-5: Head-to-Head Comparison']]],
-    ['AI model capabilities and benchmarks comparison',[['huggingface.co/spaces/open-llm-leaderboard','Open LLM Leaderboard �?Hugging Face'],['paperswithcode.com/sota','State-of-the-Art AI Results'],['lmsys.org/chatbot-arena-leaderboard','Chatbot Arena Leaderboard �?LMSYS']]],
+    ['AI model capabilities and benchmarks comparison',[['huggingface.co/spaces/open-llm-leaderboard','Open LLM Leaderboard é?Hugging Face'],['paperswithcode.com/sota','State-of-the-Art AI Results'],['lmsys.org/chatbot-arena-leaderboard','Chatbot Arena Leaderboard é?LMSYS']]],
     ['open source LLM models progress 2026',[['ai.meta.com/blog/llama-4','Introducing Llama 4: Open Foundation Models'],['mistral.ai/news/mistral-large-2','Mistral Large 2: Enterprise-Grade Open Model'],['qwenlm.github.io/blog/qwen2.5','Qwen 2.5: Multilingual Open-Weight LLM']]],
-    ['AI industry market trends and adoption 2026',[['mckinsey.com/ai-enterprise-adoption-2026','Enterprise AI Adoption Trends �?McKinsey'],['statista.com/ai-market-size-2026','AI Market Size & Growth Forecast 2026']]],
+    ['AI industry market trends and adoption 2026',[['mckinsey.com/ai-enterprise-adoption-2026','Enterprise AI Adoption Trends é?McKinsey'],['statista.com/ai-market-size-2026','AI Market Size & Growth Forecast 2026']]],
     ['Claude 4 model family features and pricing',[['anthropic.com/claude-4-pricing','Claude 4 Pricing & Model Tiers'],['anthropic.com/news/claude-4-opus','Claude 4 Opus: Extended Thinking & Reasoning']]],
     ['GPT-4o multimodal capabilities 2026',[['openai.com/gpt-4o-multimodal','GPT-4o Multimodal: Vision, Audio & Code'],['techcrunch.com/2026/gpt-4o-review','GPT-4o Review: The Most Versatile AI Model']]],
     ['Gemini 2.5 Pro technical specifications',[['blog.google/gemini-2-5-specs','Gemini 2.5 Pro: 2M Token Context'],['arxiv.org/abs/2026.gemini-technical','Gemini 2.5: Technical Report']]],
@@ -60,7 +60,7 @@
     let inner;
     if(!S.sessions.length){ inner='<div style="padding:24px 16px;text-align:center;font-size:11px;color:#94a3b8">No history yet</div>'; }
     else { inner=S.sessions.slice(S.historyPage*10,S.historyPage*10+10).map(s=>'<div onclick="bsLoad(\''+s.id+'\')" class="flex items-center" style="gap:12px;cursor:pointer;padding:10px 16px"><span class="shrink-0" style="width:8px;height:8px;border-radius:999px;border:1px solid #e2e8f0"></span><span class="truncate" style="flex:1;font-size:11px;color:#64748b">'+esc(s.turns[0].query)+'</span><button onclick="event.stopPropagation();bsDel(\''+s.id+'\')" class="shrink-0" style="padding:4px;border:none;background:none;color:#cbd5e1;cursor:pointer"><svg style="width:12px;height:12px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button></div>').join('');
-      if(S.sessions.length>10){ inner+='<div class="flex items-center justify-center" style="gap:8px;padding:8px 16px;border-top:1px solid #f1f5f9"><button onclick="bsHistPage(-1)" style="padding:4px;border:none;background:none;cursor:pointer;color:'+(S.historyPage===0?'#cbd5e1':'#64748b')+'">�?/button><span style="font-size:11px;color:#94a3b8">'+(S.historyPage+1)+' / '+pages+'</span><button onclick="bsHistPage(1)" style="padding:4px;border:none;background:none;cursor:pointer;color:'+(S.historyPage>=pages-1?'#cbd5e1':'#64748b')+'">�?/button></div>'; }
+      if(S.sessions.length>10){ inner+='<div class="flex items-center justify-center" style="gap:8px;padding:8px 16px;border-top:1px solid #f1f5f9"><button onclick="bsHistPage(-1)" style="padding:4px;border:none;background:none;cursor:pointer;color:'+(S.historyPage===0?'#cbd5e1':'#64748b')+'">é?/button><span style="font-size:11px;color:#94a3b8">'+(S.historyPage+1)+' / '+pages+'</span><button onclick="bsHistPage(1)" style="padding:4px;border:none;background:none;cursor:pointer;color:'+(S.historyPage>=pages-1?'#cbd5e1':'#64748b')+'">é?/button></div>'; }
     }
     return '<div style="position:absolute;top:100%;right:0;margin-top:8px;width:300px;z-index:50;background:#fff;border:1px solid #e2e8f0;border-radius:12px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,0.12)"><div style="padding:12px 16px;border-bottom:1px solid #f1f5f9"><span style="font-size:14px;font-weight:600;color:#334155">History</span></div><div style="padding:8px 0">'+inner+'</div></div>';
   }
@@ -120,7 +120,7 @@
       '<button onclick="bsShare()" class="flex items-center" style="gap:6px;padding:8px 12px;font-size:12px;font-weight:500;color:#64748b;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer">'+(S.linkCopied?ICON.check+'Link copied':'<svg style="width:14px;height:14px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>Share')+'</button>'+
       '<div style="position:relative"><button onclick="bsToggleHistory()" class="flex items-center" style="gap:6px;padding:8px 12px;font-size:12px;font-weight:500;color:#64748b;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer"><svg style="width:14px;height:14px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M3 3v5h5M3.05 13A9 9 0 106 5.3L3 8"/><path d="M12 7v5l4 2"/></svg> History</button>'+historyDrop()+'</div>'+
       '<button onclick="bsReset()" class="flex items-center" style="gap:6px;padding:8px 16px;font-size:12px;font-weight:500;color:#fff;border-radius:8px;border:none;cursor:pointer;background:'+PRIMARY+'"><svg style="width:14px;height:14px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>New Chat</button></div>';
-    const turnNav= S.sessionTurns.length>1?'<div class="flex items-center" style="gap:4px"><button onclick="bsTurn(-1)" '+(S.currentTurnIndex===0?'disabled':'')+' style="padding:4px;border:none;background:none;color:#94a3b8;cursor:pointer">�?/button><span style="font-size:12px;color:#64748b;font-weight:500;min-width:40px;text-align:center">'+(S.currentTurnIndex+1)+' / '+S.sessionTurns.length+'</span><button onclick="bsTurn(1)" '+(S.currentTurnIndex===S.sessionTurns.length-1?'disabled':'')+' style="padding:4px;border:none;background:none;color:#94a3b8;cursor:pointer">�?/button></div>':'';
+    const turnNav= S.sessionTurns.length>1?'<div class="flex items-center" style="gap:4px"><button onclick="bsTurn(-1)" '+(S.currentTurnIndex===0?'disabled':'')+' style="padding:4px;border:none;background:none;color:#94a3b8;cursor:pointer">é?/button><span style="font-size:12px;color:#64748b;font-weight:500;min-width:40px;text-align:center">'+(S.currentTurnIndex+1)+' / '+S.sessionTurns.length+'</span><button onclick="bsTurn(1)" '+(S.currentTurnIndex===S.sessionTurns.length-1?'disabled':'')+' style="padding:4px;border:none;background:none;color:#94a3b8;cursor:pointer">é?/button></div>':'';
     const stats='<div class="flex items-center justify-center" style="gap:32px"><div style="text-align:center"><div style="font-weight:700;font-size:22px;color:'+PRIMARY+'">'+p.maxQueries+'</div><div style="font-size:12px;color:#94a3b8">Queries</div></div>'+(p.mode!=='queries_only'?'<div style="text-align:center"><div style="font-weight:700;font-size:22px;color:'+PRIMARY+'">'+totalResults+'</div><div style="font-size:12px;color:#94a3b8">Results</div></div><div style="text-align:center"><div style="font-weight:700;font-size:22px;color:'+PRIMARY+'">75 ms</div><div style="font-size:12px;color:#94a3b8">Latency</div></div>':'')+'</div>';
     return '<div style="flex:1;overflow-y:auto;display:flex;flex-direction:column;height:100%"><div style="display:flex;flex-direction:column;height:100%">'+
       '<div class="shrink-0" style="border-bottom:1px solid #e2e8f0;text-align:center;padding:20px 32px 24px;position:relative">'+topRight+
@@ -167,7 +167,7 @@
   const SUBQ=[
     ['{q} market trends',[['globenewswire.com','SNS Insider','Market sized at multi-billion scale with strong double-digit CAGR through 2035.'],['marketsandmarkets.com','MarketsandMarkets','Demand is driven by data-center buildouts and edge deployments.'],['statista.com','Statista','Forecast shows sustained growth across all major regions.']]],
     ['{q} market share',[['reuters.com','Reuters','Leading vendor retained over 80% of the accelerator market.'],['bloomberg.com','Bloomberg','Share shifts as challengers ramp custom silicon.'],['counterpointresearch.com','Counterpoint','Quarterly share tracker shows incremental gains for rivals.']]],
-    ['top {q} manufacturers',[['tomshardware.com','Tom鈥檚 Hardware','Roundup of the leading manufacturers and their flagship parts.'],['anandtech.com','AnandTech','Deep dive into architectures from the top players.'],['theverge.com','The Verge','Who is shipping the most capable hardware right now.']]],
+    ['top {q} manufacturers',[['tomshardware.com','Tomé¥æª Hardware','Roundup of the leading manufacturers and their flagship parts.'],['anandtech.com','AnandTech','Deep dive into architectures from the top players.'],['theverge.com','The Verge','Who is shipping the most capable hardware right now.']]],
     ['{q} leader analysis',[['nvidia.com','NVIDIA','Extended data-center GPU lead with new accelerator family.'],['semianalysis.com','SemiAnalysis','Supply and roadmap analysis of the market leader.'],['cnbc.com','CNBC','Earnings underscore continued dominance.']]],
     ['{q} challenger strategy',[['amd.com','AMD','Strategy update targeting inference and open ecosystems.'],['techcrunch.com','TechCrunch','How challengers plan to close the gap in 2026.'],['fool.com','The Motley Fool','Competitive positioning and outlook.']]],
     ['{q} pricing and cost',[['together.ai','Together AI','Per-unit pricing comparison across providers.'],['openrouter.ai','OpenRouter','Cost trends declined sharply year over year.'],['gartner.com','Gartner','Total cost of ownership framework.']]],
@@ -211,7 +211,7 @@
     return { query:p.query||'', max_queries:p.max_queries, search_options:so };
   }
 
-  // 鈹€鈹€ time basis pills 鈹€鈹€
+  // é¹â¬é¹â¬ time basis pills é¹â¬é¹â¬
   let tbActive='auto';
   document.addEventListener('click',function(e){ const b=e.target.closest&&e.target.closest('.bsa-tb'); if(!b)return;
     tbActive=b.getAttribute('data-tb');
@@ -219,11 +219,11 @@
     refreshCode();
   });
 
-  // 鈹€鈹€ full content max-tokens visibility 鈹€鈹€
+  // é¹â¬é¹â¬ full content max-tokens visibility é¹â¬é¹â¬
   document.addEventListener('change',function(e){ if(e.target&&e.target.id==='bsa-fc'){ const w=$('bsa-fc-wrap'); if(w)w.classList.toggle('hidden',!e.target.checked); }
     if(e.target&&e.target.id==='bsa-hl'){ const w=$('bsa-hl-wrap'); if(w)w.style.opacity=e.target.checked?'1':'0.4'; } });
 
-  // 鈹€鈹€ date range calendar 鈹€鈹€
+  // é¹â¬é¹â¬ date range calendar é¹â¬é¹â¬
   const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
   const DOW=['Su','Mo','Tu','We','Th','Fr','Sa'];
   const cal={ open:false, y:2026, m:5, start:null, end:null, range:'' };
@@ -263,7 +263,7 @@
   // Left presets &rarr;time_range enum (mutually exclusive with custom start/end)
   window.bsaPreset=function(range,label){ cal.range=range; cal.start=null; cal.end=null; $('bsa-start').value=''; $('bsa-end').value=''; $('bsa-date-label').textContent=label; $('bsa-date-label').className='text-[#737373]'; closeCal(); refreshCode(); };
   // Right calendar &rarr;custom start/end (clears time_range)
-  window.bsaApplyRange=function(){ if(cal.start){ cal.range=''; $('bsa-start').value=isoOf(cal.start,false); $('bsa-end').value=isoOf(cal.end||cal.start,true); $('bsa-date-label').textContent=cal.end?(shortD(cal.start)+' �?'+shortD(cal.end)):shortD(cal.start); $('bsa-date-label').className='text-[#737373]'; } closeCal(); refreshCode(); };
+  window.bsaApplyRange=function(){ if(cal.start){ cal.range=''; $('bsa-start').value=isoOf(cal.start,false); $('bsa-end').value=isoOf(cal.end||cal.start,true); $('bsa-date-label').textContent=cal.end?(shortD(cal.start)+' é?'+shortD(cal.end)):shortD(cal.start); $('bsa-date-label').className='text-[#737373]'; } closeCal(); refreshCode(); };
   window.bsaClearRange=function(){ cal.start=null; cal.end=null; cal.range=''; $('bsa-start').value=''; $('bsa-end').value=''; $('bsa-date-label').textContent='Custom range'; $('bsa-date-label').className='text-[#a3a3a3]'; closeCal(); refreshCode(); };
   document.addEventListener('mousedown',function(e){ if(cal.open){ const wrap=$('bsa-date-pop'); const btn=$('bsa-date-btn'); if(wrap&&!wrap.contains(e.target)&&btn&&!btn.contains(e.target)){ closeCal(); } } });
   let bsaLang='python';
@@ -294,7 +294,7 @@
     const search_results=subs.map((sq,i)=>{
       const qtext=sq[0].replace('{q}',p.query); const lat=LAT[i]||70; totalLat+=lat;
       const results=[]; for(let k=0;k<p.count;k++){ const base=sq[1][k%sq[1].length]; const host=base[0]; const slug=p.query.toLowerCase().replace(/[^a-z0-9]+/g,'-').slice(0,40);
-        const item={ title:base[1]+' �?'+capitalize(qtext), url:'https://www.'+host+'/2026/'+slug+(k?'-'+(k+1):''), authors:base[1] };
+        const item={ title:base[1]+' é?'+capitalize(qtext), url:'https://www.'+host+'/2026/'+slug+(k?'-'+(k+1):''), authors:base[1] };
         if(p.hl)item.highlight=base[2];
         item.time_published=HOST_DATES[k%HOST_DATES.length];
         item.time_last_crawled='2026-04-02T03:18:46Z';
@@ -352,29 +352,29 @@
   function renderFigmaPreview(){
     const previewQueries=[
       {query:'latest central bank interest rate decisions 2026',latency:85,open:true,results:[
-        ['Central Bank Decisions & 2026 Interest Rate Outlook for NSE:TCS by GlobalWolfStreet - TradingView India','1. Central Bank Policy Trends in Early 2026. The U.S. Federal Reserve has held its key policy rate in a tight range after a series of cuts during 2025.','GlobalWolfStreet Follow - 2026/02/13 (UTC+8) - in.tradingview.com'],
-        ['Central Bank Interest Rate Decisions: How the Fed, ECB, and BoE Shape Your Economy - maseconomics','On March 18, 2026, the Federal Reserve, the European Central Bank, and the Bank of England held their benchmark interest rates steady.','Majid Ali Sanghro - 2026/04/04 (UTC+8) - maseconomics.com'],
-        ['Super Central Bank Week 2026: How Interest Rate Decisions Will Impact the Crypto Market | KuCoin','Super Central Bank Week 2026 explains how interest rate decisions may shape crypto market liquidity, risk appetite, and volatility.','2026/05/02 (UTC+8) - kucoin.com'],
-        ['Why are Interest Rate CFDs influenced by central bank decisions? - WalletInvestor Magazin - Investing news','Interest Rate CFDs are influenced by central bank decisions because policy rates affect borrowing costs, growth expectations, and market pricing.','Sylvia - 2022/02/07 (UTC+8) - walletinvestor.com'],
-        ['Why are Interest Rate CFDs influenced by central bank decisions? - Bitcoin News, Forecast, Technical Analysis, 8000+ Cryptocurrencies','Interest Rate CFDs allow traders to speculate on the future direction of rates, making central bank decisions a direct input to price expectations.','WalletInvestor - 2022/02/07 (UTC+8) - walletinvestor.com']
+        ['Central Bank Decisions & 2026 Interest Rate Outlook for NSE:TCS by GlobalWolfStreet - TradingView India','1. Central Bank Policy Trends in Early 2026 1.1 The Federal Reserve (U.S.) The U.S. Federal Reserve has held its key policy rate in a tight range after a series of cuts during 2025.','GlobalWolfStreet Follow · 2026/02/13 (UTC+8) · in.tradingview.com'],
+        ['Central Bank Interest Rate Decisions: How the Fed, ECB, and BoE Shape Your Economy - maseconomics','On March 18, 2026, three of the world\'s most powerful institutions, the Federal Reserve, the European Central Bank (ECB), and the Bank of England (BoE), all held their benchmark interest rates steady within 24 hours of each other.','Majid Ali Sanghro · 2026/04/04 (UTC+8) · maseconomics.com'],
+        ['Super Central Bank Week 2026: How Interest Rate Decisions Will Impact the Crypto Market | KuCoin','Super Central Bank Week 2026 explains how interest rate decisions may shape crypto market liquidity, risk appetite, and volatility as major central banks publish new policy signals.','2026/05/02 (UTC+8) · kucoin.com'],
+        ['Why are Interest Rate CFDs influenced by central bank decisions? - WalletInvestor Magazin - Investing news','Interest Rate CFDs are influenced by central bank decisions because policy rates affect borrowing costs, growth expectations, and market pricing.','Sylvia · 2022/02/07 (UTC+8) · walletinvestor.com'],
+        ['Why are Interest Rate CFDs influenced by central bank decisions? - Bitcoin News, Forecast, Technical Analysis, 8000+ Cryptocurrencies','Interest Rate CFDs and their influence on central bank decisions introduce financial derivatives that allow traders to speculate on the future direction of interest rates.','WalletInvestor · 2022/02/07 (UTC+8) · walletinvestor.com']
       ]},
       {query:'global central bank rate hikes 2026',latency:78},
       {query:'recent monetary policy changes worldwide',latency:82},
       {query:'central bank interest rate announcements today',latency:82},
       {query:'Federal Reserve interest rate decision 2026',latency:68}
     ];
-    const globe='<svg class="h-5 w-5 shrink-0 text-[#a3a3a3]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>';
-    const chevron=(i,open)=>'<svg id="bsa-c-'+i+'" class="h-5 w-5 shrink-0 text-[#a3a3a3] transition-transform" style="transform:'+(open?'rotate(180deg)':'')+'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>';
-    const rows=previewQueries.map((group,i)=>{
-      const results=(group.results||[]).map((r,k)=>'<a href="#" onclick="return false" class="group flex items-start gap-4 px-7 py-4 transition-colors hover:bg-[#f5f5f5]">'+(k===4?'<span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#f5f5f5] text-xs font-bold text-[#039855]">W</span>':'')+'<div class="min-w-0 flex-1"><div class="truncate text-lg font-medium text-[#0a0a0a]">'+esc(r[0])+'</div><div class="mt-1 line-clamp-2 text-base leading-7 text-[#737373]">'+esc(r[1])+'</div><div class="mt-1 truncate text-sm text-[#a3a3a3]">'+esc(r[2])+'</div></div></a>').join('');
-      return '<section class="overflow-hidden rounded-[18px] border border-[#dbdbdb] bg-white"><button type="button" onclick="bsaToggleResult('+i+')" class="flex w-full items-center gap-4 px-7 py-4 text-left transition-colors hover:bg-[#f5f5f5] '+(group.open?'bg-[#f5f5f5]':'bg-white')+'">'+globe+'<span class="min-w-0 flex-1 truncate text-lg font-medium text-[#0a0a0a]">'+esc(group.query)+'</span><span class="shrink-0 text-sm text-[#a3a3a3]">5 results</span><span class="shrink-0 text-sm font-medium text-[#039855]">'+group.latency+'ms</span>'+chevron(i,group.open)+'</button><div id="bsa-r-'+i+'" style="display:'+(group.open?'block':'none')+'" class="py-3">'+results+'</div></section>';
-    }).join('<div class="h-3"></div>');
-    return '<div class="w-full p-3">'+rows+'</div>';
+    const globeSvg='<svg class="octen-globe" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 0 1 0 20M12 2a15.3 15.3 0 0 0 0 20"></path></svg>';
+    const chevronSvg='<svg class="octen-chevron" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path></svg>';
+    const cards=previewQueries.map((group)=>{
+      const resultsHtml=(group.results||[]).map((r,k)=>'<a class="octen-result" href="#" onclick="return false">'+(k===4?'<span class="octen-result-icon">W</span>':'')+'<div class="octen-result-body"><div class="octen-result-title">'+esc(r[0])+'</div><div class="octen-result-summary">'+esc(r[1])+'</div><div class="octen-result-meta">'+esc(r[2])+'</div></div></a>').join('');
+      return '<details class="octen-query-card"'+(group.open?' open':'')+'>'+'<summary>'+globeSvg+'<span class="octen-query-text">'+esc(group.query)+'</span>'+'<span class="octen-result-count">5 results</span>'+'<span class="octen-latency">'+group.latency+'ms</span>'+chevronSvg+'</summary>'+(resultsHtml?'<div class="octen-results">'+resultsHtml+'</div>':'')+'</details>';
+    }).join('');
+    return '<div class="octen-response-preview">'+cards+'</div>';
   }
 
   function renderRespBody(){
     if(!lastResp){ renderEmpty(); return; }
-    $('bsa-meta').textContent=lastResp.meta.usage.num_search_queries+' queries �?'+lastResp.meta.latency+' ms';
+    $('bsa-meta').textContent=lastResp.meta.usage.num_search_queries+' queries è·?'+lastResp.meta.latency+' ms';
     if(rtab==='json'){ $('bsa-resp-body').innerHTML='<div class="bg-slate-900 rounded-md p-4 overflow-auto max-h-[28rem]"><pre class="text-xs text-slate-100 whitespace-pre font-mono">'+esc(JSON.stringify(lastResp,null,2))+'</pre></div>'; return; }
     $('bsa-resp-body').innerHTML=renderFigmaPreview();
   }
