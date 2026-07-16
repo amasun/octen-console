@@ -150,9 +150,9 @@ window.sidebarHtml = `<aside class="ribbon">
   </nav>
 
 
-  <!-- Bottom ?account info (matches ConsoleLayout.tsx) -->
+  <!-- Bottom account info (matches ConsoleLayout.tsx) -->
   <div class="shrink-0 mt-auto">
-    <div class="p-4">
+    <div class="p-4 relative" id="demo-toggle-wrap">
       <div id="demo-toggle" aria-controls="demo-card" class="w-full rounded-xl transition-colors px-2 py-2 border border-[#dbdbdb] bg-slate-50 cursor-pointer">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3 min-w-0">
@@ -165,51 +165,51 @@ window.sidebarHtml = `<aside class="ribbon">
           <svg class="w-4 h-4 text-[#a3a3a3] rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
         </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Demo switches (prototype only) -->
-  <div id="demo-card" class="hidden absolute left-4 right-4 bottom-[76px] z-20 rounded-lg border border-[#dbdbdb] bg-white p-3 shadow-[0_16px_40px_rgba(10,10,10,0.12)] space-y-2">
-    <div>
-      <div class="text-xs text-[#a3a3a3] mb-1.5">Demo: view as</div>
-      <div class="flex gap-1">
-        <button onclick="setRole('owner')" id="rb-owner" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Owner</button>
-        <button onclick="setRole('manager')" id="rb-manager" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Manager</button>
-        <button onclick="setRole('member')" id="rb-member" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Member</button>
+      <!-- Demo switches (prototype only) - nested inside wrapper for bulletproof hover -->
+      <div id="demo-card" class="hidden absolute left-4 right-4 bottom-full mb-2 z-20 rounded-lg border border-[#dbdbdb] bg-white p-3 shadow-[0_16px_40px_rgba(10,10,10,0.12)] space-y-2">
+        <div>
+          <div class="text-xs text-[#a3a3a3] mb-1.5">Demo: view as</div>
+          <div class="flex gap-1">
+            <button onclick="setRole('owner')" id="rb-owner" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Owner</button>
+            <button onclick="setRole('manager')" id="rb-manager" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Manager</button>
+            <button onclick="setRole('member')" id="rb-member" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Member</button>
+          </div>
+        </div>
+        <div>
+          <div class="text-xs text-[#a3a3a3] mb-1.5">Demo: payment</div>
+          <div class="flex gap-1">
+            <button onclick="setPayment(false)" id="rb-nocard" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">No card</button>
+            <button onclick="setPayment(true)" id="rb-active" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Active</button>
+          </div>
+        </div>
+        <div>
+          <div class="text-xs text-[#a3a3a3] mb-1.5">Demo: billing mode</div>
+          <div class="flex gap-1">
+            <button onclick="setBillingMode('prepaid')" id="bm-prepaid" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Prepaid</button>
+            <button onclick="setBillingMode('postpaid')" id="bm-postpaid" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Invoiced</button>
+          </div>
+        </div>
+        <div class="mt-2.5">
+          <div class="text-xs text-[#a3a3a3] mb-1.5">Demo: access state</div>
+          <div class="flex gap-1">
+            <button onclick="setAccessState('signed-out')" id="ax-signed-out" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Signed out</button>
+            <button onclick="setAccessState('apply')" id="ax-apply" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Apply</button>
+            <button onclick="setAccessState('approved')" id="ax-approved" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Approved</button>
+          </div>
+        </div>
+        <div id="bm-status-wrap" class="hidden">
+          <div class="text-xs text-[#a3a3a3] mb-1.5">Demo: postpaid status</div>
+          <select id="bm-status" onchange="setPostpaidStatus(this.value)" class="w-full text-xs py-1 px-1.5 rounded border border-[#dbdbdb] text-[#737373] bg-white outline-none">
+            <option value="firstMonth">First month (no usage yet)</option>
+            <option value="normal">Normal (&lt;80%)</option>
+            <option value="warn80">Warning ?0%</option>
+            <option value="warn90">Warning ?0%</option>
+            <option value="overdue">Invoice overdue</option>
+            <option value="suspended">Suspended (?00% / D+37)</option>
+          </select>
+        </div>
       </div>
-    </div>
-    <div>
-      <div class="text-xs text-[#a3a3a3] mb-1.5">Demo: payment</div>
-      <div class="flex gap-1">
-        <button onclick="setPayment(false)" id="rb-nocard" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">No card</button>
-        <button onclick="setPayment(true)" id="rb-active" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Active</button>
-      </div>
-    </div>
-    <div>
-      <div class="text-xs text-[#a3a3a3] mb-1.5">Demo: billing mode</div>
-      <div class="flex gap-1">
-        <button onclick="setBillingMode('prepaid')" id="bm-prepaid" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Prepaid</button>
-        <button onclick="setBillingMode('postpaid')" id="bm-postpaid" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Invoiced</button>
-      </div>
-    </div>
-    <div class="mt-2.5">
-      <div class="text-xs text-[#a3a3a3] mb-1.5">Demo: access state</div>
-      <div class="flex gap-1">
-        <button onclick="setAccessState('signed-out')" id="ax-signed-out" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Signed out</button>
-        <button onclick="setAccessState('apply')" id="ax-apply" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Apply</button>
-        <button onclick="setAccessState('approved')" id="ax-approved" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Approved</button>
-      </div>
-    </div>
-    <div id="bm-status-wrap" class="hidden">
-      <div class="text-xs text-[#a3a3a3] mb-1.5">Demo: postpaid status</div>
-      <select id="bm-status" onchange="setPostpaidStatus(this.value)" class="w-full text-xs py-1 px-1.5 rounded border border-[#dbdbdb] text-[#737373] bg-white outline-none">
-        <option value="firstMonth">First month (no usage yet)</option>
-        <option value="normal">Normal (&lt;80%)</option>
-        <option value="warn80">Warning ?0%</option>
-        <option value="warn90">Warning ?0%</option>
-        <option value="overdue">Invoice overdue</option>
-        <option value="suspended">Suspended (?00% / D+37)</option>
-      </select>
     </div>
   </div>
 </aside>`;
