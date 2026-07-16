@@ -33,8 +33,14 @@ window.go = function(pageId) {
     }
   }
   
+  // Post-render hooks — run after innerHTML is set so DOM nodes exist
   if (pageId === "overview") {
     setupOverviewTabs();
+  } else if (pageId === "broad-search-api") {
+    // Re-init the PGS engine (Image/Video/Multimodal) and code panels
+    if (window.initBroadSearchApi) window.initBroadSearchApi();
+    // Trigger default Python code render (bsaSetLang calls refreshCode internally)
+    if (window.bsaSetLang) window.bsaSetLang('python');
   } else if (["broad-search", "news-search", "image-search", "video-search"].includes(pageId)) {
     const searchBar = document.getElementById("main-search-input");
     if (searchBar) searchBar.focus();

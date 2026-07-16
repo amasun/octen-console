@@ -269,7 +269,12 @@
   });});
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ PGS_closeLightbox(); Object.keys(INST).forEach(k=>{closeCal(INST[k]);closeAttach(INST[k]);}); } });
 
-  document.addEventListener('DOMContentLoaded',function(){
+  // Exposed for SPA: called by app.js router after page DOM is injected
+  window.initBroadSearchApi = function() {
+    // Re-init only if root containers exist (page is currently rendered)
+    if (!document.getElementById('is-root')) return;
+    // Clear previous instances to allow re-init on revisit
+    ['is','vs','mm'].forEach(function(k){ delete INST[k]; });
     init({key:'is', rootId:'is-root', modalities:['image'], topic:true, selectable:false, htmlSnippet:true, highlightFull:false});
     init({key:'vs', rootId:'vs-root', modalities:['video'], topic:false, selectable:false, htmlSnippet:false, highlightFull:false});
     init({key:'mm', rootId:'mm-root', modalities:['text','image','video'], topic:true, selectable:true, htmlSnippet:true, highlightFull:true});
@@ -287,9 +292,11 @@
       notice.style.marginTop = '12px';
       notice.innerHTML = '<svg class="w-4 h-4 shrink-0" style="color:#F97316" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>'
         + '<span class="flex-1 text-slate-700">' + productName + ' is in early access — request access to start using it.</span>'
-        + '<a href="#" onclick="openRequestAccess(\'' + productName + '\');return false" class="shrink-0 font-medium hover:underline" style="color:#039855">Request access →</a>';
+        + '<a href="#" onclick="openRequestAccess(\'' + productName + '\');return false" class="shrink-0 font-medium hover:underline" style="color:#039855">Request access \u2192</a>';
       inputsBlock.appendChild(notice);
     });
     if (window.updateGateNotices) window.updateGateNotices();
-  });
+  };
+  // Fallback for non-SPA direct load
+  document.addEventListener('DOMContentLoaded', window.initBroadSearchApi);
 })();
