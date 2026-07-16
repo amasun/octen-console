@@ -196,4 +196,6 @@
 
   document.addEventListener('mousedown',function(e){ if(S.historyOpen){ if(!e.target.closest||!e.target.closest('[onclick*="drToggleHistory"]')){ const drop=e.target.closest&&e.target.closest('#dr-root'); if(!e.target.closest||!(e.target.closest('div[style*="z-index:50"]')||e.target.closest('[onclick*="drToggleHistory"]'))){ S.historyOpen=false; if($('page-deep-research').classList.contains('active'))render(); } } } });
   document.addEventListener('DOMContentLoaded',function(){ render(); });
+  window.pageInit = window.pageInit || {};
+  window.pageInit["deep-research"] = render;
 })();

@@ -27,10 +27,12 @@ let ovKeyVisible = false;
 function maskOvKey(v) { return v.slice(0,10)+'••••••••••'+v.slice(-4); }
 
 function updateOvKeyWidget() {
+  const el = document.getElementById('ov-key-val');
+  if (!el) return; // widget only exists on the overview page (SPA)
   const keys = (wsMode==='personal') ? PERSONAL_KEYS : ORG_KEYS;
   const k = keys[0];
   ovKeyVisible = false;
-  document.getElementById('ov-key-val').textContent = maskOvKey(k.value);
+  el.textContent = maskOvKey(k.value);
 }
 
 function toggleOvKeyVis() {

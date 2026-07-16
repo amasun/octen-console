@@ -22,6 +22,32 @@
     return '{\n'+ks.map(k=>indent(lvl+1)+JSON.stringify(k)+': '+serialize(v[k],lang,lvl+1)).join(',\n')+'\n'+indent(lvl)+'}';
   }
   window.PGS_serialize=serialize;
+  function hlCode(line){const toks=[];const re=/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g;let last=0,m;const plain=t=>{const pr=/(\b(?:import|from|const|let|var|await|async|function|return|print|new)\b)|(\b(?:True|False|None|true|false|null)\b)|(\b\d+(?:\.\d+)?\b)/g;let l=0,mm;while((mm=pr.exec(t))){if(mm.index>l)toks.push({t:t.slice(l,mm.index),c:C_DEF});if(mm[1])toks.push({t:mm[0],c:C_KW});else toks.push({t:mm[0],c:C_NUM});l=mm.index+mm[0].length;}if(l<t.length)toks.push({t:t.slice(l),c:C_DEF});};while((m=re.exec(line))){if(m.index>last)plain(line.slice(last,m.index));toks.push({t:m[0],c:C_STR});last=m.index+m[0].length;}if(last<line.length)plain(line.slice(last));if(!toks.length)toks.push({t:line,c:C_DEF});return toks;}
+  function hlJson(line){const toks=[];const re=/("(?:[^"\\]|\\.)*")(\s*:)?|(\b\d+(?:\.\d+)?\b)|(\btrue\b|\bfalse\b|\bnull\b)/g;let last=0,m;while((m=re.exec(line))){if(m.index>last)toks.push({t:line.slice(last,m.index),c:C_DEF});if(m[1]!==undefined){if(m[2]){toks.push({t:m[1],c:C_KEY});toks.push({t:m[2],c:C_DEF});}else toks.push({t:m[1],c:C_STR});}else if(m[3]!==undefined)toks.push({t:m[3],c:C_NUM});else if(m[4]!==undefined)toks.push({t:m[4],c:C_KW});last=m.index+m[0].length;}if(last<line.length)toks.push({t:line.slice(last),c:C_DEF});if(!toks.length)toks.push({t:line,c:C_DEF});return toks;}
+  function codeBlock(code,hl){const lines=code.split('\n');const nums=lines.map((_,i)=>'<div>'+(i+1)+'</div>').join('');const body=lines.map(ln=>'<div>'+hl(ln).map(tk=>'<span style="color:'+tk.c+'">'+esc(tk.t)+'</span>').join('')+(ln===''?'​':'')+'</div>').join('');return '<div style="max-height:560px;overflow:auto;background:'+CODE_BG+';padding:14px 0"><div style="display:flex;width:max-content;min-width:100%;font-family:'+MONO+';font-size:12.5px;line-height:21px"><div style="flex-shrink:0;text-align:right;color:#6e7681;user-select:none;padding:0 16px">'+nums+'</div><div style="flex:1;padding-right:16px;white-space:pre">'+body+'</div></div></div>';}
+
+  // SVG thumbnails
+  const T_DASH=svgUri("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='#f1f5f9'/><rect width='84' height='300' fill='#fff'/><circle cx='24' cy='30' r='8' fill='#039855'/><rect x='104' y='24' width='120' height='12' rx='6' fill='#1e293b'/><rect x='104' y='60' width='86' height='62' rx='10' fill='#fff' stroke='#e2e8f0'/><rect x='200' y='60' width='86' height='62' rx='10' fill='#ecfdf5' stroke='#a7f3d0'/><polyline points='118,238 158,210 198,224 238,180 278,196 318,150 360,168' fill='none' stroke='#039855' stroke-width='3'/></svg>");
+  const T_PRICING=svgUri("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#0f766e'/><stop offset='1' stop-color='#059669'/></linearGradient></defs><rect width='400' height='300' fill='url(#g)'/><rect x='152' y='62' width='96' height='200' rx='14' fill='#fff'/><rect x='168' y='216' width='64' height='22' rx='11' fill='#059669'/></svg>");
+  const T_MOBILE=svgUri("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='#eef2ff'/><rect x='150' y='30' width='100' height='240' rx='20' fill='#fff' stroke='#c7d2fe' stroke-width='2'/><circle cx='200' cy='96' r='28' fill='#e0e7ff'/><path d='M188 96 l8 8 l16 -16' fill='none' stroke='#6366f1' stroke-width='3'/></svg>");
+  const T_DARK=svgUri("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='#0b1220'/><rect width='80' height='300' fill='#111a2e'/><circle cx='22' cy='28' r='7' fill='#22d3ee'/><polyline points='112,128 142,104 172,116 202,84 222,100' fill='none' stroke='#22d3ee' stroke-width='3'/><rect x='306' y='90' width='14' height='44' rx='2' fill='#34d399'/></svg>");
+  const T_GLASS=svgUri("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><defs><linearGradient id='gg' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#7c3aed'/><stop offset='0.5' stop-color='#db2777'/><stop offset='1' stop-color='#f59e0b'/></linearGradient></defs><rect width='400' height='300' fill='url(#gg)'/><rect x='70' y='90' width='260' height='120' rx='18' fill='#fff' opacity='0.22'/></svg>");
+
+  // mixed result pool (dpub/dcrawl = days offset)
+  const POOL=[
+    {type:'image',title:'Minimal SaaS Dashboard — Analytics Overview',url:T_DASH,source_page:'https://dribbble.com/shots/analytics-dashboard',authors:'Dribbble',description:'Clean light-theme analytics dashboard with sidebar, KPI cards and a weekly revenue line chart.',summary:'Category: Dashboard\nStyle: Minimal, light, single accent\nPalette: #FFFFFF / #F8FAFC / #039855',snippet:'<div class="kpi-card"><span>Revenue</span></div>',dpub:-1,dcrawl:-1},
+    {type:'text',title:'Designing for Dark Mode: Surfaces, Accents & Contrast',url:'https://uxdesign.cc/dark-mode-guide',authors:'UX Collective',favicon:'https://uxdesign.cc/favicon.ico',highlight:'Dark mode is more than inverting colors: use layered dark grays instead of pure black to convey elevation, desaturate accent hues, and keep body text near a 7:1 contrast ratio…',full_content:'Dark mode has moved from a novelty to a baseline expectation.\n\n## Surfaces and elevation\nAvoid pure #000 backgrounds; layer dark grays so higher surfaces read as closer.\n\n## Accent colors\nDesaturate by 10–20% and re-check contrast.',cover:T_DARK,dpub:-2,dcrawl:-1},
+    {type:'video',title:'Building a Mobile Onboarding Flow (Figma → Code)',url:'https://www.youtube.com/watch?v=onboard',source_page:'https://www.youtube.com/watch?v=onboard',cover_url:T_MOBILE,description:'A 20-minute walkthrough turning a fintech onboarding design into a working prototype.',duration_seconds:1245,authors:'DesignCourse',dpub:-5,dcrawl:-4},
+    {type:'image',title:'Gradient Pricing Page Concept',url:T_PRICING,source_page:'https://www.behance.net/gallery/pricing-page',authors:'Behance',description:'Three-tier pricing layout on a teal-to-emerald gradient with the recommended plan raised.',summary:'Category: Landing / Pricing\nStyle: Bold gradient, rounded cards',snippet:'<button class="btn-primary">Choose plan</button>',dpub:-3,dcrawl:-2},
+    {type:'text',title:'Why Three-Tier Pricing Converts',url:'https://cxl.com/blog/pricing-tiers',authors:'CXL',favicon:'https://cxl.com/favicon.ico',highlight:'Three-tier layouts work because they anchor the middle plan as the default choice. A single emphasized CTA and an annual toggle account for most of the conversion lift…',full_content:'Pricing pages carry disproportionate revenue weight.\n\n## Anchor with three tiers\nThe middle plan becomes the reference point.\n\n## One primary action\nEmphasize a single CTA per card.',dpub:-8,dcrawl:-6},
+    {type:'video',title:'Dark Analytics Console UI Kit — Speed Build',url:'https://www.youtube.com/watch?v=darkkit',source_page:'https://www.youtube.com/watch?v=darkkit',cover_url:T_DARK,description:'Timelapse building a dense dark-theme console with neon accents.',duration_seconds:1180,authors:'Flux Academy',dpub:-12,dcrawl:-9},
+    {type:'image',title:'Glassmorphism Landing Hero',url:T_GLASS,source_page:'https://www.behance.net/gallery/glass-hero',authors:'Behance',description:'Vibrant gradient hero with a frosted glass panel and high-contrast pill CTA.',summary:'Category: Landing\nStyle: Glassmorphism, blur, vivid gradient',snippet:'<div class="hero-glass"><h1>Design, searchable.</h1></div>',dpub:-16,dcrawl:-11},
+    {type:'image',title:'Mobile Banking App — Onboarding',url:T_MOBILE,source_page:'https://mobbin.com/screens/banking',authors:'Mobbin',description:'Soft rounded onboarding screens for a fintech app with paged dots and primary action.',summary:'Category: Mobile\nStyle: Soft, rounded, indigo accent',snippet:'<div class="onboard"><h2>You are all set</h2></div>',dpub:-20,dcrawl:-14},
+  ];
+  const PHRASES=['modern dark navigation bar with logo','SaaS pricing section with three tiers','footer with link columns and newsletter'];
+
+  // ── instance factory ──
+  const INST={};
   function init(cfg){
     const I={ cfg:cfg, text:'', images:[], attachMenu:false, topic:'general', max:'10', basis:'auto',
       timeRange:'', start:'', end:'', dateLabel:'', safesearch:'strict',
@@ -271,16 +297,23 @@
 
   // Exposed for SPA: called by app.js router after page DOM is injected
   window.initBroadSearchApi = function() {
-    // Re-init only if root containers exist (page is currently rendered)
-    if (!document.getElementById('is-root')) return;
-    // Clear previous instances to allow re-init on revisit
-    ['is','vs','mm'].forEach(function(k){ delete INST[k]; });
-    init({key:'is', rootId:'is-root', modalities:['image'], topic:true, selectable:false, htmlSnippet:true, highlightFull:false});
-    init({key:'vs', rootId:'vs-root', modalities:['video'], topic:false, selectable:false, htmlSnippet:false, highlightFull:false});
-    init({key:'mm', rootId:'mm-root', modalities:['text','image','video'], topic:true, selectable:true, htmlSnippet:true, highlightFull:true});
+    // Each search page (image/video/multimodal) is now its own SPA page and
+    // injects only its own root. Init whichever roots are present in the DOM.
+    const specs = [
+      {key:'is', rootId:'is-root', modalities:['image'], topic:true, selectable:false, htmlSnippet:true, highlightFull:false},
+      {key:'vs', rootId:'vs-root', modalities:['video'], topic:false, selectable:false, htmlSnippet:false, highlightFull:false},
+      {key:'mm', rootId:'mm-root', modalities:['text','image','video'], topic:true, selectable:true, htmlSnippet:true, highlightFull:true},
+    ];
+    const present = specs.filter(s => document.getElementById(s.rootId));
+    if (!present.length) return;
+    present.forEach(function(s){
+      delete INST[s.key];   // clear previous instance to allow re-init on revisit
+      init(s);
+    });
     // Inject Early Access gate notice below the Inputs row for each gated product
     const gateMap = { 'is': 'Image Search', 'vs': 'Video Search', 'mm': 'Multimodal Chat' };
-    Object.keys(gateMap).forEach(function(k){
+    present.forEach(function(s){
+      const k = s.key;
       const productName = gateMap[k];
       const atterr = document.getElementById(k + '-atterr');
       if (!atterr) return;

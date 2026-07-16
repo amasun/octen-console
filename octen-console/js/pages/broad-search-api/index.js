@@ -221,16 +221,34 @@
     $('bsa-resp-body').innerHTML=renderFigmaPreview();
   }
 
-  document.addEventListener('DOMContentLoaded',function(){ if($('bsa-code'))refreshCode();
-    const inp=$('bsa-query'); if(inp){ const EX=['compare frontier AI models in 2026','latest trends in the global AI chip market','best practices and pitfalls of RAG in production'];
-      let ph=0,ch=0,del=false; (function tick(){ const cur=EX[ph]; if(!del){ch++; if(ch>cur.length){del=true;setTimeout(tick,1500);return;}} else {ch--; if(ch<=0){del=false;ph=(ph+1)%EX.length;}} if(!inp.value)inp.setAttribute('placeholder',cur.slice(0,Math.max(0,ch))); setTimeout(tick,del?40:95); })();
-    }
-  });
   // keep request code in sync with param edits
   document.addEventListener('input',function(e){ if(e.target.closest&&e.target.closest('#page-broad-search-api')) refreshCode(); });
   document.addEventListener('change',function(e){ if(e.target.closest&&e.target.closest('#page-broad-search-api')) refreshCode(); });
 
   // SPA lifecycle: render the code panel after the page DOM is injected.
   window.pageInit = window.pageInit || {};
-  window.pageInit['broad-search-api'] = function(){ window.bsaSetLang('python'); };
+  window.pageInit['broad-search-api'] = function(){ 
+    window.bsaSetLang('python'); 
+    if($('bsa-code'))refreshCode();
+    const inp = $('bsa-query'); 
+    if(inp){ 
+      const EX=['compare frontier AI models in 2026','latest trends in the global AI chip market','best practices and pitfalls of RAG in production'];
+      let ph=0, ch=0, del=false; 
+      if(window.bsaTypeTimer) clearTimeout(window.bsaTypeTimer);
+      (function tick(){ 
+        const currentInp = $('bsa-query');
+        if(!currentInp) return; 
+        const cur=EX[ph]; 
+        if(!del){
+          ch++; 
+          if(ch>cur.length){del=true; window.bsaTypeTimer=setTimeout(tick,1500); return;}
+        } else {
+          ch--; 
+          if(ch<=0){del=false; ph=(ph+1)%EX.length;}
+        } 
+        if(!currentInp.value) currentInp.setAttribute('placeholder',cur.slice(0,Math.max(0,ch))); 
+        window.bsaTypeTimer=setTimeout(tick, del?40:95); 
+      })();
+    }
+  };
 })();

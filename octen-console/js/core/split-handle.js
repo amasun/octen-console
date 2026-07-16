@@ -1,47 +1,52 @@
 // Split Handle Resize Logic
-document.addEventListener('DOMContentLoaded', () => {
-  const handles = document.querySelectorAll('.split-handle');
-  handles.forEach(handle => {
-    let isDragging = false;
-    let startX, startWidth, containerWidth;
-    const prevPane = handle.previousElementSibling;
-    const nextPane = handle.nextElementSibling;
-    if (!prevPane || !nextPane) return;
-    
-    handle.addEventListener('mousedown', (e) => {
+(function() {
+  let isDragging = false;
+  let currentHandle = null;
+  let startX, startWidth, containerWidth;
+  let prevPane, nextPane;
+
+  document.addEventListener('mousedown', (e) => {
+    if (e.target && e.target.classList && e.target.classList.contains('split-handle')) {
+      currentHandle = e.target;
+      prevPane = currentHandle.previousElementSibling;
+      nextPane = currentHandle.nextElementSibling;
+      
+      if (!prevPane || !nextPane) return;
+      
       isDragging = true;
       startX = e.clientX;
       startWidth = prevPane.getBoundingClientRect().width;
-      const container = handle.parentElement;
+      const container = currentHandle.parentElement;
       containerWidth = container.clientWidth;
       document.body.style.cursor = 'col-resize';
       document.body.style.userSelect = 'none';
       e.preventDefault();
-    });
-    
-    window.addEventListener('mousemove', (e) => {
-      if (!isDragging) return;
-      const minLeftWidth = 400;
-      const minRightWidth = 400;
-      const maxLeftWidth = Math.max(minLeftWidth, containerWidth - minRightWidth - handle.clientWidth);
-      
-      const dx = e.clientX - startX;
-      let newWidth = startWidth + dx;
-      
-      if (newWidth > maxLeftWidth) newWidth = maxLeftWidth;
-      if (newWidth < minLeftWidth) newWidth = minLeftWidth;
-      
-      prevPane.style.flex = '0 0 ' + newWidth + 'px';
-      prevPane.style.width = newWidth + 'px';
-      nextPane.style.flex = '1 1 0%';
-    });
-    
-    window.addEventListener('mouseup', () => {
-      if (isDragging) {
-        isDragging = false;
-        document.body.style.cursor = '';
-        document.body.style.userSelect = '';
-      }
-    });
+    }
   });
-});
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging || !currentHandle || !prevPane || !nextPane) return;
+    const minLeftWidth = 400;
+    const minRightWidth = 400;
+    const maxLeftWidth = Math.max(minLeftWidth, containerWidth - minRightWidth - currentHandle.clientWidth);
+    
+    const dx = e.clientX - startX;
+    let newWidth = startWidth + dx;
+    
+    if (newWidth > maxLeftWidth) newWidth = maxLeftWidth;
+    if (newWidth < minLeftWidth) newWidth = minLeftWidth;
+    
+    prevPane.style.flex = '0 0 ' + newWidth + 'px';
+    prevPane.style.width = newWidth + 'px';
+    nextPane.style.flex = '1 1 0%';
+  });
+
+  window.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      currentHandle = null;
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    }
+  });
+})();
