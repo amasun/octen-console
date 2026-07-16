@@ -178,9 +178,9 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
           <!-- Response pane -->
           <div id="bsa-pane-response" class="hidden flex-1 flex flex-col min-h-0">
             <div class="flex items-center justify-between shrink-0 px-6 py-4">
-              <div class="flex p-1 bg-[#f5f5f5] rounded-lg">
-                <button id="bsa-rt-preview" class="px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer bg-white shadow-sm text-[#0a0a0a]" onclick="bsaRtab('preview')">Preview</button>
-                <button id="bsa-rt-json" class="px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer bg-transparent text-[#737373] hover:text-[#0a0a0a]" onclick="bsaRtab('json')">JSON</button>
+              <div class="flex h-[30px] items-stretch p-1 bg-[#f5f5f5] rounded-lg">
+                <button id="bsa-rt-preview" class="px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-white shadow-sm text-[#0a0a0a]" onclick="bsaRtab('preview')">Preview</button>
+                <button id="bsa-rt-json" class="px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" onclick="bsaRtab('json')">JSON</button>
               </div>
               <div class="flex items-center gap-1.5">
                 <span id="bsa-meta" class="text-xs text-slate-500 mr-2"></span>

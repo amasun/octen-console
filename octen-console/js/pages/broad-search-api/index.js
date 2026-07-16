@@ -168,8 +168,8 @@
     $('bsa-tab-res').className = req ? inactiveCls : activeCls;
   };
   window.bsaRtab=function(t){ rtab=t;
-    const activeCls = 'px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer bg-white shadow-sm text-[#0a0a0a]';
-    const inactiveCls = 'px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer bg-transparent text-[#737373] hover:text-[#0a0a0a]';
+    const activeCls = 'px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-white shadow-sm text-[#0a0a0a]';
+    const inactiveCls = 'px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]';
     $('bsa-rt-preview').className = t === 'preview' ? activeCls : inactiveCls;
     $('bsa-rt-json').className = t === 'json' ? activeCls : inactiveCls;
     $('bsa-rt-preview').style.cssText = '';
