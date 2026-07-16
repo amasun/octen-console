@@ -18,22 +18,23 @@ To implement this layout, designers and developers must structure the UI using t
 
 ### A. The Base Layer (Background Depth)
 - **Role**: Serves as the absolute bottom canvas of the application (e.g., HTML/body background, Titlebars).
-- **Styling**: Must use a clean, solid light grey (`#f3f4f6` or `oklch(96% 0 240)`) for high-contrast light modes, or a dark subtle vignette for dark modes. The goal is to provide a neutral ground that makes the white cards pop.
+- **Styling**: Must use a clean, solid neutral grey (`#F5F5F5` / `var(--bg-workspace)`) for high-contrast light modes, or a dark subtle vignette for dark modes. Global text color defaults to `#020617` (`var(--text-normal)`).
 - **Rules**: Global outer-window controls (like titlebar buttons) and Outer Sidebars sit directly on this layer.
 
 ### B. The Floating Card Layer (Active Workspace Depth)
 - **Role**: Wraps all primary interactive workspaces (e.g., Folder Tree, Main Content Area, Sidebar Panels).
-- **Styling**: Cards are enclosed containers that must feature:
-  - **Pronounced border-radii** (`12px` to `18px`).
-  - **Soft, multi-layered shadows** to create an illusion of floating.
-  - A high-contrast background color (e.g., pure white `#ffffff` or `oklch(100% 0 0)`) that stands out sharply against a slightly darker base background, creating a crisp, premium layer contrast.
+- **Styling**: Cards (`.pane` / `.layout-pane`) are enclosed containers that must feature:
+  - **Pronounced border-radius**: `border-radius: 16px`.
+  - **Crisp subtle border contour**: `border: 1px solid rgba(115, 115, 115, 0.20)`.
+  - **Pure white card background**: `background: #FFF` (`#ffffff`) that stands out sharply against the `#F5F5F5` base background.
+  - High-contrast text color (`#020617`).
 
-### C. The Outer Control Ribbon (Card-Adjacent Depth)
+### C. The Outer Control Ribbon / Sidebar (.ribbon, .sidebar)
 - **Role**: Houses global navigation icons, toolbars, or **full left-side navigation sidebars**.
-- **Styling**: It must reside **outside the workspace cards**, sitting directly on the Base Layer.
+- **Styling**: Both `.ribbon` and `.sidebar` must reside **outside the workspace cards**, sitting directly on the Base Layer.
 - **Rules**:
-  - The Ribbon/Sidebar has **no solid background color** (it is transparent, letting the Base Layer show through). It is NOT a white floating card.
-  - Hover states on ribbon buttons or sidebar links should trigger a soft, semi-transparent background bubble, rather than lighting up the entire column.
+  - Both `.ribbon` and `.sidebar` share the same outer style: **no solid card background color** (transparent background `background: transparent`, no border, no shadow), letting the Base Layer show through. Neither is a white floating card.
+  - Hover states on ribbon buttons or sidebar links trigger a soft, semi-transparent background bubble (`var(--background-modifier-hover)`), rather than lighting up the entire column.
 
 ---
 
@@ -43,19 +44,26 @@ Ensure the following design tokens are registered and consistently referenced:
 
 ```css
 :root {
-  /* --- Parametric Color Base --- */
-  --bhue: 240; 
-  
-  /* --- Backgrounds --- */
-  --bg-workspace: oklch(96.00% 0.002 var(--bhue)); /* Clean, solid light grey base */
+  /* --- Global Backgrounds & Text (from octen-broad-search standard) --- */
+  --bg-workspace: #F5F5F5; /* Clean, solid neutral grey base */
+  --text-normal: #020617; /* High-contrast slate primary text */
   
   --background-primary: #ffffff;
-  --background-secondary: #ffffff; /* High contrast pure white card base */
+  --background-secondary: #ffffff; /* Pure white card base (#FFF) */
+  
+  /* --- Typography --- */
+  --font-ui: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-code: "JetBrains Mono", monospace;
+  
+  /* --- Card Pane Standard --- */
+  --pane-bg: #FFF;
+  --pane-border: 1px solid rgba(115, 115, 115, 0.20);
+  --pane-radius: 16px;
   
   /* --- Radii Scale --- */
   --radius-s: 6px; /* Buttons, tags, inner items */
   --radius-m: 8px; /* Inner panels, tabs, lists */
-  --radius-l: 12px; /* Recommended floating card border-radius */
+  --radius-l: 16px; /* Floating card border-radius */
   
   /* --- Gaps & Padding --- */
   --vl-layout-padding: 10px; /* Gap between cards and screen edges */
@@ -134,10 +142,16 @@ Use this HTML/CSS skeleton as the starting boilerplate for any card-layered dash
   min-height: 0;
 }
 
-/* outer control bar */
-.ribbon {
+/* outer control bar / navigation sidebar (shared styles for .ribbon and .sidebar) */
+.ribbon, .sidebar, .ribbon-sidebar {
   display: flex;
   flex-direction: column;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.ribbon {
   align-items: center;
   gap: 4px;
   padding: 8px 0 12px 8px;
@@ -168,15 +182,40 @@ Use this HTML/CSS skeleton as the starting boilerplate for any card-layered dash
   min-height: 0;
 }
 
-/* floating card containers */
-.pane {
-  background: var(--background-secondary); /* Lighter card color */
-  border-radius: var(--radius-l); /* Rounded floating card */
-  box-shadow: var(--shadow-workspace); /* Glass border + drop shadow */
+/* floating card containers (.pane / .layout-pane) */
+.pane, .layout-pane {
+  background: #FFF;
+  border-radius: 16px;
+  border: 1px solid rgba(115, 115, 115, 0.20);
+  box-shadow: var(--shadow-workspace);
   display: flex;
   flex-direction: column;
   min-height: 0;
   overflow: hidden;
+}
+
+/* code & typography standard (JetBrains Mono) */
+code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.86em;
+  background: var(--code-background, rgba(0, 0, 0, 0.035));
+  padding: 0.18em 0.42em;
+  border-radius: var(--radius-s, 6px);
+  color: rgb(225, 60, 66);
+}
+pre {
+  background: rgba(80, 75, 100, 0.12);
+  padding: 16px 18px;
+  border-radius: var(--radius-m, 8px);
+  margin: 0 0 1em;
+  overflow-x: auto;
+}
+pre code {
+  background: none;
+  padding: 0;
+  color: var(--text-normal, #020617);
+  font-size: 0.84em;
+  line-height: 1.55;
 }
 ```
 
@@ -185,8 +224,9 @@ Use this HTML/CSS skeleton as the starting boilerplate for any card-layered dash
 ## 🔍 4. Verification Checklist for AI Agents
 
 When tasked to build or audit a card-layered visual interface:
-1. **[ ] Ambient Depth**: Does the `body` use a clean, solid light grey (for high contrast light mode) or a subtle dark vignette (for dark mode)?
-2. **[ ] Gap Isolation**: Are there pronounced Gaps/Paddings (e.g., `10px`) between the cards and the outer sidebar/screen edges? (Cards must NEVER touch the ribbon or each other directly).
-3. **[ ] Outer Control Separation**: Does the left control ribbon or navigation sidebar sit directly on the base layer WITHOUT a white card background? (It must be transparent, blending into the base layer).
-4. **[ ] Rounded Card Borders**: Do the panels (`.pane`, `.editor-pane`) have a rounded corner border-radius of `12px` (or `8px` for inner elements)?
-5. **[ ] Card High-Contrast Separation**: Do the cards pop with a pure white background (`#ffffff`) and a fine shadow outline to separate them from the grey base, avoiding muddy "glass" inset shadows?
+1. **[ ] Ambient Depth**: Does the `body` use clean neutral grey `#F5F5F5` (`--bg-workspace`) with `#020617` primary text (`--text-normal`) for high-contrast light mode?
+2. **[ ] Gap Isolation**: Are there pronounced Gaps/Paddings (`10px`) between cards and screen edges? (Cards must NEVER touch the ribbon or each other directly).
+3. **[ ] Outer Control Separation**: Do both `.ribbon` and `.sidebar` sit directly on the base layer WITHOUT a white card background? (Transparent, blending into base layer).
+4. **[ ] Card Borders & Radii**: Do the panels (`.pane`, `.layout-pane`) have `border-radius: 16px` and crisp contour `border: 1px solid rgba(115, 115, 115, 0.20)`?
+5. **[ ] Card High-Contrast Separation**: Do the cards pop with pure white background (`#FFF` / `#ffffff`) against the `#F5F5F5` base?
+6. **[ ] Typography & Code Styling**: Does code content (`code`, `pre`) use **`JetBrains Mono`** (`font-family: "JetBrains Mono", monospace`) with clear background spacing and line-height?

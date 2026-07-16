@@ -1,612 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Octen Console — Org Management</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<style>
-body{font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;-webkit-font-smoothing:antialiased}
-.page{display:none}.page.active{display:block}
-/* Nav item — matches ConsoleLayout.tsx exactly: gap-3 px-3 py-2 rounded-lg */
-.nav-item{display:flex;align-items:center;gap:12px;padding:8px 12px;border-radius:8px;font-size:14px;color:#475569;cursor:pointer;transition:all .15s}
-.nav-item:hover{background:#f8fafc}
-.nav-item.active{background:#0398551a;color:#039855}
-.nav-item svg{width:20px;height:20px;flex-shrink:0}
-.nav-section-label{font-size:12px;font-weight:500;color:#94a3b8;letter-spacing:.05em;padding:4px 12px}
-/* tab — matches online Usage style */
-.tab-btn{padding:12px 4px;margin:0 12px;font-size:14px;font-weight:500;border-bottom:2px solid transparent;color:#94a3b8;cursor:pointer;white-space:nowrap;transition:color .15s}
-.tab-btn:first-child{margin-left:0}
-.tab-btn.active{border-bottom-color:#039855;color:#039855}
-.tab-btn:hover:not(.active){color:#0f172a}
-.modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:50;align-items:center;justify-content:center;padding:16px}
-.modal-bg.open{display:flex}
-input:focus,select:focus{outline:none;border-color:#039855 !important;box-shadow:0 0 0 1px #039855}
-@keyframes spin{to{transform:rotate(360deg)}}
-.dest-tip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;font-size:11px;padding:4px 8px;border-radius:4px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:60}
-.group\/tip:hover .dest-tip{opacity:1}
-.ex-tip-bubble{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);background:#0f172a;color:#fff;font-size:11px;line-height:1.4;padding:6px 10px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:60;font-weight:400}
-.ex-tip:hover .ex-tip-bubble{opacity:1}
+tailwind.config = {
+    darkMode: ['class', '[data-theme="dark"]'],
+    theme: {
+      extend: {
+        colors: {
+          slate: {
+            50: 'var(--trans-faint-10)',
+            100: 'var(--color-base-10)',
+            200: 'var(--color-base-20)',
+            300: 'var(--color-base-30)',
+            400: 'var(--color-base-40)',
+            500: 'var(--color-base-50)',
+            600: 'var(--color-base-60)',
+            700: 'var(--color-base-70)',
+            800: 'var(--color-base-80)',
+            900: 'var(--color-base-90)',
+            950: 'var(--color-base-100)',
+          },
+          white: 'var(--background-secondary)',
+          black: 'var(--text-normal)',
+          blue: {
+            50: 'var(--trans-faint-10)',
+            100: 'var(--color-accent-1)',
+            500: 'var(--color-accent)',
+            600: 'var(--color-accent)',
+            700: 'var(--color-accent)',
+          },
+          green: {
+            50: 'var(--trans-faint-10)',
+            500: 'var(--color-green)',
+            600: 'var(--color-green)',
+            700: 'var(--color-green)',
+          },
+          red: {
+            50: 'var(--trans-faint-10)',
+            500: 'var(--color-red)',
+            600: 'var(--color-red)',
+            700: 'var(--color-red)',
+          },
+          purple: {
+            50: 'var(--trans-faint-10)',
+            500: 'var(--color-purple)',
+            600: 'var(--color-purple)',
+            700: 'var(--color-purple)',
+          }
+        }
+      }
+    }
+  }
 
-/* --- Card-Layer Architecture --- */
-:root {
-  --bg-workspace: #f8fafc;
-  --background-secondary: #ffffff;
-  --radius-l: 12px;
-  --vl-layout-padding: 10px;
-  --ribbon-width: 256px; /* corresponds to w-64 */
-  --shadow-outline: 0 0 0 1px rgba(0, 0, 0, 0.04);
-  --shadow-normal: 0px 8px 30px 0px rgba(0, 0, 0, 0.05);
-  --shadow-workspace: var(--shadow-outline), var(--shadow-normal);
-}
-
-.app {
-  display: grid;
-  height: 100vh;
-  width: 100vw;
-  background: var(--bg-workspace);
-}
-
-.workspace {
-  display: grid;
-  grid-template-columns: var(--ribbon-width) 1fr;
-  padding: var(--vl-layout-padding);
-  gap: var(--vl-layout-padding);
-  min-height: 0;
-}
-
-.ribbon {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.workspace-body {
-  display: grid;
-  grid-template-columns: 1fr;
-  min-height: 0;
-}
-
-.pane {
-  background: var(--background-secondary);
-  border-radius: var(--radius-l);
-  box-shadow: var(--shadow-workspace);
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  overflow: hidden;
-}
-</style>
-</head>
-<body class="app text-slate-900">
-<div class="workspace">
-<!-- ============================================================
-     SIDEBAR — 1:1 match with ConsoleLayout.tsx
-============================================================ -->
-<aside class="ribbon">
-
-  <!-- Logo & Organization Switcher — single row, h-16 -->
-  <div class="h-16 flex items-center px-4 shrink-0 gap-3">
-    <!-- Logo icon -->
-    <a href="#" class="shrink-0">
-      <img src="octen-logo.png" alt="Octen" class="w-7 h-7"/>
-    </a>
-
-    <!-- Organization Switcher -->
-    <div class="flex-1 relative" id="ws-wrap">
-      <button id="ws-btn" type="button" onclick="toggleWsDrop()" class="w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors hover:bg-slate-50">
-        <span id="ws-name" class="text-sm font-medium text-slate-900 truncate">Acme Inc</span>
-        <svg id="ws-chevron" class="w-4 h-4 text-slate-400 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
-      </button>
-
-      <!-- Dropdown -->
-      <div id="ws-drop" class="hidden absolute -left-11 right-0 top-[calc(100%+8px)] z-50 rounded-xl border border-slate-200 bg-white shadow-lg overflow-hidden max-h-80 overflow-y-auto">
-        <!-- Personal Account -->
-        <button type="button" onclick="switchWs('personal')" class="w-full flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors">
-          <span class="text-sm text-slate-900">Jane Niu's Personal</span>
-          <svg id="chk-personal" class="w-4 h-4 shrink-0 hidden" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-        </button>
-
-        <!-- Organizations -->
-        <button type="button" onclick="switchWs('org')" class="w-full flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors">
-          <span class="text-sm text-slate-900">Acme Inc</span>
-          <svg id="chk-org" class="w-4 h-4 shrink-0" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-        </button>
-        <button type="button" onclick="switchWs('org2')" class="w-full flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors">
-          <span class="text-sm text-slate-900">Tech Corp</span>
-          <svg id="chk-org2" class="w-4 h-4 shrink-0 hidden" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-        </button>
-
-        <div class="border-t border-slate-100"></div>
-        <button type="button" onclick="openCreateOrg()" class="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-[#0398551a] transition-colors" style="color:#039855">
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
-          <span class="text-sm font-medium">Create Organization</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Navigation — matches ConsoleLayout.tsx structure -->
-  <nav class="flex-1 p-4 space-y-4 overflow-y-auto">
-
-    <!-- Overview -->
-    <div class="nav-item active" onclick="go('overview')">
-      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
-      <span>Overview</span>
-    </div>
-
-    <!-- API Group -->
-    <div class="space-y-1">
-      <div class="nav-section-label">API</div>
-      <!-- Broad Search (API) -->
-      <div class="nav-item" onclick="go('broad-search-api')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-3.5-3.5M11 8v6M8 11h6"/></svg>
-        <span>Broad Search</span>
-      </div>
-      <div class="nav-item" onclick="go('web-search')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
-        <span>Web Search</span>
-      </div>
-      <!-- Image Search -->
-      <div class="nav-item" onclick="go('image-search')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg>
-        <span>Image Search</span>
-      </div>
-      <!-- Video Search -->
-      <div class="nav-item" onclick="go('video-search')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-        <span>Video Search</span>
-      </div>
-      <!-- Multimodal Search -->
-      <div class="nav-item" onclick="go('multimodal-search')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg>
-        <span>Omni Search</span>
-      </div>
-      <div class="nav-item" onclick="go('extract')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-        <span>Extract</span>
-      </div>
-      <!-- Model -->
-      <div class="nav-item" onclick="go('model')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4M13 3l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5L13 3z"/></svg>
-        <span>Model</span>
-      </div>
-      <!-- Flow — hidden from nav (page retained) -->
-      <div class="nav-item" style="display:none" onclick="go('web-flow')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16"/><circle cx="18" cy="12" r="3"/></svg>
-        <span>Flow</span>
-      </div>
-      <!-- Collect — hidden from nav (page retained) -->
-      <div class="nav-item" style="display:none" onclick="go('collect')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 10V7"/></svg>
-        <span>Collect</span>
-      </div>
-    </div>
-
-    <!-- Application -->
-    <div class="space-y-1">
-      <div class="nav-section-label">APPLICATION</div>
-      <div class="nav-item" onclick="go('broad-search')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
-        <span>Answer</span>
-      </div>
-      <!-- Deep Research -->
-      <div class="nav-item" onclick="go('deep-research')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4-4M11 8v6M8 11h6"/></svg>
-        <span>Deep Research</span>
-      </div>
-    </div>
-
-    <!-- Management Group -->
-    <div class="space-y-1">
-      <div class="nav-section-label">MANAGEMENT</div>
-      <div class="nav-item" onclick="go('api-keys')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
-        <span>API Keys</span>
-      </div>
-      <div class="nav-item" onclick="go('usage')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
-        <span>Usage</span>
-      </div>
-      <div id="mgmt-billing" class="nav-item" onclick="go('billing')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
-        <span>Billing</span>
-      </div>
-
-      <!-- [NEW] Settings — org mode only (contains Members + Service Keys + General) -->
-      <div id="mgmt-settings" class="nav-item" onclick="go('settings')">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
-        <span>Settings</span>
-      </div>
-    </div>
-
-    <!-- Developers -->
-    <div class="space-y-1">
-      <div class="nav-section-label">DEVELOPERS</div>
-      <a href="#" class="nav-item">
-        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-        <span>Docs</span>
-      </a>
-    </div>
-  </nav>
-
-  <!-- Bottom — account info (matches ConsoleLayout.tsx) -->
-  <div class="shrink-0">
-    <div class="p-4 border-t border-slate-200">
-      <div class="w-full rounded-xl transition-colors px-2 py-2 border border-transparent hover:bg-slate-50 hover:border-slate-200 cursor-pointer">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-full bg-[#0F172B] text-white flex items-center justify-center font-medium shrink-0">J</div>
-            <div class="min-w-0 text-left">
-              <div class="text-slate-900 text-sm font-medium truncate">Jane Niu</div>
-              <div class="text-slate-500 text-xs truncate">user@example.com</div>
-            </div>
-          </div>
-          <svg class="w-4 h-4 text-slate-400 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Demo switches (prototype only) -->
-  <div class="px-4 pb-3 space-y-2">
-    <div>
-      <div class="text-[10px] text-slate-400 mb-1.5">Demo: view as</div>
-      <div class="flex gap-1">
-        <button onclick="setRole('owner')" id="rb-owner" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Owner</button>
-        <button onclick="setRole('manager')" id="rb-manager" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Manager</button>
-        <button onclick="setRole('member')" id="rb-member" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Member</button>
-      </div>
-    </div>
-    <div>
-      <div class="text-[10px] text-slate-400 mb-1.5">Demo: payment</div>
-      <div class="flex gap-1">
-        <button onclick="setPayment(false)" id="rb-nocard" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">No card</button>
-        <button onclick="setPayment(true)" id="rb-active" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Active</button>
-      </div>
-    </div>
-    <div>
-      <div class="text-[10px] text-slate-400 mb-1.5">Demo: billing mode</div>
-      <div class="flex gap-1">
-        <button onclick="setBillingMode('prepaid')" id="bm-prepaid" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Prepaid</button>
-        <button onclick="setBillingMode('postpaid')" id="bm-postpaid" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Invoiced</button>
-      </div>
-    </div>
-    <div class="mt-2.5">
-      <div class="text-[10px] text-slate-400 mb-1.5">Demo: access state</div>
-      <div class="flex gap-1">
-        <button onclick="setAccessState('signed-out')" id="ax-signed-out" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Signed out</button>
-        <button onclick="setAccessState('apply')" id="ax-apply" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Apply</button>
-        <button onclick="setAccessState('approved')" id="ax-approved" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Approved</button>
-      </div>
-    </div>
-    <div id="bm-status-wrap" class="hidden">
-      <div class="text-[10px] text-slate-400 mb-1.5">Demo: postpaid status</div>
-      <select id="bm-status" onchange="setPostpaidStatus(this.value)" class="w-full text-[10px] py-1 px-1.5 rounded border border-slate-200 text-slate-600 bg-white outline-none">
-        <option value="firstMonth">First month (no usage yet)</option>
-        <option value="normal">Normal (&lt;80%)</option>
-        <option value="warn80">Warning ≥80%</option>
-        <option value="warn90">Warning ≥90%</option>
-        <option value="overdue">Invoice overdue</option>
-        <option value="suspended">Suspended (≥100% / D+37)</option>
-      </select>
-    </div>
-  </div>
-</aside>
-
-<!-- ============================================================
-     MAIN
-============================================================ -->
-<div class="workspace-body">
-<main class="pane editor-pane overflow-y-auto">
-
-<div id="page-broad-search-api" class="page p-4">
-  <div class="grid lg:grid-cols-2 gap-4">
-    <!-- Left: Parameters -->
-    <div class="space-y-4">
-      <div class="bg-white rounded-md border border-slate-200 p-4 space-y-4">
-        <!-- Configuration header -->
-        <div class="flex items-center justify-between">
-          <h2 class="text-slate-800 font-semibold" style="font-size:17px">Configuration</h2>
-          <a href="#" onclick="return false" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 border border-slate-200 text-slate-600 rounded-md text-xs hover:bg-slate-50">
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <span>Docs</span>
-          </a>
-        </div>
-        <!-- Query -->
-        <section>
-          <label class="block text-slate-800 text-sm font-medium mb-2">Query<span class="text-red-500 ml-0.5">*</span></label>
-          <div id="bsa-query-box" class="border border-slate-200 rounded-lg px-3 pt-2.5 pb-2 transition-colors focus-within:border-[#039855]">
-            <textarea id="bsa-query" rows="2" placeholder="" class="w-full border-0 outline-none resize-none text-sm text-slate-800 placeholder:text-slate-400 leading-relaxed bg-transparent"></textarea>
-            <div class="flex items-center justify-end gap-2 mt-1">
-              <button type="button" onclick="bsaClear()" class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-slate-200 text-slate-600 rounded-lg text-xs hover:bg-slate-50 whitespace-nowrap">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M1 4v6h6M23 20v-6h-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
-                <span>Clear</span>
-              </button>
-              <button type="button" onclick="bsaRun()" id="bsa-run-btn" class="inline-flex items-center gap-1.5 px-4 py-1.5 text-white rounded-lg text-xs whitespace-nowrap" style="background:#039855">
-                <svg class="w-3.5 h-3.5" fill="#fff" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-                <span>Run</span>
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <div class="border-t border-slate-100"></div>
-
-        <!-- Basic settings (top-level) -->
-        <section class="space-y-3">
-          <h2 class="text-slate-800 text-sm font-medium">Basic settings</h2>
-          <div>
-            <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Max queries</label>
-            <input type="number" id="bsa-maxq" min="1" max="20" value="5" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
-            <p class="text-xs text-slate-500 mt-1">Number of sub-queries to expand and run in parallel.</p>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Topic</label>
-              <select id="bsa-topic" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs bg-white outline-none focus:border-[#039855]">
-                <option value="general">general</option><option value="news" selected>news</option>
-              </select>
-            </div>
-            <div>
-              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Max results</label>
-              <input type="number" id="bsa-count" min="1" max="100" value="10" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
-            </div>
-          </div>
-        </section>
-
-        <div class="border-t border-slate-100"></div>
-
-        <!-- Filters -->
-        <section class="space-y-3">
-          <h2 class="text-slate-800 text-sm font-medium">Filters</h2>
-          <div class="grid grid-cols-2 gap-3 items-start">
-            <div>
-              <label class="block text-slate-700 text-xs uppercase tracking-wide mb-1">Time basis</label>
-              <div id="bsa-tb-pills" class="inline-flex rounded-full border border-slate-200 text-xs overflow-hidden">
-                <button type="button" class="bsa-tb px-2.5 py-1 border-r border-slate-200" data-tb="auto" style="background:#0398551a;color:#039855;font-weight:500">Auto</button>
-                <button type="button" class="bsa-tb px-2.5 py-1 border-r border-slate-200 bg-white text-slate-600" data-tb="published">Published</button>
-                <button type="button" class="bsa-tb px-2.5 py-1 bg-white text-slate-600" data-tb="crawled">Crawled</button>
-              </div>
-            </div>
-            <div class="relative">
-              <label class="block text-slate-700 text-xs uppercase tracking-wide mb-1">Date range</label>
-              <button type="button" id="bsa-date-btn" onclick="bsaDateToggle()" class="w-full flex items-center gap-2 px-2.5 py-1.5 border border-slate-200 rounded-lg text-xs bg-white outline-none focus:border-[#039855]">
-                <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
-                <span id="bsa-date-label" class="text-slate-400">Custom range</span>
-              </button>
-              <div id="bsa-date-pop" style="display:none;position:absolute;top:calc(100% + 6px);right:0;z-index:60;background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 12px 32px rgba(15,23,42,0.16);padding:14px;gap:12px;width:max-content;max-width:90vw"></div>
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Domain filters</label>
-              <textarea id="bsa-include" rows="3" placeholder="e.g. octen.ai (one per line)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855] resize-none"></textarea>
-            </div>
-            <div>
-              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Exclude domains</label>
-              <textarea id="bsa-exclude" rows="3" placeholder="e.g. octen.ai (one per line)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855] resize-none"></textarea>
-            </div>
-          </div>
-          <div class="grid grid-cols-2 gap-3">
-            <div>
-              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Include text</label>
-              <input type="text" id="bsa-inctext" placeholder="Phrase to include (≤ 5 words)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
-            </div>
-            <div>
-              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Exclude text</label>
-              <input type="text" id="bsa-exctext" placeholder="Phrase to exclude (≤ 5 words)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
-            </div>
-          </div>
-          <!-- hidden state for custom range start/end (set via calendar) -->
-          <input type="hidden" id="bsa-start"/><input type="hidden" id="bsa-end"/>
-        </section>
-
-        <div class="border-t border-slate-100"></div>
-
-        <!-- Output options (within search_options) -->
-        <section class="space-y-4">
-          <h2 class="text-slate-800 text-sm font-medium">Output options</h2>
-          <!-- highlight -->
-          <div class="flex items-start justify-between gap-3">
-            <div class="flex-1 min-w-0">
-              <label class="flex items-center gap-2 text-slate-800 text-xs font-medium cursor-pointer">
-                <input type="checkbox" id="bsa-hl" checked class="w-4 h-4 rounded border-slate-300" style="accent-color:#039855"/>
-                <span>Return highlights</span>
-              </label>
-              <p class="text-xs text-slate-500 ml-6 mt-1">Extract query-relevant highlights from the content.</p>
-            </div>
-            <div id="bsa-hl-wrap" class="shrink-0">
-              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Highlights max tokens</label>
-              <input type="number" id="bsa-hl-tokens" min="1" value="256" class="w-28 px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
-            </div>
-          </div>
-          <!-- full_content -->
-          <div class="flex items-start justify-between gap-3">
-            <div class="flex-1 min-w-0">
-              <label class="flex items-center gap-2 text-slate-800 text-xs font-medium cursor-pointer">
-                <input type="checkbox" id="bsa-fc" class="w-4 h-4 rounded border-slate-300" style="accent-color:#039855"/>
-                <span>Return full content</span>
-              </label>
-              <p class="text-xs text-slate-500 ml-6 mt-1">Billed via full_content_max_tokens.</p>
-            </div>
-            <div id="bsa-fc-wrap" class="shrink-0 hidden">
-              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Full content max tokens</label>
-              <input type="number" id="bsa-fc-tokens" min="1" value="2048" class="w-28 px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
-            </div>
-          </div>
-          <!-- media toggles -->
-          <div class="grid grid-cols-2 gap-2">
-            <label class="flex items-center gap-2 text-slate-800 text-xs font-medium cursor-pointer"><input type="checkbox" id="bsa-images" class="w-4 h-4 rounded border-slate-300" style="accent-color:#039855"/><span>Include images</span></label>
-            <label class="flex items-center gap-2 text-slate-800 text-xs font-medium cursor-pointer"><input type="checkbox" id="bsa-videos" class="w-4 h-4 rounded border-slate-300" style="accent-color:#039855"/><span>Include videos</span></label>
-          </div>
-          <!-- safesearch -->
-          <div>
-            <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Safesearch</label>
-            <select id="bsa-safesearch" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs bg-white outline-none focus:border-[#039855]">
-              <option value="off">off</option><option value="moderate">moderate</option><option value="strict">strict</option>
-            </select>
-          </div>
-        </section>
-      </div>
-    </div>
-
-    <!-- Right: Code & Response -->
-    <div>
-      <div class="bg-white rounded-md border border-slate-200">
-        <div class="border-b border-slate-100 flex">
-          <button id="bsa-tab-req" class="flex-1 px-4 py-2.5 text-xs font-medium" style="color:#039855;background:#0398551a;border-bottom:2px solid #039855" onclick="bsaTab('request')">Request</button>
-          <button id="bsa-tab-res" class="flex-1 px-4 py-2.5 text-xs font-medium text-slate-600" onclick="bsaTab('response')">Response</button>
-        </div>
-        <div class="p-4">
-          <!-- Request pane -->
-          <div id="bsa-pane-request">
-            <div class="flex items-center justify-between mb-3">
-              <div class="inline-flex rounded-md border border-slate-200 overflow-hidden text-xs">
-                <button type="button" class="bsa-lang px-3 py-1.5" data-l="python" onclick="bsaSetLang('python')">Python</button>
-                <button type="button" class="bsa-lang px-3 py-1.5 border-l border-slate-200" data-l="javascript" onclick="bsaSetLang('javascript')">JavaScript</button>
-                <button type="button" class="bsa-lang px-3 py-1.5 border-l border-slate-200" data-l="curl" onclick="bsaSetLang('curl')">cURL</button>
-              </div>
-              <button type="button" onclick="bsaCopyReq()" id="bsa-copyreq" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 text-xs">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                <span>Copy</span>
-              </button>
-            </div>
-            <div id="bsa-code" class="rounded-md overflow-hidden" style="max-height:560px"></div>
-          </div>
-          <!-- Response pane -->
-          <div id="bsa-pane-response" class="hidden">
-            <div class="flex items-center justify-between mb-3">
-              <div class="inline-flex rounded-md border border-slate-200 overflow-hidden text-xs">
-                <button id="bsa-rt-preview" class="px-3 py-1.5" style="background:#0398551a;color:#039855;font-weight:500" onclick="bsaRtab('preview')">Preview</button>
-                <button id="bsa-rt-json" class="px-3 py-1.5 border-l border-slate-200 bg-white text-slate-600" onclick="bsaRtab('json')">JSON</button>
-              </div>
-              <span id="bsa-meta" class="text-xs text-slate-400"></span>
-            </div>
-            <div id="bsa-resp-body">
-              <div class="flex flex-col items-center justify-center py-12 text-slate-400">
-                <svg class="w-10 h-10 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
-                <p class="text-xs">Run a query to see expanded queries &amp; parallel results</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="page-broad-search" class="page active" style="padding:0">
-  <div id="bs-root" style="margin:-24px;height:100vh;display:flex;flex-direction:column;background:#fbfcfb"></div>
-</div>
-
-</main>
-</div>
-</div>
-
-<!-- ============================================================ MODALS ============================================================ -->
-
-<!-- Create API Key -->
-<div id="m-discount" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-lg p-6">
-    <div class="flex items-start justify-between mb-1">
-      <h2 class="text-slate-900 text-base font-semibold">Your discounts</h2>
-      <button onclick="closeModal('m-discount')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <p class="text-xs text-slate-500 mb-4">Custom rates for your account, applied automatically to eligible requests and reflected in your Usage costs. APIs not listed are billed at standard rates.</p>
-    <div class="rounded-lg border border-slate-200 overflow-hidden">
-      <div class="flex items-center gap-2 px-4 py-2.5 bg-slate-50 border-b border-slate-100">
-        <span class="text-sm font-medium text-slate-800">Discounted rates</span>
-        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium" style="background:#039855;color:#fff">ACTIVE</span>
-      </div>
-      <div class="max-h-80 overflow-y-auto divide-y divide-slate-100">
-        <!-- Broad Search -->
-        <div class="px-4 py-3 flex items-baseline justify-between gap-3 text-sm">
-          <span class="font-medium text-slate-900">Broad Search</span>
-          <span class="w-64 text-left whitespace-nowrap"><span class="font-semibold tabular-nums" style="color:#039855">$1.70</span> <span class="text-slate-400 line-through tabular-nums text-xs">$2.00</span> <span class="text-xs text-slate-400">/ 1k sub-queries · 15% off</span></span>
-        </div>
-        <!-- Web Search -->
-        <div class="px-4 py-3 flex items-baseline justify-between gap-3 text-sm">
-          <span class="font-medium text-slate-900">Web Search</span>
-          <span class="w-64 text-left whitespace-nowrap"><span class="font-semibold tabular-nums" style="color:#039855">$4.00</span> <span class="text-slate-400 line-through tabular-nums text-xs">$5.00</span> <span class="text-xs text-slate-400">/ 1k calls · 20% off</span></span>
-        </div>
-        <!-- Extract -->
-        <div class="px-4 py-3 flex items-baseline justify-between gap-3 text-sm">
-          <span class="font-medium text-slate-900">Extract</span>
-          <div class="w-64 text-left whitespace-nowrap">
-            <div><span class="font-semibold tabular-nums" style="color:#039855">$0.85</span> <span class="text-slate-400 line-through tabular-nums text-xs">$1.00</span> <span class="text-xs text-slate-400">/ 1k URLs · 15% off</span></div>
-            <div class="text-[11px] text-slate-400 mt-0.5">until Dec 31, 2026</div>
-          </div>
-        </div>
-      </div>
-      <div class="px-4 py-2 bg-slate-50 border-t border-slate-100 text-xs text-slate-500">3 APIs discounted</div>
-    </div>
-    <p class="text-[11px] text-slate-400 mt-3">Have questions? <a href="#" class="font-medium hover:underline" style="color:#039855">Contact sales →</a></p>
-    <div class="flex justify-end mt-5">
-      <button onclick="closeModal('m-discount')" class="px-4 py-2 text-sm text-white rounded-lg" style="background:#039855">Done</button>
-    </div>
-  </div>
-</div>
-
-<div id="m-create-key" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-slate-900 text-base font-semibold">Create API key</h2>
-      <button onclick="closeModal('m-create-key')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <p class="text-xs text-slate-500 mb-4">You can create up to 100 API keys. Delete unused keys regularly.</p>
-    <div class="space-y-4 mb-6">
-      <div>
-        <label class="block text-xs text-slate-500 mb-1">API key name</label>
-        <input type="text" id="ck-name" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none" placeholder="e.g. Search Prod Key"/>
-      </div>
-      <!-- [ORG] Owner -->
-      <div id="ck-owner-wrap">
-        <label class="block text-xs text-slate-500 mb-1">Owner</label>
-        <select id="ck-owner" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none">
-          <option value="" selected>Shared (all members)</option>
-          <option value="jane">Jane Niu (you)</option>
-          <option value="alex">Alex Johnson</option>
-          <option value="sarah">Sarah Chen</option>
-          <option value="bob">Bob Smith</option>
-        </select>
-        <p class="mt-1 text-xs text-slate-400">Shared keys are accessible by all org members. Assigning a member enables per-member usage tracking.</p>
-      </div>
-      <div id="ck-qps-wrap">
-        <label class="block text-xs text-slate-500 mb-1">Requests QPS limit</label>
-        <input type="number" id="ck-qps" min="1" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none" placeholder="e.g. 20"/>
-        <p class="mt-1 text-xs text-slate-400">Set the max requests per second. Leave empty to use your plan's limit.</p>
-      </div>
-    </div>
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-create-key')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="doCreateKey()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Create key</button>
-    </div>
-  </div>
-</div>
-
-<!-- Request Access modal (generic — used by Multimodal Chat, Grounded Generation, etc.) -->
-<div id="m-request-access" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-lg p-6">
-    <div class="flex items-start justify-between mb-3">
-      <h2 class="text-slate-900 text-base font-semibold">Request access</h2>
-      <button onclick="closeModal('m-request-access')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-
-    <!-- Email apply view (default for both signed-out and signed-in users) -->
-    <div id="ra-request-view">
-    <p class="text-sm text-slate-700 mb-4">Send your request to <a href="mailto:support@octen.ai" class="font-medium hover:underline" style="color:#039855">support@octen.ai</a> and we'll get back to you.</p>
-
-    <div class="border-t border-slate-100 pt-4 mb-4">
-      <div class="flex items-center justify-between mb-2">
-        <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Email template</p>
-        <button id="ra-copy-btn" onclick="raCopyTemplate(this)" class="inline-flex items-center gap-1 text-xs font-medium hover:opacity-80" style="color:#039855">
-          <svg class="ra-copy-icon w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          <svg class="ra-check-icon w-3 h-3 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          <span class="ra-copy-label">Copy</span>
-        </button>
-        <script>
-        if (!window.raCopyTemplate) {
+if (!window.raCopyTemplate) {
           window.raCopyTemplate = function(btn) {
             const text = document.getElementById('ra-template').innerText;
             const label = btn.querySelector('.ra-copy-label');
@@ -643,33 +85,7 @@ input:focus,select:focus{outline:none;border-color:#039855 !important;box-shadow
             }
           };
         }
-        </script>
-      </div>
-      <pre id="ra-template" class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-700 leading-relaxed font-mono whitespace-pre-wrap">Subject: Octen access request — <span class="ra-product">Multimodal Chat</span>
 
-Hi Octen team,
-
-I'd like to request access to <span class="ra-product">Multimodal Chat</span>.
-
-· Name:
-· Work email:
-· Company:
-· Country:
-· Use case:
-· Estimated scale (daily API calls):
-
-Thanks!</pre>
-    </div>
-
-    <div class="flex gap-2">
-      <a id="ra-mailto" href="mailto:support@octen.ai" class="flex-1 px-4 py-2.5 text-white rounded-lg text-sm font-medium hover:opacity-90 text-center" style="background:#039855">Open in email →</a>
-      <button onclick="closeModal('m-request-access')" class="px-4 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Close</button>
-    </div>
-    <p id="ra-signin-hint" class="hidden text-center text-xs text-slate-500 mt-4 pt-3 border-t border-slate-100">Already have an account? <a href="#" onclick="closeModal('m-request-access');toast('Redirecting to sign in…');return false" class="font-medium hover:underline" style="color:#039855">Sign in →</a></p>
-    </div><!-- /ra-request-view -->
-  </div>
-</div>
-<script>
 window.accessState = window.accessState || 'apply'; // 'signed-out' | 'apply' | 'approved'
 window.updateGateNotices = function() {
   const hide = window.accessState === 'approved';
@@ -720,635 +136,8 @@ window.openRequestAccess = function(productName) {
   if (hint) hint.classList.toggle('hidden', window.accessState !== 'signed-out');
   if (typeof openModal === 'function') openModal('m-request-access');
 };
-</script>
 
-<!-- Edit API Key -->
-<div id="m-edit-key" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-slate-900 text-base font-semibold">Edit API key</h2>
-      <button onclick="closeModal('m-edit-key')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <div class="space-y-4 mb-6">
-      <div>
-        <label class="block text-xs text-slate-500 mb-1">API key name</label>
-        <input type="text" id="ek-name" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none" placeholder="e.g. Search Prod Key"/>
-      </div>
-      <!-- [ORG] Owner -->
-      <div id="ek-owner-wrap">
-        <label class="block text-xs text-slate-500 mb-1">Owner</label>
-        <select id="ek-owner" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none">
-          <option value="">Shared (all members)</option>
-          <option value="jane">Jane Niu</option>
-          <option value="alex">Alex Johnson</option>
-          <option value="sarah">Sarah Chen</option>
-          <option value="bob">Bob Smith</option>
-        </select>
-      </div>
-      <div id="ek-qps-wrap">
-        <label class="block text-xs text-slate-500 mb-1">Requests QPS limit</label>
-        <input type="number" id="ek-qps" min="0" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none" placeholder="e.g. 20"/>
-        <p class="mt-1 text-xs text-slate-400">Set the max requests per second. Leave empty to use your plan's limit.</p>
-      </div>
-    </div>
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-edit-key')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="doSaveEdit()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Save changes</button>
-    </div>
-  </div>
-</div>
-
-<!-- Delete API Key -->
-<div id="m-del-key" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-3">
-      <h2 class="text-slate-900 text-base font-semibold">Delete API key?</h2>
-      <button onclick="closeModal('m-del-key')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <p class="text-slate-600 text-sm">This will permanently delete <span id="del-key-name" class="font-medium text-slate-900"></span>. This action cannot be undone.</p>
-    <div class="mt-5 flex justify-end gap-3">
-      <button onclick="closeModal('m-del-key')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="doDelKey()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Delete</button>
-    </div>
-  </div>
-</div>
-
-<!-- Invite Member -->
-<!-- Create Organization -->
-<div id="m-create-org" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-5">
-      <h2 class="text-slate-900 text-base font-semibold">Create Organization</h2>
-      <button onclick="closeModal('m-create-org')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-
-    <div class="mb-5">
-      <label class="block text-xs text-slate-500 mb-1.5">Organization name <span class="text-red-500">*</span></label>
-      <input type="text" id="co-name" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-[#039855]" placeholder="e.g. Acme Inc"/>
-    </div>
-
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-create-org')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="doCreateOrg()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Create</button>
-    </div>
-  </div>
-</div>
-
-<!-- ⚠️🆕 Invoice / receipt detail (hosted-style: download invoice + receipt from one record) -->
-<div id="m-invoice-detail" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-2xl max-h-[88vh] overflow-y-auto relative">
-    <button onclick="closeModal('m-invoice-detail')" class="absolute right-4 top-4 p-1 rounded hover:bg-slate-100 z-10"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-
-    <!-- Header -->
-    <div class="p-6 border-b border-slate-200">
-      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
-        <div class="min-w-0">
-          <div class="flex items-center gap-2 mb-2"><span id="bpd-status"></span><span id="bpd-number" class="text-slate-500 text-sm font-mono"></span></div>
-          <div id="bpd-amount" class="text-slate-900 text-4xl font-semibold mb-1 tabular-nums">$0.00</div>
-          <div id="bpd-paidline" class="text-slate-500 text-sm mb-4"></div>
-          <div id="bpd-actions" class="flex flex-wrap gap-2"></div>
-        </div>
-        <div class="shrink-0 text-sm space-y-3">
-          <div class="flex gap-6">
-            <div><div class="text-slate-400 text-xs mb-0.5">Invoice date</div><div id="bpd-invdate" class="text-slate-700"></div></div>
-            <div><div class="text-slate-400 text-xs mb-0.5">Due date</div><div id="bpd-due" class="text-slate-700"></div></div>
-          </div>
-          <div><div class="text-slate-400 text-xs mb-0.5">From</div><div class="text-slate-700 leading-snug">APITECH AI PTE. LTD.<br>68 Circular Road, Singapore 049422</div></div>
-          <div><div class="text-slate-400 text-xs mb-0.5">Bill to</div><div id="bpd-billto" class="text-slate-700 leading-snug"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Line items -->
-    <div class="p-6">
-      <table class="w-full text-sm">
-        <tbody id="bpd-lines"></tbody>
-      </table>
-      <div class="mt-4 pt-4 border-t border-slate-200 space-y-2">
-        <div class="flex items-center justify-between text-sm"><span class="text-slate-500">Subtotal</span><span id="bpd-subtotal" class="text-slate-900 tabular-nums"></span></div>
-        <div id="bpd-balrow" class="hidden flex items-center justify-between text-sm"><span class="text-green-700">Prepaid balance applied</span><span id="bpd-bal" class="text-green-700 tabular-nums"></span></div>
-        <div id="bpd-total-row" class="flex items-center justify-between text-sm"><span id="bpd-total-label" class="text-slate-500">Total</span><span id="bpd-total" class="text-slate-900 font-medium tabular-nums"></span></div>
-        <div class="flex items-center justify-between text-base pt-2 border-t border-slate-200"><span class="text-slate-900 font-semibold">Amount due</span><span id="bpd-amountdue" class="text-slate-900 font-semibold tabular-nums"></span></div>
-      </div>
-      <p class="text-[11px] text-slate-400 mt-5 text-center">Powered by Stripe · <a href="#" class="underline">Terms</a> · <a href="#" class="underline">Privacy</a></p>
-    </div>
-  </div>
-</div>
-
-<div id="m-invite" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-5">
-      <h2 class="text-slate-900 text-base font-semibold">Invite members</h2>
-      <button onclick="closeModal('m-invite')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-
-    <div class="space-y-4 mb-5">
-      <div>
-        <label class="block text-xs text-slate-500 mb-1.5">Email addresses <span class="text-red-500">*</span></label>
-        <textarea id="inv-emails" rows="3" oninput="updateInviteSummary()" placeholder="alice@company.com, bob@company.com" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-[#039855] resize-none"></textarea>
-        <div id="inv-summary" class="hidden mt-2 text-xs">
-          <div class="flex items-start gap-1.5 text-slate-600">
-            <svg class="w-3.5 h-3.5 shrink-0 mt-0.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
-            <span id="inv-summary-text" class="flex-1"></span>
-            <button type="button" id="inv-summary-toggle" onclick="toggleInviteDetails()" class="shrink-0 hover:opacity-80" style="color:#039855">details ▾</button>
-          </div>
-          <div id="inv-summary-details" class="hidden mt-2 pl-5 space-y-1 text-slate-500"></div>
-        </div>
-      </div>
-
-      <div>
-        <label class="block text-xs text-slate-500 mb-1.5">Role</label>
-        <select id="inv-role" onchange="onInviteRoleChange()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none focus:border-[#039855]">
-          <option value="member">Member</option>
-          <option value="manager">Manager</option>
-          <option value="owner" id="inv-role-owner-opt">Owner</option>
-        </select>
-        <p id="inv-owner-warning" class="hidden mt-2 flex items-start gap-1.5 text-xs text-amber-700">
-          <svg class="w-3.5 h-3.5 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-          <span>Owners have full management access, including billing.</span>
-        </p>
-      </div>
-    </div>
-
-    <div class="border-t border-slate-100 pt-4 mb-4">
-      <button onclick="copyInviteLink(this)" class="flex items-center gap-1.5 text-sm hover:opacity-80 transition-opacity" style="color:#039855">
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
-        <span>Copy invite link</span>
-      </button>
-    </div>
-
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-invite')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button id="inv-send-btn" onclick="doInvite()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed" style="background:#039855">Send invites</button>
-    </div>
-  </div>
-</div>
-
-<!-- Remove Member -->
-<div id="m-remove" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-lg p-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-slate-900 text-base font-semibold">Remove <span id="rem-name"></span></h2>
-      <button onclick="closeModal('m-remove')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-
-    <!-- No-keys state -->
-    <div id="rem-no-keys" class="hidden">
-      <div class="flex items-start gap-3 px-4 py-3 rounded-lg border border-slate-200 bg-slate-50 mb-5">
-        <svg class="w-4 h-4 shrink-0 mt-0.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
-        <div class="text-sm text-slate-700">
-          <span class="font-medium text-slate-900" id="rem-email-1"></span> has no assigned API keys.
-        </div>
-      </div>
-      <p class="text-sm text-slate-600 mb-5">Removing will revoke their access to this organization immediately.</p>
-    </div>
-
-    <!-- Has-keys state -->
-    <div id="rem-has-keys">
-      <p class="text-sm text-slate-600 mb-4"><span id="rem-name-2" class="font-medium text-slate-800"></span> has <span id="rem-key-count" class="font-medium text-slate-800">0</span> assigned API keys.</p>
-
-      <!-- Affected keys -->
-      <div class="mb-4">
-        <div class="text-xs text-slate-500 mb-1.5">Affected keys</div>
-        <div id="rem-key-list" class="border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 bg-slate-50 space-y-1"></div>
-      </div>
-
-      <!-- Option group -->
-      <div class="space-y-2 mb-5">
-        <label class="flex items-start gap-3 border border-slate-200 rounded-lg p-3 cursor-pointer hover:border-slate-300 transition-colors has-[:checked]:border-[#039855] has-[:checked]:bg-[#0398550a]">
-          <input type="radio" name="rem-action" value="transfer" checked class="mt-0.5" style="accent-color:#039855" onchange="toggleRemTransferSelect(true)"/>
-          <div class="flex-1">
-            <div class="text-sm font-medium text-slate-900">Transfer to another member (default)</div>
-            <div class="text-xs text-slate-500 mt-0.5 mb-2">Keys will be reassigned to the selected member.</div>
-            <select id="rem-transfer-select" class="w-full px-2 py-1.5 text-xs border border-slate-200 rounded-md bg-white">
-              <option value="">Select member</option>
-              <option value="jane">Jane Niu · Owner</option>
-              <option value="alex">Alex Johnson · Manager</option>
-              <option value="bob">Bob Smith · Member</option>
-            </select>
-          </div>
-        </label>
-
-        <label class="flex items-start gap-3 border border-slate-200 rounded-lg p-3 cursor-pointer hover:border-slate-300 transition-colors has-[:checked]:border-[#039855] has-[:checked]:bg-[#0398550a]">
-          <input type="radio" name="rem-action" value="shared" class="mt-0.5" style="accent-color:#039855" onchange="toggleRemTransferSelect(false)"/>
-          <div>
-            <div class="text-sm font-medium text-slate-900">Convert to Shared</div>
-            <div class="text-xs text-slate-500 mt-0.5">Keys remain accessible to all members.</div>
-          </div>
-        </label>
-
-        <label class="flex items-start gap-3 border border-slate-200 rounded-lg p-3 cursor-pointer hover:border-slate-300 transition-colors has-[:checked]:border-[#039855] has-[:checked]:bg-[#0398550a]">
-          <input type="radio" name="rem-action" value="delete" class="mt-0.5" style="accent-color:#039855" onchange="toggleRemTransferSelect(false)"/>
-          <div>
-            <div class="text-sm font-medium text-slate-900">Delete all assigned keys</div>
-            <div class="text-xs text-slate-500 mt-0.5">Keys will be permanently deleted.</div>
-          </div>
-        </label>
-      </div>
-    </div>
-
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-remove')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="doRemove()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Remove member</button>
-    </div>
-  </div>
-</div>
-
-<!-- Leave Organization (with key handover) -->
-<!-- Self-demotion confirmation -->
-<div id="m-role-confirm" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-slate-900 text-base font-semibold">Change your role to <span id="rc-new-role">Manager</span>?</h2>
-      <button onclick="cancelRoleChange()" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <p class="text-sm text-slate-600 mb-5">
-      You will lose your <span id="rc-current-role" class="font-medium text-slate-900">Owner</span> privileges. This action cannot be undone by yourself — another owner will need to restore your role.
-    </p>
-    <div class="flex justify-end gap-3">
-      <button onclick="cancelRoleChange()" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="confirmRoleChange()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Change role</button>
-    </div>
-  </div>
-</div>
-
-<div id="m-leave" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-lg p-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-slate-900 text-base font-semibold">Leave <span id="leave-org-name">Acme Inc</span></h2>
-      <button onclick="closeModal('m-leave')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-
-    <!-- No-keys state -->
-    <div id="leave-no-keys" class="hidden">
-      <p class="text-sm text-slate-600 mb-5">You will lose access to this organization immediately.</p>
-    </div>
-
-    <!-- Has-keys state -->
-    <div id="leave-has-keys">
-      <p class="text-sm text-slate-600 mb-4">You have <span id="leave-key-count" class="font-medium text-slate-800">0</span> assigned API keys that must be transferred before you leave:</p>
-
-      <div class="mb-4">
-        <div class="text-xs text-slate-500 mb-1.5">Affected keys</div>
-        <div id="leave-key-list" class="border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 bg-slate-50 space-y-1"></div>
-      </div>
-
-      <div class="mb-5">
-        <label class="block text-xs text-slate-500 mb-1.5">Transfer to an admin <span class="text-red-500">*</span></label>
-        <select id="leave-transfer-select" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg bg-white focus:outline-none focus:border-[#039855]">
-          <option value="">Select Owner or Manager</option>
-          <option value="jane">Jane Niu · Owner</option>
-          <option value="alex">Alex Johnson · Manager</option>
-        </select>
-        <p class="text-xs text-slate-500 mt-1.5">The selected admin will take over your API keys.</p>
-      </div>
-
-      <div class="flex items-start gap-2 px-3 py-2 rounded-lg border border-amber-200 bg-amber-50 mb-5">
-        <svg class="w-3.5 h-3.5 shrink-0 mt-0.5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-        <div class="text-xs text-amber-800">You will lose access to this organization immediately.</div>
-      </div>
-    </div>
-
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-leave')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="doLeave()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Leave organization</button>
-    </div>
-  </div>
-</div>
-
-<!-- Create Service Key -->
-<div id="m-create-svc" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-slate-900 text-base font-semibold">Create Service Key</h2>
-      <button onclick="closeModal('m-create-svc')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <div class="mb-5">
-      <label class="block text-xs text-slate-500 mb-1">Service Key name</label>
-      <input type="text" placeholder="e.g. Prod Management" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none"/>
-    </div>
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-create-svc')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="doCreateSvc()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Create key</button>
-    </div>
-  </div>
-</div>
-
-<!-- Edit Service Key -->
-<div id="m-edit-svc" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-slate-900 text-base font-semibold">Edit Service Key</h2>
-      <button onclick="closeModal('m-edit-svc')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <div class="mb-5">
-      <label class="block text-xs text-slate-500 mb-1">Service Key name</label>
-      <input type="text" id="esvc-name" value="Management Key" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none"/>
-    </div>
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-edit-svc')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="doSaveSvcEdit()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Save changes</button>
-    </div>
-  </div>
-</div>
-
-<!-- Delete Service Key -->
-<div id="m-del-svc" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-3">
-      <h2 class="text-slate-900 text-base font-semibold">Delete Service Key?</h2>
-      <button onclick="closeModal('m-del-svc')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <p class="text-sm text-slate-600 mb-5">This will permanently delete <span id="del-svc-name" class="font-semibold text-slate-900">Management Key</span>. Any automation using this key will stop working immediately.</p>
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-del-svc')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="doDelSvc()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Delete</button>
-    </div>
-  </div>
-</div>
-
-<!-- Add Credits -->
-<!-- QPS Upgrade modal -->
-<div id="m-qps-upgrade" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-2xl p-6 max-h-[90vh] overflow-y-auto">
-    <div class="flex items-start justify-between mb-2">
-      <h2 class="text-slate-900 text-lg font-semibold">Upgrade your plan</h2>
-      <button onclick="closeModal('m-qps-upgrade')" class="p-1 rounded hover:bg-slate-100 shrink-0"><svg class="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <p class="text-sm text-slate-600 mb-5">You're currently on the <span class="font-medium text-slate-900">Free tier (up to 50 QPS)</span>. Subscribe to unlock guaranteed throughput and SLA.</p>
-
-    <!-- Tier: Startup -->
-    <label class="block mb-3 cursor-pointer">
-      <input type="radio" name="qps-tier" value="startup" class="peer sr-only"/>
-      <div class="border border-slate-200 rounded-xl p-4 transition-all peer-checked:border-[#039855] peer-checked:bg-[#0398550d] hover:border-slate-300">
-        <div class="flex items-start justify-between gap-4">
-          <div class="min-w-0">
-            <div class="flex flex-wrap items-center gap-2 mb-1">
-              <span class="text-slate-900 font-semibold">Startup</span>
-              <span class="text-slate-500">·</span>
-              <span class="text-slate-900 font-semibold">50 QPS</span>
-            </div>
-            <p class="text-xs text-slate-500">For early-stage teams going to production</p>
-          </div>
-          <div class="text-right shrink-0">
-            <p class="text-slate-900 text-lg font-semibold tabular-nums">$599 <span class="text-sm font-normal text-slate-500">/ mo</span></p>
-          </div>
-        </div>
-      </div>
-    </label>
-
-    <!-- Tier: Pro -->
-    <label class="block mb-3 cursor-pointer">
-      <input type="radio" name="qps-tier" value="pro" class="peer sr-only"/>
-      <div class="border border-slate-200 rounded-xl p-4 transition-all peer-checked:border-[#039855] peer-checked:bg-[#0398550d] hover:border-slate-300">
-        <div class="flex items-start justify-between gap-4">
-          <div class="min-w-0">
-            <div class="flex flex-wrap items-center gap-2 mb-1">
-              <span class="text-slate-900 font-semibold">Pro</span>
-              <span class="text-slate-500">·</span>
-              <span class="text-slate-900 font-semibold">100 QPS</span>
-            </div>
-            <p class="text-xs text-slate-500">For growing production workloads</p>
-          </div>
-          <div class="text-right shrink-0">
-            <p class="text-slate-900 text-lg font-semibold tabular-nums">$1,199 <span class="text-sm font-normal text-slate-500">/ mo</span></p>
-          </div>
-        </div>
-      </div>
-    </label>
-
-    <!-- Tier: Scale -->
-    <label class="block mb-5 cursor-pointer">
-      <input type="radio" name="qps-tier" value="scale" class="peer sr-only"/>
-      <div class="border border-slate-200 rounded-xl p-4 transition-all peer-checked:border-[#039855] peer-checked:bg-[#0398550d] hover:border-slate-300">
-        <div class="flex items-start justify-between gap-4">
-          <div class="min-w-0">
-            <div class="flex flex-wrap items-center gap-2 mb-1">
-              <span class="text-slate-900 font-semibold">Scale</span>
-              <span class="text-slate-500">·</span>
-              <span class="text-slate-900 font-semibold">500 QPS</span>
-            </div>
-            <p class="text-xs text-slate-500">For high-volume production at scale</p>
-          </div>
-          <div class="text-right shrink-0">
-            <p class="text-slate-900 text-lg font-semibold tabular-nums">$5,999 <span class="text-sm font-normal text-slate-500">/ mo</span></p>
-          </div>
-        </div>
-      </div>
-    </label>
-
-    <div class="border-t border-slate-200 pt-5 mb-5">
-      <div class="flex items-center gap-2 mb-2">
-        <span class="text-slate-900 font-semibold">Enterprise</span>
-        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background:#8b5cf6">1M+ QPS supported</span>
-      </div>
-      <p class="text-sm text-slate-600 mb-3">Need higher QPS? Contact us for custom enterprise plans with dedicated support.</p>
-      <button class="w-full border border-dashed border-slate-300 rounded-lg py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors inline-flex items-center justify-center gap-2">
-        <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-        Contact Sales
-      </button>
-    </div>
-
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-qps-upgrade')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="closeModal('m-qps-upgrade');toast('Plan upgraded')" class="px-4 py-2 text-white rounded-lg text-sm font-medium opacity-50 cursor-not-allowed" style="background:#039855">Confirm</button>
-    </div>
-  </div>
-</div>
-
-<div id="m-recharge" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-slate-900 text-base font-semibold">Add Credits</h2>
-      <button onclick="closeModal('m-recharge')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <div class="mb-5">
-      <label class="block text-xs text-slate-500 mb-2">Amount</label>
-      <div class="grid grid-cols-4 gap-2 mb-3">
-        <button class="py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors">$25</button>
-        <button class="py-2 border-2 rounded-lg text-sm font-medium" style="border-color:#039855;color:#039855;background:#0398550d">$50</button>
-        <button class="py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors">$100</button>
-        <button class="py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors">$200</button>
-      </div>
-      <input type="number" value="50" min="1" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none" placeholder="Custom amount"/>
-    </div>
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-recharge')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="closeModal('m-recharge');toast('Credits added')" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Add credits</button>
-    </div>
-  </div>
-</div>
-
-<!-- Delete Org -->
-<div id="m-del-org" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-3">
-      <h2 class="text-slate-900 text-base font-semibold">Delete Organization?</h2>
-      <button onclick="closeModal('m-del-org')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <p class="text-sm text-slate-600 mb-4">This will permanently delete <span class="font-semibold text-slate-900">Acme Inc</span>. All members, keys, and billing history will be deleted.</p>
-    <div class="mb-5">
-      <label class="block text-xs text-slate-500 mb-1">Type <code class="bg-slate-100 px-1 rounded">acme-inc</code> to confirm</label>
-      <input type="text" placeholder="acme-inc" class="w-full px-3 py-2 border border-red-200 rounded-lg text-sm focus:outline-none"/>
-    </div>
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-del-org')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Delete organization</button>
-    </div>
-  </div>
-</div>
-
-<!-- Welcome Modal (personal mode only) -->
-<div id="m-welcome" class="modal-bg">
-  <div class="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 p-8 relative">
-    <button onclick="closeModal('m-welcome')" class="absolute top-4 right-4 p-1 rounded-lg hover:bg-slate-100 transition-colors text-slate-400">
-      <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
-    </button>
-    <div class="text-center">
-      <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-5" style="background:#0398551a">
-        <svg class="w-7 h-7" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
-      </div>
-      <h2 class="text-xl font-semibold text-slate-900 mb-2">Welcome to Octen!</h2>
-      <p class="text-sm text-slate-600 leading-relaxed mb-6">Add a payment method to get <span class="font-semibold" style="color:#039855">$5 in free credits</span> and start building.</p>
-      <div class="flex flex-col gap-3">
-        <button onclick="closeModal('m-welcome');go('billing')" class="w-full py-3 px-4 rounded-xl text-white text-sm font-medium transition-opacity hover:opacity-90" style="background:#039855">Add payment method</button>
-        <button onclick="closeModal('m-welcome')" class="w-full py-3 px-4 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-colors">Maybe later</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ───── Destination Add / Edit Wizard ───── -->
-<div id="m-dest-wizard" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-xl p-6">
-    <div class="flex items-center justify-between mb-5">
-      <h2 id="dest-wiz-title" class="text-slate-900 text-base font-semibold">Add destination</h2>
-      <button onclick="closeModal('m-dest-wizard')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-
-    <!-- Stepper -->
-    <div class="flex items-center mb-6 text-xs">
-      <div id="dws-1" class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-[#039855] text-white flex items-center justify-center text-[11px] font-medium">1</span><span class="text-slate-900 font-medium">Details</span></div>
-      <div class="flex-1 h-px bg-slate-200 mx-3"></div>
-      <div id="dws-2" class="flex items-center gap-2 text-slate-400"><span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[11px] font-medium">2</span><span>IAM role</span></div>
-      <div class="flex-1 h-px bg-slate-200 mx-3"></div>
-      <div id="dws-3" class="flex items-center gap-2 text-slate-400"><span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[11px] font-medium">3</span><span>Verify</span></div>
-    </div>
-
-    <!-- Step 1 -->
-    <div id="dest-step-1">
-      <div class="space-y-4 mb-6">
-        <div>
-          <label class="block text-xs text-slate-500 mb-1.5">Name <span class="text-red-500">*</span></label>
-          <input id="dest-name" type="text" placeholder="e.g. Production logs" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-[#039855]"/>
-        </div>
-        <div>
-          <label class="block text-xs text-slate-500 mb-1.5">S3 Bucket <span class="text-red-500">*</span></label>
-          <input id="dest-bucket" type="text" placeholder="acme-collect-data" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-[#039855] disabled:bg-slate-50 disabled:text-slate-500"/>
-          <p id="dest-bucket-hint" class="hidden mt-1 text-[11px] text-slate-400">Bucket cannot be changed after creation.</p>
-        </div>
-        <div>
-          <label class="block text-xs text-slate-500 mb-1.5">Prefix <span class="text-slate-400">(optional)</span></label>
-          <input id="dest-prefix" type="text" placeholder="octen/runs/" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-[#039855] disabled:bg-slate-50 disabled:text-slate-500"/>
-        </div>
-      </div>
-    </div>
-
-    <!-- Step 2 -->
-    <div id="dest-step-2" class="hidden">
-      <!-- Policy tabs -->
-      <div class="border border-slate-200 rounded-lg overflow-hidden mb-4">
-        <div class="flex border-b border-slate-200 bg-slate-50/60">
-          <button id="dest-pol-tab-trust" onclick="switchDestPolTab('trust')" class="flex-1 px-3 py-2 text-xs font-medium text-slate-900 border-b-2 border-[#039855] -mb-px">Trust policy</button>
-          <button id="dest-pol-tab-perm" onclick="switchDestPolTab('perm')" class="flex-1 px-3 py-2 text-xs font-medium text-slate-500 border-b-2 border-transparent -mb-px">Permission policy</button>
-          <button onclick="copyDestPolicy(currentDestPolTab)" class="px-3 py-2 text-[11px] hover:opacity-80 border-l border-slate-200" style="color:#039855">Copy</button>
-        </div>
-        <pre id="dest-trust-json" class="px-3 py-2.5 text-[11px] bg-slate-50 text-slate-700 font-mono overflow-x-auto">{
-  "Version": "2012-10-17",
-  "Statement": [{
-    "Effect": "Allow",
-    "Principal": { "AWS": "arn:aws:iam::123456789012:root" },
-    "Action": "sts:AssumeRole",
-    "Condition": { "StringEquals": { "sts:ExternalId": "octen-ext-a8f3-49c2-b1e7-8d2f4a6b9c1e" } }
-  }]
-}</pre>
-        <pre id="dest-perm-json" class="hidden px-3 py-2.5 text-[11px] bg-slate-50 text-slate-700 font-mono overflow-x-auto"></pre>
-      </div>
-
-      <div>
-        <label class="block text-xs text-slate-500 mb-1.5">Role ARN <span class="text-red-500">*</span></label>
-        <input id="dest-role-arn" type="text" placeholder="arn:aws:iam::your-account-id:role/octen-collect" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono focus:outline-none focus:border-[#039855]"/>
-      </div>
-    </div>
-
-    <!-- Step 3 -->
-    <div id="dest-step-3" class="hidden">
-      <div id="dest-test-pre" class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4 text-xs text-slate-600 space-y-1">
-        <div>Test path: <code class="font-mono text-slate-800" id="dest-test-path">s3://bucket/prefix/.octen-test-{timestamp}</code></div>
-      </div>
-
-      <div id="dest-test-running" class="hidden space-y-2 mb-4">
-        <div id="dts-1" class="flex items-center gap-2 text-xs text-slate-600"><span class="w-4 h-4 rounded-full border-2 border-slate-300 border-t-[#039855] animate-spin"></span>Assuming IAM Role…</div>
-        <div id="dts-2" class="flex items-center gap-2 text-xs text-slate-400"><span class="w-4 h-4 rounded-full border border-slate-200"></span>Writing test file…</div>
-        <div id="dts-3" class="flex items-center gap-2 text-xs text-slate-400"><span class="w-4 h-4 rounded-full border border-slate-200"></span>Cleaning up…</div>
-      </div>
-
-      <div id="dest-test-success" class="hidden bg-[#0398550d] border border-[#03985533] rounded-lg p-4 mb-4">
-        <div class="flex items-start gap-2">
-          <svg class="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#039855" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
-          <div class="flex-1 text-xs">
-            <div class="font-medium text-slate-900 mb-1">Connection verified</div>
-            <div class="text-slate-600">Destination ID: <code class="font-mono text-slate-800" id="dest-new-id">dst_abc123xyz</code></div>
-          </div>
-        </div>
-      </div>
-
-      <div id="dest-test-error" class="hidden bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
-        <div class="flex items-start gap-2">
-          <svg class="w-4 h-4 mt-0.5 shrink-0 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
-          <div class="flex-1 text-xs">
-            <div class="font-medium text-red-700 mb-1" id="dest-err-title">AssumeRole failed</div>
-            <div class="text-red-600" id="dest-err-msg">Role does not trust the Octen account. Check trust policy and External ID.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Footer -->
-    <div class="flex justify-between gap-3 pt-2">
-      <button id="dest-back-btn" onclick="destWizardBack()" class="hidden px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Back</button>
-      <div class="ml-auto flex gap-3">
-        <button onclick="closeModal('m-dest-wizard')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-        <button id="dest-next-btn" onclick="destWizardNext()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Next</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ───── Destination Delete Confirm ───── -->
-<div id="m-dest-delete" class="modal-bg">
-  <div class="bg-white rounded-xl w-full max-w-md p-6">
-    <div class="flex items-center justify-between mb-4">
-      <h2 class="text-slate-900 text-base font-semibold">Delete destination?</h2>
-      <button onclick="closeModal('m-dest-delete')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg></button>
-    </div>
-    <p class="text-sm text-slate-600 mb-2">Delete <span class="font-medium text-slate-900" id="dest-del-name"></span>?</p>
-    <p class="text-xs text-slate-500 mb-5">API calls referencing <code class="px-1 py-0.5 bg-slate-100 rounded text-[11px] font-mono" id="dest-del-id"></code> will fail with 404 Not Found.</p>
-    <div class="flex justify-end gap-3">
-      <button onclick="closeModal('m-dest-delete')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
-      <button onclick="confirmDeleteDestination()" class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm hover:bg-red-600">Delete</button>
-    </div>
-  </div>
-</div>
-
-<div id="spd-overlay" class="hidden" style="position:fixed;inset:0;z-index:60;display:none"></div>
-
-<!-- Toast -->
-<div id="toast-el" class="fixed top-6 left-1/2 -translate-x-1/2 text-white text-sm px-5 py-3 rounded-lg shadow-xl z-[100] opacity-0 transition-all duration-300 pointer-events-none font-medium" style="background:#039855"></div>
-
-<!-- ============================================================ JAVASCRIPT ============================================================ -->
-<script>
-const PRIMARY = '#039855';
+const PRIMARY = 'var(--color-accent)';
 let wsMode = 'org'; // 'personal' | 'org'
 let role = 'owner';  // 'owner' | 'manager' | 'member'
 let hasPayment = true; // false = No card, true = Active (Demo default: Active)
@@ -1489,7 +278,7 @@ function go(page) {
   const el = document.getElementById('page-'+page);
   if (el) el.classList.add('active');
   document.querySelectorAll('.nav-item').forEach(n => {
-    n.classList.toggle('active', n.getAttribute('onclick')==="go('"+page+"')");
+    n.classList.toggle('active', n.getAttribute('onclick') && n.getAttribute('onclick').includes("go('"+page+"')"));
   });
   currentPage = page;
   if (page==='api-keys') renderApiKeys();
@@ -3983,12 +2772,9 @@ setPayment(true); // Demo: payment defaults to Active
 applyRole();
 // Welcome modal after 1.5s if no payment
 setTimeout(() => showWelcomeModal(), 1500);
-</script>
 
-<!-- ============================================================ MODEL PAGE SCRIPT ============================================================ -->
-<script>
 (function(){
-  const PRIMARY = '#039855', PRIMARY_BG = '#0398551a';
+  const PRIMARY = 'var(--color-accent)', PRIMARY_BG = '#0398551a';
   const MODELS = [
     { id:'anthropic/claude-sonnet-4.6', label:'Claude Sonnet 4.6', provider:'Anthropic', modality:'chat', input:3, output:15, supportsSearch:true, tag:'Recommended' },
     { id:'anthropic/claude-opus-4.6', label:'Claude Opus 4.6', provider:'Anthropic', modality:'chat', input:5, output:25, supportsSearch:true },
@@ -4246,13 +3032,9 @@ setTimeout(() => showWelcomeModal(), 1500);
     renderAll();
   });
 })();
-</script>
 
-
-<!-- ============================================================ SHARED SEARCH PARAMETER DRAWER ============================================================ -->
-<script>
 (function(){
-  const PRIMARY='#039855', PRIMARY_BG='#0398551a';
+  const PRIMARY = 'var(--color-accent)', PRIMARY_BG='#0398551a';
   const MODELS=[
     {group:'Anthropic',items:[{id:'anthropic/claude-sonnet-4.6',label:'Claude Sonnet 4.6'},{id:'anthropic/claude-opus-4.6',label:'Claude Opus 4.6'},{id:'anthropic/claude-haiku-4.5',label:'Claude Haiku 4.5'}]},
     {group:'Google',items:[{id:'google/gemini-3-flash-preview',label:'Gemini 3 Flash'},{id:'google/gemini-3.1-pro-preview',label:'Gemini 3.1 Pro'},{id:'google/gemini-3.1-flash-lite-preview',label:'Gemini 3.1 Flash Lite'}]},
@@ -4335,10 +3117,7 @@ setTimeout(() => showWelcomeModal(), 1500);
   window.SPDquickRange=function(r){ cur.quickRange=r; if(r!=='custom'){ const now=new Date(); const end=now.toISOString().slice(0,16); const start=new Date(now); if(r==='7d')start.setDate(start.getDate()-7); else if(r==='1m')start.setMonth(start.getMonth()-1); else if(r==='1y')start.setFullYear(start.getFullYear()-1); patch({startTime:start.toISOString().slice(0,16),endTime:end}); } else render(); };
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&cur)SPD.close(); });
 })();
-</script>
 
-<!-- ============================================================ DEEP RESEARCH DATA ============================================================ -->
-<script>
 window.DR_DATA = (function(){
   const mkR=(q,lat,res)=>({query:q,latency:lat,results:res.map(x=>({url:x[0],title:x[1]}))});
   const ROUNDS=[
@@ -4409,12 +3188,9 @@ window.DR_DATA = (function(){
   ].map((s,i)=>({id:s.id,turns:[{query:s.q,timestamp:Date.now()-86400000*(7-i*0.6)}],createdAt:Date.now()-86400000*(7-i*0.6)}));
   return { ROUNDS, REPORT, PLAN, ANALYSIS, BRIEF, HISTORY };
 })();
-</script>
 
-<!-- ============================================================ DEEP RESEARCH SCRIPT ============================================================ -->
-<script>
 (function(){
-  const PRIMARY='#039855', D=window.DR_DATA;
+  const PRIMARY = 'var(--color-accent)', D=window.DR_DATA;
   const $=id=>document.getElementById(id);
   function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   const EXAMPLES=['Safest ways to invest in 2026','How are AI coding agents changing software development workflows?','What are the best practices and limitations of RAG versus long-context models?'];
@@ -4612,12 +3388,9 @@ window.DR_DATA = (function(){
   document.addEventListener('mousedown',function(e){ if(S.historyOpen){ if(!e.target.closest||!e.target.closest('[onclick*="drToggleHistory"]')){ const drop=e.target.closest&&e.target.closest('#dr-root'); if(!e.target.closest||!(e.target.closest('div[style*="z-index:50"]')||e.target.closest('[onclick*="drToggleHistory"]'))){ S.historyOpen=false; if($('page-deep-research').classList.contains('active'))render(); } } } });
   document.addEventListener('DOMContentLoaded',function(){ render(); });
 })();
-</script>
 
-<!-- ============================================================ BROAD SEARCH SCRIPT ============================================================ -->
-<script>
 (function(){
-  const PRIMARY='#039855';
+  const PRIMARY = 'var(--color-accent)';
   const $=id=>document.getElementById(id);
   function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   const EXAMPLES=['What are AI agents actually being used for in production?','NVIDIA vs AMD stock performance','What are the most promising AI startups to watch right now?'];
@@ -4774,12 +3547,9 @@ window.DR_DATA = (function(){
 
   document.addEventListener('DOMContentLoaded',function(){ render(); });
 })();
-</script>
 
-<!-- ============================================================ BROAD SEARCH (API) SCRIPT ============================================================ -->
-<script>
 (function(){
-  const PRIMARY='#039855';
+  const PRIMARY = 'var(--color-accent)';
   const $=id=>document.getElementById(id);
   function esc(s){ return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
   let rtab='preview', lastResp=null;
@@ -4969,12 +3739,9 @@ window.DR_DATA = (function(){
   document.addEventListener('input',function(e){ if(e.target.closest&&e.target.closest('#page-broad-search-api')) refreshCode(); });
   document.addEventListener('change',function(e){ if(e.target.closest&&e.target.closest('#page-broad-search-api')) refreshCode(); });
 })();
-</script>
 
-<!-- ============================================================ SEARCH (API) ENHANCEMENTS: date calendar + animated query placeholder ============================================================ -->
-<script>
 (function(){
-  const PRIMARY='#039855';
+  const PRIMARY = 'var(--color-accent)';
   const $=id=>document.getElementById(id);
   // ── animated rotating placeholder ──
   const EXAMPLES=['NVDA stock price','US jobs report February 2026','Dow Jones 50000 milestone date'];
@@ -5084,12 +3851,9 @@ window.DR_DATA = (function(){
     const bq=document.getElementById('bsa-query'); if(bq) window.attachSuggest(bq, ['What are AI agents actually being used for in production?','NVIDIA vs AMD stock performance','What are the most promising AI startups to watch right now?'], ()=>{ bq.dispatchEvent(new Event('input',{bubbles:true})); }, document.getElementById('bsa-query-box'));
   });
 })();
-</script>
 
-<!-- ============================================================ PGS ENGINE — Image / Video / Multimodal Search (api.octen.ai/multimodal-search) ============================================================ -->
-<script>
 (function(){
-  const PRIMARY='#039855', CODE_BG='#0d1117', FB='#e2e8f0', CARD='#ecedf0', HEAD='#1e293b', MONO='ui-monospace,"SF Mono",Menlo,Consolas,monospace';
+  const PRIMARY = 'var(--color-accent)', CODE_BG='#0d1117', FB='#e2e8f0', CARD='#ecedf0', HEAD='#1e293b', MONO='"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace';
   const C_KEY='#7ee787',C_STR='#a5d6ff',C_NUM='#79c0ff',C_KW='#ff7b72',C_DEF='#c9d1d9';
   const MASKED='octen-7c2b••••••••••••••••••••••••5f0a', B64_IMG='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA...';
   const MAX_IMAGES=5;
@@ -5410,19 +4174,7 @@ window.DR_DATA = (function(){
     if (window.updateGateNotices) window.updateGateNotices();
   });
 })();
-</script>
-<style>
-  .pgs-h{font-size:14px;font-weight:600;color:#1e293b;margin:0 0 12px}
-  .pgs-l{display:block;font-size:11px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:#64748b;margin-bottom:6px}
-  .pgs-f{width:100%;box-sizing:border-box;height:36px;padding:0 10px;border:1px solid #e2e8f0;border-radius:10px;font-size:14px;color:#0f172b;outline:none;background:#fff}
-  .pgs-f:focus{border-color:#039855}
-  select.pgs-f{cursor:pointer} textarea.pgs-f{height:auto}
-  .pgs-fake{width:100%;box-sizing:border-box;height:36px;padding:0 10px;display:flex;align-items:center;border:1px solid #e2e8f0;border-radius:10px;font-size:14px;color:#0f172b;background:#f8fafc}
-  .pgs-seg{background:#fff;color:#64748b} .pgs-mtab{flex:1;height:46px;border:none;cursor:pointer;font-size:14px;text-transform:capitalize;background:transparent;color:#64748b}
-</style>
 
-<!-- ============================================================ BILLING — Model pricing table data ============================================================ -->
-<script>
 (function(){
   const GROUPS=[
     {name:'Anthropic',color:'#e05d44',rows:[
@@ -5471,8 +4223,51 @@ window.DR_DATA = (function(){
     });
     tb.innerHTML=h;
   }
+  
+  
+
   document.addEventListener('DOMContentLoaded',render);
 })();
-</script>
-</body>
-</html>
+
+// Split Handle Resize Logic
+  document.addEventListener('DOMContentLoaded', () => {
+    const handles = document.querySelectorAll('.split-handle');
+    handles.forEach(handle => {
+      let isDragging = false;
+      let startX, startWidth;
+      const prevPane = handle.previousElementSibling;
+      const nextPane = handle.nextElementSibling;
+      if (!prevPane || !nextPane) return;
+      
+      handle.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startWidth = prevPane.getBoundingClientRect().width;
+        document.body.style.cursor = 'col-resize';
+        // Disable text selection during drag
+        document.body.style.userSelect = 'none';
+        e.preventDefault();
+      });
+      
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const newWidth = startWidth + dx;
+        // Respect min-width (220px defined in CSS)
+        if (newWidth >= 220) { 
+          // Use flex-basis for flex layouts
+          prevPane.style.flex = '0 0 ' + newWidth + 'px';
+          prevPane.style.width = newWidth + 'px';
+        }
+      });
+      
+      document.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          document.body.style.cursor = '';
+          document.body.style.userSelect = '';
+        }
+      });
+    });
+  });
+

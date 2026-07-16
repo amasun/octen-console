@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+<title>Octen Console — Org Management</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+
+
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@300..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css?v=20260713c">
+</head>
+<body class="text-slate-900 bg-workspace">
+<div class="app">
+<div class="workspace">
+<!-- ============================================================
+     SIDEBAR — 1:1 match with ConsoleLayout.tsx
+============================================================ -->
+<aside class="ribbon">
+
+  <!-- Logo & Organization Switcher — single row, h-16 -->
+  <div class="h-16 flex items-center px-4 shrink-0 gap-3">
+    <!-- Logo icon -->
+    <a href="#" class="shrink-0">
+      <svg class="w-7 h-7" viewBox="0 0 36 29" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M34.5889 19.4629C35.2825 19.4629 35.8456 20.0437 35.8457 20.7588V22.8359C35.8457 23.5511 35.2826 24.1318 34.5889 24.1318H32.9482C32.6138 24.1319 32.2948 24.2683 32.0596 24.5107L31.6846 24.8975C31.4494 25.1417 31.3175 25.4705 31.3174 25.8135V27.5049C31.3174 28.22 30.7542 28.8007 30.0605 28.8008H28.0449C27.3514 28.8005 26.7891 28.2199 26.7891 27.5049V25.4277C26.7891 24.7127 27.3514 24.1321 28.0449 24.1318H30.0605C30.3951 24.1318 30.714 23.9954 30.9492 23.7529C31.1845 23.5085 31.3174 23.1792 31.3174 22.8359V20.7588C31.3175 20.0437 31.8805 19.4629 32.5742 19.4629H34.5889ZM3.26953 19.4619C3.96314 19.4619 4.52616 20.0418 4.52637 20.7568V22.7373H4.53027C4.53027 23.0805 4.66313 23.4099 4.89844 23.6543C5.19296 23.9595 5.5936 24.1299 6.01172 24.1299H7.70801C8.40164 24.13 8.96484 24.7107 8.96484 25.4258V27.5029C8.96484 28.218 8.40164 28.7987 7.70801 28.7988H5.69238C4.99884 28.7986 4.43652 28.218 4.43652 27.5029V25.7549C4.43652 25.3237 4.27076 24.9119 3.97461 24.6064C3.68003 24.301 3.27868 24.1299 2.86035 24.1299H1.25684C0.56324 24.1299 0.000225421 23.55 0 22.835V20.7568C0.000207591 20.0418 0.563229 19.4637 1.25684 19.4619H3.26953ZM15.1572 24.1299C15.8512 24.1299 16.414 24.7103 16.4141 25.4258V27.502C16.4138 28.2173 15.8512 28.7969 15.1572 28.7969H13.1445C12.4506 28.7969 11.8879 28.2173 11.8877 27.502V25.4258C11.8878 24.7103 12.4505 24.1299 13.1445 24.1299H15.1572ZM22.6084 24.1299C23.3022 24.1301 23.8642 24.7105 23.8643 25.4258V27.502C23.864 28.2171 23.3021 28.7966 22.6084 28.7969H20.5947C19.9008 28.7969 19.3381 28.2173 19.3379 27.502V25.4258C19.338 24.7103 19.9007 24.1299 20.5947 24.1299H22.6084ZM23.8916 0C24.5853 0 25.1484 0.580774 25.1484 1.2959V2.92969C25.1485 3.32316 25.3 3.70085 25.5684 3.97754L25.7588 4.17285C26.0272 4.44959 26.3935 4.60645 26.7734 4.60645H28.3086C29.0022 4.60645 29.5653 5.18632 29.5654 5.90137V18.6621L29.5693 18.666C29.5691 19.3809 29.006 19.9608 28.3125 19.9609H10.3154C9.62183 19.9609 9.05882 19.381 9.05859 18.666V16.8867C9.05859 16.5417 8.92574 16.2123 8.69043 15.9697L8.68555 15.9648C8.35437 15.6234 7.90463 15.4307 7.4375 15.4307H5.91797C5.22434 15.4307 4.6613 14.8508 4.66113 14.1357V1.2959C4.66121 0.580774 5.22428 0 5.91797 0H23.8916ZM10.3486 4.56836C9.6549 4.56836 9.0918 5.14906 9.0918 5.86426V13.7256C9.0918 14.209 9.27624 14.6713 9.60742 15.0127C9.84436 15.2551 10.1634 15.3915 10.4961 15.3916H23.8799C24.5735 15.3915 25.1367 14.8108 25.1367 14.0957V6.04883C25.1367 5.65537 24.9852 5.27766 24.7168 5.00098H24.7178C24.4477 4.72454 24.0819 4.56843 23.7021 4.56836H10.3486ZM14.5508 7.97949C15.2447 7.97949 15.8074 8.55902 15.8076 9.27441V11.0898C15.8075 11.8053 15.2448 12.3857 14.5508 12.3857H12.791C12.097 12.3857 11.5343 11.8053 11.5342 11.0898V9.27441C11.5344 8.55902 12.097 7.97949 12.791 7.97949H14.5508ZM21.3574 7.97949C22.0514 7.97949 22.6141 8.55902 22.6143 9.27441V11.0898C22.6142 11.8053 22.0515 12.3857 21.3574 12.3857H19.5967C18.9028 12.3855 18.3409 11.8052 18.3408 11.0898V9.27441C18.341 8.55918 18.9029 7.97974 19.5967 7.97949H21.3574Z" fill="#039855"/>
+      </svg>
+    </a>
+
+    <!-- Organization Switcher -->
+    <div class="flex-1 relative" id="ws-wrap">
+      <button id="ws-btn" type="button" onclick="toggleWsDrop()" class="w-full flex items-center justify-between px-3 py-2 rounded-lg transition-colors hover:bg-slate-50">
+        <span id="ws-name" class="text-sm font-medium text-slate-900 truncate">Acme Inc</span>
+        <svg id="ws-chevron" class="w-4 h-4 text-slate-400 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+      </button>
+
+      <!-- Dropdown -->
+      <div id="ws-drop" class="hidden absolute -left-11 right-0 top-[calc(100%+8px)] z-50 rounded-xl border border-slate-200 bg-white shadow-lg overflow-hidden max-h-80 overflow-y-auto">
+        <!-- Personal Account -->
+        <button type="button" onclick="switchWs('personal')" class="w-full flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors">
+          <span class="text-sm text-slate-900">Jane Niu's Personal</span>
+          <svg id="chk-personal" class="w-4 h-4 shrink-0 hidden" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </button>
+
+        <!-- Organizations -->
+        <button type="button" onclick="switchWs('org')" class="w-full flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors">
+          <span class="text-sm text-slate-900">Acme Inc</span>
+          <svg id="chk-org" class="w-4 h-4 shrink-0" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </button>
+        <button type="button" onclick="switchWs('org2')" class="w-full flex items-center justify-between px-4 py-2.5 hover:bg-slate-50 transition-colors">
+          <span class="text-sm text-slate-900">Tech Corp</span>
+          <svg id="chk-org2" class="w-4 h-4 shrink-0 hidden" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+        </button>
+
+        <div class="border-t border-slate-100"></div>
+        <button type="button" onclick="openCreateOrg()" class="w-full flex items-center gap-2 px-4 py-2.5 hover:bg-[#0398551a] transition-colors" style="color:#039855" aria-label="openCreateOrg">
+  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"/></svg>
+          <span class="text-sm font-medium">Create Organization</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation — matches ConsoleLayout.tsx structure -->
+  <nav class="flex-1 space-y-4 overflow-y-auto" style="padding: 8px 12px">
+
+    <!-- Overview -->
+    <a href="#" class="nav-item active" onclick="go('overview'); return false;">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      <span>Overview</span>
+    </a>
+
+    <!-- API Group -->
+    <div class="space-y-1">
+      <div class="nav-section-label">API</div>
+      <!-- Broad Search (API) -->
+      <a href="#" class="nav-item" onclick="go('broad-search-api'); return false;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-3.5-3.5M11 8v6M8 11h6"/></svg>
+        <span>Broad Search</span>
+      </a>
+      <a href="#" class="nav-item" onclick="go('web-search'); return false;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
+        <span>Web Search</span>
+      </a>
+      <!-- Image Search -->
+      <a href="#" class="nav-item" onclick="go('image-search'); return false;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg>
+        <span>Image Search</span>
+      </a>
+      <!-- Video Search -->
+      <a href="#" class="nav-item" onclick="go('video-search'); return false;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        <span>Video Search</span>
+      </a>
+      <!-- Multimodal Search -->
+      <a href="#" class="nav-item" onclick="go('multimodal-search'); return false;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg>
+        <span>Omni Search</span>
+      </a>
+      <a href="#" class="nav-item" onclick="go('extract'); return false;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+        <span>Extract</span>
+      </a>
+      <!-- Model -->
+      <a href="#" class="nav-item" onclick="go('model'); return false;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4M13 3l2.5 6.5L22 12l-6.5 2.5L13 21l-2.5-6.5L4 12l6.5-2.5L13 3z"/></svg>
+        <span>Model</span>
+      </a>
+      <!-- Flow — hidden from nav (page retained) -->
+      <div class="nav-item" style="display:none" onclick="go('web-flow')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h8m-8 6h16"/><circle cx="18" cy="12" r="3"/></svg>
+        <span>Flow</span>
+      </div>
+      <!-- Collect — hidden from nav (page retained) -->
+      <div class="nav-item" style="display:none" onclick="go('collect')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 10V7"/></svg>
+        <span>Collect</span>
+      </div>
+    </div>
+
+    <!-- Application -->
+    <div class="space-y-1">
+      <div class="nav-section-label">APPLICATION</div>
+      <a href="#" class="nav-item" onclick="go('broad-search'); return false;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>
+        <span>Answer</span>
+      </a>
+      <!-- Deep Research -->
+      <a href="#" class="nav-item" onclick="go('deep-research'); return false;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4-4M11 8v6M8 11h6"/></svg>
+        <span>Deep Research</span>
+      </a>
+    </div>
+
+    <!-- Management Group -->
+    <div class="space-y-1">
+      <div class="nav-section-label">MANAGEMENT</div>
+      <a href="#" class="nav-item" onclick="go('api-keys'); return false;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+        <span>API Keys</span>
+      </a>
+      <a href="#" class="nav-item" onclick="go('usage'); return false;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        <span>Usage</span>
+      </a>
+      <div id="mgmt-billing" class="nav-item" onclick="go('billing')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
+        <span>Billing</span>
+      </div>
+
+      <!-- [NEW] Settings — org mode only (contains Members + Service Keys + General) -->
+      <div id="mgmt-settings" class="nav-item" onclick="go('settings')">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span>Settings</span>
+      </div>
+    </div>
+
+    <!-- Developers -->
+    <div class="space-y-1">
+      <div class="nav-section-label">DEVELOPERS</div>
+      <a href="#" class="nav-item">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        <span>Docs</span>
+      </a>
+    </div>
+
+      
+  </nav>
+
+
+  <!-- Bottom — account info (matches ConsoleLayout.tsx) -->
+  <div class="shrink-0">
+    <div class="p-4 border-t border-slate-200">
+      <div class="w-full rounded-xl transition-colors px-2 py-2 border border-transparent hover:bg-slate-50 hover:border-slate-200 cursor-pointer">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-9 h-9 rounded-full bg-[#0F172B] text-white flex items-center justify-center font-medium shrink-0">J</div>
+            <div class="min-w-0 text-left">
+              <div class="text-slate-900 text-sm font-medium truncate">Jane Niu</div>
+              <div class="text-slate-500 text-xs truncate">user@example.com</div>
+            </div>
+          </div>
+          <svg class="w-4 h-4 text-slate-400 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Demo switches (prototype only) -->
+  <div class="px-4 pb-3 space-y-2">
+    <div>
+      <div class="text-[10px] text-slate-400 mb-1.5">Demo: view as</div>
+      <div class="flex gap-1">
+        <button onclick="setRole('owner')" id="rb-owner" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Owner</button>
+        <button onclick="setRole('manager')" id="rb-manager" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Manager</button>
+        <button onclick="setRole('member')" id="rb-member" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Member</button>
+      </div>
+    </div>
+    <div>
+      <div class="text-[10px] text-slate-400 mb-1.5">Demo: payment</div>
+      <div class="flex gap-1">
+        <button onclick="setPayment(false)" id="rb-nocard" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">No card</button>
+        <button onclick="setPayment(true)" id="rb-active" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Active</button>
+      </div>
+    </div>
+    <div>
+      <div class="text-[10px] text-slate-400 mb-1.5">Demo: billing mode</div>
+      <div class="flex gap-1">
+        <button onclick="setBillingMode('prepaid')" id="bm-prepaid" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Prepaid</button>
+        <button onclick="setBillingMode('postpaid')" id="bm-postpaid" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Invoiced</button>
+      </div>
+    </div>
+    <div class="mt-2.5">
+      <div class="text-[10px] text-slate-400 mb-1.5">Demo: access state</div>
+      <div class="flex gap-1">
+        <button onclick="setAccessState('signed-out')" id="ax-signed-out" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Signed out</button>
+        <button onclick="setAccessState('apply')" id="ax-apply" class="flex-1 text-[10px] py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Apply</button>
+        <button onclick="setAccessState('approved')" id="ax-approved" class="flex-1 text-[10px] py-1 rounded border border-slate-200 text-slate-500">Approved</button>
+      </div>
+    </div>
+    <div id="bm-status-wrap" class="hidden">
+      <div class="text-[10px] text-slate-400 mb-1.5">Demo: postpaid status</div>
+      <select id="bm-status" onchange="setPostpaidStatus(this.value)" class="w-full text-[10px] py-1 px-1.5 rounded border border-slate-200 text-slate-600 bg-white outline-none">
+        <option value="firstMonth">First month (no usage yet)</option>
+        <option value="normal">Normal (&lt;80%)</option>
+        <option value="warn80">Warning ≥80%</option>
+        <option value="warn90">Warning ≥90%</option>
+        <option value="overdue">Invoice overdue</option>
+        <option value="suspended">Suspended (≥100% / D+37)</option>
+      </select>
+    </div>
+  </div>
+</aside>
+
+<!-- ============================================================
+     MAIN
+============================================================ -->
+<div class="workspace-body relative h-full">
+
+<div id="page-broad-search-api" class="page h-full">
+  <div class="layout-columns cols-2">
+    <!-- Left: Parameters -->
+    <div class="layout-pane min-w-[400px] p-4 space-y-4 overflow-y-auto">
+      <!-- Configuration header -->
+        <div class="flex items-center justify-between">
+          <h2 class="text-slate-800 font-semibold" style="font-size:17px">Configuration</h2>
+          <a href="#" onclick="return false" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 border border-slate-200 text-slate-600 rounded-md text-xs hover:bg-slate-50">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <span>Docs</span>
+          </a>
+        </div>
+        <!-- Query -->
+        <section>
+          <label class="block text-slate-800 text-sm font-medium mb-2">Query<span class="text-red-500 ml-0.5">*</span></label>
+          <div id="bsa-query-box" class="border border-slate-200 rounded-lg px-3 pt-2.5 pb-2 transition-colors focus-within:border-[#039855]">
+            <textarea id="bsa-query" rows="2" placeholder="" class="w-full border-0 outline-none resize-none text-sm text-slate-800 placeholder:text-slate-400 leading-relaxed bg-transparent"></textarea>
+            <div class="flex items-center justify-end gap-2 mt-1">
+              <button type="button" onclick="bsaClear()" class="inline-flex items-center gap-1.5 px-3 py-1.5 border border-slate-200 text-slate-600 rounded-lg text-xs hover:bg-slate-50 whitespace-nowrap">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M1 4v6h6M23 20v-6h-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
+                <span>Clear</span>
+              </button>
+              <button type="button" onclick="bsaRun()" id="bsa-run-btn" class="inline-flex items-center gap-1.5 px-4 py-1.5 text-white rounded-lg text-xs whitespace-nowrap" style="background:#039855">
+                <svg class="w-3.5 h-3.5" fill="#fff" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Run</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <div class="border-t border-slate-100"></div>
+
+        <!-- Basic settings (top-level) -->
+        <section class="space-y-3">
+          <h2 class="text-slate-800 text-sm font-medium">Basic settings</h2>
+          <div>
+            <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Max queries</label>
+            <input type="number" id="bsa-maxq" min="1" max="20" value="5" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
+            <p class="text-xs text-slate-500 mt-1">Number of sub-queries to expand and run in parallel.</p>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Topic</label>
+              <select id="bsa-topic" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs bg-white outline-none focus:border-[#039855]">
+                <option value="general">general</option><option value="news" selected>news</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Max results</label>
+              <input type="number" id="bsa-count" min="1" max="100" value="10" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
+            </div>
+          </div>
+        </section>
+
+        <div class="border-t border-slate-100"></div>
+
+        <!-- Filters -->
+        <section class="space-y-3">
+          <h2 class="text-slate-800 text-sm font-medium">Filters</h2>
+          <div class="grid grid-cols-2 gap-3 items-start">
+            <div>
+              <label class="block text-slate-700 text-xs uppercase tracking-wide mb-1">Time basis</label>
+              <div id="bsa-tb-pills" class="inline-flex rounded-full border border-slate-200 text-xs overflow-hidden">
+                <button type="button" class="bsa-tb px-2.5 py-1 border-r border-slate-200" data-tb="auto" style="background:#0398551a;color:#039855;font-weight:500">Auto</button>
+                <button type="button" class="bsa-tb px-2.5 py-1 border-r border-slate-200 bg-white text-slate-600" data-tb="published">Published</button>
+                <button type="button" class="bsa-tb px-2.5 py-1 bg-white text-slate-600" data-tb="crawled">Crawled</button>
+              </div>
+            </div>
+            <div class="relative">
+              <label class="block text-slate-700 text-xs uppercase tracking-wide mb-1">Date range</label>
+              <button type="button" id="bsa-date-btn" onclick="bsaDateToggle()" class="w-full flex items-center gap-2 px-2.5 py-1.5 border border-slate-200 rounded-lg text-xs bg-white outline-none focus:border-[#039855]">
+                <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
+                <span id="bsa-date-label" class="text-slate-400">Custom range</span>
+              </button>
+              <div id="bsa-date-pop" style="display:none;position:absolute;top:calc(100% + 6px);right:0;z-index:60;background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 12px 32px rgba(15,23,42,0.16);padding:14px;gap:12px;width:max-content;max-width:90vw"></div>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Domain filters</label>
+              <textarea id="bsa-include" rows="3" placeholder="e.g. octen.ai (one per line)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855] resize-none"></textarea>
+            </div>
+            <div>
+              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Exclude domains</label>
+              <textarea id="bsa-exclude" rows="3" placeholder="e.g. octen.ai (one per line)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855] resize-none"></textarea>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Include text</label>
+              <input type="text" id="bsa-inctext" placeholder="Phrase to include (≤ 5 words)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
+            </div>
+            <div>
+              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Exclude text</label>
+              <input type="text" id="bsa-exctext" placeholder="Phrase to exclude (≤ 5 words)" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
+            </div>
+          </div>
+          <!-- hidden state for custom range start/end (set via calendar) -->
+          <input type="hidden" id="bsa-start"/><input type="hidden" id="bsa-end"/>
+        </section>
+
+        <div class="border-t border-slate-100"></div>
+
+        <!-- Output options (within search_options) -->
+        <section class="space-y-4">
+          <h2 class="text-slate-800 text-sm font-medium">Output options</h2>
+          <!-- highlight -->
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex-1 min-w-0">
+              <label class="flex items-center gap-2 text-slate-800 text-xs font-medium cursor-pointer">
+                <input type="checkbox" id="bsa-hl" checked class="w-4 h-4 rounded border-slate-300" style="accent-color:#039855"/>
+                <span>Return highlights</span>
+              </label>
+              <p class="text-xs text-slate-500 ml-6 mt-1">Extract query-relevant highlights from the content.</p>
+            </div>
+            <div id="bsa-hl-wrap" class="shrink-0">
+              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Highlights max tokens</label>
+              <input type="number" id="bsa-hl-tokens" min="1" value="256" class="w-28 px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
+            </div>
+          </div>
+          <!-- full_content -->
+          <div class="flex items-start justify-between gap-3">
+            <div class="flex-1 min-w-0">
+              <label class="flex items-center gap-2 text-slate-800 text-xs font-medium cursor-pointer">
+                <input type="checkbox" id="bsa-fc" class="w-4 h-4 rounded border-slate-300" style="accent-color:#039855"/>
+                <span>Return full content</span>
+              </label>
+              <p class="text-xs text-slate-500 ml-6 mt-1">Billed via full_content_max_tokens.</p>
+            </div>
+            <div id="bsa-fc-wrap" class="shrink-0 hidden">
+              <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Full content max tokens</label>
+              <input type="number" id="bsa-fc-tokens" min="1" value="2048" class="w-28 px-2.5 py-1.5 border border-slate-200 rounded-md text-xs outline-none focus:border-[#039855]"/>
+            </div>
+          </div>
+          <!-- media toggles -->
+          <div class="grid grid-cols-2 gap-2">
+            <label class="flex items-center gap-2 text-slate-800 text-xs font-medium cursor-pointer"><input type="checkbox" id="bsa-images" class="w-4 h-4 rounded border-slate-300" style="accent-color:#039855"/><span>Include images</span></label>
+            <label class="flex items-center gap-2 text-slate-800 text-xs font-medium cursor-pointer"><input type="checkbox" id="bsa-videos" class="w-4 h-4 rounded border-slate-300" style="accent-color:#039855"/><span>Include videos</span></label>
+          </div>
+          <!-- safesearch -->
+          <div>
+            <label class="block text-slate-700 mb-1 text-xs uppercase tracking-wide">Safesearch</label>
+            <select id="bsa-safesearch" class="w-full px-2.5 py-1.5 border border-slate-200 rounded-md text-xs bg-white outline-none focus:border-[#039855]">
+              <option value="off">off</option><option value="moderate">moderate</option><option value="strict">strict</option>
+            </select>
+          </div>
+        </section>
+  </div>
+  
+  <div class="split-handle"></div>
+
+  <!-- Right: Code & Response -->
+  <div class="layout-pane min-w-[400px] flex flex-col">
+    <div class="border-b border-slate-100 flex shrink-0">
+          <button id="bsa-tab-req" class="flex-1 px-4 py-2.5 text-xs font-medium" style="color:#039855;background:#0398551a;border-bottom:2px solid #039855" onclick="bsaTab('request')">Request</button>
+          <button id="bsa-tab-res" class="flex-1 px-4 py-2.5 text-xs font-medium text-slate-600" onclick="bsaTab('response')">Response</button>
+        </div>
+        <div class="p-4 flex-1 flex flex-col min-h-0">
+          <!-- Request pane -->
+          <div id="bsa-pane-request" class="flex-1 flex flex-col min-h-0">
+            <div class="flex items-center justify-between mb-3 shrink-0">
+              <div class="inline-flex rounded-md border border-slate-200 overflow-hidden text-xs">
+                <button type="button" class="bsa-lang px-3 py-1.5" data-l="python" onclick="bsaSetLang('python')">Python</button>
+                <button type="button" class="bsa-lang px-3 py-1.5 border-l border-slate-200" data-l="javascript" onclick="bsaSetLang('javascript')">JavaScript</button>
+                <button type="button" class="bsa-lang px-3 py-1.5 border-l border-slate-200" data-l="curl" onclick="bsaSetLang('curl')">cURL</button>
+              </div>
+              <button type="button" onclick="bsaCopyReq()" id="bsa-copyreq" class="inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-slate-200 bg-white text-slate-600 hover:bg-slate-50 text-xs">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+                <span>Copy</span>
+              </button>
+            </div>
+            <div id="bsa-code" class="rounded-md overflow-hidden flex-1 flex flex-col min-h-0"></div>
+          </div>
+          <!-- Response pane -->
+          <div id="bsa-pane-response" class="hidden flex-1 flex flex-col min-h-0">
+            <div class="flex items-center justify-between mb-3">
+              <div class="inline-flex rounded-md border border-slate-200 overflow-hidden text-xs">
+                <button id="bsa-rt-preview" class="px-3 py-1.5" style="background:#0398551a;color:#039855;font-weight:500" onclick="bsaRtab('preview')">Preview</button>
+                <button id="bsa-rt-json" class="px-3 py-1.5 border-l border-slate-200 bg-white text-slate-600" onclick="bsaRtab('json')">JSON</button>
+              </div>
+              <span id="bsa-meta" class="text-xs text-slate-400"></span>
+            </a>
+            <div id="bsa-resp-body">
+              <div class="flex flex-col items-center justify-center py-12 text-slate-400">
+                <svg class="w-10 h-10 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg>
+                <p class="text-xs">Run a query to see expanded queries &amp; parallel results</p>
+              </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="page-broad-search" class="page active" style="padding:0">
+  <div id="bs-root" style="margin:0;height:100vh;display:flex;flex-direction:column;background:#fbfcfb"></div>
+</div></div>
+
+
+<!-- ============================================================ MODALS ============================================================ -->
+
+<!-- Create API Key -->
+<div id="m-discount" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-lg p-6">
+    <div class="flex items-start justify-between mb-1">
+      <h2 class="text-slate-900 text-base font-semibold">Your discounts</h2>
+      <button onclick="closeModal('m-discount')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <p class="text-xs text-slate-500 mb-4">Custom rates for your account, applied automatically to eligible requests and reflected in your Usage costs. APIs not listed are billed at standard rates.</p>
+    <div class="rounded-lg border border-slate-200 overflow-hidden">
+      <div class="flex items-center gap-2 px-4 py-2.5 bg-slate-50 border-b border-slate-100">
+        <span class="text-sm font-medium text-slate-800">Discounted rates</span>
+        <span class="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-medium" style="background:#039855;color:#fff">ACTIVE</span>
+      </div>
+      <div class="max-h-80 overflow-y-auto divide-y divide-slate-100">
+        <!-- Broad Search -->
+        <div class="px-4 py-3 flex items-baseline justify-between gap-3 text-sm">
+          <span class="font-medium text-slate-900">Broad Search</span>
+          <span class="w-64 text-left whitespace-nowrap"><span class="font-semibold tabular-nums" style="color:#039855">$1.70</span> <span class="text-slate-400 line-through tabular-nums text-xs">$2.00</span> <span class="text-xs text-slate-400">/ 1k sub-queries · 15% off</span></span>
+        </div>
+        <!-- Web Search -->
+        <div class="px-4 py-3 flex items-baseline justify-between gap-3 text-sm">
+          <span class="font-medium text-slate-900">Web Search</span>
+          <span class="w-64 text-left whitespace-nowrap"><span class="font-semibold tabular-nums" style="color:#039855">$4.00</span> <span class="text-slate-400 line-through tabular-nums text-xs">$5.00</span> <span class="text-xs text-slate-400">/ 1k calls · 20% off</span></span>
+        </div>
+        <!-- Extract -->
+        <div class="px-4 py-3 flex items-baseline justify-between gap-3 text-sm">
+          <span class="font-medium text-slate-900">Extract</span>
+          <div class="w-64 text-left whitespace-nowrap">
+            <div><span class="font-semibold tabular-nums" style="color:#039855">$0.85</span> <span class="text-slate-400 line-through tabular-nums text-xs">$1.00</span> <span class="text-xs text-slate-400">/ 1k URLs · 15% off</span></div>
+            <div class="text-[11px] text-slate-400 mt-0.5">until Dec 31, 2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-2 bg-slate-50 border-t border-slate-100 text-xs text-slate-500">3 APIs discounted</div>
+    </div>
+    <p class="text-[11px] text-slate-400 mt-3">Have questions? <a href="#" class="font-medium hover:underline" style="color:#039855">Contact sales →</a></p>
+    <div class="flex justify-end mt-5">
+      <button onclick="closeModal('m-discount')" class="px-4 py-2 text-sm text-white rounded-lg" style="background:#039855">Done</button>
+    </div>
+  </div>
+</div>
+
+<div id="m-create-key" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-slate-900 text-base font-semibold">Create API key</h2>
+      <button onclick="closeModal('m-create-key')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m create key">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <p class="text-xs text-slate-500 mb-4">You can create up to 100 API keys. Delete unused keys regularly.</p>
+    <div class="space-y-4 mb-6">
+      <div>
+        <label class="block text-xs text-slate-500 mb-1">API key name</label>
+        <input type="text" id="ck-name" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none" placeholder="e.g. Search Prod Key"/>
+      </div>
+      <!-- [ORG] Owner -->
+      <div id="ck-owner-wrap">
+        <label class="block text-xs text-slate-500 mb-1">Owner</label>
+        <select id="ck-owner" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none">
+          <option value="" selected>Shared (all members)</option>
+          <option value="jane">Jane Niu (you)</option>
+          <option value="alex">Alex Johnson</option>
+          <option value="sarah">Sarah Chen</option>
+          <option value="bob">Bob Smith</option>
+        </select>
+        <p class="mt-1 text-xs text-slate-400">Shared keys are accessible by all org members. Assigning a member enables per-member usage tracking.</p>
+      </div>
+      <div id="ck-qps-wrap">
+        <label class="block text-xs text-slate-500 mb-1">Requests QPS limit</label>
+        <input type="number" id="ck-qps" min="1" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none" placeholder="e.g. 20"/>
+        <p class="mt-1 text-xs text-slate-400">Set the max requests per second. Leave empty to use your plan's limit.</p>
+      </div>
+    </div>
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-create-key')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="doCreateKey()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Create key</button>
+    </div>
+  </div>
+</div>
+
+<!-- Request Access modal (generic — used by Multimodal Chat, Grounded Generation, etc.) -->
+<div id="m-request-access" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-lg p-6">
+    <div class="flex items-start justify-between mb-3">
+      <h2 class="text-slate-900 text-base font-semibold">Request access</h2>
+      <button onclick="closeModal('m-request-access')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m request access">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+
+    <!-- Email apply view (default for both signed-out and signed-in users) -->
+    <div id="ra-request-view">
+    <p class="text-sm text-slate-700 mb-4">Send your request to <a href="mailto:support@octen.ai" class="font-medium hover:underline" style="color:#039855">support@octen.ai</a> and we'll get back to you.</p>
+
+    <div class="border-t border-slate-100 pt-4 mb-4">
+      <div class="flex items-center justify-between mb-2">
+        <p class="text-xs font-medium text-slate-500 uppercase tracking-wide">Email template</p>
+        <button id="ra-copy-btn" onclick="raCopyTemplate(this)" class="inline-flex items-center gap-1 text-xs font-medium hover:opacity-80" style="color:#039855" aria-label="ra copy btn">
+  <svg class="ra-copy-icon w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          <svg class="ra-check-icon w-3 h-3 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <span class="ra-copy-label">Copy</span>
+        </button>
+        
+      </div>
+      <pre id="ra-template" class="bg-slate-50 border border-slate-200 rounded-lg p-3 text-xs text-slate-700 leading-relaxed font-mono whitespace-pre-wrap">Subject: Octen access request — <span class="ra-product">Multimodal Chat</span>
+
+Hi Octen team,
+
+I'd like to request access to <span class="ra-product">Multimodal Chat</span>.
+
+· Name:
+· Work email:
+· Company:
+· Country:
+· Use case:
+· Estimated scale (daily API calls):
+
+Thanks!</pre>
+    </div>
+
+    <div class="flex gap-2">
+      <a id="ra-mailto" href="mailto:support@octen.ai" class="flex-1 px-4 py-2.5 text-white rounded-lg text-sm font-medium hover:opacity-90 text-center" style="background:#039855">Open in email →</a>
+      <button onclick="closeModal('m-request-access')" class="px-4 py-2.5 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Close</button>
+    </div>
+    <p id="ra-signin-hint" class="hidden text-center text-xs text-slate-500 mt-4 pt-3 border-t border-slate-100">Already have an account? <a href="#" onclick="closeModal('m-request-access');toast('Redirecting to sign in…');return false" class="font-medium hover:underline" style="color:#039855">Sign in →</a></p>
+    </div><!-- /ra-request-view -->
+  </div>
+</div>
+
+
+<!-- Edit API Key -->
+<div id="m-edit-key" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-slate-900 text-base font-semibold">Edit API key</h2>
+      <button onclick="closeModal('m-edit-key')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <div class="space-y-4 mb-6">
+      <div>
+        <label class="block text-xs text-slate-500 mb-1">API key name</label>
+        <input type="text" id="ek-name" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none" placeholder="e.g. Search Prod Key"/>
+      </div>
+      <!-- [ORG] Owner -->
+      <div id="ek-owner-wrap">
+        <label class="block text-xs text-slate-500 mb-1">Owner</label>
+        <select id="ek-owner" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none">
+          <option value="">Shared (all members)</option>
+          <option value="jane">Jane Niu</option>
+          <option value="alex">Alex Johnson</option>
+          <option value="sarah">Sarah Chen</option>
+          <option value="bob">Bob Smith</option>
+        </select>
+      </div>
+      <div id="ek-qps-wrap">
+        <label class="block text-xs text-slate-500 mb-1">Requests QPS limit</label>
+        <input type="number" id="ek-qps" min="0" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none" placeholder="e.g. 20"/>
+        <p class="mt-1 text-xs text-slate-400">Set the max requests per second. Leave empty to use your plan's limit.</p>
+      </div>
+    </div>
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-edit-key')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="doSaveEdit()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete API Key -->
+<div id="m-del-key" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-slate-900 text-base font-semibold">Delete API key?</h2>
+      <button onclick="closeModal('m-del-key')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m del key">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <p class="text-slate-600 text-sm">This will permanently delete <span id="del-key-name" class="font-medium text-slate-900"></span>. This action cannot be undone.</p>
+    <div class="mt-5 flex justify-end gap-3">
+      <button onclick="closeModal('m-del-key')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="doDelKey()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Invite Member -->
+<!-- Create Organization -->
+<div id="m-create-org" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="text-slate-900 text-base font-semibold">Create Organization</h2>
+      <button onclick="closeModal('m-create-org')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m create org">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+
+    <div class="mb-5">
+      <label class="block text-xs text-slate-500 mb-1.5">Organization name <span class="text-red-500">*</span></label>
+      <input type="text" id="co-name" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-[#039855]" placeholder="e.g. Acme Inc"/>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-create-org')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="doCreateOrg()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Create</button>
+    </div>
+  </div>
+</div>
+
+<!-- ⚠️🆕 Invoice / receipt detail (hosted-style: download invoice + receipt from one record) -->
+<div id="m-invoice-detail" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-2xl max-h-[88vh] overflow-y-auto relative">
+    <button onclick="closeModal('m-invoice-detail')" class="absolute right-4 top-4 p-1 rounded hover:bg-slate-100 z-10" aria-label="closeModal  m invoice detail">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+
+    <!-- Header -->
+    <div class="p-6 border-b border-slate-200">
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
+        <div class="min-w-0">
+          <div class="flex items-center gap-2 mb-2"><span id="bpd-status"></span><span id="bpd-number" class="text-slate-500 text-sm font-mono"></span></div>
+          <div id="bpd-amount" class="text-slate-900 text-4xl font-semibold mb-1 tabular-nums">$0.00</div>
+          <div id="bpd-paidline" class="text-slate-500 text-sm mb-4"></div>
+          <div id="bpd-actions" class="flex flex-wrap gap-2"></div>
+        </div>
+        <div class="shrink-0 text-sm space-y-3">
+          <div class="flex gap-6">
+            <div><div class="text-slate-400 text-xs mb-0.5">Invoice date</div><div id="bpd-invdate" class="text-slate-700"></div></div>
+            <div><div class="text-slate-400 text-xs mb-0.5">Due date</div><div id="bpd-due" class="text-slate-700"></div></div>
+          </div>
+          <div><div class="text-slate-400 text-xs mb-0.5">From</div><div class="text-slate-700 leading-snug">APITECH AI PTE. LTD.<br>68 Circular Road, Singapore 049422</div></div>
+          <div><div class="text-slate-400 text-xs mb-0.5">Bill to</div><div id="bpd-billto" class="text-slate-700 leading-snug"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Line items -->
+    <div class="p-6">
+      <table class="w-full text-sm">
+        <tbody id="bpd-lines"></tbody>
+      </table>
+      <div class="mt-4 pt-4 border-t border-slate-200 space-y-2">
+        <div class="flex items-center justify-between text-sm"><span class="text-slate-500">Subtotal</span><span id="bpd-subtotal" class="text-slate-900 tabular-nums"></span></div>
+        <div id="bpd-balrow" class="hidden flex items-center justify-between text-sm"><span class="text-green-700">Prepaid balance applied</span><span id="bpd-bal" class="text-green-700 tabular-nums"></span></div>
+        <div id="bpd-total-row" class="flex items-center justify-between text-sm"><span id="bpd-total-label" class="text-slate-500">Total</span><span id="bpd-total" class="text-slate-900 font-medium tabular-nums"></span></div>
+        <div class="flex items-center justify-between text-base pt-2 border-t border-slate-200"><span class="text-slate-900 font-semibold">Amount due</span><span id="bpd-amountdue" class="text-slate-900 font-semibold tabular-nums"></span></div>
+      </div>
+      <p class="text-[11px] text-slate-400 mt-5 text-center">Powered by Stripe · <a href="#" class="underline">Terms</a> · <a href="#" class="underline">Privacy</a></p>
+    </div>
+  </div>
+</div>
+
+<div id="m-invite" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-5">
+      <h2 class="text-slate-900 text-base font-semibold">Invite members</h2>
+      <button onclick="closeModal('m-invite')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m invite">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+
+    <div class="space-y-4 mb-5">
+      <div>
+        <label class="block text-xs text-slate-500 mb-1.5">Email addresses <span class="text-red-500">*</span></label>
+        <textarea id="inv-emails" rows="3" oninput="updateInviteSummary()" placeholder="alice@company.com, bob@company.com" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-[#039855] resize-none"></textarea>
+        <div id="inv-summary" class="hidden mt-2 text-xs">
+          <div class="flex items-start gap-1.5 text-slate-600">
+            <svg class="w-3.5 h-3.5 shrink-0 mt-0.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
+            <span id="inv-summary-text" class="flex-1"></span>
+            <button type="button" id="inv-summary-toggle" onclick="toggleInviteDetails()" class="shrink-0 hover:opacity-80" style="color:#039855">details ▾</button>
+          </div>
+          <div id="inv-summary-details" class="hidden mt-2 pl-5 space-y-1 text-slate-500"></div>
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-xs text-slate-500 mb-1.5">Role</label>
+        <select id="inv-role" onchange="onInviteRoleChange()" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm bg-white focus:outline-none focus:border-[#039855]">
+          <option value="member">Member</option>
+          <option value="manager">Manager</option>
+          <option value="owner" id="inv-role-owner-opt">Owner</option>
+        </select>
+        <p id="inv-owner-warning" class="hidden mt-2 flex items-start gap-1.5 text-xs text-amber-700">
+          <svg class="w-3.5 h-3.5 shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+          <span>Owners have full management access, including billing.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="border-t border-slate-100 pt-4 mb-4">
+      <button onclick="copyInviteLink(this)" class="flex items-center gap-1.5 text-sm hover:opacity-80 transition-opacity" style="color:#039855" aria-label="copyInviteLink this">
+  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+        <span>Copy invite link</span>
+      </button>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-invite')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button id="inv-send-btn" onclick="doInvite()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed" style="background:#039855">Send invites</button>
+    </div>
+  </div>
+</div>
+
+<!-- Remove Member -->
+<div id="m-remove" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-lg p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-slate-900 text-base font-semibold">Remove <span id="rem-name"></span></h2>
+      <button onclick="closeModal('m-remove')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+
+    <!-- No-keys state -->
+    <div id="rem-no-keys" class="hidden">
+      <div class="flex items-start gap-3 px-4 py-3 rounded-lg border border-slate-200 bg-slate-50 mb-5">
+        <svg class="w-4 h-4 shrink-0 mt-0.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M12 16v-4m0-4h.01"/></svg>
+        <div class="text-sm text-slate-700">
+          <span class="font-medium text-slate-900" id="rem-email-1"></span> has no assigned API keys.
+        </div>
+      </div>
+      <p class="text-sm text-slate-600 mb-5">Removing will revoke their access to this organization immediately.</p>
+    </div>
+
+    <!-- Has-keys state -->
+    <div id="rem-has-keys">
+      <p class="text-sm text-slate-600 mb-4"><span id="rem-name-2" class="font-medium text-slate-800"></span> has <span id="rem-key-count" class="font-medium text-slate-800">0</span> assigned API keys.</p>
+
+      <!-- Affected keys -->
+      <div class="mb-4">
+        <div class="text-xs text-slate-500 mb-1.5">Affected keys</div>
+        <div id="rem-key-list" class="border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 bg-slate-50 space-y-1"></div>
+      </div>
+
+      <!-- Option group -->
+      <div class="space-y-2 mb-5">
+        <label class="flex items-start gap-3 border border-slate-200 rounded-lg p-3 cursor-pointer hover:border-slate-300 transition-colors has-[:checked]:border-[#039855] has-[:checked]:bg-[#0398550a]">
+          <input type="radio" name="rem-action" value="transfer" checked class="mt-0.5" style="accent-color:#039855" onchange="toggleRemTransferSelect(true)"/>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-slate-900">Transfer to another member (default)</div>
+            <div class="text-xs text-slate-500 mt-0.5 mb-2">Keys will be reassigned to the selected member.</div>
+            <select id="rem-transfer-select" class="w-full px-2 py-1.5 text-xs border border-slate-200 rounded-md bg-white">
+              <option value="">Select member</option>
+              <option value="jane">Jane Niu · Owner</option>
+              <option value="alex">Alex Johnson · Manager</option>
+              <option value="bob">Bob Smith · Member</option>
+            </select>
+          </div>
+        </label>
+
+        <label class="flex items-start gap-3 border border-slate-200 rounded-lg p-3 cursor-pointer hover:border-slate-300 transition-colors has-[:checked]:border-[#039855] has-[:checked]:bg-[#0398550a]">
+          <input type="radio" name="rem-action" value="shared" class="mt-0.5" style="accent-color:#039855" onchange="toggleRemTransferSelect(false)"/>
+          <div>
+            <div class="text-sm font-medium text-slate-900">Convert to Shared</div>
+            <div class="text-xs text-slate-500 mt-0.5">Keys remain accessible to all members.</div>
+          </div>
+        </label>
+
+        <label class="flex items-start gap-3 border border-slate-200 rounded-lg p-3 cursor-pointer hover:border-slate-300 transition-colors has-[:checked]:border-[#039855] has-[:checked]:bg-[#0398550a]">
+          <input type="radio" name="rem-action" value="delete" class="mt-0.5" style="accent-color:#039855" onchange="toggleRemTransferSelect(false)"/>
+          <div>
+            <div class="text-sm font-medium text-slate-900">Delete all assigned keys</div>
+            <div class="text-xs text-slate-500 mt-0.5">Keys will be permanently deleted.</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-remove')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="doRemove()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Remove member</button>
+    </div>
+  </div>
+</div>
+
+<!-- Leave Organization (with key handover) -->
+<!-- Self-demotion confirmation -->
+<div id="m-role-confirm" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-slate-900 text-base font-semibold">Change your role to <span id="rc-new-role">Manager</span>?</h2>
+      <button onclick="cancelRoleChange()" class="p-1 rounded hover:bg-slate-100" aria-label="cancelRoleChange">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <p class="text-sm text-slate-600 mb-5">
+      You will lose your <span id="rc-current-role" class="font-medium text-slate-900">Owner</span> privileges. This action cannot be undone by yourself — another owner will need to restore your role.
+    </p>
+    <div class="flex justify-end gap-3">
+      <button onclick="cancelRoleChange()" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="confirmRoleChange()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Change role</button>
+    </div>
+  </div>
+</div>
+
+<div id="m-leave" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-lg p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-slate-900 text-base font-semibold">Leave <span id="leave-org-name">Acme Inc</span></h2>
+      <button onclick="closeModal('m-leave')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m leave">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+
+    <!-- No-keys state -->
+    <div id="leave-no-keys" class="hidden">
+      <p class="text-sm text-slate-600 mb-5">You will lose access to this organization immediately.</p>
+    </div>
+
+    <!-- Has-keys state -->
+    <div id="leave-has-keys">
+      <p class="text-sm text-slate-600 mb-4">You have <span id="leave-key-count" class="font-medium text-slate-800">0</span> assigned API keys that must be transferred before you leave:</p>
+
+      <div class="mb-4">
+        <div class="text-xs text-slate-500 mb-1.5">Affected keys</div>
+        <div id="leave-key-list" class="border border-slate-200 rounded-lg px-3 py-2 text-xs text-slate-700 bg-slate-50 space-y-1"></div>
+      </div>
+
+      <div class="mb-5">
+        <label class="block text-xs text-slate-500 mb-1.5">Transfer to an admin <span class="text-red-500">*</span></label>
+        <select id="leave-transfer-select" class="w-full px-3 py-2 text-sm border border-slate-200 rounded-lg bg-white focus:outline-none focus:border-[#039855]">
+          <option value="">Select Owner or Manager</option>
+          <option value="jane">Jane Niu · Owner</option>
+          <option value="alex">Alex Johnson · Manager</option>
+        </select>
+        <p class="text-xs text-slate-500 mt-1.5">The selected admin will take over your API keys.</p>
+      </div>
+
+      <div class="flex items-start gap-2 px-3 py-2 rounded-lg border border-amber-200 bg-amber-50 mb-5">
+        <svg class="w-3.5 h-3.5 shrink-0 mt-0.5 text-amber-600" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+        <div class="text-xs text-amber-800">You will lose access to this organization immediately.</div>
+      </div>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-leave')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="doLeave()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Leave organization</button>
+    </div>
+  </div>
+</div>
+
+<!-- Create Service Key -->
+<div id="m-create-svc" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-slate-900 text-base font-semibold">Create Service Key</h2>
+      <button onclick="closeModal('m-create-svc')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m create svc">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <div class="mb-5">
+      <label class="block text-xs text-slate-500 mb-1">Service Key name</label>
+      <input type="text" placeholder="e.g. Prod Management" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none"/>
+    </div>
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-create-svc')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="doCreateSvc()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Create key</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Service Key -->
+<div id="m-edit-svc" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-slate-900 text-base font-semibold">Edit Service Key</h2>
+      <button onclick="closeModal('m-edit-svc')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m edit svc">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <div class="mb-5">
+      <label class="block text-xs text-slate-500 mb-1">Service Key name</label>
+      <input type="text" id="esvc-name" value="Management Key" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none"/>
+    </div>
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-edit-svc')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="doSaveSvcEdit()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Save changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Service Key -->
+<div id="m-del-svc" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-slate-900 text-base font-semibold">Delete Service Key?</h2>
+      <button onclick="closeModal('m-del-svc')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m del svc">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <p class="text-sm text-slate-600 mb-5">This will permanently delete <span id="del-svc-name" class="font-semibold text-slate-900">Management Key</span>. Any automation using this key will stop working immediately.</p>
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-del-svc')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="doDelSvc()" class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Credits -->
+<!-- QPS Upgrade modal -->
+<div id="m-qps-upgrade" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-2xl p-6 max-h-[90vh] overflow-y-auto">
+    <div class="flex items-start justify-between mb-2">
+      <h2 class="text-slate-900 text-lg font-semibold">Upgrade your plan</h2>
+      <button onclick="closeModal('m-qps-upgrade')" class="p-1 rounded hover:bg-slate-100 shrink-0" aria-label="closeModal  m qps upgrade">
+  <svg class="w-5 h-5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <p class="text-sm text-slate-600 mb-5">You're currently on the <span class="font-medium text-slate-900">Free tier (up to 50 QPS)</span>. Subscribe to unlock guaranteed throughput and SLA.</p>
+
+    <!-- Tier: Startup -->
+    <label class="block mb-3 cursor-pointer">
+      <input type="radio" name="qps-tier" value="startup" class="peer sr-only"/>
+      <div class="border border-slate-200 rounded-xl p-4 transition-all peer-checked:border-[#039855] peer-checked:bg-[#0398550d] hover:border-slate-300">
+        <div class="flex items-start justify-between gap-4">
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              <span class="text-slate-900 font-semibold">Startup</span>
+              <span class="text-slate-500">·</span>
+              <span class="text-slate-900 font-semibold">50 QPS</span>
+            </div>
+            <p class="text-xs text-slate-500">For early-stage teams going to production</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-slate-900 text-lg font-semibold tabular-nums">$599 <span class="text-sm font-normal text-slate-500">/ mo</span></p>
+          </div>
+        </div>
+      </div>
+    </label>
+
+    <!-- Tier: Pro -->
+    <label class="block mb-3 cursor-pointer">
+      <input type="radio" name="qps-tier" value="pro" class="peer sr-only"/>
+      <div class="border border-slate-200 rounded-xl p-4 transition-all peer-checked:border-[#039855] peer-checked:bg-[#0398550d] hover:border-slate-300">
+        <div class="flex items-start justify-between gap-4">
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              <span class="text-slate-900 font-semibold">Pro</span>
+              <span class="text-slate-500">·</span>
+              <span class="text-slate-900 font-semibold">100 QPS</span>
+            </div>
+            <p class="text-xs text-slate-500">For growing production workloads</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-slate-900 text-lg font-semibold tabular-nums">$1,199 <span class="text-sm font-normal text-slate-500">/ mo</span></p>
+          </div>
+        </div>
+      </div>
+    </label>
+
+    <!-- Tier: Scale -->
+    <label class="block mb-5 cursor-pointer">
+      <input type="radio" name="qps-tier" value="scale" class="peer sr-only"/>
+      <div class="border border-slate-200 rounded-xl p-4 transition-all peer-checked:border-[#039855] peer-checked:bg-[#0398550d] hover:border-slate-300">
+        <div class="flex items-start justify-between gap-4">
+          <div class="min-w-0">
+            <div class="flex flex-wrap items-center gap-2 mb-1">
+              <span class="text-slate-900 font-semibold">Scale</span>
+              <span class="text-slate-500">·</span>
+              <span class="text-slate-900 font-semibold">500 QPS</span>
+            </div>
+            <p class="text-xs text-slate-500">For high-volume production at scale</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="text-slate-900 text-lg font-semibold tabular-nums">$5,999 <span class="text-sm font-normal text-slate-500">/ mo</span></p>
+          </div>
+        </div>
+      </div>
+    </label>
+
+    <div class="border-t border-slate-200 pt-5 mb-5">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-slate-900 font-semibold">Enterprise</span>
+        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium text-white" style="background:#8b5cf6">1M+ QPS supported</span>
+      </div>
+      <p class="text-sm text-slate-600 mb-3">Need higher QPS? Contact us for custom enterprise plans with dedicated support.</p>
+      <button class="w-full border border-dashed border-slate-300 rounded-lg py-2.5 text-sm font-medium text-slate-700 hover:bg-slate-50 transition-colors inline-flex items-center justify-center gap-2" aria-label="Action">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        Contact Sales
+      </button>
+    </div>
+
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-qps-upgrade')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="closeModal('m-qps-upgrade');toast('Plan upgraded')" class="px-4 py-2 text-white rounded-lg text-sm font-medium opacity-50 cursor-not-allowed" style="background:#039855">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<div id="m-recharge" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-slate-900 text-base font-semibold">Add Credits</h2>
+      <button onclick="closeModal('m-recharge')" class="p-1 rounded hover:bg-slate-100"><svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <div class="mb-5">
+      <label class="block text-xs text-slate-500 mb-2">Amount</label>
+      <div class="grid grid-cols-4 gap-2 mb-3">
+        <button class="py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors">$25</button>
+        <button class="py-2 border-2 rounded-lg text-sm font-medium" style="border-color:#039855;color:#039855;background:#0398550d">$50</button>
+        <button class="py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors">$100</button>
+        <button class="py-2 border border-slate-200 rounded-lg text-sm hover:border-[#039855] transition-colors">$200</button>
+      </div>
+      <input type="number" value="50" min="1" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none" placeholder="Custom amount"/>
+    </div>
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-recharge')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="closeModal('m-recharge');toast('Credits added')" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Add credits</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Org -->
+<div id="m-del-org" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-3">
+      <h2 class="text-slate-900 text-base font-semibold">Delete Organization?</h2>
+      <button onclick="closeModal('m-del-org')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m del org">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <p class="text-sm text-slate-600 mb-4">This will permanently delete <span class="font-semibold text-slate-900">Acme Inc</span>. All members, keys, and billing history will be deleted.</p>
+    <div class="mb-5">
+      <label class="block text-xs text-slate-500 mb-1">Type <code class="bg-slate-100 px-1 rounded">acme-inc</code> to confirm</label>
+      <input type="text" placeholder="acme-inc" class="w-full px-3 py-2 border border-red-200 rounded-lg text-sm focus:outline-none"/>
+    </div>
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-del-org')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button class="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg text-sm">Delete organization</button>
+    </div>
+  </div>
+</div>
+
+<!-- Welcome Modal (personal mode only) -->
+<div id="m-welcome" class="modal-bg">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 p-8 relative">
+    <button onclick="closeModal('m-welcome')" class="absolute top-4 right-4 p-1 rounded-lg hover:bg-slate-100 transition-colors text-slate-400" aria-label="closeModal  m welcome">
+  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    <div class="text-center">
+      <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl mb-5" style="background:#0398551a">
+        <svg class="w-7 h-7" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"/></svg>
+      </div>
+      <h2 class="text-xl font-semibold text-slate-900 mb-2">Welcome to Octen!</h2>
+      <p class="text-sm text-slate-600 leading-relaxed mb-6">Add a payment method to get <span class="font-semibold" style="color:#039855">$5 in free credits</span> and start building.</p>
+      <div class="flex flex-col gap-3">
+        <button onclick="closeModal('m-welcome');go('billing')" class="w-full py-3 px-4 rounded-xl text-white text-sm font-medium transition-opacity hover:opacity-90" style="background:#039855">Add payment method</button>
+        <button onclick="closeModal('m-welcome')" class="w-full py-3 px-4 rounded-xl text-sm font-medium text-slate-500 hover:bg-slate-50 transition-colors">Maybe later</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── Destination Add / Edit Wizard ───── -->
+<div id="m-dest-wizard" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-xl p-6">
+    <div class="flex items-center justify-between mb-5">
+      <h2 id="dest-wiz-title" class="text-slate-900 text-base font-semibold">Add destination</h2>
+      <button onclick="closeModal('m-dest-wizard')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m dest wizard">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+
+    <!-- Stepper -->
+    <div class="flex items-center mb-6 text-xs">
+      <div id="dws-1" class="flex items-center gap-2"><span class="w-5 h-5 rounded-full bg-[#039855] text-white flex items-center justify-center text-[11px] font-medium">1</span><span class="text-slate-900 font-medium">Details</span></div>
+      <div class="flex-1 h-px bg-slate-200 mx-3"></div>
+      <div id="dws-2" class="flex items-center gap-2 text-slate-400"><span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[11px] font-medium">2</span><span>IAM role</span></div>
+      <div class="flex-1 h-px bg-slate-200 mx-3"></div>
+      <div id="dws-3" class="flex items-center gap-2 text-slate-400"><span class="w-5 h-5 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center text-[11px] font-medium">3</span><span>Verify</span></div>
+    </div>
+
+    <!-- Step 1 -->
+    <div id="dest-step-1">
+      <div class="space-y-4 mb-6">
+        <div>
+          <label class="block text-xs text-slate-500 mb-1.5">Name <span class="text-red-500">*</span></label>
+          <input id="dest-name" type="text" placeholder="e.g. Production logs" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-[#039855]"/>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-500 mb-1.5">S3 Bucket <span class="text-red-500">*</span></label>
+          <input id="dest-bucket" type="text" placeholder="acme-collect-data" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-[#039855] disabled:bg-slate-50 disabled:text-slate-500"/>
+          <p id="dest-bucket-hint" class="hidden mt-1 text-[11px] text-slate-400">Bucket cannot be changed after creation.</p>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-500 mb-1.5">Prefix <span class="text-slate-400">(optional)</span></label>
+          <input id="dest-prefix" type="text" placeholder="octen/runs/" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:outline-none focus:border-[#039855] disabled:bg-slate-50 disabled:text-slate-500"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div id="dest-step-2" class="hidden">
+      <!-- Policy tabs -->
+      <div class="border border-slate-200 rounded-lg overflow-hidden mb-4">
+        <div class="flex border-b border-slate-200 bg-slate-50/60">
+          <button id="dest-pol-tab-trust" onclick="switchDestPolTab('trust')" class="flex-1 px-3 py-2 text-xs font-medium text-slate-900 border-b-2 border-[#039855] -mb-px">Trust policy</button>
+          <button id="dest-pol-tab-perm" onclick="switchDestPolTab('perm')" class="flex-1 px-3 py-2 text-xs font-medium text-slate-500 border-b-2 border-transparent -mb-px">Permission policy</button>
+          <button onclick="copyDestPolicy(currentDestPolTab)" class="px-3 py-2 text-[11px] hover:opacity-80 border-l border-slate-200" style="color:#039855">Copy</button>
+        </div>
+        <pre id="dest-trust-json" class="px-3 py-2.5 text-[11px] bg-slate-50 text-slate-700 font-mono overflow-x-auto">{
+  "Version": "2012-10-17",
+  "Statement": [{
+    "Effect": "Allow",
+    "Principal": { "AWS": "arn:aws:iam::123456789012:root" },
+    "Action": "sts:AssumeRole",
+    "Condition": { "StringEquals": { "sts:ExternalId": "octen-ext-a8f3-49c2-b1e7-8d2f4a6b9c1e" } }
+  }]
+}</pre>
+        <pre id="dest-perm-json" class="hidden px-3 py-2.5 text-[11px] bg-slate-50 text-slate-700 font-mono overflow-x-auto"></pre>
+      </div>
+
+      <div>
+        <label class="block text-xs text-slate-500 mb-1.5">Role ARN <span class="text-red-500">*</span></label>
+        <input id="dest-role-arn" type="text" placeholder="arn:aws:iam::your-account-id:role/octen-collect" class="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm font-mono focus:outline-none focus:border-[#039855]"/>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div id="dest-step-3" class="hidden">
+      <div id="dest-test-pre" class="bg-slate-50 border border-slate-200 rounded-lg p-4 mb-4 text-xs text-slate-600 space-y-1">
+        <div>Test path: <code class="font-mono text-slate-800" id="dest-test-path">s3://bucket/prefix/.octen-test-{timestamp}</code></div>
+      </div>
+
+      <div id="dest-test-running" class="hidden space-y-2 mb-4">
+        <div id="dts-1" class="flex items-center gap-2 text-xs text-slate-600"><span class="w-4 h-4 rounded-full border-2 border-slate-300 border-t-[#039855] animate-spin"></span>Assuming IAM Role…</div>
+        <div id="dts-2" class="flex items-center gap-2 text-xs text-slate-400"><span class="w-4 h-4 rounded-full border border-slate-200"></span>Writing test file…</div>
+        <div id="dts-3" class="flex items-center gap-2 text-xs text-slate-400"><span class="w-4 h-4 rounded-full border border-slate-200"></span>Cleaning up…</div>
+      </div>
+
+      <div id="dest-test-success" class="hidden bg-[#0398550d] border border-[#03985533] rounded-lg p-4 mb-4">
+        <div class="flex items-start gap-2">
+          <svg class="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="#039855" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
+          <div class="flex-1 text-xs">
+            <div class="font-medium text-slate-900 mb-1">Connection verified</div>
+            <div class="text-slate-600">Destination ID: <code class="font-mono text-slate-800" id="dest-new-id">dst_abc123xyz</code></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="dest-test-error" class="hidden bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
+        <div class="flex items-start gap-2">
+          <svg class="w-4 h-4 mt-0.5 shrink-0 text-red-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+          <div class="flex-1 text-xs">
+            <div class="font-medium text-red-700 mb-1" id="dest-err-title">AssumeRole failed</div>
+            <div class="text-red-600" id="dest-err-msg">Role does not trust the Octen account. Check trust policy and External ID.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-between gap-3 pt-2">
+      <button id="dest-back-btn" onclick="destWizardBack()" class="hidden px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Back</button>
+      <div class="ml-auto flex gap-3">
+        <button onclick="closeModal('m-dest-wizard')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+        <button id="dest-next-btn" onclick="destWizardNext()" class="px-4 py-2 text-white rounded-lg text-sm hover:opacity-90" style="background:#039855">Next</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── Destination Delete Confirm ───── -->
+<div id="m-dest-delete" class="modal-bg">
+  <div class="bg-white rounded-xl w-full max-w-md p-6">
+    <div class="flex items-center justify-between mb-4">
+      <h2 class="text-slate-900 text-base font-semibold">Delete destination?</h2>
+      <button onclick="closeModal('m-dest-delete')" class="p-1 rounded hover:bg-slate-100" aria-label="closeModal  m dest delete">
+  <svg class="w-4 h-4 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+</button>
+    </div>
+    <p class="text-sm text-slate-600 mb-2">Delete <span class="font-medium text-slate-900" id="dest-del-name"></span>?</p>
+    <p class="text-xs text-slate-500 mb-5">API calls referencing <code class="px-1 py-0.5 bg-slate-100 rounded text-[11px] font-mono" id="dest-del-id"></code> will fail with 404 Not Found.</p>
+    <div class="flex justify-end gap-3">
+      <button onclick="closeModal('m-dest-delete')" class="px-4 py-2 border border-slate-200 rounded-lg text-sm text-slate-700 hover:bg-slate-50">Cancel</button>
+      <button onclick="confirmDeleteDestination()" class="px-4 py-2 bg-red-500 text-white rounded-lg text-sm hover:bg-red-600">Delete</button>
+    </div>
+  </div>
+</div>
+
+<div id="spd-overlay" class="hidden" style="position:fixed;inset:0;z-index:60;display:none"></div>
+
+<!-- Toast -->
+<div id="toast-el" class="fixed top-6 left-1/2 -translate-x-1/2 text-white text-sm px-5 py-3 rounded-lg shadow-xl z-[100] opacity-0 transition-all duration-300 pointer-events-none font-medium" style="background:#039855"></div>
+
+<!-- ============================================================ JAVASCRIPT ============================================================ -->
+
+
+<!-- ============================================================ MODEL PAGE SCRIPT ============================================================ -->
+
+
+
+<!-- ============================================================ SHARED SEARCH PARAMETER DRAWER ============================================================ -->
+
+
+<!-- ============================================================ DEEP RESEARCH DATA ============================================================ -->
+
+
+<!-- ============================================================ DEEP RESEARCH SCRIPT ============================================================ -->
+
+
+<!-- ============================================================ BROAD SEARCH SCRIPT ============================================================ -->
+
+
+<!-- ============================================================ BROAD SEARCH (API) SCRIPT ============================================================ -->
+
+
+<!-- ============================================================ SEARCH (API) ENHANCEMENTS: date calendar + animated query placeholder ============================================================ -->
+
+
+<!-- ============================================================ PGS ENGINE — Image / Video / Multimodal Search (api.octen.ai/multimodal-search) ============================================================ -->
+
+
+
+<!-- ============================================================ BILLING — Model pricing table data ============================================================ -->
+
+</div>
+
+
+
+  
+  <script src="js/tailwind-config.js"></script>
+  <script src="js/syntax-highlight.js"></script>
+  <script src="js/split-handle.js"></script>
+  <script src="js/ui-access.js"></script>
+  <script src="js/ui-state.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/models.js"></script>
+  <script src="js/search-shared.js"></script>
+  <script src="js/deep-research-data.js"></script>
+  <script src="js/deep-research.js"></script>
+  <script src="js/broad-search.js"></script>
+  <script src="js/search-api-enhancements.js"></script>
+  <script src="js/broad-search-api.js"></script>
+  <script src="js/billing.js"></script>
+
+</body>
+</html>

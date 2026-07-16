@@ -45,8 +45,8 @@
 
 /* ---------- DARK MODE PALETTE (default Velocity) ---------- */
 [data-theme="dark"]{
-  --accent-h:212; --accent-s:86%; --accent-l:52%;
-  --color-accent:hsl(212,86%,62%);
+  --accent-h:153; --accent-s:96%; --accent-l:30%;
+  --color-accent:#039855;
   --color-accent-1:color-mix(in oklab,var(--color-accent) 64%,#fff 36%);
   --color-accent-3:color-mix(in oklab,var(--color-accent) 50%,transparent 75%);
 
@@ -101,11 +101,11 @@
   --text-faint:var(--color-base-40);
   --text-on-accent:#fff;
   --text-selection:oklab(from var(--color-accent) l a b/0.25);
-  --bg-main-inner:oklch(27.00% var(--bsat-str) var(--bhue));
-  --bg-main-outer:oklch(26.25% var(--bsat-str) var(--bhue));
-  --bg-workspace:radial-gradient(at 50% 50%,var(--bg-main-inner) 0%,var(--bg-main-outer) 200%);
-  --background-primary:var(--bg-main-inner);
-  --background-secondary:var(--color-base-10);
+  --bg-main-inner:#F5F5F5;
+  --bg-main-outer:#F5F5F5;
+  --bg-workspace:#F5F5F5 !important;
+  --background-primary:#ffffff;
+  --background-secondary:#ffffff;
   --background-modifier-hover:var(--trans-faint-10);
   --background-modifier-border:var(--trans-faint-20);
   --code-background:var(--trans-faint-10);
@@ -148,8 +148,8 @@
 
 /* ---------- LIGHT MODE (1.0.0 Anniversary) ---------- */
 [data-theme="light"]{
-  --accent-h:212; --accent-s:86%; --accent-l:50%;
-  --color-accent:hsl(212,86%,48%);
+  --accent-h:153; --accent-s:96%; --accent-l:30%;
+  --color-accent:#039855;
   --color-accent-1:color-mix(in oklab,var(--color-accent) 64%,#fff 36%);
   --color-accent-3:color-mix(in oklab,var(--color-accent) 50%,transparent 75%);
   --color-red:rgb(225,60,66); --color-orange:rgb(220,120,40); --color-yellow:rgb(195,145,30);
@@ -181,15 +181,15 @@
   --trans-faint-30:rgba(0,0,0,0.06); --trans-faint-40:rgba(0,0,0,0.08);
   --trans-faint-50:rgba(0,0,0,0.11); --trans-faint-60:rgba(0,0,0,0.2);
 
-  --text-normal:var(--color-base-100);
-  --text-muted:var(--color-base-70);
-  --text-faint:var(--color-base-50);
+  --text-normal:#020617;
+  --text-muted:#334155;
+  --text-faint:#64748b;
   --text-on-accent:#fff;
-  --text-selection:oklab(from var(--color-accent) l a b/0.20);
-  --bg-workspace:oklch(96.5% 0.002 240); /* Flat, high-contrast clean grey base */
-  --vl-layout-padding:10px; /* Wider gap isolation for light mode */
+  --text-selection:rgba(3, 152, 85, 0.20);
+  --bg-workspace:#F5F5F5; /* Standard flat high-contrast clean grey base */
+  --vl-layout-padding:10px;
   --background-primary:#ffffff;
-  --background-secondary:#ffffff; /* High contrast pure white card base */
+  --background-secondary:#ffffff;
   --background-modifier-hover:var(--trans-faint-10);
   --background-modifier-border:var(--trans-faint-20);
   --code-background:var(--trans-faint-20);
@@ -228,6 +228,7 @@
    ============================================================ */
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;overflow:hidden;}
+html,body,.app,.workspace{background:#F5F5F5 !important;}
 body{
   font-family:"Inter","Raveo",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   font-optical-sizing:auto;
@@ -235,7 +236,7 @@ body{
   font-size:var(--font-ui);
   line-height:var(--line-height-normal);
   color:var(--text-normal);
-  background:var(--bg-workspace);
+  background:#F5F5F5 !important;
   -webkit-font-smoothing:antialiased;
   text-rendering:optimizeLegibility;
   letter-spacing:-0.011em;
@@ -290,7 +291,7 @@ body{
   gap:0;
   min-height:0;
 }
-.workspace-body{
+.layout-columns{
   display:grid;
   grid-template-columns:var(--sb-left-w,260px) 1fr var(--sb-right-w,240px);
   min-width:0;
@@ -298,17 +299,50 @@ body{
   padding-left:var(--vl-layout-padding);
   transition:grid-template-columns var(--anim-fast-smooth);
 }
-.workspace-body[data-left="0"]{--sb-left-w:0px;}
-.workspace-body[data-right="0"]{--sb-right-w:0px;}
+.layout-columns[data-left="0"]{--sb-left-w:0px;}
+.layout-columns[data-right="0"]{--sb-right-w:0px;}
+.layout-columns.cols-2 {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 10px 10px 0;
+  box-sizing: border-box;
+  gap: 0;
+}
+.layout-columns.cols-2 > .layout-pane {
+  flex: 1;
+  min-width: 0;
+}
 
-/* ---------- Ribbon (far-left icon strip) ---------- */
-.ribbon{
+.split-handle {
+  position: relative;
+  width: 6px;
+  flex-shrink: 0;
+  cursor: col-resize;
+}
+.split-handle::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -4px;
+  right: -4px;
+  z-index: 50;
+}
+
+/* ---------- Ribbon & Left Sidebar (Shared Outer Base Layer Style per card-layer-layout SKILL) ---------- */
+.ribbon, .sidebar, #leftSidebar {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+.ribbon {
   display:flex;flex-direction:column;align-items:center;
   gap:4px;padding:8px 0 12px 8px;
 }
 .ribbon-btn{
   width:40px;height:40px;display:grid;place-items:center;border-radius:var(--radius-m);
-  color:var(--icon-color);cursor:pointer;transition:all var(--anim-fast-smooth);
+  color:#171717;cursor:pointer;transition:all var(--anim-fast-smooth);
   border:none;background:transparent;position:relative;
 }
 .ribbon-btn:hover{background:var(--background-modifier-hover);color:var(--icon-color-hover);}
@@ -317,30 +351,31 @@ body{
 .ribbon-spacer{flex:1;}
 .ribbon-logo{
   width:34px;height:34px;border-radius:var(--radius-m);
-  background:linear-gradient(135deg,var(--color-purple),var(--color-blue));
+  background:linear-gradient(135deg,var(--color-accent),#0dce7b);
   display:grid;place-items:center;color:#fff;font-weight:var(--font-bold);font-size:15px;
   box-shadow:var(--shadow-button);
 }
 
 /* ============================================================
-   SIDEBARS / PANES — glass cards
+   PANES — glass cards (Main workspace / Right sidebars)
    ============================================================ */
-.pane{
-  background:var(--background-secondary);
-  border-radius:var(--radius-l);
-  box-shadow:var(--shadow-workspace);
+.layout-pane{
+  background:#FFFFFF;
+  border-radius:16px;
+  border:1px solid rgba(115, 115, 115, 0.12);
+  box-sizing:border-box;
   display:flex;flex-direction:column;
-  min-height:0;overflow:hidden;
+  min-width:220px;min-height:0;overflow:hidden;
 }
-.pane-header{
+.layout-pane-header{
   display:flex;align-items:center;justify-content:space-between;
   padding:10px 14px;flex-shrink:0;
 }
-.pane-title{
+.layout-pane-title{
   font-size:13px;font-weight:var(--font-semibold);color:var(--text-muted);
   letter-spacing:0.01em;text-transform:none;
 }
-.pane-actions{display:flex;gap:2px;}
+.layout-pane-actions{display:flex;gap:2px;}
 .icon-btn{
   width:26px;height:26px;display:grid;place-items:center;border-radius:var(--radius-s);
   color:var(--icon-color);cursor:pointer;transition:all var(--anim-fast-smooth);
@@ -348,7 +383,7 @@ body{
 }
 .icon-btn:hover{background:var(--background-modifier-hover);color:var(--icon-color-hover);}
 .icon-btn svg{width:16px;height:16px;stroke-width:1.8;}
-.pane-body{flex:1;overflow-y:auto;min-height:0;padding:2px 8px 12px;}
+.layout-pane-body{flex:1;overflow-y:auto;min-height:0;padding:2px 8px 12px;}
 
 /* ---------- Vault profile ---------- */
 .vault-profile{
@@ -359,7 +394,7 @@ body{
 .vault-profile:hover{background:var(--background-modifier-hover);}
 .vault-profile .v-icon{
   width:30px;height:30px;border-radius:var(--radius-sm);
-  background:linear-gradient(135deg,var(--color-accent),var(--color-purple));
+  background:linear-gradient(135deg,var(--color-accent),#0dce7b);
   display:grid;place-items:center;flex-shrink:0;
   box-shadow:var(--shadow-tab);
 }
@@ -597,10 +632,10 @@ body{
 
 /* small screen responsive */
 @media (max-width:900px){
-  .workspace-body{--sb-right-w:0px;}
+  .layout-columns{--sb-right-w:0px;}
 }
 @media (max-width:680px){
-  .workspace-body{--sb-left-w:0px;}
+  .layout-columns{--sb-left-w:0px;}
 }
 </style>
 </head>
@@ -637,16 +672,16 @@ body{
     </div>
 
     <!-- BODY -->
-    <div class="workspace-body" id="body" data-left="1" data-right="1">
+    <div class="layout-columns" id="body" data-left="1" data-right="1">
       <!-- LEFT SIDEBAR -->
-      <aside class="pane" id="leftSidebar">
-        <div class="pane-header">
-          <span class="pane-title">资源管理器</span>
-          <div class="pane-actions">
+      <aside class="sidebar layout-pane" id="leftSidebar">
+        <div class="layout-pane-header">
+          <span class="layout-pane-title">资源管理器</span>
+          <div class="layout-pane-actions">
             <button class="icon-btn" id="toggleLeft" title="折叠"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M11 19l-7-7 7-7m8 14l-7-7 7-7"/></svg></button>
           </div>
         </div>
-        <div class="pane-body">
+        <div class="layout-pane-body">
           <div class="vault-profile">
             <div class="v-icon"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z"/></svg></div>
             <span class="v-name">Atelier</span>
@@ -793,14 +828,14 @@ body{
       </main>
 
       <!-- RIGHT SIDEBAR -->
-      <aside class="pane" id="rightSidebar">
-        <div class="pane-header">
-          <span class="pane-title">大纲</span>
-          <div class="pane-actions">
+      <aside class="layout-pane" id="rightSidebar">
+        <div class="layout-pane-header">
+          <span class="layout-pane-title">大纲</span>
+          <div class="layout-pane-actions">
             <button class="icon-btn" id="toggleRight" title="折叠"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7"/></svg></button>
           </div>
         </div>
-        <div class="pane-body">
+        <div class="layout-pane-body">
           <div class="section-label">大纲</div>
           <div class="outline-item h2"><span class="outline-dot"></span>Design Constitution</div>
           <div class="outline-item h2"><span class="outline-dot"></span>Parametric Base Scale</div>
@@ -883,5 +918,50 @@ document.querySelectorAll('.nav-file').forEach(f=>{
   });
 });
 </script>
+
+<script>
+  // Split Handle Resize Logic
+  document.addEventListener('DOMContentLoaded', () => {
+    const handles = document.querySelectorAll('.split-handle');
+    handles.forEach(handle => {
+      let isDragging = false;
+      let startX, startWidth;
+      const prevPane = handle.previousElementSibling;
+      const nextPane = handle.nextElementSibling;
+      if (!prevPane || !nextPane) return;
+      
+      handle.addEventListener('mousedown', (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startWidth = prevPane.getBoundingClientRect().width;
+        document.body.style.cursor = 'col-resize';
+        // Disable text selection during drag
+        document.body.style.userSelect = 'none';
+        e.preventDefault();
+      });
+      
+      document.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        const newWidth = startWidth + dx;
+        // Respect min-width (220px defined in CSS)
+        if (newWidth >= 220) { 
+          // Use flex-basis for flex layouts
+          prevPane.style.flex = '0 0 ' + newWidth + 'px';
+          prevPane.style.width = newWidth + 'px';
+        }
+      });
+      
+      document.addEventListener('mouseup', () => {
+        if (isDragging) {
+          isDragging = false;
+          document.body.style.cursor = '';
+          document.body.style.userSelect = '';
+        }
+      });
+    });
+  });
+</script>
+
 </body>
 </html>
