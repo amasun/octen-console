@@ -152,8 +152,8 @@ window.sidebarHtml = `<aside class="ribbon">
 
   <!-- Bottom ?account info (matches ConsoleLayout.tsx) -->
   <div class="shrink-0 mt-auto">
-    <div class="p-4 border-t border-[#dbdbdb]">
-      <div id="demo-toggle" aria-controls="demo-card" class="w-full rounded-xl transition-colors px-2 py-2 border border-transparent hover:bg-slate-50 hover:border-[#dbdbdb] cursor-pointer">
+    <div class="p-4">
+      <div id="demo-toggle" aria-controls="demo-card" class="w-full rounded-xl transition-colors px-2 py-2 border border-[#dbdbdb] bg-slate-50 cursor-pointer">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3 min-w-0">
             <div class="w-9 h-9 rounded-full bg-[#0F172B] text-white flex items-center justify-center font-medium shrink-0">J</div>
