@@ -492,7 +492,8 @@ code, pre, pre code, .font-mono {
 #bsa-resp-body {
   width: 100%;
   padding: var(--vl-layout-padding, 10px);
-  background: var(--bg-workspace, #f5f5f5);
+  background-color: transparent;
+  background-image: linear-gradient(rgb(255, 255, 255), rgb(255, 255, 255));
 }
 
 .octen-query-card {
