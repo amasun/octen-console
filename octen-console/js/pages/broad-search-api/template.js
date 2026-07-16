@@ -161,7 +161,7 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
           <!-- Request pane -->
           <div id="bsa-pane-request" class="flex-1 flex flex-col min-h-0">
             <div class="flex items-center justify-between shrink-0 px-6 py-4">
-              <div class="flex h-[30px] items-stretch p-1 bg-[#f5f5f5] rounded-lg">
+              <div class="flex h-[30px] items-stretch p-0.5 bg-[#f5f5f5] rounded-lg">
                 <button type="button" class="bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-white shadow-sm text-[#0a0a0a]" data-l="python" onclick="bsaSetLang('python')">Python</button>
                 <button type="button" class="bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="javascript" onclick="bsaSetLang('javascript')">JavaScript</button>
                 <button type="button" class="bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="curl" onclick="bsaSetLang('curl')">cURL</button>
