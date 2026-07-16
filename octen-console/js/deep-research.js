@@ -339,7 +339,7 @@
     refreshCode(); bsaTab('response'); lastResp=buildResponse(p); renderRespBody();
   };
   window.bsaClear=function(){ $('bsa-query').value=''; lastResp=null; refreshCode(); renderEmpty(); };
-  window.bsaToggleResult=function(i){ const el=$('bsa-r-'+i); const ch=$('bsa-c-'+i); if(!el)return; const open=el.style.display!=='none'; el.style.display=open?'none':'block'; if(ch)ch.style.transform=open?'':'rotate(180deg)'; };
+  window.bsaToggleResult=function(i){ const el=$('bsa-r-'+i); const ch=$('bsa-c-'+i); if(!el)return; const btn=el.previousElementSibling; const open=el.style.display!=='none'; el.style.display=open?'none':'block'; if(ch)ch.style.transform=open?'':'rotate(180deg)'; if(btn){ btn.classList.toggle('bg-[#f5f5f5]',!open); btn.classList.toggle('bg-white',open); } };
 
   function renderEmpty(){ $('bsa-meta').textContent=''; $('bsa-resp-body').innerHTML=`<div class="flex-1 flex flex-col items-center justify-center py-12 text-[#a3a3a3]">
   <svg class="w-[36px] h-[36px] mb-2 shrink-0" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -363,12 +363,12 @@
       {query:'central bank interest rate announcements today',latency:82},
       {query:'Federal Reserve interest rate decision 2026',latency:68}
     ];
-    const globe='<svg class="w-4 h-4 text-[#a3a3a3] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>';
-    const chevron='<svg class="w-4 h-4 text-[#a3a3a3] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>';
+    const globe='<svg class="h-5 w-5 shrink-0 text-[#a3a3a3]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>';
+    const chevron=(i,open)=>'<svg id="bsa-c-'+i+'" class="h-5 w-5 shrink-0 text-[#a3a3a3] transition-transform" style="transform:'+(open?'rotate(180deg)':'')+'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>';
     const rows=previewQueries.map((group,i)=>{
-      const results=(group.results||[]).map((r,k)=>'<a href="#" onclick="return false" class="group flex items-start gap-3 px-4 py-3 transition-colors hover:bg-[#f5f5f5]">'+(k===4?'<span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#f5f5f5] text-xs font-bold text-[#039855]">W</span>':'')+'<div class="min-w-0 flex-1"><div class="truncate text-sm font-medium text-[#0a0a0a]">'+esc(r[0])+'</div><div class="mt-1 line-clamp-2 text-xs leading-5 text-[#737373]">'+esc(r[1])+'</div><div class="mt-1 truncate text-xs text-[#a3a3a3]">'+esc(r[2])+'</div></div></a>').join('');
-      return '<section class="overflow-hidden rounded-[14px] border border-[#dbdbdb] bg-white"><button type="button" onclick="bsaToggleResult('+i+')" class="flex w-full items-center gap-3 bg-white px-4 py-3 text-left transition-colors hover:bg-[#f5f5f5]">'+globe+'<span class="min-w-0 flex-1 truncate text-sm font-medium text-[#0a0a0a]">'+esc(group.query)+'</span><span class="shrink-0 text-xs text-[#a3a3a3]">5 results</span><span class="shrink-0 text-xs font-medium text-[#039855]">'+group.latency+'ms</span>'+chevron+'</button><div id="bsa-r-'+i+'" style="display:'+(group.open?'block':'none')+'" class="border-t border-[#dbdbdb] py-2">'+results+'</div></section>';
-    }).join('<div class="h-2"></div>');
+      const results=(group.results||[]).map((r,k)=>'<a href="#" onclick="return false" class="group flex items-start gap-4 px-7 py-4 transition-colors hover:bg-[#f5f5f5]">'+(k===4?'<span class="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded bg-[#f5f5f5] text-xs font-bold text-[#039855]">W</span>':'')+'<div class="min-w-0 flex-1"><div class="truncate text-lg font-medium text-[#0a0a0a]">'+esc(r[0])+'</div><div class="mt-1 line-clamp-2 text-base leading-7 text-[#737373]">'+esc(r[1])+'</div><div class="mt-1 truncate text-sm text-[#a3a3a3]">'+esc(r[2])+'</div></div></a>').join('');
+      return '<section class="overflow-hidden rounded-[18px] border border-[#dbdbdb] bg-white"><button type="button" onclick="bsaToggleResult('+i+')" class="flex w-full items-center gap-4 px-7 py-4 text-left transition-colors hover:bg-[#f5f5f5] '+(group.open?'bg-[#f5f5f5]':'bg-white')+'">'+globe+'<span class="min-w-0 flex-1 truncate text-lg font-medium text-[#0a0a0a]">'+esc(group.query)+'</span><span class="shrink-0 text-sm text-[#a3a3a3]">5 results</span><span class="shrink-0 text-sm font-medium text-[#039855]">'+group.latency+'ms</span>'+chevron(i,group.open)+'</button><div id="bsa-r-'+i+'" style="display:'+(group.open?'block':'none')+'" class="py-3">'+results+'</div></section>';
+    }).join('<div class="h-3"></div>');
     return '<div class="w-full p-3">'+rows+'</div>';
   }
 
