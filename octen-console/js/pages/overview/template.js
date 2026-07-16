@@ -35,7 +35,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
 
   <!-- API 产品卡片 -->
   <section class="mb-8">
-    <h2 class="text-xs font-semibold uppercase tracking-wider text-[#a3a3a3] mb-3">API</h2>
+    <h2 class="text-[16px] text-[#000] font-semibold mb-3">API</h2>
     <div class="grid md:grid-cols-2 gap-4">
       <!-- Broad Search · Recommended -->
       <a href="#" onclick="go('broad-search');return false" class="group bg-white rounded-xl border border-[#e7e7e7] p-6 flex flex-col gap-4 hover:shadow-lg transition-all duration-200 cursor-pointer relative overflow-hidden" onmouseenter="this.style.borderColor='#039855'" onmouseleave="this.style.borderColor=''">
@@ -175,7 +175,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
 
   <!-- Application -->
   <section class="mb-8">
-    <h2 class="text-xs font-semibold uppercase tracking-wider text-[#a3a3a3] mb-3">Application</h2>
+    <h2 class="text-[16px] text-[#000] font-semibold mb-3">Application</h2>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
       <!-- Answer (formerly Broad Search Application) -->
       <a href="#" onclick="go('broad-search');return false" class="group bg-white border border-[#e7e7e7] rounded-xl p-5 flex flex-col gap-3 hover:shadow-md hover:border-[#a3a3a3] transition-all cursor-pointer">
@@ -237,7 +237,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
   <!-- Getting Started -->
   <section>
     <div class="flex items-center justify-between mb-4">
-      <h2 class="text-xs font-semibold uppercase tracking-wider text-[#a3a3a3]">Getting Started</h2>
+      <h2 class="text-[16px] text-[#000] font-semibold">Getting Started</h2>
       <a href="https://docs.octen.ai/introduction/getting-started/quickstart" target="_blank" rel="noreferrer" class="text-xs font-medium hover:opacity-75 transition-opacity" style="color:#039855">Quickstart guide →</a>
     </div>
     <div class="grid md:grid-cols-3 gap-4">
