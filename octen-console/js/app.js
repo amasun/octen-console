@@ -3702,8 +3702,14 @@ window.DR_DATA = (function(){
     const req=t==='request';
     $('bsa-pane-request').classList.toggle('hidden',!req);
     $('bsa-pane-response').classList.toggle('hidden',req);
-    $('bsa-tab-req').style.cssText=req?'color:#039855;background:#0398551a;border-bottom:2px solid #039855':'color:#475569';
-    $('bsa-tab-res').style.cssText=req?'color:#475569':'color:#039855;background:#0398551a;border-bottom:2px solid #039855';
+    $('bsa-tab-req').style.cssText = '';
+    $('bsa-tab-res').style.cssText = '';
+    
+    const activeCls = 'px-1 py-1.5 text-sm font-medium text-slate-900 border-b-[1.5px] border-slate-900 transition-colors';
+    const inactiveCls = 'px-1 py-1.5 text-sm font-medium text-slate-500 border-b-[1.5px] border-transparent hover:text-slate-700 transition-colors';
+    
+    $('bsa-tab-req').className = req ? activeCls : inactiveCls;
+    $('bsa-tab-res').className = req ? inactiveCls : activeCls;
   };
   window.bsaRtab=function(t){ rtab=t;
     $('bsa-rt-preview').style.cssText=t==='preview'?'background:#0398551a;color:#039855;font-weight:500':'background:#fff;color:#475569';

@@ -443,11 +443,10 @@ html, body {
 code, pre, pre code, .font-mono {
   font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
 }
-#bsa-code, #bsa-code * {
+#bsa-code {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-weight: 400;
   font-size: 13px;
   line-height: 22px;
   letter-spacing: normal;
-  color: rgb(165, 214, 255);
 }

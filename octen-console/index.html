@@ -14,6 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@300..700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism-themes/1.9.0/prism-holi-theme.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css?v=20260713c">
 </head>
 <body class="text-slate-900 bg-workspace">
@@ -396,9 +397,9 @@
 
   <!-- Right: Code & Response -->
   <div class="layout-pane min-w-[400px] flex flex-col">
-    <div class="border-b border-slate-100 flex shrink-0">
-          <button id="bsa-tab-req" class="flex-1 px-4 py-2.5 text-xs font-medium" style="color:#039855;background:#0398551a;border-bottom:2px solid #039855" onclick="bsaTab('request')">Request</button>
-          <button id="bsa-tab-res" class="flex-1 px-4 py-2.5 text-xs font-medium text-slate-600" onclick="bsaTab('response')">Response</button>
+        <div class="border-b border-slate-200 flex gap-4 items-start shrink-0 px-4 pt-1">
+          <button id="bsa-tab-req" class="px-1 py-1.5 text-sm font-medium text-slate-900 border-b-[1.5px] border-slate-900 transition-colors" onclick="bsaTab('request')">Request</button>
+          <button id="bsa-tab-res" class="px-1 py-1.5 text-sm font-medium text-slate-500 border-b-[1.5px] border-transparent hover:text-slate-700 transition-colors" onclick="bsaTab('response')">Response</button>
         </div>
         <div class="p-4 flex-1 flex flex-col min-h-0">
           <!-- Request pane -->
@@ -1265,6 +1266,11 @@ Thanks!</pre>
 
   
   <script src="js/tailwind-config.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
   <script src="js/syntax-highlight.js"></script>
   <script src="js/split-handle.js"></script>
   <script src="js/ui-access.js"></script>
