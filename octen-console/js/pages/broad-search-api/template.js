@@ -190,7 +190,7 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
                 </button>
               </div>
             </div>
-            <div id="bsa-resp-body" class="relative bg-white flex-1 flex flex-col min-h-0 overflow-auto px-6 pb-6">
+            <div id="bsa-resp-body" class="relative flex-1 flex flex-col min-h-0 overflow-auto">
               <div class="flex-1 flex flex-col items-center justify-center py-12 text-[#a3a3a3]">
                 <svg class="w-[36px] h-[36px] mb-2 shrink-0" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M29.2059 21.9674C29.2158 21.9191 29.285 21.9191 29.2949 21.9674C29.8082 24.4792 31.7711 26.4421 34.2829 26.9554C34.3312 26.9653 34.3312 27.0345 34.2829 27.0444C31.7711 27.5577 29.8082 29.5206 29.2949 32.0324C29.285 32.0808 29.2158 32.0808 29.2059 32.0324C28.6926 29.5206 26.7297 27.5577 24.2179 27.0444C24.1695 27.0345 24.1695 26.9653 24.2179 26.9554C26.7297 26.4421 28.6926 24.4792 29.2059 21.9674Z" stroke="#039855" stroke-width="2.25"/>
