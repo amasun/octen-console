@@ -128,6 +128,7 @@
   }
   window.bsaSetLang=function(l){ bsaLang=l; refreshCode(); };
   window.bsaCopyReq=function(){ try{navigator.clipboard&&navigator.clipboard.writeText(reqCode());}catch(e){} const b=$('bsa-copyreq'); if(b){const o=b.innerHTML;b.innerHTML='<svg class="w-3.5 h-3.5" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Copied</span>';setTimeout(()=>b.innerHTML=o,1500);} };
+  window.bsaCopyResp=function(){ if(!lastResp)return; try{navigator.clipboard&&navigator.clipboard.writeText(JSON.stringify(lastResp,null,2));}catch(e){} const b=$('bsa-copyresp'); if(b){const o=b.innerHTML;b.innerHTML='<svg class="w-3.5 h-3.5" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Copied</span>';setTimeout(()=>b.innerHTML=o,1500);} };
 
   function buildResponse(p){
     const subs=SUBQ.slice(0,p.max_queries);
@@ -214,16 +215,42 @@
     return cards;
   }
 
+  // Right-side info strip: "N sub-queries · M results · K domains · freshest Xh ago"
+  function metaHtml(r){
+    const B='<span class="font-semibold text-slate-700">';
+    let subQ, results, domains, freshest;
+    if(r){
+      subQ=r.meta.usage.num_search_queries;
+      const all=[].concat.apply([],(r.search_results||[]).map(g=>g.results||[]));
+      results=all.length;
+      const hosts={}; all.forEach(it=>{ try{hosts[new URL(it.url).hostname]=1;}catch(e){} });
+      domains=Object.keys(hosts).length;
+      const dates=all.map(it=>new Date(it.time_published||0)).filter(d=>!isNaN(d));
+      freshest=dates.length?new Date(Math.max.apply(null,dates)):null;
+    } else {
+      // snippet sample: 5 cards × 5 results
+      subQ=5; results=25; domains=21; freshest=new Date(Date.now()-28*3600*1000);
+    }
+    const freshTxt=freshest?humanizeAgo(freshest):'—';
+    return B+subQ+'</span> sub-queries · '+B+results+'</span> results · '+B+domains+'</span> domains · freshest '+B+freshTxt+'</span> ago';
+  }
+  function humanizeAgo(d){
+    const s=Math.max(0,(Date.now()-d.getTime())/1000);
+    if(s<3600)return Math.max(1,Math.round(s/60))+'m';
+    if(s<86400)return Math.round(s/3600)+'h';
+    return Math.round(s/86400)+'d';
+  }
+
   function renderRespBody(){
     if(!lastResp){
       // No query run yet. JSON has nothing to show, but Preview shows the
       // snippet's sample layout (expandable query cards) as a demo.
       if(rtab==='json'){ renderEmpty(); return; }
-      $('bsa-meta').textContent='sample preview';
+      $('bsa-meta').innerHTML=metaHtml(null);
       $('bsa-resp-body').innerHTML=renderFigmaPreview();
       return;
     }
-    $('bsa-meta').textContent=lastResp.meta.usage.num_search_queries+' queries · '+lastResp.meta.latency+' ms';
+    $('bsa-meta').innerHTML=metaHtml(lastResp);
     if(rtab==='json'){ $('bsa-resp-body').innerHTML='<div class="bg-slate-900 rounded-md p-4 overflow-auto max-h-[28rem]"><pre class="text-xs text-slate-100 whitespace-pre font-mono">'+esc(JSON.stringify(lastResp,null,2))+'</pre></div>'; return; }
     $('bsa-resp-body').innerHTML=renderFigmaPreview();
   }

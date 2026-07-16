@@ -182,7 +182,13 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
                 <button id="bsa-rt-preview" class="px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer bg-white shadow-sm text-[#0a0a0a]" onclick="bsaRtab('preview')">Preview</button>
                 <button id="bsa-rt-json" class="px-4 py-1.5 rounded-md text-sm font-medium transition-colors cursor-pointer bg-transparent text-[#737373] hover:text-[#0a0a0a]" onclick="bsaRtab('json')">JSON</button>
               </div>
-              <span id="bsa-meta" class="text-xs text-[#a3a3a3] px-2"></span>
+              <div class="flex items-center gap-1.5">
+                <span id="bsa-meta" class="text-xs text-slate-500 mr-2"></span>
+                <button type="button" id="bsa-copyresp" onclick="bsaCopyResp()" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md border border-slate-200 text-slate-600 hover:bg-slate-50 transition-colors text-xs">
+                  <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <span>Copy</span>
+                </button>
+              </div>
             </div>
             <div id="bsa-resp-body" class="relative bg-white flex-1 flex flex-col min-h-0 overflow-auto px-6 pb-6">
               <div class="flex-1 flex flex-col items-center justify-center py-12 text-[#a3a3a3]">
