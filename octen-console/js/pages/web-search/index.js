@@ -76,12 +76,19 @@
     return ['curl https://api.octen.ai/search \\','  -X POST \\',"  -H 'x-api-key: "+KEY+"' \\","  -H 'Content-Type: application/json' \\","  -d '"+json+"'"].join('\n');
   }
   window.wsRefreshCode=function(){ const el=$('ws-code'); if(!el)return;
-    if(window.PGS_codeBlock){ el.innerHTML=window.PGS_codeBlock(wsReqCode(),window.PGS_hlCode); if(el.firstChild)el.firstChild.style.maxHeight="560px"; }
+    if(window.PGS_codeBlock){ el.innerHTML=window.PGS_codeBlock(wsReqCode(),window.PGS_hlCode); }
     else el.textContent=wsReqCode();
-    document.querySelectorAll('.ws-lang').forEach(b=>{const on=b.getAttribute('data-l')===wsLang;b.style.cssText='padding:6px 12px;font-size:12px;cursor:pointer;'+(b.getAttribute('data-l')!=='python'?'border-left:1px solid #e2e8f0;':'')+(on?'background:#0398551a;color:#039855;font-weight:500':'background:#fff;color:#475569');});
+    document.querySelectorAll('.ws-lang').forEach(b=>{
+      const on = b.dataset.l === wsLang;
+      b.className = 'ws-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+      b.style.cssText = '';
+    });
   };
   window.wsSetLang=function(l){ wsLang=l; wsRefreshCode(); };
-  window.wsBasis=function(b){ document.querySelectorAll('.ws-tb').forEach(x=>{const on=x.getAttribute('data-b')===b;x.classList.toggle('on',on);x.style.cssText='padding:4px 10px;font-size:12px;cursor:pointer;'+(x.getAttribute('data-b')!=='crawled'?'border-right:1px solid #e2e8f0;':'')+(on?'background:#0398551a;color:#039855;font-weight:500':'background:#fff;color:#64748b');}); wsRefreshCode(); };
+  window.wsBasis=function(b){ document.querySelectorAll('.ws-tb').forEach(x=>{
+    const on=x.getAttribute('data-b')===b;
+    x.className = 'ws-tb px-3 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+  }); wsRefreshCode(); };
   window.wsCopyReq=function(){ try{navigator.clipboard&&navigator.clipboard.writeText(wsReqCode());}catch(e){} const b=$('ws-copyreq'); if(b){const o=b.innerHTML;b.innerHTML='<svg class="w-3.5 h-3.5" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Copied</span>';setTimeout(()=>b.innerHTML=o,1500);} };
   // ── shared query-suggestion dropdown (focus to pick an example) ──
   window.attachSuggest=function(input, examples, onPick, anchor){
@@ -104,8 +111,12 @@
     window.addEventListener('scroll',()=>{ if(dd.style.display!=='none')pos(); },true);
   };
 
-  document.addEventListener('DOMContentLoaded',function(){ const tb=document.querySelector('.ws-tb[data-b="auto"]'); if(tb)tb.classList.add('on'); const wq=document.getElementById('ws-query'); if(wq)wq.addEventListener('input',wsRefreshCode); if($('ws-code'))wsRefreshCode();
-    if(wq) window.attachSuggest(wq, EXAMPLES, ()=>{ wq.dispatchEvent(new Event('input',{bubbles:true})); });
+  window.pageInit = window.pageInit || {};
+  window.pageInit['web-search'] = function(){ 
+    const tb=document.querySelector('.ws-tb[data-b="auto"]'); if(tb)tb.classList.add('on'); 
+    const wq=document.getElementById('ws-query'); if(wq)wq.addEventListener('input',wsRefreshCode); 
+    if($('ws-code'))wsRefreshCode(); 
+    if(wq) window.attachSuggest(wq, EXAMPLES, ()=>{ wq.dispatchEvent(new Event('input',{bubbles:true})); }, document.getElementById('ws-query-box'));
     const bq=document.getElementById('bsa-query'); if(bq) window.attachSuggest(bq, ['What are AI agents actually being used for in production?','NVIDIA vs AMD stock performance','What are the most promising AI startups to watch right now?'], ()=>{ bq.dispatchEvent(new Event('input',{bubbles:true})); }, document.getElementById('bsa-query-box'));
-  });
+  };
 })();

@@ -1,101 +1,89 @@
 // extract page template — extracted from the prototype page set.
 registerPage("page-extract", `
-<div id="page-extract" class="page p-4">
-  <div class="grid lg:grid-cols-2 gap-4" style="height:calc(100vh - 2rem)">
-
+<div id="page-extract" class="page h-full">
+  <div class="layout-columns cols-2 h-full min-h-0">
     <!-- Left: Parameters -->
-    <div class="space-y-4 overflow-y-auto">
-      <div class="bg-white rounded-md border border-[#e7e7e7] p-4 space-y-4">
-
+    <div class="layout-pane min-w-[400px] flex flex-col min-h-0">
+      <div class="flex items-center justify-between shrink-0 px-4 pt-4 pb-2 border-b border-transparent">
+        <h2 class="text-[#0a0a0a] font-semibold text-lg">Extract</h2>
+        <a href="#" onclick="return false" class="inline-flex items-center gap-2 px-3 py-2 border border-[#dbdbdb] text-[#737373] rounded-md text-xs hover:bg-[#f5f5f5]">
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>Docs</span>
+        </a>
+      </div>
+      <div class="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
         <!-- URLs + Query -->
         <section class="space-y-3">
           <div>
-            <label class="block text-[#0a0a0a] text-sm font-medium mb-2">URLs<span class="text-red-500 ml-0.5">*</span></label>
-            <textarea id="ex-urls" rows="4" placeholder="https://docs.octen.ai/api-reference/search&#10;https://en.wikipedia.org/wiki/Artificial_intelligence&#10;https://www.who.int/news-room/fact-sheets/detail/influenza" class="w-full px-3 py-2 border border-[#e7e7e7] rounded-lg text-sm focus:outline-none placeholder:text-[#a3a3a3] font-mono resize-none" oninput="exUpdateBtn()"></textarea>
+            <label class="ui-label-primary">URLs<span class="text-red-500 ml-0.5">*</span></label>
+            <textarea id="ex-urls" rows="4" placeholder="https://docs.octen.ai/api-reference/search&#10;https://en.wikipedia.org/wiki/Artificial_intelligence&#10;https://www.who.int/news-room/fact-sheets/detail/influenza" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-lg text-sm focus:outline-none placeholder:text-[#a3a3a3] font-mono resize-none focus-within:border-[#039855]" oninput="exUpdateBtn()"></textarea>
             <div class="flex items-center justify-between mt-1">
-              <p class="text-xs" id="ex-url-counter"><span id="ex-url-count">0</span> / 20 URLs</p>
+              <p class="text-xs text-[#737373]" id="ex-url-counter"><span id="ex-url-count">0</span> / 20 URLs</p>
               <p class="text-xs text-[#a3a3a3]">One URL per line</p>
             </div>
           </div>
           <div>
             <label class="block text-[#0a0a0a] text-sm font-medium mb-1">Query <span class="text-[#a3a3a3] text-xs font-normal">(optional)</span></label>
-            <input id="ex-query" type="text" placeholder="e.g. rate limits and authentication" class="w-full px-3 py-2 border border-[#e7e7e7] rounded-lg text-sm focus:outline-none placeholder:text-[#a3a3a3]" oninput="exUpdateBtn()"/>
+            <input id="ex-query" type="text" placeholder="e.g. rate limits and authentication" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-lg text-sm outline-none focus:border-[#039855] placeholder:text-[#a3a3a3]" oninput="exUpdateBtn()"/>
           </div>
         </section>
 
-        <div class="border-t border-[#f5f5f5]"></div>
+        <div class="border-t border-[#dbdbdb]"></div>
 
         <!-- Basic settings -->
         <section class="space-y-3">
           <h2 class="text-[#0a0a0a] text-sm font-medium">Basic settings</h2>
           <div>
-            <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Format</label>
-            <select id="ex-format" onchange="exRefreshCode()" class="w-full px-3 py-2 border border-[#e7e7e7] rounded-md text-xs bg-white outline-none focus:border-[#039855]">
+            <label class="ui-label">Format</label>
+            <select id="ex-format" onchange="exRefreshCode()" class="ui-select">
               <option value="markdown">markdown</option>
               <option value="text">text</option>
             </select>
           </div>
           <div>
-            <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Max age <span class="text-[#a3a3a3] normal-case tracking-normal">(seconds)</span></label>
-            <input id="ex-maxage" type="number" value="86400" min="300" onchange="exRefreshCode()" class="w-full px-3 py-2 border border-[#e7e7e7] rounded-md text-xs outline-none focus:border-[#039855]"/>
+            <label class="ui-label">Max age <span class="text-[#a3a3a3] normal-case tracking-normal">(seconds)</span></label>
+            <input id="ex-maxage" type="number" value="86400" min="300" onchange="exRefreshCode()" class="ui-input"/>
             <p class="text-xs text-[#a3a3a3] mt-1">Maximum age of cached content</p>
           </div>
           <div>
-            <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Timeout <span class="text-[#a3a3a3] normal-case tracking-normal">(seconds)</span></label>
-            <input id="ex-timeout" type="number" value="30" min="1" max="60" onchange="exRefreshCode()" class="w-full px-3 py-2 border border-[#e7e7e7] rounded-md text-xs outline-none focus:border-[#039855]"/>
+            <label class="ui-label">Timeout <span class="text-[#a3a3a3] normal-case tracking-normal">(seconds)</span></label>
+            <input id="ex-timeout" type="number" value="30" min="1" max="60" onchange="exRefreshCode()" class="ui-input"/>
             <p class="text-xs text-[#a3a3a3] mt-1">Per-URL extraction timeout</p>
           </div>
         </section>
 
-        <div class="border-t border-[#f5f5f5]"></div>
+        <div class="border-t border-[#dbdbdb]"></div>
 
         <!-- Additional fields -->
         <section class="space-y-3">
           <h2 class="text-[#0a0a0a] text-sm font-medium">Additional fields</h2>
           <div class="grid grid-cols-2 gap-x-5 gap-y-2">
             <label class="flex items-center gap-2 text-[#737373] text-xs cursor-pointer">
-              <input type="checkbox" id="ex-images" onchange="exRefreshCode()" class="w-4 h-4 rounded border-[#dbdbdb]" style="accent-color:#039855"/>
+              <input type="checkbox" id="ex-images" onchange="exRefreshCode()" class="ui-checkbox"/>
               <span>Include images</span>
-              <span class="ex-tip relative inline-flex text-[#a3a3a3] cursor-help">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                <span class="ex-tip-bubble">Include image URLs from each page.</span>
-              </span>
             </label>
             <label class="flex items-center gap-2 text-[#737373] text-xs cursor-pointer">
-              <input type="checkbox" id="ex-videos" onchange="exRefreshCode()" class="w-4 h-4 rounded border-[#dbdbdb]" style="accent-color:#039855"/>
+              <input type="checkbox" id="ex-videos" onchange="exRefreshCode()" class="ui-checkbox"/>
               <span>Include videos</span>
-              <span class="ex-tip relative inline-flex text-[#a3a3a3] cursor-help">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                <span class="ex-tip-bubble">Include video URLs from each page.</span>
-              </span>
             </label>
             <label class="flex items-center gap-2 text-[#737373] text-xs cursor-pointer">
-              <input type="checkbox" id="ex-audio" onchange="exRefreshCode()" class="w-4 h-4 rounded border-[#dbdbdb]" style="accent-color:#039855"/>
+              <input type="checkbox" id="ex-audio" onchange="exRefreshCode()" class="ui-checkbox"/>
               <span>Include audio</span>
-              <span class="ex-tip relative inline-flex text-[#a3a3a3] cursor-help">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                <span class="ex-tip-bubble">Include audio URLs from each page.</span>
-              </span>
             </label>
             <label class="flex items-center gap-2 text-[#737373] text-xs cursor-pointer">
-              <input type="checkbox" id="ex-favicon" onchange="exRefreshCode()" class="w-4 h-4 rounded border-[#dbdbdb]" style="accent-color:#039855"/>
+              <input type="checkbox" id="ex-favicon" onchange="exRefreshCode()" class="ui-checkbox"/>
               <span>Include favicon</span>
-              <span class="ex-tip relative inline-flex text-[#a3a3a3] cursor-help">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-                <span class="ex-tip-bubble">Include favicon URL from each page.</span>
-              </span>
             </label>
           </div>
         </section>
 
-        <div class="border-t border-[#f5f5f5]"></div>
+        <div class="border-t border-[#dbdbdb]"></div>
 
         <!-- Actions -->
-        <div class="space-y-2">
-          <!-- Demo scenario selector -->
+        <section class="space-y-3">
           <div class="flex items-center gap-2">
-            <label class="text-xs text-[#a3a3a3] shrink-0">Demo scenario</label>
-            <select id="ex-scenario" class="flex-1 px-2 py-1 border border-[#e7e7e7] rounded text-xs bg-white text-[#737373] outline-none focus:border-[#039855]">
+            <label class="text-xs text-[#737373] uppercase tracking-wide shrink-0">Demo scenario</label>
+            <select id="ex-scenario" class="flex-1 px-3 py-2 border border-[#dbdbdb] rounded-md text-xs bg-white outline-none focus:border-[#039855]">
               <option value="normal">Normal (mixed results)</option>
               <option value="all_success">All success</option>
               <option value="all_failed">All failed (mixed errors)</option>
@@ -111,75 +99,57 @@ registerPage("page-extract", `
             <span id="ex-pay-notice-text">Add a payment method to unlock the API. Free credits included.</span>
             <a id="ex-pay-notice-link" href="#" onclick="go('billing');return false" class="font-medium hover:underline" style="color:#039855">Add payment method →</a>
           </div>
-          <div class="flex items-center gap-2">
-            <button type="button" id="ex-run-btn" onclick="exRun()" class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2 text-white rounded-lg text-sm font-medium" style="background:#cbd5e1;cursor:not-allowed">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              Run
+          <div class="flex items-center justify-end gap-2 mt-2">
+            <button type="button" onclick="exClear()" class="ui-btn-outline">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M1 4v6h6M23 20v-6h-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
+              <span>Clear</span>
             </button>
-            <button type="button" onclick="exClear()" class="inline-flex items-center gap-2 px-4 py-2 border border-[#e7e7e7] text-[#737373] rounded-lg text-sm hover:bg-[#f5f5f5]">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M1 4v6h6M23 20v-6h-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
-              Clear
+            <button type="button" id="ex-run-btn" onclick="exRun()" class="inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg text-xs whitespace-nowrap" style="background:#cbd5e1;cursor:not-allowed">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <span>Run</span>
             </button>
           </div>
-        </div>
+        </section>
       </div>
     </div>
 
+    <div class="split-handle"></div>
+
     <!-- Right: Code & Response -->
-    <div class="flex flex-col">
-      <div class="bg-white rounded-md border border-[#e7e7e7] flex flex-col h-full">
-        <!-- Tabs -->
-        <div class="border-b border-[#f5f5f5] flex shrink-0">
-          <button id="ex-tab-req" class="flex-1 px-4 py-3 text-xs font-medium" style="color:#039855;background:#0398551a;border-bottom:2px solid #039855" onclick="exTabSwitch('request')">Request</button>
-          <button id="ex-tab-res" class="flex-1 px-4 py-3 text-xs font-medium text-[#737373]" onclick="exTabSwitch('response')">Response</button>
-        </div>
-        <div class="p-4 flex-1 overflow-y-auto">
-
-          <!-- Request pane -->
-          <div id="ex-pane-request">
-            <div class="flex items-center justify-between mb-3">
-              <div class="inline-flex rounded-md border border-[#e7e7e7] overflow-hidden text-xs">
-                <button id="ex-lang-py" onclick="exLang('py')" class="px-3 py-2" style="background:#0398551a;color:#039855;font-weight:500">Python</button>
-                <button id="ex-lang-js" onclick="exLang('js')" class="px-3 py-2 border-l border-[#e7e7e7] bg-white text-[#737373]">JavaScript</button>
-                <button id="ex-lang-curl" onclick="exLang('curl')" class="px-3 py-2 border-l border-[#e7e7e7] bg-white text-[#737373]">cURL</button>
-              </div>
-              <button onclick="copyCodeBlock(this)" class="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-[#e7e7e7] bg-white text-[#737373] hover:bg-[#f5f5f5] text-xs">
-                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
-                <span>Copy</span>
-              </button>
+    <div class="layout-pane min-w-[400px] flex flex-col bg-white">
+      <!-- Tabs -->
+      <div class="ui-tab-bar shrink-0 bg-white">
+        <button id="ex-tab-req" class="ui-tab active" onclick="exTabSwitch('request')">Request</button>
+        <button id="ex-tab-res" class="ui-tab inactive" onclick="exTabSwitch('response')">Response</button>
+      </div>
+      <div class="flex-1 flex flex-col min-h-0">
+        <!-- Request pane -->
+        <div id="ex-pane-request" class="flex-1 flex flex-col min-h-0">
+          <div class="flex items-center justify-between shrink-0 px-4 py-4">
+            <div class="seg-group">
+              <button id="ex-lang-py" onclick="exLang('py')" class="px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-white shadow-sm text-[#0a0a0a]">Python</button>
+              <button id="ex-lang-js" onclick="exLang('js')" class="px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]">JavaScript</button>
+              <button id="ex-lang-curl" onclick="exLang('curl')" class="px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]">cURL</button>
             </div>
-            <div class="bg-slate-900 rounded-md p-4 overflow-x-auto max-h-[520px] overflow-y-auto">
-              <pre id="ex-code-block" class="text-xs text-slate-100 whitespace-pre font-mono"><code>from octen import Octen
-
-client = Octen(api_key="YOUR_API_KEY")
-
-response = client.extract(
-    urls=[
-        "https://docs.octen.ai/api-reference/search",
-        "https://en.wikipedia.org/wiki/Artificial_intelligence",
-    ],
-    format="markdown",
-    render="auto",
-    max_age_seconds=86400,
-    timeout=30,
-)
-
-for result in response.data.results:
-    if result.status == "success":
-        print(result.title)
-        print(result.content[:500])</code></pre>
+            <button type="button" onclick="copyCodeBlock(this)" class="ui-btn-outline">
+              <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.166 5.9165C15.028 5.9165 15.8546 6.25891 16.4641 6.86841C17.0736 7.4779 17.416 8.30455 17.416 9.1665V14.1665C17.416 15.0285 17.0736 15.8551 16.4641 16.4646C15.8546 17.0741 15.028 17.4165 14.166 17.4165H9.16602C8.30406 17.4165 7.47741 17.0741 6.86792 16.4646C6.25843 15.8551 5.91602 15.0285 5.91602 14.1665V9.1665C5.91602 8.30455 6.25843 7.4779 6.86792 6.86841C7.47741 6.25891 8.30406 5.9165 9.16602 5.9165H14.166ZM9.16602 7.4165C8.70189 7.4165 8.25677 7.60088 7.92858 7.92907C7.60039 8.25726 7.41602 8.70238 7.41602 9.1665V14.1665C7.41602 15.1332 8.19935 15.9165 9.16602 15.9165H14.166C14.6301 15.9165 15.0753 15.7321 15.4035 15.4039C15.7316 15.0758 15.916 14.6306 15.916 14.1665V9.1665C15.916 8.70238 15.7316 8.25726 15.4035 7.92907C15.0753 7.60088 14.6301 7.4165 14.166 7.4165H9.16602Z" fill="currentColor" fill-opacity="0.6"/><path d="M10.834 2.5835C11.4045 2.58342 11.9651 2.73356 12.4592 3.01881C12.9534 3.30406 13.3637 3.71437 13.649 4.2085C13.7484 4.38078 13.7754 4.58551 13.7239 4.77766C13.6724 4.9698 13.5467 5.13362 13.3744 5.23308C13.2021 5.33254 12.9974 5.35948 12.8052 5.30799C12.6131 5.25649 12.4493 5.13078 12.3498 4.9585C12.1963 4.69231 11.9754 4.47127 11.7093 4.31766C11.4432 4.16404 11.1413 4.08328 10.834 4.0835H5.83398C5.60417 4.0835 5.37661 4.12876 5.16429 4.21671C4.95197 4.30465 4.75905 4.43356 4.59655 4.59606C4.43405 4.75856 4.30514 4.95148 4.2172 5.1638C4.12925 5.37612 4.08398 5.60368 4.08398 5.8335V10.8335C4.08398 11.4802 4.43398 12.046 4.95898 12.3502C5.12516 12.4526 5.24486 12.6158 5.29264 12.805C5.34043 12.9943 5.31254 13.1947 5.21489 13.3638C5.11725 13.5328 4.95755 13.6571 4.76972 13.7103C4.58189 13.7634 4.38073 13.7413 4.20898 13.6485C3.71486 13.3632 3.30455 12.9529 3.0193 12.4587C2.73405 11.9646 2.58391 11.4041 2.58398 10.8335V5.8335C2.58398 4.97154 2.92639 4.14489 3.53589 3.5354C4.14538 2.92591 4.97203 2.5835 5.83398 2.5835H10.834Z" fill="currentColor" fill-opacity="0.6"/></svg>
+              <span>Copy</span>
+            </button>
+          </div>
+          <div class="relative flex-1 flex flex-col min-h-0 bg-white overflow-hidden px-4 pb-4">
+            <div id="ex-code" class="ui-code-container">
             </div>
           </div>
-
-          <!-- Response pane -->
-          <div id="ex-pane-response" class="hidden">
-            <div class="flex flex-col items-center justify-center py-12 text-[#a3a3a3]">
-              <svg class="w-10 h-10 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              <p class="text-xs">Run a request to see results</p>
-            </div>
-          </div>
-
         </div>
+
+        <!-- Response pane -->
+        <div id="ex-pane-response" class="hidden flex-1 flex flex-col min-h-0">
+          <div class="flex flex-col items-center justify-center py-12 text-[#a3a3a3]">
+            <svg class="w-10 h-10 mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <p class="text-xs">Run a request to see results</p>
+          </div>
+        </div>
+
       </div>
     </div>
 

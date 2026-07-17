@@ -1,6 +1,6 @@
 (function(){
-  const PRIMARY = 'var(--color-accent)', CODE_BG='#0d1117', FB='#e2e8f0', CARD='#ecedf0', HEAD='#1e293b', MONO='"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace';
-  const C_KEY='#7ee787',C_STR='#a5d6ff',C_NUM='#79c0ff',C_KW='#ff7b72',C_DEF='#c9d1d9';
+  const PRIMARY = 'var(--color-accent)', CODE_BG='rgba(245, 245, 245, 0.5)', FB='#e2e8f0', CARD='#ecedf0', HEAD='#1e293b', MONO='"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace';
+  const C_KEY='#0550ae',C_STR='#0a3069',C_NUM='#0550ae',C_KW='#cf222e',C_DEF='#24292f';
   const MASKED='octen-7c2b••••••••••••••••••••••••5f0a', B64_IMG='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA...';
   const MAX_IMAGES=5;
   const $=id=>document.getElementById(id);
@@ -64,52 +64,77 @@
     const k=K(I), c=I.cfg;
     const root=$(c.rootId); if(!root)return;
     root.innerHTML =
-    '<div class="grid lg:grid-cols-2 gap-4">'+
+    '<div class="layout-columns cols-2 h-full min-h-0">'+
       // LEFT
-      '<div style="min-width:0;background:#fff;border:1px solid '+CARD+';border-radius:10px;padding:16px">'+
-        '<div class="flex items-center justify-between" style="margin-bottom:18px"><h2 style="font-size:17px;font-weight:600;color:'+HEAD+';margin:0">Configuration</h2>'+
-          '<a href="#" onclick="go(\'web-search\');return false" class="inline-flex items-center" style="gap:6px;height:32px;padding:0 10px;border:1px solid '+FB+';border-radius:10px;font-size:12px;font-weight:500;color:#64748b;text-decoration:none"><svg style="width:14px;height:14px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Docs</a></div>'+
+      '<div class="layout-pane min-w-[400px] flex flex-col min-h-0 bg-white">'+
+        '<div class="flex items-center justify-between shrink-0 px-4 pt-4 pb-2 border-b border-transparent"><h2 class="text-[#0a0a0a] font-semibold text-lg">Configuration</h2>'+
+          '<a href="#" onclick="go(\'web-search\');return false" class="inline-flex items-center gap-2 px-3 py-2 border border-[#dbdbdb] text-[#737373] rounded-md text-xs hover:bg-[#f5f5f5] transition-colors"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Docs</a></div>'+
+        '<div class="flex-1 overflow-y-auto p-4 space-y-6 min-h-0">'+
         // Inputs composer
-        '<div style="margin-bottom:22px"><label style="display:block;font-size:14px;font-weight:500;color:'+HEAD+';margin-bottom:8px">Inputs <span style="color:#ef4444">*</span></label>'+
-          '<div id="'+k+'-dz" style="border:1px solid '+FB+';border-radius:12px;background:#fff;padding:10px">'+
-            '<div id="'+k+'-thumbs" class="flex flex-wrap" style="gap:8px"></div>'+
-            '<textarea id="'+k+'-text" maxlength="500" rows="2" placeholder="" style="width:100%;box-sizing:border-box;border:none;outline:none;resize:none;font-size:14px;line-height:21px;color:#0f172b;background:transparent;font-family:inherit;padding:4px 6px"></textarea>'+
-            '<div class="flex items-center justify-between" style="margin-top:6px"><div id="'+k+'-attwrap" class="flex items-center" style="gap:8px;position:relative">'+
-              '<button type="button" id="'+k+'-addimg" onclick="PGS_attach(\''+k+'\')" class="inline-flex items-center" style="gap:6px;height:32px;padding:0 11px;border:1px solid '+FB+';border-radius:8px;background:#fff;font-size:13px;color:#475569;cursor:pointer"><svg style="width:15px;height:15px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg> Add image <svg style="width:13px;height:13px;opacity:0.6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>'+
-              '<div id="'+k+'-pop" class="hidden" style="position:absolute;top:calc(100% + 8px);left:0;z-index:40;width:258px;background:#fff;border:1px solid '+FB+';border-radius:10px;box-shadow:0 10px 28px rgba(15,23,42,0.14);padding:8px"></div></div>'+
-              '<input id="'+k+'-file" type="file" accept="image/*" multiple style="display:none"/>'+
-              '<div class="flex items-center" style="gap:8px"><button type="button" onclick="PGS_clear(\''+k+'\')" class="inline-flex items-center" style="gap:6px;height:32px;padding:0 12px;border:1px solid '+FB+';border-radius:8px;background:#fff;color:#64748b;font-size:13px;font-weight:500;cursor:pointer"><svg style="width:13px;height:13px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M1 4v6h6M23 20v-6h-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg> Clear</button>'+
-              '<button type="button" id="'+k+'-run" onclick="PGS_run(\''+k+'\')" class="inline-flex items-center" style="gap:6px;height:32px;padding:0 16px;border:none;border-radius:8px;background:'+PRIMARY+';color:#fff;font-size:13px;font-weight:500;cursor:not-allowed;opacity:0.5"><svg style="width:13px;height:13px" fill="#fff" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg> Run</button></div>'+
-            '</div></div><div id="'+k+'-atterr" style="font-size:12px;color:#ef4444;margin:6px 2px 0"></div></div>'+
+        '<section class="space-y-3"><label class="ui-label-primary">Inputs <span class="text-red-500 ml-0.5">*</span></label>'+
+          '<div id="'+k+'-dz" class="border border-[#dbdbdb] rounded-xl bg-white p-3 focus-within:border-[#039855] transition-colors">'+
+            '<div id="'+k+'-thumbs" class="flex flex-wrap gap-2"></div>'+
+            '<textarea id="'+k+'-text" maxlength="500" rows="2" placeholder="" class="w-full bg-transparent border-none outline-none resize-none text-sm text-[#0a0a0a] placeholder:text-[#a3a3a3] font-sans p-1"></textarea>'+
+            '<div class="flex items-center justify-between mt-2"><div id="'+k+'-attwrap" class="flex items-center gap-2 relative">'+
+              '<button type="button" id="'+k+'-addimg" onclick="PGS_attach(\''+k+'\')" class="ui-btn-outline"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg><span>Add image</span><svg class="w-3 h-3 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg></button>'+
+              '<div id="'+k+'-pop" class="hidden absolute top-[calc(100%+8px)] left-0 z-40 w-64 bg-white border border-[#dbdbdb] rounded-xl shadow-[0_10px_28px_rgba(15,23,42,0.14)] p-2"></div></div>'+
+              '<input id="'+k+'-file" type="file" accept="image/*" multiple class="hidden"/>'+
+              '<div class="flex items-center gap-2"><button type="button" onclick="PGS_clear(\''+k+'\')" class="ui-btn-outline"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M1 4v6h6M23 20v-6h-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg><span>Clear</span></button>'+
+              '<button type="button" id="'+k+'-run" onclick="PGS_run(\''+k+'\')" class="ui-btn-primary opacity-50 cursor-not-allowed"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg><span>Run</span></button></div>'+
+            '</div></div><div id="'+k+'-atterr" class="text-xs text-red-500 mt-1.5 ml-0.5"></div></section>'+
         // Basic settings
-        '<div style="margin-bottom:22px"><h3 class="pgs-h">Basic settings</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;row-gap:14px">'+
-          (c.topic?'<div><span class="pgs-l">Topic</span><select id="'+k+'-topic" class="pgs-f" onchange="PGS_set(\''+k+'\',\'topic\',this.value)"><option value="general">general</option><option value="news">news</option><option value="design">design</option></select></div>':'')+
-          '<div><span class="pgs-l">Output modalities</span>'+(c.selectable?
-            '<div class="inline-flex" style="border:1px solid '+FB+';border-radius:8px;overflow:hidden;width:100%">'+['text','image','video'].map((mm,i)=>'<button type="button" class="'+k+'-mod" data-m="'+mm+'" onclick="PGS_toggleMod(\''+k+'\',\''+mm+'\')" style="flex:1;padding:6px 4px;font-size:11px;'+(i<2?'border-right:1px solid '+FB+';':'')+'">'+mm+'</button>').join('')+'</div>'
-            :'<div class="pgs-fake">'+c.modalities[0]+'</div>')+'</div>'+
-          '<div><span class="pgs-l">Max results</span><input id="'+k+'-max" type="number" min="1" max="100" value="10" class="pgs-f" oninput="PGS_set(\''+k+'\',\'max\',this.value)"/></div>'+
-        '</div></div>'+
+        '<section class="space-y-3"><h3 class="text-xs text-[#737373] uppercase tracking-wide font-semibold">Basic settings</h3><div class="grid grid-cols-2 gap-4">'+
+          (c.topic?'<div class="space-y-1.5"><label class="ui-label-primary">Topic</label><select id="'+k+'-topic" class="ui-select" onchange="PGS_set(\''+k+'\',\'topic\',this.value)"><option value="general">general</option><option value="news">news</option><option value="design">design</option></select></div>':'')+
+          '<div class="space-y-1.5"><label class="ui-label-primary">Output modalities</label>'+(c.selectable?
+            '<div class="seg-group w-full">'+['text','image','video'].map((mm,i)=>'<button type="button" class="'+k+'-mod px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-m="'+mm+'" onclick="PGS_toggleMod(\''+k+'\',\''+mm+'\')">'+mm+'</button>').join('')+'</div>'
+            :'<div class="ui-input bg-[#f5f5f5] text-[#a3a3a3]">'+c.modalities[0]+'</div>')+'</div>'+
+          '<div class="space-y-1.5"><label class="ui-label-primary">Max results</label><input id="'+k+'-max" type="number" min="1" max="100" value="10" class="ui-input" oninput="PGS_set(\''+k+'\',\'max\',this.value)"/></div>'+
+        '</div></section>'+
+        '<div class="border-t border-[#dbdbdb]"></div>'+
         // Filters
-        '<div style="margin-bottom:22px"><h3 class="pgs-h">Filters</h3>'+
-          '<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:6px"><div><span class="pgs-l">Time basis</span><div class="inline-flex" style="border:1px solid '+FB+';border-radius:999px;overflow:hidden;height:33px">'+
-            ['auto','published','crawled'].map((b,i)=>'<button type="button" class="'+k+'-tb pgs-seg" data-b="'+b+'" onclick="PGS_basis(\''+k+'\',\''+b+'\')"'+(i<2?' style2':'')+'>'+(b[0].toUpperCase()+b.slice(1))+'</button>').join('')+'</div></div>'+
-            '<div class="relative"><span class="pgs-l">Date range</span><button type="button" id="'+k+'-datebtn" onclick="PGS_dateToggle(\''+k+'\')" class="w-full flex items-center" style="gap:8px;padding:8px 10px;border:1px solid '+FB+';border-radius:10px;background:#fff;font-size:13px;color:#94a3b8;cursor:pointer"><svg style="width:15px;height:15px;color:#94a3b8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg><span id="'+k+'-datelbl">Custom range</span></button><div id="'+k+'-datepop" style="display:none;position:absolute;top:calc(100% + 6px);right:0;z-index:60;background:#fff;border:1px solid '+FB+';border-radius:12px;box-shadow:0 12px 32px rgba(15,23,42,0.16);padding:14px;gap:12px"></div></div></div>'+
-          '<p style="font-size:12px;color:#94a3b8;margin:0 0 14px">Auto prefers published time and falls back to crawled time.</p>'+
-          '<div style="margin-bottom:14px"><span class="pgs-l">Include domains</span><textarea id="'+k+'-inc" rows="2" placeholder="e.g. octen.ai (one per line)" class="pgs-f" style="height:auto;padding:8px 10px" oninput="PGS_code(\''+k+'\')"></textarea></div>'+
-          '<div><span class="pgs-l">Exclude domains</span><textarea id="'+k+'-exc" rows="2" placeholder="e.g. octen.ai (one per line)" class="pgs-f" style="height:auto;padding:8px 10px" oninput="PGS_code(\''+k+'\')"></textarea></div>'+
-        '</div>'+
+        '<section class="space-y-3"><h3 class="text-xs text-[#737373] uppercase tracking-wide font-semibold">Filters</h3>'+
+          '<div class="grid grid-cols-2 gap-4 mb-1"><div class="space-y-1.5"><label class="ui-label-primary">Time basis</label><div class="seg-group w-full">'+
+            ['auto','published','crawled'].map((b,i)=>'<button type="button" class="'+k+'-tb pgs-seg px-3 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-b="'+b+'" onclick="PGS_basis(\''+k+'\',\''+b+'\')">'+(b[0].toUpperCase()+b.slice(1))+'</button>').join('')+'</div></div>'+
+            '<div class="relative space-y-1.5"><label class="ui-label-primary">Date range</label><button type="button" id="'+k+'-datebtn" onclick="PGS_dateToggle(\''+k+'\')" class="ui-input flex items-center gap-2 cursor-pointer text-[#737373]"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg><span id="'+k+'-datelbl">Custom range</span></button><div id="'+k+'-datepop" class="hidden absolute top-[calc(100%+6px)] right-0 z-50 bg-white border border-[#dbdbdb] rounded-xl shadow-[0_12px_32px_rgba(15,23,42,0.16)] p-4 flex flex-col gap-3"></div></div></div>'+
+          '<p class="text-xs text-[#a3a3a3]">Auto prefers published time and falls back to crawled time.</p>'+
+          '<div class="space-y-1.5"><label class="ui-label-primary">Include domains</label><textarea id="'+k+'-inc" rows="2" placeholder="e.g. octen.ai (one per line)" class="ui-textarea" oninput="PGS_code(\''+k+'\')"></textarea></div>'+
+          '<div class="space-y-1.5"><label class="ui-label-primary">Exclude domains</label><textarea id="'+k+'-exc" rows="2" placeholder="e.g. octen.ai (one per line)" class="ui-textarea" oninput="PGS_code(\''+k+'\')"></textarea></div>'+
+        '</section>'+
+        '<div class="border-t border-[#dbdbdb]"></div>'+
         // Output options
-        '<div><h3 class="pgs-h">Output options</h3><div id="'+k+'-outopts" style="display:flex;flex-direction:column;gap:14px"></div></div>'+
+        '<section class="space-y-3"><h3 class="text-xs text-[#737373] uppercase tracking-wide font-semibold">Output options</h3><div id="'+k+'-outopts" class="flex flex-col gap-3"></div></section>'+
+        '</div>'+
       '</div>'+
+      
+      '<div class="split-handle"></div>'+
+
       // RIGHT
-      '<div style="min-width:0;display:flex;flex-direction:column;background:#fff;border:1px solid '+CARD+';border-radius:10px;overflow:hidden;align-self:start">'+
-        '<div style="display:flex;border-bottom:1px solid '+CARD+'"><button type="button" id="'+k+'-tab-req" onclick="PGS_tab(\''+k+'\',\'request\')" class="pgs-mtab">request</button><button type="button" id="'+k+'-tab-res" onclick="PGS_tab(\''+k+'\',\'response\')" class="pgs-mtab">response</button></div>'+
-        '<div id="'+k+'-sub-req" class="flex items-center justify-between" style="padding:10px 16px;border-bottom:1px solid '+CARD+'"><div class="inline-flex" style="border:1px solid '+FB+';border-radius:999px;overflow:hidden;height:30px">'+
-          ['python','javascript','curl'].map((l,i)=>'<button type="button" class="'+k+'-lang pgs-lang" data-l="'+l+'" onclick="PGS_lang(\''+k+'\',\''+l+'\')"'+(i>0?' style="border-left:1px solid '+FB+'"':'')+'>'+(l==='curl'?'cURL':l[0].toUpperCase()+l.slice(1))+'</button>').join('')+'</div>'+
-          '<button type="button" onclick="PGS_copyReq(\''+k+'\')" id="'+k+'-copyreq" class="inline-flex items-center" style="gap:5px;border:none;background:none;cursor:pointer;font-size:13px;color:#64748b"><svg style="width:14px;height:14px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button></div>'+
-        '<div id="'+k+'-sub-res" class="hidden flex items-center justify-between" style="padding:10px 16px;border-bottom:1px solid '+CARD+'"><div class="inline-flex" style="border:1px solid '+FB+';border-radius:8px;overflow:hidden;height:30px"><button type="button" class="'+k+'-rt pgs-rt" data-r="json" onclick="PGS_rtab(\''+k+'\',\'json\')">JSON</button><button type="button" class="'+k+'-rt pgs-rt" data-r="preview" onclick="PGS_rtab(\''+k+'\',\'preview\')" style="border-left:1px solid '+FB+'">Preview</button></div>'+
-          '<div class="flex items-center" style="gap:12px"><span id="'+k+'-took" style="font-size:12px;color:#94a3b8"></span><button type="button" onclick="PGS_copyResp(\''+k+'\')" id="'+k+'-copyresp" class="inline-flex items-center" style="gap:5px;border:none;background:none;cursor:pointer;font-size:13px;color:#64748b"><svg style="width:14px;height:14px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> Copy</button></div></div>'+
-        '<div id="'+k+'-content" style="display:flex;flex-direction:column"></div>'+
+      '<div class="layout-pane min-w-[400px] flex flex-col min-h-0 bg-white">'+
+        '<div class="ui-tab-bar shrink-0 bg-white">'+
+          '<button type="button" id="'+k+'-tab-req" onclick="PGS_tab(\''+k+'\',\'request\')" class="ui-tab active">Request</button>'+
+          '<button type="button" id="'+k+'-tab-res" onclick="PGS_tab(\''+k+'\',\'response\')" class="ui-tab inactive">Response</button>'+
+        '</div>'+
+        '<div class="flex-1 flex flex-col min-h-0">'+
+          // Sub-nav for Request
+          '<div id="'+k+'-sub-req" class="flex items-center justify-between shrink-0 px-4 py-4">'+
+            '<div class="seg-group">'+
+              ['python','javascript','curl'].map((l,i)=>'<button type="button" class="'+k+'-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="'+l+'" onclick="PGS_lang(\''+k+'\',\''+l+'\')">'+(l==='curl'?'cURL':l[0].toUpperCase()+l.slice(1))+'</button>').join('')+
+            '</div>'+
+            '<button type="button" onclick="PGS_copyReq(\''+k+'\')" id="'+k+'-copyreq" class="ui-btn-outline"><svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.166 5.9165C15.028 5.9165 15.8546 6.25891 16.4641 6.86841C17.0736 7.4779 17.416 8.30455 17.416 9.1665V14.1665C17.416 15.0285 17.0736 15.8551 16.4641 16.4646C15.8546 17.0741 15.028 17.4165 14.166 17.4165H9.16602C8.30406 17.4165 7.47741 17.0741 6.86792 16.4646C6.25843 15.8551 5.91602 15.0285 5.91602 14.1665V9.1665C5.91602 8.30455 6.25843 7.4779 6.86792 6.86841C7.47741 6.25891 8.30406 5.9165 9.16602 5.9165H14.166ZM9.16602 7.4165C8.70189 7.4165 8.25677 7.60088 7.92858 7.92907C7.60039 8.25726 7.41602 8.70238 7.41602 9.1665V14.1665C7.41602 15.1332 8.19935 15.9165 9.16602 15.9165H14.166C14.6301 15.9165 15.0753 15.7321 15.4035 15.4039C15.7316 15.0758 15.916 14.6306 15.916 14.1665V9.1665C15.916 8.70238 15.7316 8.25726 15.4035 7.92907C15.0753 7.60088 14.6301 7.4165 14.166 7.4165H9.16602Z" fill="currentColor" fill-opacity="0.6"/><path d="M10.834 2.5835C11.4045 2.58342 11.9651 2.73356 12.4592 3.01881C12.9534 3.30406 13.3637 3.71437 13.649 4.2085C13.7484 4.38078 13.7754 4.58551 13.7239 4.77766C13.6724 4.9698 13.5467 5.13362 13.3744 5.23308C13.2021 5.33254 12.9974 5.35948 12.8052 5.30799C12.6131 5.25649 12.4493 5.13078 12.3498 4.9585C12.1963 4.69231 11.9754 4.47127 11.7093 4.31766C11.4432 4.16404 11.1413 4.08328 10.834 4.0835H5.83398C5.60417 4.0835 5.37661 4.12876 5.16429 4.21671C4.95197 4.30465 4.75905 4.43356 4.59655 4.59606C4.43405 4.75856 4.30514 4.95148 4.2172 5.1638C4.12925 5.37612 4.08398 5.60368 4.08398 5.8335V10.8335C4.08398 11.4802 4.43398 12.046 4.95898 12.3502C5.12516 12.4526 5.24486 12.6158 5.29264 12.805C5.34043 12.9943 5.31254 13.1947 5.21489 13.3638C5.11725 13.5328 4.95755 13.6571 4.76972 13.7103C4.58189 13.7634 4.38073 13.7413 4.20898 13.6485C3.71486 13.3632 3.30455 12.9529 3.0193 12.4587C2.73405 11.9646 2.58391 11.4041 2.58398 10.8335V5.8335C2.58398 4.97154 2.92639 4.14489 3.53589 3.5354C4.14538 2.92591 4.97203 2.5835 5.83398 2.5835H10.834Z" fill="currentColor" fill-opacity="0.6"/></svg><span>Copy</span></button>'+
+          '</div>'+
+          // Sub-nav for Response
+          '<div id="'+k+'-sub-res" class="hidden flex items-center justify-between shrink-0 px-4 py-4">'+
+            '<div class="seg-group">'+
+              '<button type="button" class="'+k+'-rt px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-r="json" onclick="PGS_rtab(\''+k+'\',\'json\')">JSON</button>'+
+              '<button type="button" class="'+k+'-rt px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-r="preview" onclick="PGS_rtab(\''+k+'\',\'preview\')">Preview</button>'+
+            '</div>'+
+            '<div class="flex items-center gap-3"><span id="'+k+'-took" class="text-xs text-[#a3a3a3]"></span><button type="button" onclick="PGS_copyResp(\''+k+'\')" id="'+k+'-copyresp" class="ui-btn-outline"><svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.166 5.9165C15.028 5.9165 15.8546 6.25891 16.4641 6.86841C17.0736 7.4779 17.416 8.30455 17.416 9.1665V14.1665C17.416 15.0285 17.0736 15.8551 16.4641 16.4646C15.8546 17.0741 15.028 17.4165 14.166 17.4165H9.16602C8.30406 17.4165 7.47741 17.0741 6.86792 16.4646C6.25843 15.8551 5.91602 15.0285 5.91602 14.1665V9.1665C5.91602 8.30455 6.25843 7.4779 6.86792 6.86841C7.47741 6.25891 8.30406 5.9165 9.16602 5.9165H14.166ZM9.16602 7.4165C8.70189 7.4165 8.25677 7.60088 7.92858 7.92907C7.60039 8.25726 7.41602 8.70238 7.41602 9.1665V14.1665C7.41602 15.1332 8.19935 15.9165 9.16602 15.9165H14.166C14.6301 15.9165 15.0753 15.7321 15.4035 15.4039C15.7316 15.0758 15.916 14.6306 15.916 14.1665V9.1665C15.916 8.70238 15.7316 8.25726 15.4035 7.92907C15.0753 7.60088 14.6301 7.4165 14.166 7.4165H9.16602Z" fill="currentColor" fill-opacity="0.6"/><path d="M10.834 2.5835C11.4045 2.58342 11.9651 2.73356 12.4592 3.01881C12.9534 3.30406 13.3637 3.71437 13.649 4.2085C13.7484 4.38078 13.7754 4.58551 13.7239 4.77766C13.6724 4.9698 13.5467 5.13362 13.3744 5.23308C13.2021 5.33254 12.9974 5.35948 12.8052 5.30799C12.6131 5.25649 12.4493 5.13078 12.3498 4.9585C12.1963 4.69231 11.9754 4.47127 11.7093 4.31766C11.4432 4.16404 11.1413 4.08328 10.834 4.0835H5.83398C5.60417 4.0835 5.37661 4.12876 5.16429 4.21671C4.95197 4.30465 4.75905 4.43356 4.59655 4.59606C4.43405 4.75856 4.30514 4.95148 4.2172 5.1638C4.12925 5.37612 4.08398 5.60368 4.08398 5.8335V10.8335C4.08398 11.4802 4.43398 12.046 4.95898 12.3502C5.12516 12.4526 5.24486 12.6158 5.29264 12.805C5.34043 12.9943 5.31254 13.1947 5.21489 13.3638C5.11725 13.5328 4.95755 13.6571 4.76972 13.7103C4.58189 13.7634 4.38073 13.7413 4.20898 13.6485C3.71486 13.3632 3.30455 12.9529 3.0193 12.4587C2.73405 11.9646 2.58391 11.4041 2.58398 10.8335V5.8335C2.58398 4.97154 2.92639 4.14489 3.53589 3.5354C4.14538 2.92591 4.97203 2.5835 5.83398 2.5835H10.834Z" fill="currentColor" fill-opacity="0.6"/></svg><span>Copy</span></button></div>'+
+          '</div>'+
+          // Code/Preview Content Area
+          '<div class="relative flex-1 flex flex-col min-h-0 bg-white overflow-hidden px-4 pb-4">'+
+            '<div id="'+k+'-content" class="ui-code-container"></div>'+
+          '</div>'+
+        '</div>'+
       '</div>'+
     '</div>';
     // bind composer text
@@ -140,8 +165,20 @@
     wrap.style.marginBottom=I.images.length?'10px':'0';
   }
   function renderRun(I){ const has=!!I.text.trim()||I.images.length>0; const dis=!has||I.loading; const b=$(K(I)+'-run'); b.style.cursor=dis?'not-allowed':'pointer'; b.style.opacity=dis?'0.5':'1'; }
-  function renderBasis(I){ const k=K(I); document.querySelectorAll('.'+k+'-tb').forEach(x=>x.classList.toggle('on',x.dataset.b===I.basis)); document.querySelectorAll('.'+k+'-tb').forEach(x=>{const on=x.dataset.b===I.basis;x.style.background=on?'#f0fdf4':'#fff';x.style.color=on?'#15803d':'#64748b';x.style.fontWeight=on?'500':'400';}); }
-  function renderMods(I){ const k=K(I); if(!I.cfg.selectable)return; document.querySelectorAll('.'+k+'-mod').forEach(x=>{const on=I.mods.includes(x.dataset.m);x.style.cssText='flex:1;padding:6px 4px;font-size:11px;'+(x.dataset.m!=='video'?'border-right:1px solid '+FB+';':'')+(on?'background:#0398551a;color:#039855;font-weight:500':'background:#fff;color:#475569');}); }
+  function renderBasis(I){
+    const k=K(I);
+    document.querySelectorAll('.'+k+'-tb').forEach(x=>{
+      const on=x.dataset.b===I.basis;
+      x.className = k+'-tb pgs-seg px-3 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+    });
+  }
+  function renderMods(I){
+    const k=K(I); if(!I.cfg.selectable)return;
+    document.querySelectorAll('.'+k+'-mod').forEach(x=>{
+      const on=I.mods.includes(x.dataset.m);
+      x.className = k+'-mod px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+    });
+  }
   function renderOutOpts(I){ const k=K(I), c=I.cfg; let h='';
     if(c.highlightFull){
       h+='<div class="flex items-start justify-between" style="gap:12px"><div style="flex:1"><label class="flex items-center" style="gap:8px;font-size:12px;font-weight:500;color:#334155;cursor:pointer"><input type="checkbox" '+(I.hl?'checked':'')+' onchange="PGS_set(\''+k+'\',\'hl\',this.checked)" style="width:16px;height:16px;accent-color:'+PRIMARY+'"/> Return highlights</label><p style="color:#64748b;margin:4px 0 0 24px;font-size:11px">Query-relevant highlights for text results.</p></div></div>';
@@ -156,12 +193,23 @@
     const ss=$(k+'-ss'); if(ss)ss.value=I.safesearch;
   }
   function renderTabs(I){ const k=K(I);
-    $(k+'-tab-req').classList.toggle('on',I.tab==='request'); $(k+'-tab-res').classList.toggle('on',I.tab==='response');
-    [['req','request'],['res','response']].forEach(([s,t])=>{const el=$(k+'-tab-'+s);const on=I.tab===t;el.style.cssText='flex:1;height:46px;border:none;cursor:pointer;font-size:14px;text-transform:capitalize;'+(on?'background:#eaf4ee;color:'+PRIMARY+';font-weight:500;border-bottom:2px solid '+PRIMARY:'background:transparent;color:#64748b;border-bottom:2px solid transparent');});
-    $(k+'-sub-req').classList.toggle('hidden',I.tab!=='request'); $(k+'-sub-res').classList.toggle('hidden',I.tab!=='response'); $(k+'-sub-res').style.display=I.tab==='response'?'flex':'none';
+    [['req','request'],['res','response']].forEach(([s,t])=>{
+      const el=$(k+'-tab-'+s); const on=I.tab===t;
+      el.className = 'ui-tab ' + (on ? 'active' : 'inactive');
+    });
+    $(k+'-sub-req').classList.toggle('hidden',I.tab!=='request');
+    $(k+'-sub-res').classList.toggle('hidden',I.tab!=='response');
+    $(k+'-sub-res').style.display=I.tab==='response'?'flex':'none';
     $(k+'-took').textContent=I.result?('Response '+I.took+' ms'):'';
-    document.querySelectorAll('.'+k+'-lang').forEach(b=>{const on=b.dataset.l===I.lang;b.style.cssText='padding:0 12px;font-size:12px;cursor:pointer;border:none;'+(b.dataset.l!=='python'?'border-left:1px solid '+FB+';':'')+(on?'background:#f0fdf4;color:#15803d;font-weight:500':'background:#fff;color:#64748b');});
-    document.querySelectorAll('.'+k+'-rt').forEach(b=>{const on=b.dataset.r===I.rtab;b.style.cssText='padding:0 12px;font-size:12px;cursor:pointer;border:none;'+(b.dataset.r!=='json'?'border-left:1px solid '+FB+';':'')+(on?'background:#f0fdf4;color:#15803d;font-weight:500':'background:#fff;color:#64748b');});
+    
+    document.querySelectorAll('.'+k+'-lang').forEach(b=>{
+      const on=b.dataset.l===I.lang;
+      b.className = k+'-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+    });
+    document.querySelectorAll('.'+k+'-rt').forEach(b=>{
+      const on=b.dataset.r===I.rtab;
+      b.className = k+'-rt px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+    });
   }
 
   // ── payload + response ──
@@ -204,12 +252,12 @@
   }
 
   function renderContent(I){ const k=K(I), c=$(k+'-content');
-    if(I.tab==='request'){ c.innerHTML=codeBlock(requestCode(I),hlCode); return; }
+    if(I.tab==='request'){ c.innerHTML=window.PGS_codeBlock?window.PGS_codeBlock(requestCode(I),window.PGS_hlCode):codeBlock(requestCode(I),hlCode); return; }
     if(I.loading){ c.innerHTML='<div style="min-height:360px;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:14px">Running…</div>'; return; }
     if(!I.result){ c.innerHTML='<div style="min-height:360px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#cbd5e1"><svg style="width:40px;height:40px" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35"/></svg><span style="font-size:14px;color:#94a3b8">Run a request to see results</span></div>'; return; }
-    if(I.rtab==='json'){ c.innerHTML=codeBlock(JSON.stringify(I.result,null,2),hlJson); return; }
+    if(I.rtab==='json'){ c.innerHTML=window.PGS_codeBlock?window.PGS_codeBlock(JSON.stringify(I.result,null,2),window.PGS_hlJson):codeBlock(JSON.stringify(I.result,null,2),hlJson); return; }
     const items=I.result.data.results;
-    c.innerHTML='<div style="max-height:560px;overflow-y:auto;padding:14px 16px"><div style="display:flex;flex-direction:column;gap:12px">'+items.map((r,i)=>resultRow(I,r,i)).join('')+'</div></div>';
+    c.innerHTML='<div style="max-height:560px;overflow-y:auto;padding:14px 16px;flex:1"><div style="display:flex;flex-direction:column;gap:12px">'+items.map((r,i)=>resultRow(I,r,i)).join('')+'</div></div>';
     window.__pgsItems=window.__pgsItems||{}; window.__pgsItems[k]=items;
   }
   function resultRow(I,r,i){ const k=K(I);
@@ -218,7 +266,7 @@
     const meta='<div style="margin-top:auto;font-size:11px;color:#94a3b8">Published '+fmtDate(r.time_published)+' · Crawled '+fmtDate(r.time_last_crawled)+'</div>';
     if(r.type==='image'){
       return '<div style="border:1px solid '+CARD+';border-radius:10px;background:#fff;display:flex;gap:12px;padding:12px"><button type="button" onclick="PGS_lightbox(\''+k+'\','+i+')" title="View larger" style="position:relative;width:172px;flex-shrink:0;aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:#f1f5f9;padding:0;border:none;cursor:zoom-in;display:block"><img src="'+r.url+'" style="width:100%;height:100%;object-fit:cover;display:block"/><span style="position:absolute;top:7px;left:7px;font-size:9.5px;font-weight:600;text-transform:uppercase;color:#fff;background:rgba(15,23,42,0.62);padding:2px 6px;border-radius:999px">image</span></button>'+
-        '<div style="flex:1;min-width:0;display:flex;flex-direction:column"><div style="display:flex;align-items:baseline;gap:8px">'+idx+'<h4 style="font-size:14px;font-weight:600;color:'+HEAD+';margin:0;line-height:19px">'+esc(r.title)+'</h4></div>'+src+'<p style="font-size:12.5px;color:#64748b;line-height:18px;margin:0 0 8px">'+esc(r.description)+'</p>'+(r.summary?'<pre style="font-size:11px;color:#475569;background:#f8fafc;border-radius:6px;padding:8px 10px;white-space:pre-wrap;margin:0 0 8px;font-family:'+MONO+'">'+esc(r.summary)+'</pre>':'')+meta+(r.html_snippet?'<pre style="margin:8px 0 0;padding:10px 11px;background:'+CODE_BG+';border-radius:8px;overflow-x:auto;font-family:'+MONO+';font-size:11px;color:#c9d1d9;white-space:pre">'+esc(r.html_snippet)+'</pre>':'')+'</div></div>';
+        '<div style="flex:1;min-width:0;display:flex;flex-direction:column"><div style="display:flex;align-items:baseline;gap:8px">'+idx+'<h4 style="font-size:14px;font-weight:600;color:'+HEAD+';margin:0;line-height:19px">'+esc(r.title)+'</h4></div>'+src+'<p style="font-size:12.5px;color:#64748b;line-height:18px;margin:0 0 8px">'+esc(r.description)+'</p>'+(r.summary?'<pre style="font-size:11px;color:#475569;background:#f8fafc;border-radius:6px;padding:8px 10px;white-space:pre-wrap;margin:0 0 8px;font-family:'+MONO+'">'+esc(r.summary)+'</pre>':'')+meta+(r.html_snippet?'<pre style="margin:8px 0 0;padding:10px 11px;background:'+CODE_BG+';border-radius:8px;overflow-x:auto;font-family:'+MONO+';font-size:11px;color:#24292f;white-space:pre">'+esc(r.html_snippet)+'</pre>':'')+'</div></div>';
     }
     if(r.type==='video'){
       return '<div style="border:1px solid '+CARD+';border-radius:10px;background:#fff;display:flex;gap:12px;padding:12px"><a href="'+esc(r.url)+'" target="_blank" rel="noreferrer" style="position:relative;width:172px;flex-shrink:0;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#0f172a;display:block"><img src="'+r.cover_url+'" style="width:100%;height:100%;object-fit:cover;display:block;opacity:0.9"/><span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center"><span style="width:40px;height:40px;border-radius:999px;background:rgba(15,23,42,0.55);display:flex;align-items:center;justify-content:center"><svg style="width:18px;height:18px;color:#fff" fill="#fff" viewBox="0 0 24 24"><polygon points="6 4 20 12 6 20 6 4"/></svg></span></span><span style="position:absolute;bottom:7px;right:7px;font-size:10px;font-weight:600;color:#fff;background:rgba(15,23,42,0.75);padding:1px 6px;border-radius:4px">'+fmtDur(r.duration_seconds)+'</span></a>'+

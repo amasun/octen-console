@@ -1833,20 +1833,21 @@ function toggleCostMonth(btn) {
 }
 
 function wsTabSwitch(tab) {
-  const req = document.getElementById('ws-pane-request');
-  const res = document.getElementById('ws-pane-response');
+  const req = tab === 'request';
+  const reqPane = document.getElementById('ws-pane-request');
+  const resPane = document.getElementById('ws-pane-response');
   const tReq = document.getElementById('ws-tab-req');
   const tRes = document.getElementById('ws-tab-res');
-  if (!req) return;
-  if (tab==='request') {
-    req.classList.remove('hidden'); res.classList.add('hidden');
-    tReq.style.cssText='color:#039855;background:#0398551a;border-bottom:2px solid #039855';
-    tRes.style.cssText='color:#475569';
-  } else {
-    req.classList.add('hidden'); res.classList.remove('hidden');
-    tRes.style.cssText='color:#039855;background:#0398551a;border-bottom:2px solid #039855';
-    tReq.style.cssText='color:#475569';
-  }
+  if (!reqPane) return;
+  
+  reqPane.classList.toggle('hidden', !req);
+  if(resPane) resPane.classList.toggle('hidden', req);
+  
+  const activeCls = 'py-4 text-base font-medium text-[#0a0a0a] border-b-2 border-[#0a0a0a] transition-colors relative top-px';
+  const inactiveCls = 'py-4 text-base font-medium text-[#737373] border-b-2 border-transparent hover:text-[#0a0a0a] transition-colors relative top-px';
+  
+  if(tReq) tReq.className = req ? activeCls : inactiveCls;
+  if(tRes) tRes.className = req ? inactiveCls : activeCls;
 }
 function doSaveSvcEdit() {
   const n = document.getElementById('esvc-name').value.trim();
@@ -2055,8 +2056,14 @@ for (const result of response.data.results) {
   }'`
   };
 
-  const block = document.getElementById('ex-code-block');
-  if (block) block.innerHTML = `<code>${codes[exCurrentLang].replace(/</g,'&lt;').replace(/>/g,'&gt;')}</code>`;
+  const block = document.getElementById('ex-code');
+  if (block) {
+    if (window.PGS_codeBlock) {
+      block.innerHTML = window.PGS_codeBlock(codes[exCurrentLang], window.PGS_hlCode);
+    } else {
+      block.textContent = codes[exCurrentLang];
+    }
+  }
 }
 
 function exLang(lang) {
@@ -2064,8 +2071,8 @@ function exLang(lang) {
   ['py','js','curl'].forEach(l => {
     const btn = document.getElementById('ex-lang-'+l);
     if (!btn) return;
-    if (l === lang) { btn.style.cssText='background:#0398551a;color:#039855;font-weight:500'; }
-    else { btn.style.cssText='background:white;color:#475569;font-weight:400'; }
+    const on = l === lang;
+    btn.className = 'px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
   });
   exRefreshCode();
 }
@@ -2077,12 +2084,12 @@ function exTabSwitch(tab) {
   const tRes = document.getElementById('ex-tab-res');
   if (tab === 'request') {
     req.classList.remove('hidden'); res.classList.add('hidden');
-    tReq.style.cssText='color:#039855;background:#0398551a;border-bottom:2px solid #039855';
-    tRes.style.cssText='color:#475569;background:transparent;border-bottom:2px solid transparent';
+    if(tReq) tReq.className = 'ui-tab active';
+    if(tRes) tRes.className = 'ui-tab inactive';
   } else {
     req.classList.add('hidden'); res.classList.remove('hidden');
-    tRes.style.cssText='color:#039855;background:#0398551a;border-bottom:2px solid #039855';
-    tReq.style.cssText='color:#475569;background:transparent;border-bottom:2px solid transparent';
+    if(tRes) tRes.className = 'ui-tab active';
+    if(tReq) tReq.className = 'ui-tab inactive';
   }
 }
 

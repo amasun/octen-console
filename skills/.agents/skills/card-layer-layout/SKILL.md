@@ -33,8 +33,14 @@ To implement this layout, designers and developers must structure the UI using t
 - **Role**: Houses global navigation icons, toolbars, or **full left-side navigation sidebars**.
 - **Styling**: Both `.ribbon` and `.sidebar` must reside **outside the workspace cards**, sitting directly on the Base Layer.
 - **Rules**:
-  - Both `.ribbon` and `.sidebar` share the same outer style: **no solid card background color** (transparent background `background: transparent`, no border, no shadow), letting the Base Layer show through. Neither is a white floating card.
   - Hover states on ribbon buttons or sidebar links trigger a soft, semi-transparent background bubble (`var(--background-modifier-hover)`), rather than lighting up the entire column.
+
+### D. Multi-Pane Split Workspaces (Left/Right Layouts)
+- **Role**: When building horizontal split views (e.g. Parameters on the left, Code/Response on the right).
+- **DOM Naming**: The left and right blocks MUST explicitly use the `pane` or `layout-pane` class. (Do not use generic `bg-white rounded-md` cards).
+- **Height constraint**: The left and right `pane` blocks MUST stretch to fill the height of the container (use `min-h-0`, `flex: 1`, or `h-full`).
+- **Gap Control**: The parent container MUST explicitly control the gap between the panes, strictly set to `gap: 4px;`.
+- **Split Handle**: A `<div class="split-handle"></div>` MUST be placed between the two panes to allow the user to resize them, while the parent container's `gap: 4px` manages the visual spacing.
 
 ---
 
@@ -140,6 +146,45 @@ Use this HTML/CSS skeleton as the starting boilerplate for any card-layered dash
   grid-template-columns: var(--ribbon-width) 1fr;
   padding: var(--vl-layout-padding) var(--vl-layout-padding) var(--vl-layout-padding) 0; /* 10px 10px 10px 0 padding for pane parent */
   min-height: 0;
+}
+
+/* 2-column split pane parent (parent controls 4px gap) */
+.layout-columns.cols-2 {
+  display: flex;
+  flex-direction: row;
+  padding: var(--vl-layout-padding) var(--vl-layout-padding) var(--vl-layout-padding) 0;
+  box-sizing: border-box;
+  gap: 4px; /* Parent strictly controls gap */
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  flex: 1;
+  min-height: 0;
+}
+.layout-columns.cols-2 > .pane,
+.layout-columns.cols-2 > .layout-pane {
+  flex: 1 1 0%;
+  min-width: 0 !important;
+  max-width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Split handle in between panes */
+.split-handle {
+  position: relative;
+  width: 0;
+  margin: 0 -2px; /* Pulls panes together to preserve exactly 4px gap */
+  flex-shrink: 0;
+  cursor: col-resize;
+  z-index: 50;
+}
+.split-handle::before {
+  content: "";
+  position: absolute;
+  top: 0; bottom: 0;
+  left: -2px; right: -2px;
+  z-index: 50;
 }
 
 /* outer control bar / navigation sidebar (shared styles for .ribbon and .sidebar) */

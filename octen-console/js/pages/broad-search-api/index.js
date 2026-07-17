@@ -118,12 +118,11 @@
     return ['curl https://api.octen.ai/v1/broad-search \\','  -X POST \\',"  -H 'x-api-key: "+KEY+"' \\","  -H 'Content-Type: application/json' \\","  -d '"+json+"'"].join('\n');
   }
   function refreshCode(){ const el=$('bsa-code'); if(!el)return; const hl=bsaLang==='python'?window.PGS_hlCode:(bsaLang==='javascript'?window.PGS_hlCode:window.PGS_hlCode);
-    if(window.PGS_codeBlock){ el.innerHTML=window.PGS_codeBlock(reqCode(),hl); el.firstChild&&(el.firstChild.style.maxHeight="560px"); }
+    if(window.PGS_codeBlock){ el.innerHTML=window.PGS_codeBlock(reqCode(),hl); }
     else { el.textContent=reqCode(); }
     document.querySelectorAll('.bsa-lang').forEach(b=>{
       const on = b.dataset.l === bsaLang;
-      b.className = 'bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
-      b.style.cssText = '';
+      b.className = 'bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
     });
   }
   window.bsaSetLang=function(l){ bsaLang=l; refreshCode(); };
@@ -168,12 +167,10 @@
     $('bsa-tab-res').className = req ? inactiveCls : activeCls;
   };
   window.bsaRtab=function(t){ rtab=t;
-    const activeCls = 'px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-white shadow-sm text-[#0a0a0a]';
-    const inactiveCls = 'px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]';
+    const activeCls = 'px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center bg-white shadow-sm text-[#0a0a0a]';
+    const inactiveCls = 'px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]';
     $('bsa-rt-preview').className = t === 'preview' ? activeCls : inactiveCls;
     $('bsa-rt-json').className = t === 'json' ? activeCls : inactiveCls;
-    $('bsa-rt-preview').style.cssText = '';
-    $('bsa-rt-json').style.cssText = '';
     renderRespBody();
   };
   window.bsaRun=function(){

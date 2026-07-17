@@ -13,15 +13,15 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
       <div class="flex-1 overflow-y-auto p-4 space-y-4 min-h-0">
         <!-- Query -->
         <section>
-          <label class="block text-[#0a0a0a] text-sm font-medium mb-2">Query<span class="text-red-500 ml-0.5">*</span></label>
+          <label class="ui-label-primary">Query<span class="text-red-500 ml-0.5">*</span></label>
           <div id="bsa-query-box" class="border border-[#dbdbdb] rounded-lg px-3 pt-2.5 pb-2 transition-colors focus-within:border-[#039855]">
             <textarea id="bsa-query" rows="2" placeholder="" class="w-full border-0 outline-none resize-none text-sm text-[#0a0a0a] placeholder:text-[#a3a3a3] leading-relaxed bg-transparent"></textarea>
             <div class="flex items-center justify-end gap-2 mt-1">
-              <button type="button" onclick="bsaClear()" class="inline-flex items-center gap-2 px-3 py-2 border border-[#dbdbdb] text-[#737373] rounded-lg text-xs hover:bg-[#f5f5f5] whitespace-nowrap">
+              <button type="button" onclick="bsaClear()" class="ui-btn-outline">
                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M1 4v6h6M23 20v-6h-6"/><path stroke-linecap="round" stroke-linejoin="round" d="M20.49 9A9 9 0 005.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 013.51 15"/></svg>
                 <span>Clear</span>
               </button>
-              <button type="button" onclick="bsaRun()" id="bsa-run-btn" class="inline-flex items-center gap-2 px-4 py-2 text-white rounded-lg text-xs whitespace-nowrap" style="background:#039855">
+              <button type="button" onclick="bsaRun()" id="bsa-run-btn" class="ui-btn-primary">
                 <svg class="w-3.5 h-3.5" fill="#fff" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 <span>Run</span>
               </button>
@@ -35,20 +35,20 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
         <section class="space-y-3">
           <h2 class="text-[#0a0a0a] text-sm font-medium">Basic settings</h2>
           <div>
-            <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Max queries</label>
-            <input type="number" id="bsa-maxq" min="1" max="20" value="5" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-md text-xs outline-none focus:border-[#039855]"/>
+            <label class="ui-label">Max queries</label>
+            <input type="number" id="bsa-maxq" min="1" max="20" value="5" class="ui-input"/>
             <p class="text-xs text-[#737373] mt-1">Number of sub-queries to expand and run in parallel.</p>
           </div>
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Topic</label>
-              <select id="bsa-topic" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-md text-xs bg-white outline-none focus:border-[#039855]">
+              <label class="ui-label">Topic</label>
+              <select id="bsa-topic" class="ui-select">
                 <option value="general">general</option><option value="news" selected>news</option>
               </select>
             </div>
             <div>
-              <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Max results</label>
-              <input type="number" id="bsa-count" min="1" max="100" value="10" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-md text-xs outline-none focus:border-[#039855]"/>
+              <label class="ui-label">Max results</label>
+              <input type="number" id="bsa-count" min="1" max="100" value="10" class="ui-input"/>
             </div>
           </div>
         </section>
@@ -60,7 +60,7 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
           <h2 class="text-[#0a0a0a] text-sm font-medium">Filters</h2>
           <div class="grid grid-cols-2 gap-3 items-start">
             <div>
-              <label class="block text-[#737373] text-xs uppercase tracking-wide mb-1">Time basis</label>
+              <label class="ui-label">Time basis</label>
               <div id="bsa-tb-pills" class="inline-flex items-stretch rounded-md border border-[#dbdbdb] p-px text-xs overflow-hidden">
                 <button type="button" class="bsa-tb px-3 py-1 border-r border-[#dbdbdb]" data-tb="auto" style="background:#0398551a;color:#039855;font-weight:500">Auto</button>
                 <button type="button" class="bsa-tb px-3 py-1 border-r border-[#dbdbdb] bg-white text-[#737373]" data-tb="published">Published</button>
@@ -68,7 +68,7 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
               </div>
             </div>
             <div class="relative">
-              <label class="block text-[#737373] text-xs uppercase tracking-wide mb-1">Date range</label>
+              <label class="ui-label">Date range</label>
               <button type="button" id="bsa-date-btn" onclick="bsaDateToggle()" class="w-full flex items-center gap-2 px-3 py-2 border border-[#dbdbdb] rounded-lg text-xs bg-white outline-none focus:border-[#039855]">
                 <svg class="w-3.5 h-3.5 text-[#a3a3a3] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
                 <span id="bsa-date-label" class="text-[#a3a3a3]">Custom range</span>
@@ -78,22 +78,22 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
           </div>
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Domain filters</label>
-              <textarea id="bsa-include" rows="3" placeholder="e.g. octen.ai (one per line)" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-md text-xs outline-none focus:border-[#039855] resize-none"></textarea>
+              <label class="ui-label">Domain filters</label>
+              <textarea id="bsa-include" rows="3" placeholder="e.g. octen.ai (one per line)" class="ui-input"></textarea>
             </div>
             <div>
-              <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Exclude domains</label>
-              <textarea id="bsa-exclude" rows="3" placeholder="e.g. octen.ai (one per line)" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-md text-xs outline-none focus:border-[#039855] resize-none"></textarea>
+              <label class="ui-label">Exclude domains</label>
+              <textarea id="bsa-exclude" rows="3" placeholder="e.g. octen.ai (one per line)" class="ui-input"></textarea>
             </div>
           </div>
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Include text</label>
-              <input type="text" id="bsa-inctext" placeholder="Phrase to include (&le; 5 words)" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-md text-xs outline-none focus:border-[#039855]"/>
+              <label class="ui-label">Include text</label>
+              <input type="text" id="bsa-inctext" placeholder="Phrase to include (&le; 5 words)" class="ui-input"/>
             </div>
             <div>
-              <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Exclude text</label>
-              <input type="text" id="bsa-exctext" placeholder="Phrase to exclude (&le; 5 words)" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-md text-xs outline-none focus:border-[#039855]"/>
+              <label class="ui-label">Exclude text</label>
+              <input type="text" id="bsa-exctext" placeholder="Phrase to exclude (&le; 5 words)" class="ui-input"/>
             </div>
           </div>
           <!-- hidden state for custom range start/end (set via calendar) -->
@@ -109,13 +109,13 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
           <div class="flex items-start justify-between gap-3">
             <div class="flex-1 min-w-0">
               <label class="flex items-center gap-2 text-[#0a0a0a] text-xs font-medium cursor-pointer">
-                <input type="checkbox" id="bsa-hl" checked class="w-4 h-4 rounded border-[#dbdbdb]" style="accent-color:#039855"/>
+                <input type="checkbox" id="bsa-hl" checked class="ui-checkbox"/>
                 <span>Return highlights</span>
               </label>
               <p class="text-xs text-[#737373] ml-6 mt-1">Extract query-relevant highlights from the content.</p>
             </div>
             <div id="bsa-hl-wrap" class="shrink-0">
-              <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Highlights max tokens</label>
+              <label class="ui-label">Highlights max tokens</label>
               <input type="number" id="bsa-hl-tokens" min="1" value="256" class="w-28 px-3 py-2 border border-[#dbdbdb] rounded-md text-xs outline-none focus:border-[#039855]"/>
             </div>
           </div>
@@ -123,25 +123,25 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
           <div class="flex items-start justify-between gap-3">
             <div class="flex-1 min-w-0">
               <label class="flex items-center gap-2 text-[#0a0a0a] text-xs font-medium cursor-pointer">
-                <input type="checkbox" id="bsa-fc" class="w-4 h-4 rounded border-[#dbdbdb]" style="accent-color:#039855"/>
+                <input type="checkbox" id="bsa-fc" class="ui-checkbox"/>
                 <span>Return full content</span>
               </label>
               <p class="text-xs text-[#737373] ml-6 mt-1">Billed via full_content_max_tokens.</p>
             </div>
             <div id="bsa-fc-wrap" class="shrink-0 hidden">
-              <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Full content max tokens</label>
+              <label class="ui-label">Full content max tokens</label>
               <input type="number" id="bsa-fc-tokens" min="1" value="2048" class="w-28 px-3 py-2 border border-[#dbdbdb] rounded-md text-xs outline-none focus:border-[#039855]"/>
             </div>
           </div>
           <!-- media toggles -->
           <div class="grid grid-cols-2 gap-2">
-            <label class="flex items-center gap-2 text-[#0a0a0a] text-xs font-medium cursor-pointer"><input type="checkbox" id="bsa-images" class="w-4 h-4 rounded border-[#dbdbdb]" style="accent-color:#039855"/><span>Include images</span></label>
-            <label class="flex items-center gap-2 text-[#0a0a0a] text-xs font-medium cursor-pointer"><input type="checkbox" id="bsa-videos" class="w-4 h-4 rounded border-[#dbdbdb]" style="accent-color:#039855"/><span>Include videos</span></label>
+            <label class="flex items-center gap-2 text-[#0a0a0a] text-xs font-medium cursor-pointer"><input type="checkbox" id="bsa-images" class="ui-checkbox"/><span>Include images</span></label>
+            <label class="flex items-center gap-2 text-[#0a0a0a] text-xs font-medium cursor-pointer"><input type="checkbox" id="bsa-videos" class="ui-checkbox"/><span>Include videos</span></label>
           </div>
           <!-- safesearch -->
           <div>
-            <label class="block text-[#737373] mb-1 text-xs uppercase tracking-wide">Safesearch</label>
-            <select id="bsa-safesearch" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-md text-xs bg-white outline-none focus:border-[#039855]">
+            <label class="ui-label">Safesearch</label>
+            <select id="bsa-safesearch" class="ui-select">
               <option value="off">off</option><option value="moderate">moderate</option><option value="strict">strict</option>
             </select>
           </div>
@@ -153,32 +153,32 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
 
   <!-- Right: Code & Response -->
   <div class="layout-pane min-w-[400px] flex flex-col bg-white">
-        <div class="border-b border-[#dbdbdb] flex gap-6 px-6 shrink-0 bg-white">
-          <button id="bsa-tab-req" class="py-4 text-base font-medium text-[#0a0a0a] border-b-2 border-[#0a0a0a] transition-colors relative top-px" onclick="bsaTab('request')">Request</button>
-          <button id="bsa-tab-res" class="py-4 text-base font-medium text-[#737373] border-b-2 border-transparent hover:text-[#0a0a0a] transition-colors relative top-px" onclick="bsaTab('response')">Response</button>
+        <div class="ui-tab-bar shrink-0 bg-white">
+          <button id="bsa-tab-req" class="ui-tab active" onclick="bsaTab('request')">Request</button>
+          <button id="bsa-tab-res" class="ui-tab inactive" onclick="bsaTab('response')">Response</button>
         </div>
         <div class="flex-1 flex flex-col min-h-0">
           <!-- Request pane -->
           <div id="bsa-pane-request" class="flex-1 flex flex-col min-h-0">
-            <div class="flex items-center justify-between shrink-0 px-6 py-4">
-              <div class="flex h-8 items-stretch p-1 bg-[#f5f5f5] rounded-lg">
+            <div class="flex items-center justify-between shrink-0 px-4 py-4">
+              <div class="seg-group">
                 <button type="button" class="bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-white shadow-sm text-[#0a0a0a]" data-l="python" onclick="bsaSetLang('python')">Python</button>
                 <button type="button" class="bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="javascript" onclick="bsaSetLang('javascript')">JavaScript</button>
                 <button type="button" class="bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="curl" onclick="bsaSetLang('curl')">cURL</button>
               </div>
-              <button type="button" onclick="bsaCopyReq()" id="bsa-copyreq" class="inline-flex items-center gap-2 px-3 py-2 rounded-md border border-[#dbdbdb] bg-white text-[#737373] hover:bg-[#f5f5f5] text-xs shadow-sm transition-colors">
+              <button type="button" onclick="bsaCopyReq()" id="bsa-copyreq" class="ui-btn-outline">
                 <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.166 5.9165C15.028 5.9165 15.8546 6.25891 16.4641 6.86841C17.0736 7.4779 17.416 8.30455 17.416 9.1665V14.1665C17.416 15.0285 17.0736 15.8551 16.4641 16.4646C15.8546 17.0741 15.028 17.4165 14.166 17.4165H9.16602C8.30406 17.4165 7.47741 17.0741 6.86792 16.4646C6.25843 15.8551 5.91602 15.0285 5.91602 14.1665V9.1665C5.91602 8.30455 6.25843 7.4779 6.86792 6.86841C7.47741 6.25891 8.30406 5.9165 9.16602 5.9165H14.166ZM9.16602 7.4165C8.70189 7.4165 8.25677 7.60088 7.92858 7.92907C7.60039 8.25726 7.41602 8.70238 7.41602 9.1665V14.1665C7.41602 15.1332 8.19935 15.9165 9.16602 15.9165H14.166C14.6301 15.9165 15.0753 15.7321 15.4035 15.4039C15.7316 15.0758 15.916 14.6306 15.916 14.1665V9.1665C15.916 8.70238 15.7316 8.25726 15.4035 7.92907C15.0753 7.60088 14.6301 7.4165 14.166 7.4165H9.16602Z" fill="currentColor" fill-opacity="0.6"/><path d="M10.834 2.5835C11.4045 2.58342 11.9651 2.73356 12.4592 3.01881C12.9534 3.30406 13.3637 3.71437 13.649 4.2085C13.7484 4.38078 13.7754 4.58551 13.7239 4.77766C13.6724 4.9698 13.5467 5.13362 13.3744 5.23308C13.2021 5.33254 12.9974 5.35948 12.8052 5.30799C12.6131 5.25649 12.4493 5.13078 12.3498 4.9585C12.1963 4.69231 11.9754 4.47127 11.7093 4.31766C11.4432 4.16404 11.1413 4.08328 10.834 4.0835H5.83398C5.60417 4.0835 5.37661 4.12876 5.16429 4.21671C4.95197 4.30465 4.75905 4.43356 4.59655 4.59606C4.43405 4.75856 4.30514 4.95148 4.2172 5.1638C4.12925 5.37612 4.08398 5.60368 4.08398 5.8335V10.8335C4.08398 11.4802 4.43398 12.046 4.95898 12.3502C5.12516 12.4526 5.24486 12.6158 5.29264 12.805C5.34043 12.9943 5.31254 13.1947 5.21489 13.3638C5.11725 13.5328 4.95755 13.6571 4.76972 13.7103C4.58189 13.7634 4.38073 13.7413 4.20898 13.6485C3.71486 13.3632 3.30455 12.9529 3.0193 12.4587C2.73405 11.9646 2.58391 11.4041 2.58398 10.8335V5.8335C2.58398 4.97154 2.92639 4.14489 3.53589 3.5354C4.14538 2.92591 4.97203 2.5835 5.83398 2.5835H10.834Z" fill="currentColor" fill-opacity="0.6"/></svg>
                 <span>Copy</span>
               </button>
             </div>
-            <div class="relative flex-1 flex flex-col min-h-0 bg-white overflow-hidden px-6 pb-6">
-              <div id="bsa-code" class="flex-1 flex flex-col min-h-0 rounded-lg overflow-hidden border border-[#f5f5f5] bg-[#f5f5f5]/50"></div>
+            <div class="relative flex-1 flex flex-col min-h-0 bg-white overflow-hidden px-4 pb-4">
+              <div id="bsa-code" class="ui-code-container"></div>
             </div>
           </div>
           <!-- Response pane -->
           <div id="bsa-pane-response" class="hidden flex-1 flex flex-col min-h-0">
-            <div class="flex items-center justify-between shrink-0 px-6 py-4">
-              <div class="flex h-8 items-stretch p-1 bg-[#f5f5f5] rounded-lg">
+            <div class="flex items-center justify-between shrink-0 px-4 py-4">
+              <div class="seg-group">
                 <button id="bsa-rt-preview" class="px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-white shadow-sm text-[#0a0a0a]" onclick="bsaRtab('preview')">Preview</button>
                 <button id="bsa-rt-json" class="px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" onclick="bsaRtab('json')">JSON</button>
               </div>
