@@ -1517,10 +1517,10 @@ html.dark *::-webkit-scrollbar-thumb:hover {
   background: rgba(139, 149, 165, 0.75) !important;
 }
 
-/* Prism Syntax Highlighting (Dark theme) */
+/* Prism Syntax Highlighting (Dark theme base reset) */
 html.dark code[class*="language-"],
 html.dark pre[class*="language-"] {
-  color: #d3d8e0 !important;
+  color: var(--code-base, #d3d8e0) !important;
   text-shadow: none !important;
   background: transparent !important;
 }
@@ -1529,34 +1529,37 @@ html.dark .token.comment,
 html.dark .token.prolog,
 html.dark .token.doctype,
 html.dark .token.cdata {
-  color: #6f7a8a !important;
+  color: var(--code-comment, #8b949e) !important;
 }
 
 html.dark .token.punctuation {
-  color: #8b95a5 !important;
+  color: var(--code-punctuation, #c9d1d9) !important;
 }
 
 html.dark .token.property {
-  color: #79c0ff !important;
+  color: var(--code-property, #79c0ff) !important;
 }
 
 html.dark .token.tag {
-  color: #ff7b72 !important;
+  color: var(--code-property, #79c0ff) !important;
 }
 
 html.dark .token.boolean,
 html.dark .token.number,
 html.dark .token.constant,
 html.dark .token.symbol {
-  color: #79c0ff !important;
+  color: var(--code-number, #79c0ff) !important;
 }
 
 html.dark .token.selector,
 html.dark .token.attr-name,
 html.dark .token.string,
-html.dark .token.char,
+html.dark .token.char {
+  color: var(--code-string, #7ee787) !important;
+}
+
 html.dark .token.builtin {
-  color: #60ff70 !important;
+  color: var(--code-keyword, #79c0ff) !important;
 }
 
 html.dark .token.operator,
@@ -1564,24 +1567,24 @@ html.dark .token.entity,
 html.dark .token.url,
 html.dark .language-css .token.string,
 html.dark .style .token.string {
-  color: #60a5fa !important;
+  color: var(--code-operator, #79c0ff) !important;
 }
 
 html.dark .token.atrule,
 html.dark .token.attr-value,
 html.dark .token.keyword {
-  color: #a684ff !important;
+  color: var(--code-keyword, #79c0ff) !important;
 }
 
 html.dark .token.function,
 html.dark .token.class-name {
-  color: #fbbf24 !important;
+  color: var(--code-function, #d2a8ff) !important;
 }
 
 html.dark .token.regex,
 html.dark .token.important,
 html.dark .token.variable {
-  color: #fdc700 !important;
+  color: var(--code-variable, #ffa657) !important;
 }
 
 
@@ -2248,15 +2251,27 @@ html.dark .token.constant,
 html.dark .token.symbol,
 html.dark .token.deleted,
 [data-theme="dark"] .token.property,
+[data-theme="dark"] .token.tag,
+[data-theme="dark"] .token.constant,
+[data-theme="dark"] .token.symbol,
 [data-theme="dark-trae"] .token.property,
-[data-theme="dark-cool"] .token.property {
+[data-theme="dark-trae"] .token.tag,
+[data-theme="dark-trae"] .token.constant,
+[data-theme="dark-trae"] .token.symbol,
+[data-theme="dark-cool"] .token.property,
+[data-theme="dark-cool"] .token.tag,
+[data-theme="dark-cool"] .token.constant,
+[data-theme="dark-cool"] .token.symbol {
   color: var(--code-property) !important;
 }
 
 html.dark .token.boolean,
 html.dark .token.number,
+[data-theme="dark"] .token.boolean,
 [data-theme="dark"] .token.number,
+[data-theme="dark-trae"] .token.boolean,
 [data-theme="dark-trae"] .token.number,
+[data-theme="dark-cool"] .token.boolean,
 [data-theme="dark-cool"] .token.number {
   color: var(--code-number) !important;
 }
@@ -2265,12 +2280,19 @@ html.dark .token.selector,
 html.dark .token.attr-name,
 html.dark .token.string,
 html.dark .token.char,
-html.dark .token.builtin,
 html.dark .token.inserted,
 [data-theme="dark"] .token.string,
 [data-theme="dark-trae"] .token.string,
 [data-theme="dark-cool"] .token.string {
   color: var(--code-string) !important;
+}
+
+/* Built-in keywords & methods (Python print/len/dict/str etc.) - Clean Ice Blue */
+html.dark .token.builtin,
+[data-theme="dark"] .token.builtin,
+[data-theme="dark-trae"] .token.builtin,
+[data-theme="dark-cool"] .token.builtin {
+  color: var(--code-keyword) !important;
 }
 
 html.dark .token.operator,
@@ -2308,7 +2330,9 @@ html.dark .token.variable,
   color: var(--code-variable) !important;
 }
 
-/* 5. Specialized Language Refinements */
+/* 5. Specialized Language Refinements (Dark Mode) */
+
+/* 5.1 JSON Precision Highlighting */
 html.dark .language-json .token.property,
 [data-theme="dark"] .language-json .token.property,
 [data-theme="dark-trae"] .language-json .token.property,
@@ -2323,18 +2347,65 @@ html.dark .language-json .token.string,
   color: #a5d6ff !important;
 }
 
+/* 5.2 Python Precision Highlighting */
+html.dark .language-python .token.builtin,
+[data-theme="dark"] .language-python .token.builtin,
+[data-theme="dark-trae"] .language-python .token.builtin,
+[data-theme="dark-cool"] .language-python .token.builtin {
+  color: #79c0ff !important; /* print, len, dict, str, int, range in Ice Blue */
+}
+
+html.dark .language-python .token.decorator,
+html.dark .language-python .token.decorator .token.punctuation,
+html.dark .language-python .token.annotation,
+[data-theme="dark"] .language-python .token.decorator,
+[data-theme="dark"] .language-python .token.decorator .token.punctuation,
+[data-theme="dark"] .language-python .token.annotation,
+[data-theme="dark-trae"] .language-python .token.decorator,
+[data-theme="dark-trae"] .language-python .token.decorator .token.punctuation,
+[data-theme="dark-trae"] .language-python .token.annotation,
+[data-theme="dark-cool"] .language-python .token.decorator,
+[data-theme="dark-cool"] .language-python .token.decorator .token.punctuation,
+[data-theme="dark-cool"] .language-python .token.annotation {
+  color: #d2a8ff !important; /* Decorators in Function Purple */
+}
+
+html.dark .language-python .token.boolean,
+[data-theme="dark"] .language-python .token.boolean,
+[data-theme="dark-trae"] .language-python .token.boolean,
+[data-theme="dark-cool"] .language-python .token.boolean {
+  color: #79c0ff !important; /* True, False, None in Ice Blue */
+}
+
+/* 5.3 cURL / Bash Precision Highlighting */
 html.dark .language-bash .token.function,
+html.dark .language-bash .token.builtin,
 [data-theme="dark"] .language-bash .token.function,
+[data-theme="dark"] .language-bash .token.builtin,
 [data-theme="dark-trae"] .language-bash .token.function,
-[data-theme="dark-cool"] .language-bash .token.function {
-  color: #7ee787 !important;
+[data-theme="dark-trae"] .language-bash .token.builtin,
+[data-theme="dark-cool"] .language-bash .token.function,
+[data-theme="dark-cool"] .language-bash .token.builtin {
+  color: #79c0ff !important; /* curl, export, jq in Ice Blue (Command distinction) */
 }
 
 html.dark .language-bash .token.parameter,
+html.dark .language-bash .token.parameter .token.variable,
 [data-theme="dark"] .language-bash .token.parameter,
+[data-theme="dark"] .language-bash .token.parameter .token.variable,
 [data-theme="dark-trae"] .language-bash .token.parameter,
-[data-theme="dark-cool"] .language-bash .token.parameter {
-  color: #79c0ff !important;
+[data-theme="dark-trae"] .language-bash .token.parameter .token.variable,
+[data-theme="dark-cool"] .language-bash .token.parameter,
+[data-theme="dark-cool"] .language-bash .token.parameter .token.variable {
+  color: #ffa657 !important; /* CLI Flags (-X, -H, -d, --header, --url) in Warm Amber */
+}
+
+html.dark .language-bash .token.shebang,
+[data-theme="dark"] .language-bash .token.shebang,
+[data-theme="dark-trae"] .language-bash .token.shebang,
+[data-theme="dark-cool"] .language-bash .token.shebang {
+  color: #8b949e !important;
+  font-style: italic !important;
 }
 
 /* 6. Selection Highlight */

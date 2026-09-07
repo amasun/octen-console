@@ -8,17 +8,25 @@ const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&g
 window.PGS_hlCode = function(line) { return [{t:line, c:'#334155'}]; };
 window.PGS_hlJson = function(line) { return [{t:line, c:'#334155'}]; };
 
-window.PGS_codeBlock = function(code, hl) {
-  let lang = 'python'; // Default
-  const codeTrimmed = code.trim();
+window.PGS_codeBlock = function(code, hl, langOpt) {
+  let lang = typeof hl === 'string' ? hl : langOpt;
+  const codeTrimmed = (code || '').trim();
   
-  // Simple heuristic to detect language based on payload shape
-  if (codeTrimmed.startsWith('curl')) {
-    lang = 'bash';
-  } else if (codeTrimmed.startsWith('const ') || codeTrimmed.startsWith('let ') || codeTrimmed.includes('await fetch(')) {
-    lang = 'javascript';
-  } else if (codeTrimmed.startsWith('{') || codeTrimmed.startsWith('[')) {
-    lang = 'json';
+  if (lang) {
+    if (lang === 'curl') lang = 'bash';
+    else if (lang === 'js') lang = 'javascript';
+    else if (lang === 'py') lang = 'python';
+  } else {
+    // Simple heuristic to detect language based on payload shape
+    if (codeTrimmed.startsWith('curl')) {
+      lang = 'bash';
+    } else if (codeTrimmed.startsWith('const ') || codeTrimmed.startsWith('let ') || codeTrimmed.includes('await fetch(') || codeTrimmed.includes('console.log')) {
+      lang = 'javascript';
+    } else if (codeTrimmed.startsWith('{') || codeTrimmed.startsWith('[')) {
+      lang = 'json';
+    } else {
+      lang = 'python';
+    }
   }
 
   let highlighted = '';

@@ -45,9 +45,19 @@
   - **高度规范**: 单行高度严格统一为 `36px`（`box-sizing: border-box; line-height: 34px; padding: 0 12px;`），多行 `textarea` 保留弹性自适应高度。
   - **无文字溢出**: 基于 `14px` 正文字体 `DM Sans` 计算基准线，上下垂直居中且留有充足行高余量，彻底消除文字上下被截断（clipping）或溢出容器的问题。
   - **去除浏览器上下箭头**: 全局应用 `-webkit-appearance: none;` 及 `-moz-appearance: textfield;`，彻底去除 Chrome/Edge/Firefox 等内置数字输入框的右侧上下步进箭头（spin buttons）。
-- **Syntax Highlighting (代码区域色彩规范)**:
+- **Syntax Highlighting (代码区域全语言色彩优化与规范)**:
   - **浅色模式**: 完整保持原生代码高亮体系不变（Prism/GitHub 原生规范）。
-  - **双暗色模式（Octen Dark & TraeWork Dark）**: 关键字（`const`, `await`）、对象属性名（`method`, `headers`, `body`）、数字与常量全面采用 VS Code / GitHub 经典的**清透冰蓝（`#79c0ff`）**，操作符同样对齐冰蓝 `#79c0ff`，彻底消除红色的紧张与报错感，视觉平稳温和且具有现代编辑器的高级质感。
+  - **全暗色主题（Octen Dark, TraeWork Dark, Trae Cool Dark）多语言全覆盖**:
+    - **通用基底**: 关键字（`const`, `import`, `def`）、常量/布尔（`True`, `False`, `null`）与操作符全面采用 VS Code / GitHub 经典的**清透冰蓝（`#79c0ff`）**，彻底消除红色（`#cf222e`/`#ff7b72`）带来的报错感与视觉紧张。
+    - **JavaScript / TypeScript**: 关键字为清透冰蓝 `#79c0ff`，对象属性键名（`method`, `headers`, `body`）为 `#79c0ff`，函数与 API 调用（`fetch`, `json`）为优雅浅紫 `#d2a8ff`，字符串为浅绿 `#7ee787`。
+    - **Python 专项精细优化**:
+      - 修复内置函数/类型（`print`, `len`, `dict`, `str`, `int`, `range` 等 `.token.builtin`）此前被误染为字符串绿色的问题，统一重定为清透冰蓝 `#79c0ff`；
+      - 装饰器（`@retry`, `@app.route`）指定为函数浅紫 `#d2a8ff`；布尔值 `True`/`False`/`None` 在所有暗色主题下完整覆盖冰蓝 `#79c0ff`。
+    - **cURL / Bash 专项精细优化**:
+      - 修复此前 `curl`、`export`、`jq` 等命令行函数被染为绿色的问题，将命令主体指定为标志性冰蓝 `#79c0ff`，与普通字符串产生明确命令层级；
+      - 参数标识符（`-X`, `-H`, `-d`, `--header`, `--url`）统一呈现为温暖琥珀色（`#ffa657`），与后接字符串或参数值层次分明；
+      - 续行反斜杠 `\` 保持精致沉着标点银灰 `#c9d1d9`，Shebang（`#!/bin/bash`）呈现斜体沉浸注释灰 `#8b949e`。
+    - **JSON 专项精细优化**: 键名（Key）保持清透冰蓝 `#79c0ff`，字符串值（Value）采用柔和天蓝 `#a5d6ff`，数值/布尔为冰蓝 `#79c0ff`。
 
 - **Composite Query Boxes (`#bsa-query-box`, `#ws-query-box`, `*-dz`)**:
   - **动态置灰交互**: 在 Query 输入框无文字时，执行按钮 `[▷ Run]` 与重置按钮 `[⟳ Clear]` 自动处于置灰不可用状态（`opacity-50 cursor-not-allowed`，`disabled`）；输入文字或选择建议词后自动激活为高亮可用状态。
