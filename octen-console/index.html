@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@300..700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=18">
+  <link rel="stylesheet" href="css/styles.css?v=19">
   <script>
     (function() {
       try {
@@ -20,18 +20,15 @@
         if (saved === 'system') {
           effective = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
         }
-        if (effective === 'dark-cool') {
-          document.documentElement.classList.add('dark', 'theme-cool');
-          document.documentElement.setAttribute('data-theme', 'dark-cool');
-        } else if (effective === 'dark-trae') {
+        if (effective === 'dark-trae') {
           document.documentElement.classList.add('dark', 'theme-trae');
           document.documentElement.setAttribute('data-theme', 'dark-trae');
-        } else if (effective === 'dark') {
+        } else if (effective === 'dark' || effective === 'dark-cool') {
           document.documentElement.classList.add('dark');
-          document.documentElement.classList.remove('theme-trae', 'theme-cool');
+          document.documentElement.classList.remove('theme-trae');
           document.documentElement.setAttribute('data-theme', 'dark');
         } else {
-          document.documentElement.classList.remove('dark', 'theme-trae', 'theme-cool');
+          document.documentElement.classList.remove('dark', 'theme-trae');
           document.documentElement.setAttribute('data-theme', 'light');
         }
       } catch(e){}
@@ -63,7 +60,7 @@
   <script src="js/core/split-handle.js?v=13"></script>
   <script src="js/core/ui-access.js?v=13"></script>
   <script src="js/core/ui-state.js?v=13"></script>
-  <script src="js/core/theme.js?v=15"></script>
+  <script src="js/core/theme.js?v=16"></script>
   <!-- page behaviors + shared modules (load order preserved from prototype) -->
   <script src="js/pages/model-gateway/index.js?v=13"></script>
   <script src="js/shared/models.js?v=13"></script>
@@ -78,7 +75,7 @@
   <script src="js/core/modals.js?v=13"></script>
   <!-- router (defines registerPage/pageInit contract used by templates below) -->
   <script src="js/core/app.js?v=13"></script>
-  <script src="js/core/sidebar.js?v=13"></script>
+  <script src="js/core/sidebar.js?v=14"></script>
   <!-- page templates -->
   <script src="js/pages/overview/template.js?v=15"></script>
   <script src="js/pages/overview/index.js?v=13"></script>

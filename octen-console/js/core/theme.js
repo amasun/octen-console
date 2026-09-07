@@ -11,7 +11,7 @@
     var effective = getEffectiveTheme(mode);
 
     // 1. Update left-bottom popup card buttons
-    ['light', 'dark', 'dark-trae', 'dark-cool', 'system'].forEach(function(m) {
+    ['light', 'dark', 'dark-trae', 'system'].forEach(function(m) {
       var btn = document.getElementById('btn-theme-' + m);
       if (!btn) return;
       var isActive = (m === mode);
@@ -25,7 +25,7 @@
     });
 
     // 2. Update direct sidebar [DEV] Theme buttons
-    ['light', 'dark', 'dark-trae', 'dark-cool'].forEach(function(m) {
+    ['light', 'dark', 'dark-trae'].forEach(function(m) {
       var btn = document.getElementById('dev-theme-btn-' + m);
       if (!btn) return;
       var isActive = (m === mode) || (mode === 'system' && m === effective);
@@ -42,16 +42,14 @@
     var tag = document.getElementById('dev-theme-name-tag');
     var dot = document.getElementById('dev-theme-indicator-dot');
     if (tag) {
-      if (mode === 'dark-cool') {
-        tag.textContent = 'Trae Cool (10% 冷色)';
-      } else if (mode === 'dark-trae') {
+      if (mode === 'dark-trae') {
         tag.textContent = 'Trae Dark';
       } else if (mode === 'dark') {
         tag.textContent = 'Octen Dark';
       } else if (mode === 'light') {
         tag.textContent = 'Light';
       } else {
-        var effLabel = effective === 'dark-cool' ? 'Cool' : (effective === 'dark-trae' ? 'Trae' : (effective === 'dark' ? 'Dark' : 'Light'));
+        var effLabel = effective === 'dark-trae' ? 'Trae' : (effective === 'dark' ? 'Dark' : 'Light');
         tag.textContent = 'System (' + effLabel + ')';
       }
     }
@@ -65,6 +63,7 @@
   }
 
   window.setThemeMode = function(mode) {
+    if (mode === 'dark-cool') mode = 'dark';
     try {
       localStorage.setItem('octen-theme', mode);
     } catch(e) {}
@@ -72,11 +71,7 @@
     var effective = getEffectiveTheme(mode);
     var html = document.documentElement;
 
-    if (effective === 'dark-cool' || mode === 'dark-cool') {
-      html.classList.add('dark', 'theme-cool');
-      html.classList.remove('theme-trae');
-      html.setAttribute('data-theme', 'dark-cool');
-    } else if (effective === 'dark-trae' || mode === 'dark-trae') {
+    if (effective === 'dark-trae' || mode === 'dark-trae') {
       html.classList.add('dark', 'theme-trae');
       html.classList.remove('theme-cool');
       html.setAttribute('data-theme', 'dark-trae');
