@@ -1888,19 +1888,19 @@ html.dark.theme-trae .token.variable {
    Code & Syntax Highlighting System (Dual-Theme Engine)
    ========================================================================== */
 
-/* 1. Base Code Styling Tokens */
+/* 1. Base Code Styling Tokens (Light Theme Unchanged) */
 :root, [data-theme="light"] {
   --code-base: #0a0a0a;
   --code-bg: rgba(245, 245, 245, 0.5);
   --code-numbers: #a3a3a3;
-  --code-keyword: #0969da;
+  --code-keyword: #cf222e;
   --code-string: #0a7a3c;
   --code-function: #8250df;
   --code-number: #0550ae;
   --code-property: #0550ae;
   --code-comment: #6e7781;
   --code-punctuation: #57606a;
-  --code-operator: #57606a;
+  --code-operator: #cf222e;
   --code-variable: #953800;
 }
 
@@ -1915,7 +1915,7 @@ html.dark, [data-theme="dark"] {
   --code-property: #79c0ff;
   --code-comment: #8b949e;
   --code-punctuation: #c9d1d9;
-  --code-operator: #c9d1d9;
+  --code-operator: #79c0ff;
   --code-variable: #ffa657;
 }
 
@@ -1932,7 +1932,7 @@ html.theme-trae,
   --code-property: #79c0ff;
   --code-comment: #8b949e;
   --code-punctuation: #c9d1d9;
-  --code-operator: #c9d1d9;
+  --code-operator: #79c0ff;
   --code-variable: #ffa657;
 }
 
