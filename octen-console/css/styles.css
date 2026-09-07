@@ -205,12 +205,12 @@ html.dark,
 
   /* 背景与表面 Background & Surfaces (Neutral 阶梯) */
   --shell: #141414;                     /* 外层及侧边栏底色、workspace 背景 */
-  --background: #1e1e1e;                /* 主工作区底色 */
-  --surface: #1e1e1e;                   /* 主卡片表面 */
+  --background: #1a1a1a;                /* 主工作区底色 */
+  --surface: #1a1a1a;                   /* 主卡片表面 */
   --surface-subtle: rgba(212, 212, 212, 0.06); /* 输入框/次级卡片 */
   --surface-muted: rgba(212, 212, 212, 0.08);  /* 选中项/微高亮 */
   --surface-strong: #2a2a2a;
-  --card: #1e1e1e;                      /* 工作台主卡片 */
+  --card: #1a1a1a;                      /* 工作台主卡片 */
   --popover: #1c1c1c;                   /* 弹出层与浮动菜单 */
   --surface-inverse: #FFFFFF;
   --background-inverse: #F5F5F5;
@@ -1090,11 +1090,11 @@ html.dark .bg-workspace,
   background: var(--shell) !important;
 }
 
-/* Layout Panes & Surfaces (新方案：暗色模式下主卡片 #1e1e1e，边框微量区分) */
+/* Layout Panes & Surfaces (新方案：暗色模式下主卡片 #1a1a1a，边框微量区分) */
 html.dark .layout-pane,
 [data-theme="dark"] .layout-pane,
 [data-theme="dark-trae"] .layout-pane {
-  background: #1e1e1e !important;
+  background: #1a1a1a !important;
   border-color: rgba(255, 255, 255, 0.07) !important;
   border-radius: 14px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
