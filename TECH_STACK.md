@@ -54,8 +54,12 @@
   - **动态置灰交互**: 在 Query 输入框无文字时，执行按钮 `[▷ Run]` 与重置按钮 `[⟳ Clear]` 自动处于置灰不可用状态（`opacity-50 cursor-not-allowed`，`disabled`）；输入文字或选择建议词后自动激活为高亮可用状态。
   - **暗色模式父级高亮聚焦规范**: 双暗色模式（Octen Dark & TraeWork Dark）下彻底解除内层 `<textarea>` 的默认高亮边框和外阴影（`border: none !important; outline: none !important; box-shadow: none !important;`），将焦点聚焦反馈统一提升至最外层父容器边框（`focus-within` 响应 `var(--primary)` 与精细发光外圈），实现浑然一体的现代输入卡片质感。
 
+- **Main Card Layout Pane in Dark Mode (`.layout-pane` 主面板卡片暗色层级规范)**:
+  - **背景与边框同色规范**: 暗色模式下，所有主面板卡片容器 `.layout-pane` 的背景色与边框色完全同色（`border-color: var(--surface) !important`，Octen Dark 下为 `#0f1319`，Trae Dark 下为 `#171717`），消除生硬突兀的边框描边线条，让主面板卡片依托外层工作台底色 `--shell`（`#05070b` / `#141414`）自然衬托沉浸质感。
+
 - **Overview Dashboard & Subcard Interactions (Overview 子卡片悬浮与暗色层级规范)**:
   - **暗色模式 Hover 高亮绿边框 (`.ov-card`)**: 悬浮至 API、Application、Getting Started 及 Built with MCP 等所有子卡片时，边框统一高亮为标志性翡翠绿（`border-color: var(--primary) !important`，暗色下解析为 `#60ff70`），并伴随柔和外发光微投影（`box-shadow: 0 0 0 1px var(--primary-muted), 0 8px 24px -4px rgba(0, 0, 0, 0.45)`），右上角交互箭头同步点亮为高亮绿。亮色模式下优雅过渡至品牌绿 `#039855`。
   - **API & Application 子卡片背景与边框同色灰度阶梯 (`.ov-api-card`, `.ov-app-card`)**: 暗色模式下，主卡片背景为 `--surface`，8 个 API 子卡片及 4 个 Application 子卡片统一采用设计系统标准灰度 Token `--neutral-100`（明显亮于主卡片背景：Dark 下为 `#1f242d`，Trae 下为 `#202020`）；默认状态下卡片外边框与卡片背景完全同色（`border-color: var(--neutral-100) !important`），呈现极简无缝的块面层级，并在 Hover 时平滑点亮高亮绿边框。
+
 
 
