@@ -1605,14 +1605,14 @@ html.theme-trae,
   --primary-tint-soft: hsl(111 60% 62%);
 
   /* 背景与表面 Background & Surfaces (TraeWork / work.trae.cn Neutral 阶梯) */
-  --shell: #262626;                     /* 外层及侧边栏底色 (--bg-invert) */
+  --shell: #141414;                     /* 外层及侧边栏底色、workspace 背景 */
   --background: #171717;                /* 主工作区底色 (--bg-invert-active) */
   --surface: #171717;                   /* 主卡片表面 (--bg-invert-active) */
   --surface-subtle: rgba(212, 212, 212, 0.06); /* 输入框/次级卡片 (--bg-overlay-l2) */
   --surface-muted: rgba(212, 212, 212, 0.08);  /* 选中项/微高亮 (--bg-overlay-l3) */
-  --surface-strong: #303030;
+  --surface-strong: #242424;
   --card: #171717;                      /* 工作台主卡片 */
-  --popover: #202020;                   /* 弹出层与浮动菜单 (--bg-card) */
+  --popover: #1c1c1c;                   /* 弹出层与浮动菜单 (--bg-card) */
   --surface-inverse: #FFFFFF;
   --background-inverse: #F5F5F5;
 
@@ -1636,10 +1636,10 @@ html.theme-trae,
   --neutral-border: rgba(229, 229, 229, 0.14);
 
   /* 中性色 Neutrals (TraeWork Neutral 阶梯) */
-  --neutral-50: #202020;
-  --neutral-100: #262626;
-  --neutral-200: #333333;
-  --neutral-300: #404040;
+  --neutral-50: #1a1a1a;
+  --neutral-100: #202020;
+  --neutral-200: #2c2c2c;
+  --neutral-300: #3a3a3a;
   --neutral-muted: #737373;
   --neutral-foreground: #A1A1A1;
   --neutral-overlay: rgba(212, 212, 212, 0.06);
@@ -1702,7 +1702,7 @@ html.theme-trae,
   --chart-total: #A1A1A1;
   --chart-grid: rgba(229, 229, 229, 0.08);
   --chart-axis: #737373;
-  --chart-cursor: #262626;
+  --chart-cursor: #202020;
   --chart-tooltip-bg: #202020;
   --chart-tooltip-border: rgba(229, 229, 229, 0.12);
   --chart-tooltip-label: #FAFAFA;
@@ -1722,7 +1722,7 @@ html.theme-trae,
 
   --color-base-00: #171717;
   --color-base-05: #202020;
-  --color-base-10: #262626;
+  --color-base-10: #141414;
   --color-base-20: rgba(229, 229, 229, 0.1);
   --color-base-25: rgba(229, 229, 229, 0.16);
   --color-base-30: rgba(229, 229, 229, 0.2);
@@ -1745,12 +1745,26 @@ html.theme-trae,
 }
 
 /* TraeWork Specific UI Refinements */
-html.dark.theme-trae .ribbon {
-  background: var(--shell) !important;
+html.dark.theme-trae body,
+html.dark.theme-trae .app,
+html.dark.theme-trae .workspace,
+html.dark.theme-trae .bg-workspace,
+[data-theme="dark-trae"] body,
+[data-theme="dark-trae"] .app,
+[data-theme="dark-trae"] .workspace,
+[data-theme="dark-trae"] .bg-workspace {
+  background: #141414 !important;
+}
+
+html.dark.theme-trae .ribbon,
+[data-theme="dark-trae"] .ribbon,
+html.theme-trae .ribbon {
+  background: #141414 !important;
   border-right: none !important;
 }
 
-html.dark.theme-trae .layout-pane {
+html.dark.theme-trae .layout-pane,
+[data-theme="dark-trae"] .layout-pane {
   background: #171717 !important;
   border-color: rgba(229, 229, 229, 0.1) !important;
   border-radius: 14px;
@@ -2020,18 +2034,18 @@ html.dark #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white)
 
 /* TraeWork Dev Switcher Overrides */
 html.dark.theme-trae #dev-theme-container {
-  background: #262626 !important;
+  background: #1c1c1c !important;
   border-color: rgba(229, 229, 229, 0.1) !important;
 }
 
 html.dark.theme-trae #dev-theme-container #dev-theme-bar {
-  background: #171717 !important;
+  background: #141414 !important;
   border-color: rgba(229, 229, 229, 0.1) !important;
 }
 
 html.dark.theme-trae #dev-theme-container #dev-theme-bar button.active,
 html.dark.theme-trae #dev-theme-container #dev-theme-bar button.bg-white {
-  background: #333333 !important;
+  background: #2a2a2a !important;
   color: #FAFAFA !important;
   border: 1px solid rgba(229, 229, 229, 0.16);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
@@ -2047,7 +2061,7 @@ html.dark.theme-trae #dev-theme-container #dev-theme-bar button:not(.active):not
 
 /* Demo Card Theme Row in TraeWork Dark */
 html.dark.theme-trae #theme-segmented-group {
-  background: #262626 !important;
+  background: #1c1c1c !important;
   border-color: rgba(229, 229, 229, 0.1) !important;
 }
 

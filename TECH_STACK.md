@@ -22,7 +22,7 @@
   - `js/core/sidebar.js`: 侧边栏布局与交互（包含左上角品牌 Logo 支持暗色下动态渲染 `--primary-dark`、底部直出 4 格开发模式主题切换栏 `[DEV] Theme` 及账号弹出卡片）。
   - `js/core/theme.js`: 主题状态管理模块（支持 `light`、`dark` (Octen)、`dark-trae` (Trae)、`dark-cool` (Trae Cool 10% 冷色) 与 `system` 多模式切换、持久化储存与无缝样式派发）。
 - `theme/`: Octen Console 现行主题规范与抽象颜色 Token（Cult UI 4 阶灰 + 翡翠绿体系，含可视化对照色卡 `theme-color.html`）。
-- `TraeWork/`: TraeWork 设计系统与规范参考（指导 Octen Console 第三颜色模式 `dark-trae`，基于 `work.trae.cn` 的中性黑阶 `#171717` / `#262626`、纯白微透边框 `rgba(229,229,229,0.1)` 及中性排版梯度，同时完整保留当前暗色模式的高对比翡翠绿主色 `--primary: #60ff70`）。
+- `TraeWork/`: TraeWork 设计系统与规范参考（指导 Octen Console 第三颜色模式 `dark-trae`，侧边栏与外层 workspace 背景统一采用纯粹深邃的 `#141414`，主卡片面板采用 `#171717`，纯白微透边框 `rgba(229,229,229,0.1)` 及中性排版梯度，同时完整保留当前暗色模式的高对比翡翠绿主色 `--primary: #60ff70`）。
 - **Theme 4: Trae Cool (10% 冷色中和暗色主题)**:
   - **设计理念**: 以 `work.trae.cn` 的纯粹炭黑梯阶和通透现代架构为基底（占比 90%），中和 Octen 的深海蓝调，**适度注入约 10% 的冷色钛灰调（Cool Slate / Titanium Grey）**。
   - **核心色阶公式**:
