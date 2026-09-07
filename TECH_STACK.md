@@ -65,6 +65,6 @@
 
 - **Overview Dashboard & Subcard Interactions (Overview 子卡片悬浮与暗色层级规范)**:
   - **暗色模式 Hover 高亮绿边框 (`.ov-card`)**: 悬浮至 API、Application、Getting Started 及 Built with MCP 等所有子卡片时，边框统一高亮为标志性翡翠绿（`border-color: var(--primary) !important`，暗色下解析为 `#60ff70`），并伴随柔和外发光微投影（`box-shadow: 0 0 0 1px var(--primary-muted), 0 8px 24px -4px rgba(0, 0, 0, 0.45)`），右上角交互箭头同步点亮为高亮绿。亮色模式下优雅过渡至品牌绿 `#039855`。
-  - **API & Application 子卡片背景灰度阶梯 (`.ov-api-card`, `.ov-app-card`)**: 暗色模式下，主卡片背景为 `--surface`，8 个 API 子卡片及 4 个 Application 子卡片统一采用设计系统标准灰度 Token `--neutral-100`（明显亮于主卡片背景：Dark 下为 `#1f242d`，Trae 下为 `#202020`，Trae Cool 下为 `#22252a`），构建出清晰立体、秩序严密的 Cult UI 灰度质感。
+  - **API & Application 子卡片背景与边框同色灰度阶梯 (`.ov-api-card`, `.ov-app-card`)**: 暗色模式下，主卡片背景为 `--surface`，8 个 API 子卡片及 4 个 Application 子卡片统一采用设计系统标准灰度 Token `--neutral-100`（明显亮于主卡片背景：Dark 下为 `#1f242d`，Trae 下为 `#202020`，Trae Cool 下为 `#22252a`）；默认状态下卡片外边框与卡片背景完全同色（`border-color: var(--neutral-100) !important`），呈现极简无缝的块面层级，并在 Hover 时平滑点亮高亮绿边框。
 
 

@@ -531,7 +531,7 @@ html, body {
 }
 
 /* ==========================================================================
-   Overview Page Sub-cards Styling (Hover Green Border & API Subcard BG)
+   Overview Page Sub-cards Styling (Hover Green Border & Subcard BG/Border)
    ========================================================================== */
 
 /* Overview Sub-cards Base Transitions */
@@ -539,21 +539,7 @@ html, body {
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
 }
 
-/* Light Mode Sub-cards Hover: Brand Green Border */
-#page-overview .ov-card:hover {
-  border-color: var(--primary) !important;
-}
-
-/* Dark Mode Sub-cards Hover: Bright Green Highlight Border + Subtle Glow */
-html.dark #page-overview .ov-card:hover,
-[data-theme="dark"] #page-overview .ov-card:hover,
-[data-theme="dark-trae"] #page-overview .ov-card:hover,
-[data-theme="dark-cool"] #page-overview .ov-card:hover {
-  border-color: var(--primary) !important; /* #60ff70 高亮绿 */
-  box-shadow: 0 0 0 1px var(--primary-muted), 0 8px 24px -4px rgba(0, 0, 0, 0.45) !important;
-}
-
-/* Overview Sub-card Background (API & Application): In dark mode, use a gray token brighter than main card surface */
+/* Overview Sub-card Background & Border (API & Application): In dark mode, use gray token brighter than main card surface, and border matches background */
 #page-overview .ov-api-card,
 #page-overview .ov-app-card {
   background-color: #ffffff;
@@ -563,18 +549,43 @@ html.dark #page-overview .ov-app-card,
 [data-theme="dark"] #page-overview .ov-api-card,
 [data-theme="dark"] #page-overview .ov-app-card {
   background-color: var(--neutral-100) !important; /* #1f242d, 明显亮于主卡片 --surface #0f1319 */
+  border-color: var(--neutral-100) !important;
 }
 html.dark.theme-trae #page-overview .ov-api-card,
 html.dark.theme-trae #page-overview .ov-app-card,
 [data-theme="dark-trae"] #page-overview .ov-api-card,
 [data-theme="dark-trae"] #page-overview .ov-app-card {
   background-color: var(--neutral-100) !important; /* #202020, 明显亮于主卡片 #171717 */
+  border-color: var(--neutral-100) !important;
 }
 html.dark.theme-cool #page-overview .ov-api-card,
 html.dark.theme-cool #page-overview .ov-app-card,
 [data-theme="dark-cool"] #page-overview .ov-api-card,
 [data-theme="dark-cool"] #page-overview .ov-app-card {
   background-color: var(--neutral-100) !important; /* #22252a, 明显亮于主卡片 #15171c */
+  border-color: var(--neutral-100) !important;
+}
+
+/* Light Mode Sub-cards Hover: Brand Green Border */
+#page-overview .ov-card:hover {
+  border-color: var(--primary) !important;
+}
+
+/* Dark Mode Sub-cards Hover: Bright Green Highlight Border + Subtle Glow */
+html.dark #page-overview .ov-card:hover,
+html.dark #page-overview .ov-api-card:hover,
+html.dark #page-overview .ov-app-card:hover,
+[data-theme="dark"] #page-overview .ov-card:hover,
+[data-theme="dark"] #page-overview .ov-api-card:hover,
+[data-theme="dark"] #page-overview .ov-app-card:hover,
+[data-theme="dark-trae"] #page-overview .ov-card:hover,
+[data-theme="dark-trae"] #page-overview .ov-api-card:hover,
+[data-theme="dark-trae"] #page-overview .ov-app-card:hover,
+[data-theme="dark-cool"] #page-overview .ov-card:hover,
+[data-theme="dark-cool"] #page-overview .ov-api-card:hover,
+[data-theme="dark-cool"] #page-overview .ov-app-card:hover {
+  border-color: var(--primary) !important; /* #60ff70 高亮绿 */
+  box-shadow: 0 0 0 1px var(--primary-muted), 0 8px 24px -4px rgba(0, 0, 0, 0.45) !important;
 }
 
 /* Dark mode: Arrow icon in API sub-card changes to bright green on hover */
