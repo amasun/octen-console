@@ -36,10 +36,13 @@
   - **高度规范**: 单行高度严格统一为 `36px`（`box-sizing: border-box; line-height: 34px; padding: 0 12px;`），多行 `textarea` 保留弹性自适应高度。
   - **无文字溢出**: 基于 `14px` 正文字体 `DM Sans` 计算基准线，上下垂直居中且留有充足行高余量，彻底消除文字上下被截断（clipping）或溢出容器的问题。
   - **去除浏览器上下箭头**: 全局应用 `-webkit-appearance: none;` 及 `-moz-appearance: textfield;`，彻底去除 Chrome/Edge/Firefox 等内置数字输入框的右侧上下步进箭头（spin buttons）。
-
 - **Syntax Highlighting (JavaScript 代码区域现代蓝色调)**:
   - **告别红色警戒感**: 将原先沿袭自 GitHub 传统的保留关键字（`const`, `await`, `async`）和对象属性键名从易引起“报错错觉”的红色调（`#cf222e` / `#ff7b72`）全面转向现代编辑器标准蓝色调。
   - **浅色模式**: 关键字采用深天蓝 `#0969da`，操作符收敛为中性灰 `#57606a`，属性名采用 `#0284c7`。
   - **暗色模式（Octen & TraeWork）**: 关键字与属性名统一采用 VS Code / GitHub 冰蓝 `#79c0ff`，操作符为中性灰 `#c9d1d9`，构建柔和、理智、高可读的代码视觉体系。
+
+- **Composite Query Boxes (`#bsa-query-box`, `#ws-query-box`, `*-dz`)**:
+  - **动态置灰交互**: 在 Query 输入框无文字时，执行按钮 `[▷ Run]` 与重置按钮 `[⟳ Clear]` 自动处于置灰不可用状态（`opacity-50 cursor-not-allowed`，`disabled`）；输入文字或选择建议词后自动激活为高亮可用状态。
+  - **暗色模式父级高亮聚焦规范**: 双暗色模式（Octen Dark & TraeWork Dark）下彻底解除内层 `<textarea>` 的默认高亮边框和外阴影（`border: none !important; outline: none !important; box-shadow: none !important;`），将焦点聚焦反馈统一提升至最外层父容器边框（`focus-within` 响应 `var(--primary)` 与精细发光外圈），实现浑然一体的现代输入卡片质感。
 
 

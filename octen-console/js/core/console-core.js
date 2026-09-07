@@ -1918,7 +1918,13 @@ function wsRun() {
     wsRespTab('preview');
   }, 800);
 }
-function wsClear() { const q=document.getElementById('ws-query'); if(q) q.value=''; }
+function wsClear() {
+  const q = document.getElementById('ws-query');
+  if (q) q.value = '';
+  if (window.wsUpdateBtns) window.wsUpdateBtns();
+  if (window.wsRefreshCode) window.wsRefreshCode();
+  if (q) q.focus();
+}
 
 // ── Extract API ───────────────────────────────────────────────────
 let exCurrentLang = 'py';

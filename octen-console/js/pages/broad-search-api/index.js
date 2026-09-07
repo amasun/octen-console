@@ -167,12 +167,38 @@
     $('bsa-rt-json').className = t === 'json' ? activeCls : inactiveCls;
     renderRespBody();
   };
+  function bsaUpdateBtns(){
+    const q = $('bsa-query');
+    const hasText = !!(q && q.value.trim().length > 0);
+    const runBtn = $('bsa-run-btn');
+    const clearBtn = $('bsa-clear-btn');
+    if(runBtn){
+      runBtn.disabled = !hasText;
+      runBtn.classList.toggle('opacity-50', !hasText);
+      runBtn.classList.toggle('cursor-not-allowed', !hasText);
+    }
+    if(clearBtn){
+      clearBtn.disabled = !hasText;
+      clearBtn.classList.toggle('opacity-50', !hasText);
+      clearBtn.classList.toggle('cursor-not-allowed', !hasText);
+    }
+  }
+  window.bsaUpdateBtns = bsaUpdateBtns;
+
   window.bsaRun=function(){
     const p=readParams();
     if(!p.query){ $('bsa-query').focus(); return; }
     refreshCode(); bsaTab('response'); lastResp=buildResponse(p); renderRespBody();
   };
-  window.bsaClear=function(){ $('bsa-query').value=''; lastResp=null; refreshCode(); renderEmpty(); };
+  window.bsaClear=function(){
+    const q = $('bsa-query');
+    if(q) q.value='';
+    bsaUpdateBtns();
+    lastResp=null;
+    refreshCode();
+    renderEmpty();
+    if(q) q.focus();
+  };
   window.bsaToggleResult=function(i){ const el=$('bsa-r-'+i); const ch=$('bsa-c-'+i); if(!el)return; const btn=el.previousElementSibling; const open=el.style.display!=='none'; el.style.display=open?'none':'block'; if(ch)ch.style.transform=open?'':'rotate(180deg)'; if(btn){ btn.classList.toggle('bg-[#f5f5f5]',!open); btn.classList.toggle('bg-white',open); } };
 
   function renderEmpty(){ $('bsa-meta').textContent=''; $('bsa-resp-body').innerHTML=`<div class="flex-1 flex flex-col items-center justify-center py-12 text-[#a3a3a3]">
@@ -246,17 +272,24 @@
     $('bsa-resp-body').innerHTML=renderFigmaPreview();
   }
 
-  // keep request code in sync with param edits
-  document.addEventListener('input',function(e){ if(e.target.closest&&e.target.closest('#page-broad-search-api')) refreshCode(); });
+  // keep request code and buttons in sync with param edits
+  document.addEventListener('input',function(e){
+    if(e.target.closest&&e.target.closest('#page-broad-search-api')){
+      bsaUpdateBtns();
+      refreshCode();
+    }
+  });
   document.addEventListener('change',function(e){ if(e.target.closest&&e.target.closest('#page-broad-search-api')) refreshCode(); });
 
   // SPA lifecycle: render the code panel after the page DOM is injected.
   window.pageInit = window.pageInit || {};
   window.pageInit['broad-search-api'] = function(){ 
     window.bsaSetLang('python'); 
+    bsaUpdateBtns();
     if($('bsa-code'))refreshCode();
     const inp = $('bsa-query'); 
     if(inp){ 
+      inp.addEventListener('input', bsaUpdateBtns);
       const EX=['compare frontier AI models in 2026','latest trends in the global AI chip market','best practices and pitfalls of RAG in production'];
       let ph=0, ch=0, del=false; 
       if(window.bsaTypeTimer) clearTimeout(window.bsaTypeTimer);

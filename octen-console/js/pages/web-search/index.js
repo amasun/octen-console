@@ -111,10 +111,32 @@
     window.addEventListener('scroll',()=>{ if(dd.style.display!=='none')pos(); },true);
   };
 
+  function wsUpdateBtns(){
+    const q = $('ws-query');
+    const hasText = !!(q && q.value.trim().length > 0);
+    const runBtn = $('ws-run-btn');
+    const clearBtn = $('ws-clear-btn');
+    if(runBtn){
+      runBtn.disabled = !hasText;
+      runBtn.classList.toggle('opacity-50', !hasText);
+      runBtn.classList.toggle('cursor-not-allowed', !hasText);
+    }
+    if(clearBtn){
+      clearBtn.disabled = !hasText;
+      clearBtn.classList.toggle('opacity-50', !hasText);
+      clearBtn.classList.toggle('cursor-not-allowed', !hasText);
+    }
+  }
+  window.wsUpdateBtns = wsUpdateBtns;
+
   window.pageInit = window.pageInit || {};
   window.pageInit['web-search'] = function(){ 
     const tb=document.querySelector('.ws-tb[data-b="auto"]'); if(tb)tb.classList.add('on'); 
-    const wq=document.getElementById('ws-query'); if(wq)wq.addEventListener('input',wsRefreshCode); 
+    wsUpdateBtns();
+    const wq=document.getElementById('ws-query'); 
+    if(wq){
+      wq.addEventListener('input',()=>{ wsUpdateBtns(); wsRefreshCode(); });
+    }
     if($('ws-code'))wsRefreshCode(); 
     if(wq) window.attachSuggest(wq, EXAMPLES, ()=>{ wq.dispatchEvent(new Event('input',{bubbles:true})); }, document.getElementById('ws-query-box'));
     const bq=document.getElementById('bsa-query'); if(bq) window.attachSuggest(bq, ['What are AI agents actually being used for in production?','NVIDIA vs AMD stock performance','What are the most promising AI startups to watch right now?'], ()=>{ bq.dispatchEvent(new Event('input',{bubbles:true})); }, document.getElementById('bsa-query-box'));

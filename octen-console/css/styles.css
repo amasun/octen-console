@@ -1200,11 +1200,58 @@ html.dark textarea::placeholder {
 
 html.dark input:focus-visible,
 html.dark select:focus-visible,
-html.dark textarea:focus-visible,
+html.dark textarea:not(.border-0):not(.border-none):not(#bsa-query):not(#ws-query):focus-visible,
 html.dark .ui-input:focus,
 html.dark .ui-input:focus-within,
 html.dark .ui-select:focus,
 html.dark .pgs-f:focus-visible {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 1px var(--primary) !important;
+}
+
+/* Query Box Containers & Internal Textarea Focus Control (Light & Both Dark Modes) */
+#bsa-query,
+#ws-query,
+#bsa-query-box textarea,
+#ws-query-box textarea,
+[id$="-dz"] textarea,
+textarea.border-0,
+textarea.border-none {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+html.dark #bsa-query,
+html.dark #ws-query,
+html.dark #bsa-query-box textarea,
+html.dark #ws-query-box textarea,
+html.dark [id$="-dz"] textarea,
+[data-theme="dark"] #bsa-query,
+[data-theme="dark"] #ws-query,
+[data-theme="dark-trae"] #bsa-query,
+[data-theme="dark-trae"] #ws-query {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+#bsa-query-box:focus-within,
+#ws-query-box:focus-within,
+[id$="-dz"]:focus-within {
+  border-color: #039855 !important;
+  box-shadow: 0 0 0 1px #039855 !important;
+}
+
+html.dark #bsa-query-box:focus-within,
+html.dark #ws-query-box:focus-within,
+html.dark [id$="-dz"]:focus-within,
+[data-theme="dark"] #bsa-query-box:focus-within,
+[data-theme="dark"] #ws-query-box:focus-within,
+[data-theme="dark"] [id$="-dz"]:focus-within,
+[data-theme="dark-trae"] #bsa-query-box:focus-within,
+[data-theme="dark-trae"] #ws-query-box:focus-within,
+[data-theme="dark-trae"] [id$="-dz"]:focus-within {
   border-color: var(--primary) !important;
   box-shadow: 0 0 0 1px var(--primary) !important;
 }

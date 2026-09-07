@@ -17,11 +17,11 @@ registerPage("page-broad-search-api", `<div id="page-broad-search-api" class="pa
           <div id="bsa-query-box" class="border border-[#dbdbdb] rounded-lg px-3 pt-2.5 pb-2 transition-colors focus-within:border-[#039855]">
             <textarea id="bsa-query" rows="2" placeholder="" class="w-full border-0 outline-none resize-none text-sm text-[#0a0a0a] placeholder:text-[#a3a3a3] leading-relaxed bg-transparent"></textarea>
             <div class="flex items-center justify-end gap-2 mt-1">
-              <button type="button" onclick="bsaRun()" id="bsa-run-btn" class="ui-btn-primary">
+              <button type="button" onclick="bsaRun()" id="bsa-run-btn" class="ui-btn-primary opacity-50 cursor-not-allowed" disabled>
                 <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="6 3 20 12 6 21 6 3"/></svg>
                 <span>Run</span>
               </button>
-              <button type="button" onclick="bsaClear()" class="ui-btn-outline">
+              <button type="button" onclick="bsaClear()" id="bsa-clear-btn" class="ui-btn-outline opacity-50 cursor-not-allowed" disabled>
                 <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
                 <span>Clear</span>
               </button>
