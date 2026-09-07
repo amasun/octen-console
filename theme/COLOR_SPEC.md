@@ -134,41 +134,46 @@
 
 ---
 
-## 9. 强调色与图表色系统 (Accents & Charts)
+## 9. 强调色与图表色系统 (Universal Accents & Charts)
 
-### 强调色 (Accents)
-- `--accent-green`: `#00c950` / `#32F08C`
-- `--accent-teal`: `#00bba7` / `#00B983`
-- `--accent-cyan`: `hsl(189 94% 43%)` / `#00B6F5`
-- `--accent-sky`: `hsl(200 98% 39%)` / `#3F85FF`
-- `--accent-indigo`: `#615fff` / `#6A6FFF`
-- `--accent-violet`: `#8e51ff` / `#9570FF`
-- `--accent-pink`: `#f6339a` / `#F53CFF`
-- `--accent-rose`: `#ff2056` / `#FF6B45`
-- `--accent-orange`: `hsl(25 95% 53%)` / `#FF5D4D`
-- `--accent-yellow`: `#f0b100` / `#F2A90C`
-- `--accent-lime`: `#7ccf00` / `#5FC000`
+> **全天候通用色规范 (Universal Palette)**：业务强调色与图表数据系列色在明暗双模式下统一采用同一套黄金适应度色值，保持数据心智一致性并优化图表渲染性能；环境骨架色（网格、游标、提示框）则遵循明暗反转。
+
+### 强调色 (Accents · 全天候统一)
+- `--accent-green`: `#00C950`（全天候通用翡翠绿）
+- `--accent-teal`: `#00B983`（全天候通用青绿）
+- `--accent-cyan`: `#00B6F5`（全天候通用青蓝）
+- `--accent-sky`: `#3F85FF`（全天候通用天蓝）
+- `--accent-indigo`: `#6A6FFF`（全天候通用靛蓝）
+- `--accent-violet`: `#9570FF`（全天候通用电紫）
+- `--accent-pink`: `#F53CFF`（全天候通用玫粉）
+- `--accent-rose`: `#FF6B45`（全天候通用珊瑚红）
+- `--accent-orange`: `#FF5D4D`（全天候通用活力橙）
+- `--accent-yellow`: `#F2A90C`（全天候通用琥珀金）
+- `--accent-lime`: `#5FC000`（全天候通用柠檬绿）
 
 ### 图表色 (Charts)
-- `--chart-broad-search`: `#0ea5e9` / `#6A6FFF`
-- `--chart-search-calls`: `#14b8a6` / `#00B983`
-- `--chart-content-tokens`: `#a855f7` / `#9570FF`
-- `--chart-chat-tokens`: `#ec4899` / `#F53CFF`
-- `--chart-embeddings`: `#f59e0b` / `#F2A90C`
-- `--chart-vl-embeddings`: `#f97316` / `#FF5D4D`
-- `--chart-extract`: `#3b82f6` / `#2F74FF`
-- `--chart-application`: `#8b5cf6` / `#B15EF2`
-- `--chart-image-search`: `#06b6d4` / `#00B6F5`
-- `--chart-video-search`: `#6366f1` / `#3F85FF`
-- `--chart-model`: `#22c55e` / `#60FF70`
-- `--chart-collect`: `#84cc16` / `#5FC000`
-- `--chart-total`: `#64748b` / `#A1A1A1`
-- `--chart-grid`: `#e2e8f0` / `rgba(229, 229, 229, 0.08)`
-- `--chart-axis`: `#64748b` / `#737373`
-- `--chart-cursor`: `#f8fafc` / `#202020`
-- `--chart-tooltip-bg`: `#ffffff` / `#202020`
-- `--chart-tooltip-border`: `#e2e8f0` / `rgba(229, 229, 229, 0.12)`
-- `--chart-tooltip-label`: `#1e293b` / `#FAFAFA`
+#### 数据系列配色 (Data Series · 全天候统一)
+- `--chart-broad-search`: `#6A6FFF`
+- `--chart-search-calls`: `#00B983`
+- `--chart-content-tokens`: `#9570FF`
+- `--chart-chat-tokens`: `#F53CFF`
+- `--chart-embeddings`: `#F2A90C`
+- `--chart-vl-embeddings`: `#FF5D4D`
+- `--chart-extract`: `#2F74FF`
+- `--chart-application`: `#B15EF2`
+- `--chart-image-search`: `#00B6F5`
+- `--chart-video-search`: `#3F85FF`
+- `--chart-model`: `#22C55E`
+- `--chart-collect`: `#5FC000`
+- `--chart-total`: `#737373`
+
+#### 环境骨架色 (Chart Chrome · 双主题翻转)
+- `--chart-grid`: 浅色 `#E2E8F0` / 暗色 `rgba(229, 229, 229, 0.08)`
+- `--chart-axis`: 浅色 `#737373` / 暗色 `#737373`
+- `--chart-cursor`: 浅色 `#F8FAFC` / 暗色 `#262626`
+- `--chart-tooltip-bg`: 浅色 `#FFFFFF` / 暗色 `#262626`
+- `--chart-tooltip-border`: 浅色 `#E2E8F0` / 暗色 `rgba(229, 229, 229, 0.16)`
+- `--chart-tooltip-label`: 浅色 `#0A0A0A` / 暗色 `#FAFAFA`
 
 ---
 

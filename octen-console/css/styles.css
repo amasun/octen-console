@@ -132,31 +132,31 @@ html.dark .sidebar-logo,
 
   /* 强调色 Accents */
   --accent-green: #00c950;
-  --accent-teal: #00bba7;
-  --accent-cyan: hsl(189 94% 43%);
-  --accent-sky: hsl(200 98% 39%);
-  --accent-indigo: #615fff;
-  --accent-violet: #8e51ff;
-  --accent-pink: #f6339a;
-  --accent-rose: #ff2056;
-  --accent-orange: hsl(25 95% 53%);
-  --accent-yellow: #f0b100;
-  --accent-lime: #7ccf00;
+  --accent-teal: #00B983;
+  --accent-cyan: #00B6F5;
+  --accent-sky: #3F85FF;
+  --accent-indigo: #6A6FFF;
+  --accent-violet: #9570FF;
+  --accent-pink: #F53CFF;
+  --accent-rose: #FF6B45;
+  --accent-orange: #FF5D4D;
+  --accent-yellow: #F2A90C;
+  --accent-lime: #5FC000;
 
   /* 图表色 Charts */
-  --chart-broad-search: #0ea5e9;
-  --chart-search-calls: #14b8a6;
-  --chart-content-tokens: #a855f7;
-  --chart-chat-tokens: #ec4899;
-  --chart-embeddings: #f59e0b;
-  --chart-vl-embeddings: #f97316;
-  --chart-extract: #3b82f6;
-  --chart-application: #8b5cf6;
-  --chart-image-search: #06b6d4;
-  --chart-video-search: #6366f1;
+  --chart-broad-search: #6A6FFF;
+  --chart-search-calls: #00B983;
+  --chart-content-tokens: #9570FF;
+  --chart-chat-tokens: #F53CFF;
+  --chart-embeddings: #F2A90C;
+  --chart-vl-embeddings: #FF5D4D;
+  --chart-extract: #2F74FF;
+  --chart-application: #B15EF2;
+  --chart-image-search: #00B6F5;
+  --chart-video-search: #3F85FF;
   --chart-model: #22c55e;
-  --chart-collect: #84cc16;
-  --chart-total: #64748b;
+  --chart-collect: #5FC000;
+  --chart-total: #737373;
   --chart-grid: #e2e8f0;
   --chart-axis: #64748b;
   --chart-cursor: #f8fafc;
@@ -284,7 +284,7 @@ html.dark,
   --info-heavy: #EBF2FF;
 
   /* 强调色 Accents */
-  --accent-green: #32F08C;
+  --accent-green: #00c950;
   --accent-teal: #00B983;
   --accent-cyan: #00B6F5;
   --accent-sky: #3F85FF;
@@ -307,9 +307,9 @@ html.dark,
   --chart-application: #B15EF2;
   --chart-image-search: #00B6F5;
   --chart-video-search: #3F85FF;
-  --chart-model: #60ff70;
+  --chart-model: #22c55e;
   --chart-collect: #5FC000;
-  --chart-total: #A1A1A1;
+  --chart-total: #737373;
   --chart-grid: rgba(229, 229, 229, 0.08);
   --chart-axis: #737373;
   --chart-cursor: #262626;
