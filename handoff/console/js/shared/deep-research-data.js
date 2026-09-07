@@ -1,0 +1,70 @@
+window.DR_DATA = (function(){
+  const mkR=(q,lat,res)=>({query:q,latency:lat,results:res.map(x=>({url:x[0],title:x[1]}))});
+  const ROUNDS=[
+    { id:1, focus:'Initial Research', totalResults:50, maxLatency:73, queries:[
+      mkR('What is the current state of frontier AI models in 2026?',68,[['openai.com/blog/gpt-4o-benchmarks-2026','GPT-4o Benchmark Results & Performance Analysis'],['anthropic.com/news/claude-4-family','Introducing the Claude 4 Model Family'],['blog.google/gemini-2-5-pro-launch','Gemini 2.5 Pro: Next Generation AI Capabilities']]),
+      mkR('AI model company overview and market positions 2026',72,[['openai.com/about','About OpenAI — Mission & Research'],['anthropic.com/company','Anthropic — AI Safety Company'],['deepmind.google/about','Google DeepMind — Pioneering AI Research']]),
+      mkR('frontier AI models latest news and releases 2026',65,[['techcrunch.com/2026/frontier-ai-models-comparison','Frontier AI Models Compared: Who Leads in 2026?'],['theverge.com/2026/3/ai-models-roundup','March 2026 AI Roundup'],['arstechnica.com/ai/2026/claude-4-gpt-5-comparison','Claude 4 vs GPT-5: Head-to-Head Comparison']]),
+      mkR('AI model capabilities benchmarks MMLU GPQA SWE-bench 2026',71,[['huggingface.co/spaces/open-llm-leaderboard','Open LLM Leaderboard — Hugging Face'],['paperswithcode.com/sota','State-of-the-Art AI Results'],['lmsys.org/chatbot-arena-leaderboard','Chatbot Arena Leaderboard — LMSYS']]),
+      mkR('open source LLM models progress Llama Mistral 2026',63,[['ai.meta.com/blog/llama-4','Introducing Llama 4: Open Foundation Models'],['mistral.ai/news/mistral-large-2','Mistral Large 2: Enterprise-Grade Open Model'],['qwenlm.github.io/blog/qwen2.5','Qwen 2.5: Multilingual Open-Weight LLM']]),
+      mkR('AI industry market trends enterprise adoption 2026',69,[['mckinsey.com/ai-enterprise-adoption-2026','Enterprise AI Adoption Trends — McKinsey'],['statista.com/ai-market-size-2026','AI Market Size & Growth Forecast 2026']]),
+      mkR('Claude 4 model family features pricing context window',67,[['anthropic.com/claude-4-pricing','Claude 4 Pricing & Model Tiers'],['anthropic.com/news/claude-4-opus','Claude 4 Opus: Extended Thinking & Reasoning']]),
+      mkR('GPT-5 multimodal capabilities and architecture',72,[['openai.com/gpt-5-multimodal','GPT-5: Vision, Audio & Code Integration'],['techcrunch.com/2026/gpt-5-review','GPT-5 Review: The Most Versatile AI Model']]),
+      mkR('Gemini 2.5 Pro technical specifications context length',64,[['blog.google/gemini-2-5-specs','Gemini 2.5 Pro: 2M Token Context'],['arxiv.org/abs/2026.gemini-technical','Gemini 2.5: Technical Report']]),
+      mkR('AI safety alignment research progress 2026',66,[['anthropic.com/research/alignment-2026','Advances in AI Alignment — Anthropic Research'],['openai.com/safety/alignment-plan','OpenAI Alignment Plan 2026']]),
+      mkR('frontier model training cost compute requirements',70,[['semianalysis.com/training-costs-2026','The $500M Model: Training Cost Analysis 2026'],['epochai.org/compute-trends','Compute Trends in AI Training — Epoch AI']]),
+      mkR('AI regulation governance EU AI Act executive order',62,[['whitehouse.gov/ai-executive-order-2026','Executive Order on AI Safety 2026'],['europarl.europa.eu/ai-act-update','EU AI Act: Implementation Progress']]),
+      mkR('AI agent frameworks tooling autonomous agents 2026',68,[['langchain.com/agents-v3','LangChain Agents v3'],['anthropic.com/claude-agent-sdk','Claude Agent SDK: Build Autonomous Agents']]),
+      mkR('retrieval augmented generation RAG advances 2026',65,[['pinecone.io/blog/rag-2026','RAG in 2026: Beyond Naive Retrieval'],['arxiv.org/abs/2026.adaptive-rag','Adaptive RAG: Dynamic Retrieval Strategies']]),
+      mkR('AI chip hardware NVIDIA Blackwell AMD landscape',67,[['nvidia.com/blackwell-b300','NVIDIA Blackwell B300'],['semianalysis.com/ai-chip-landscape','AI Chip Landscape 2026']]),
+      mkR('multimodal AI applications real-world use cases 2026',66,[['a16z.com/multimodal-ai-apps','Multimodal AI: Top 50 Applications in 2026'],['sequoiacap.com/ai-use-cases','Sequoia: Where AI Creates Real Value']]),
+    ]},
+    { id:2, focus:'Performance Comparison & Cost Analysis', totalResults:21, maxLatency:72, queries:[
+      mkR('GPT-5 vs Claude 4 vs Gemini detailed task performance comparison',69,[['artificialanalysis.ai/leaderboard/2026','AI Model Performance Leaderboard 2026'],['scale.com/leaderboard','Scale AI: Enterprise LLM Evaluation Results'],['arxiv.org/abs/2026.frontier-comparison','Comparative Analysis of Frontier Language Models']]),
+      mkR('AI model pricing cost per token comparison enterprise 2026',65,[['together.ai/pricing-comparison','LLM API Pricing: Complete Comparison Guide 2026'],['openrouter.ai/models','OpenRouter: Compare 200+ Model Prices']]),
+      mkR('Chinese AI models Kimi DeepSeek MiMo performance 2026',71,[['technode.com/2026/china-ai-models','China AI Landscape'],['moonshot.ai/kimi-k2-benchmarks','Kimi K2.5: Benchmark Results'],['deepseek.com/v3-technical-report','DeepSeek V3.2 Technical Report']]),
+      mkR('AI model coding task benchmark SWE-bench results',68,[['swebench.com/leaderboard','SWE-bench Verified: Latest Results'],['arxiv.org/abs/2026.coding-benchmark-meta','Meta-Analysis of Coding Benchmarks']]),
+      mkR('AI model reasoning mathematical AIME GPQA results 2026',64,[['mathai.org/aime-results-2026','AIME 2026: AI Model Performance'],['openai.com/research/math-reasoning','Advances in Mathematical Reasoning']]),
+      mkR('enterprise AI total cost of ownership ROI analysis',72,[['gartner.com/ai-tco-framework','AI TCO Framework — Gartner'],['deloitte.com/ai-roi-report-2026','Measuring AI ROI in 2026 — Deloitte']]),
+      mkR('open weight vs proprietary model cost effectiveness',70,[['a16z.com/open-vs-closed-ai-economics','Open vs Closed AI: The Economics in 2026'],['huggingface.co/blog/open-model-value','The Business Case for Open-Weight Models']]),
+    ]},
+  ];
+  const REPORT=`## Executive Summary\n\nThe frontier AI landscape in 2026 is defined by intense competition among leading labs. GPT-5.4, Claude Opus 4.6, and Gemini 3.1 Pro lead proprietary models, while Kimi K2.5, DeepSeek V3.2, and Llama 4 represent strong open-weight alternatives. Performance gaps are narrowing across coding, reasoning, and multimodal tasks.\n\n## Key Findings\n\n### Leading Proprietary Models\n\n- **GPT-5.4 (OpenAI)**: Multimodal reasoning with 1M+ token context, scoring GPQA 92.8% and SWE-bench 74.9%.\n- **Claude Opus 4.6 (Anthropic)**: Adaptive thinking with natural prose quality, GPQA 91.3% and SWE-bench 74%+.\n- **Gemini 3.1 Pro (Google)**: Industry-leading GPQA at 94.3% with native multimodality and 2M+ token context.\n\n### Open-Weight Contenders\n\n- **Kimi K2.5 (Moonshot)**: Exceptional math/reasoning with AIME 96.1% and SWE-bench 76.8%.\n- **DeepSeek V3.2**: Cost-effective enterprise option with competitive MMLU-Pro scores.\n- **Llama 4 (Meta)**: Most widely adopted open foundation model.\n\n### Market Trends\n\n- Enterprise AI adoption reached 72% among Fortune 500 companies\n- NVIDIA Blackwell B300 leads the hardware landscape\n- Regulatory frameworks are maturing with the EU AI Act entering enforcement\n\n## Conclusion\n\nThe frontier AI market in 2026 is the most competitive it has ever been. No single model dominates across all categories. Organizations should adopt a multi-model strategy.\n\n## References\n\n1. [GPT-4o Benchmark Results](https://openai.com/blog/gpt-4o-benchmarks-2026)\n2. [Claude 4 Model Family](https://anthropic.com/news/claude-4-family)\n3. [Gemini 2.5 Pro Launch](https://blog.google/gemini-2-5-pro-launch)\n`;
+  const PLAN={ type:'plan', title:'Frontier AI Models in 2026: Competitive Landscape Assessment', overview:'This research evaluates the current state of frontier AI from three angles: (1) technical capabilities and benchmark performance; (2) market dynamics and enterprise adoption; (3) the open-source and Chinese AI ecosystem.', angles:[
+    {focus:'Technical capabilities & benchmarks',focus_desc:'Compare frontier model performance across reasoning, coding, multimodal, and general knowledge benchmarks',queries:['frontier AI model benchmark comparison GPQA SWE-bench AIME 2026','Claude 4 vs GPT-5 vs Gemini 2.5 performance comparison','multimodal capabilities context window analysis 2026','AI model reasoning mathematical benchmark results 2026']},
+    {focus:'Market & cost analysis',focus_desc:'Analyze enterprise AI adoption trends, API pricing, and total cost of ownership across major providers',queries:['enterprise AI adoption rates market trends 2026','AI model API pricing cost per token comparison','enterprise AI total cost of ownership ROI analysis','AI model throughput tokens per second latency comparison']},
+    {focus:'Open-source & Chinese AI ecosystem',focus_desc:'Evaluate the progress of open-weight models and Chinese AI labs',queries:['open source LLM models progress Llama Mistral 2026','Chinese AI models Kimi DeepSeek performance 2026','open-weight model enterprise deployment viability','China AI chip constraints algorithmic efficiency gains']},
+  ]};
+  const ANALYSIS=[
+    {type:'analysis',round:1,should_continue:true,findings:['The initial round has provided a broad overview of frontier AI models, key players, benchmarks, and market trends in 2026.','Benchmark results show Claude 4 Opus leading on reasoning tasks, while GPT-5 maintains advantages in multimodal and coding benchmarks.','Open-weight models (Llama 4, Mistral Large 2, Qwen 2.5) are closing the gap with proprietary models.'],follow_up_suggestions:['Detailed performance comparison across specific task categories','Cost-efficiency analysis for enterprise deployment','Emerging Chinese AI models beyond Qwen']},
+    {type:'analysis',round:2,should_continue:false,findings:['Performance comparisons reveal a converging landscape: top-tier models differ by single-digit percentages on most benchmarks.','Enterprise TCO analysis shows open-weight models can reduce costs by 40-60% compared to proprietary APIs.','Chinese AI models (Kimi K2.5, DeepSeek V3.2) have reached competitive performance with Western frontier models.','The pricing war among API providers has driven costs down by roughly 70% year-over-year.'],follow_up_suggestions:[]},
+  ];
+  const BRIEF={ type:'brief', report_type:'evaluation', suggested_title:'Frontier AI Models in 2026: Competitive Landscape, Benchmark Analysis & Enterprise Adoption Trends', outline:[
+    {section_title:'Converging Capabilities: The Benchmark Landscape',thesis:'Top-tier frontier models have converged in general capability, with differentiation shifting to specialized task performance.',evidence:[{content:'Claude 4 Opus, GPT-5, and Gemini 2.5 Pro score within 3% of each other on MMLU and HumanEval.',source_indices:[1,3,7],confidence:'strong'},{content:'Reasoning benchmarks (GPQA, AIME) show the most variance, with Claude 4 Opus leading by 8-12 points.',source_indices:[3,12],confidence:'strong'}]},
+    {section_title:'The Open-Weight Revolution',thesis:'Open-weight models have crossed the viability threshold for enterprise deployment.',evidence:[{content:'Llama 4 and Mistral Large 2 achieve 90-95% of proprietary model performance at a fraction of the cost.',source_indices:[5,8],confidence:'strong'},{content:'Enterprise adoption of open-weight models doubled in H1 2026.',source_indices:[14],confidence:'moderate'}]},
+    {section_title:'China’s AI Ascent: A Parallel Ecosystem',thesis:'Chinese AI labs have established a competitive parallel ecosystem.',evidence:[{content:'DeepSeek V3.2 and Kimi K2.5 demonstrate parity with GPT-5 on multilingual reasoning and coding.',source_indices:[21,23],confidence:'strong'}]},
+  ], unresolved:{ contradictions:['Conflicting benchmark results between independent evaluators and providers’ self-reported scores.'], weak_claims:['Claims about Chinese models matching Western frontier performance are based primarily on standardized benchmarks.'], unanswered:['Long-term sustainability of aggressive API pricing strategies.','Impact of upcoming EU AI Act enforcement on model deployment.'] }, references:[
+    {index:1,url:'https://openai.com/blog/gpt-4o-benchmarks-2026',title:'GPT-4o Benchmark Results & Performance Analysis'},
+    {index:3,url:'https://blog.google/gemini-2-5-pro-launch',title:'Gemini 2.5 Pro: Next Generation AI Capabilities'},
+    {index:5,url:'https://ai.meta.com/blog/llama-4',title:'Introducing Llama 4: Open Foundation Models'},
+    {index:7,url:'https://huggingface.co/spaces/open-llm-leaderboard',title:'Open LLM Leaderboard — Hugging Face'},
+    {index:8,url:'https://mistral.ai/news/mistral-large-2',title:'Mistral Large 2: Enterprise-Grade Open Model'},
+    {index:12,url:'https://lmsys.org/chatbot-arena-leaderboard',title:'Chatbot Arena Leaderboard — LMSYS'},
+    {index:14,url:'https://mckinsey.com/ai-enterprise-adoption-2026',title:'Enterprise AI Adoption Trends — McKinsey'},
+    {index:21,url:'https://moonshot.ai/kimi-k2-benchmarks',title:'Kimi K2.5: Benchmark Results & Analysis'},
+    {index:23,url:'https://deepseek.com/v3-technical-report',title:'DeepSeek V3.2 Technical Report'},
+  ]};
+  const HISTORY=[
+    {id:'s1',q:'Latest breakthroughs in quantum computing 2026'},
+    {id:'s2',q:'Compare top JavaScript frameworks performance'},
+    {id:'s3',q:'What is the impact of EU AI Act on startups?'},
+    {id:'s4',q:'Best practices for RAG implementation in production'},
+    {id:'s5',q:'NVIDIA Blackwell B300 specs and availability'},
+    {id:'s6',q:'How to fine-tune LLMs with limited compute budget'},
+    {id:'s7',q:'AI safety alignment research landscape 2026'},
+    {id:'s8',q:'Best open-source alternatives to GPT-5'},
+    {id:'s9',q:'Enterprise AI deployment cost optimization strategies'},
+    {id:'s10',q:'What happened at GTC 2026 keynote?'},
+  ].map((s,i)=>({id:s.id,turns:[{query:s.q,timestamp:Date.now()-86400000*(7-i*0.6)}],createdAt:Date.now()-86400000*(7-i*0.6)}));
+  return { ROUNDS, REPORT, PLAN, ANALYSIS, BRIEF, HISTORY };
+})();
