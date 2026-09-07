@@ -13,10 +13,13 @@
    - 正式由 **TraeWork 中性深邃黑灰阶梯** 与 **Octen 标志性高光翡翠绿** 共同构成官方标准 **Dark** 模式。
    - 仅提供 **Light** 与 **Dark** 两个核心状态（支持跟随操作系统的 **System** 自动切换）。
 
-2. **三阶沉浸式空间深度 (3-Tier Dark Depth Architecture)**：
-   - **Tier 1 (外层工作区底色 `--shell`)**：`#141414` —— 极深中性黑，包裹全局控制台与侧边栏 Ribbon。
-   - **Tier 2 (主控制台工作台底板 `--surface` / `.layout-pane`)**：`#1a1a1a` —— 细腻通透的工业控制台基座，配以 `rgba(255, 255, 255, 0.07)` 微量发丝半透描边，呈现开阔平整的工作台质感。
-   - **Tier 3 (嵌入式产品功能卡片与代码插槽 `--code-bg`)**：`#161616` —— 更深一度的嵌合插槽黑，边框与底色同色（`border-color: #161616`），为 API / Application / MCP 子卡片及 Code 视窗提供极致锐利的视觉反差。
+2. **五阶暗色空间深度体系 (5-Tier Dark Elevation Architecture)**：
+   - **Tier 0 (外层底色 `--shell` / 输入框 `--input-bg`)**：`#141414` —— 极深中性黑，包裹全局工作区底板与侧边栏 Ribbon。
+   - **Tier 0.5 (嵌入式产品功能卡片与代码插槽 `--subcard-bg` / `--code-bg`)**：`#161616` —— 微凹嵌合插槽黑，为 API / Application / MCP 子卡片及 Code 视窗提供沉浸式下沉感。
+   - **Tier 1 (主控制台工作台底板 `--surface` / `.layout-pane`)**：`#1A1A1A` —— 通透温润的工业工作台基座，配以 `rgba(255, 255, 255, 0.08)` 微发丝半透描边。
+   - **Tier 1.5 (次级区块与中性底 `--neutral-50` / `--neutral-100`)**：`#202020` / `#262626` —— 次级卡片、分段控件底。
+   - **Tier 2 (浮动弹出层 `--popover`)**：`#262626` —— 下拉菜单、账号弹层、日历浮窗（拉开与 `#1A1A1A` 的级差），配以 `rgba(255, 255, 255, 0.12)` 边框与大景深立体阴影，形成真正的空间悬浮感。
+   - **Tier 3 (强高亮操作块 `--surface-strong`)**：`#363636` —— DEV 激活胶囊、高亮切换滑块。
 
 3. **Cyber Emerald 品牌主色交互**：
    - **Light Mode**：深翡翠绿 `#039855`，严格满足 WCAG AA 4.5:1 的白底可读性。
@@ -38,11 +41,12 @@
 | :--- | :--- | :--- | :--- |
 | `--shell` | `#F5F5F5` | `#141414` | 全局外层底色、workspace 背景、侧边栏 Ribbon |
 | `--layout-pane` / `--surface` | `#FFFFFF` | `#1A1A1A` | 控制台主面板卡片底色（圆角 14px） |
-| `--layout-pane-border` | `1px solid #E7E7E7` | `1px solid rgba(255, 255, 255, 0.07)` | 主卡片外框微描边（发丝级轮廓界限） |
+| `--layout-pane-border` | `1px solid #E7E7E7` | `1px solid rgba(255, 255, 255, 0.08)` | 主卡片外框微描边（发丝级轮廓界限） |
 | `--subcard-bg` / `--code-bg` | `#FFFFFF` / `#F5F5F580` | `#161616` | 产品卡片（API、Application、MCP）与代码高亮视窗插槽底色 |
-| `--subcard-border` | `1px solid #E7E7E7` | `1px solid #161616` | 嵌入式卡片边框（暗色下同色嵌合） |
+| `--subcard-border` | `1px solid #E7E7E7` | `1px solid rgba(255, 255, 255, 0.08)` | 嵌入式卡片微描边 |
 | `--input-bg` | `#FFFFFF` | `#141414` | 单行/多行输入框、选择框及复合查询框插槽底色 |
-| `--popover` | `#FFFFFF` | `#1C1C1C` | 下拉菜单、气泡提示卡与用户账户弹窗 |
+| `--popover` | `#FFFFFF` | `#262626` | 下拉菜单、气泡提示卡与用户账户弹窗（清晰浮空深度） |
+| `--surface-strong` | `#E2E8F0` | `#363636` | DEV 模式激活胶囊、高亮操作块 |
 
 ---
 
@@ -68,9 +72,9 @@
 | `--surface` | `#FFFFFF` | `#1A1A1A` | 主工作卡片表面 (`.layout-pane`) |
 | `--surface-subtle` | `#F8FAFC` | `rgba(212, 212, 212, 0.06)` | 输入框 / 次级卡片微表面 |
 | `--surface-muted` | `#F1F5F9` | `rgba(212, 212, 212, 0.08)` | 选中项 / 微高亮交互表面 |
-| `--surface-strong` | `#E2E8F0` | `#2A2A2A` | 强强调中性表面、DEV 按钮选中底色 |
+| `--surface-strong` | `#E2E8F0` | `#363636` | 强强调中性表面、DEV 按钮选中底色 |
 | `--card` | `oklch(1 0 0)` | `#1A1A1A` | 工作台主卡片 |
-| `--popover` | `oklch(1 0 0)` | `#1C1C1C` | 浮动弹出层与菜单 |
+| `--popover` | `oklch(1 0 0)` | `#262626` | 浮动弹出层与菜单 (拉开空间悬浮深度) |
 | `--surface-inverse`| `#0F172B` | `#FFFFFF` | 反转对比表面 |
 | `--background-inverse`| `#111111` | `#F5F5F5` | 反转对比背景 |
 
@@ -109,10 +113,10 @@
 
 | Token 变量名 | 浅色模式 (Light) | 暗色模式 (Dark) | 用途 |
 | :--- | :--- | :--- | :--- |
-| `--neutral-50` | `#F3F3F3` | `#1A1A1A` | 微弱背景底 |
-| `--neutral-100` | `#EAEAEA` | `#202020` | 次级区块背景 |
-| `--neutral-200` | `#E0E0E0` | `#2C2C2C` | 悬浮微态 |
-| `--neutral-300` | `#DBDBDB` | `#3A3A3A` | 中性分割块 |
+| `--neutral-50` | `#F3F3F3` | `#202020` | 微弱次级背景底（拉开与工作台基底对比） |
+| `--neutral-100` | `#EAEAEA` | `#262626` | 次级区块背景、分段控制滑槽底 |
+| `--neutral-200` | `#E0E0E0` | `#303030` | 悬浮高亮微态 |
+| `--neutral-300` | `#DBDBDB` | `#3E3E3E` | 中性强调分割块、激活滑块底 |
 | `--neutral-muted` | `#A3A3A3` | `#737373` | 弱化图标与文字 |
 | `--neutral-foreground` | `#727272` | `#A1A1A1` | 中性次级文字 |
 | `--neutral-overlay` | `#00000006` | `rgba(212, 212, 212, 0.06)` | 半透明覆盖层 |

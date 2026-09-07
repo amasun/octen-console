@@ -22,6 +22,15 @@ input:focus-visible,select:focus-visible{outline:none;border-color:#039855 !impo
 .ex-tip-bubble{position:absolute;left:50%;bottom:calc(100% + 6px);transform:translateX(-50%);background:#0f172a;color:#fff;font-size:12px;line-height:1.4;padding:6px 10px;border-radius:6px;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .15s;z-index:60;font-weight:400}
 .ex-tip:hover .ex-tip-bubble{opacity:1}
 
+html.dark .dest-tip,
+html.dark .ex-tip-bubble {
+  background: #2c2c2c !important;
+  color: #fafafa !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+
 
 /* Sidebar Logo */
 .sidebar-logo {
@@ -210,9 +219,9 @@ html.dark,
   --surface: #1a1a1a;                   /* 主卡片表面 */
   --surface-subtle: rgba(212, 212, 212, 0.06); /* 输入框/次级卡片 */
   --surface-muted: rgba(212, 212, 212, 0.08);  /* 选中项/微高亮 */
-  --surface-strong: #2a2a2a;
+  --surface-strong: #363636;
   --card: #1a1a1a;                      /* 工作台主卡片 */
-  --popover: #1c1c1c;                   /* 弹出层与浮动菜单 */
+  --popover: #262626;                   /* 弹出层与浮动菜单 (拉开至 Tier 2 悬浮深度) */
   --surface-inverse: #FFFFFF;
   --background-inverse: #F5F5F5;
   --input-bg: #141414;
@@ -236,11 +245,11 @@ html.dark,
   --panel-border: rgba(229, 229, 229, 0.1);
   --neutral-border: rgba(229, 229, 229, 0.14);
 
-  /* 中性色 Neutrals (Neutral 阶梯) */
-  --neutral-50: #1a1a1a;
-  --neutral-100: #202020;
-  --neutral-200: #2c2c2c;
-  --neutral-300: #3a3a3a;
+  /* 中性色 Neutrals (拉开梯度，避免与 surface 重叠) */
+  --neutral-50: #202020;
+  --neutral-100: #262626;
+  --neutral-200: #303030;
+  --neutral-300: #3e3e3e;
   --neutral-muted: #737373;
   --neutral-foreground: #A1A1A1;
   --neutral-overlay: rgba(212, 212, 212, 0.06);
@@ -303,9 +312,9 @@ html.dark,
   --chart-total: #A1A1A1;
   --chart-grid: rgba(229, 229, 229, 0.08);
   --chart-axis: #737373;
-  --chart-cursor: #202020;
-  --chart-tooltip-bg: #202020;
-  --chart-tooltip-border: rgba(229, 229, 229, 0.12);
+  --chart-cursor: #262626;
+  --chart-tooltip-bg: #262626;
+  --chart-tooltip-border: rgba(229, 229, 229, 0.16);
   --chart-tooltip-label: #FAFAFA;
 
   /* Compatibility variables */
@@ -1708,8 +1717,8 @@ html.dark .token.variable {
 html.dark #dev-theme-container,
 [data-theme="dark"] #dev-theme-container,
 [data-theme="dark-trae"] #dev-theme-container {
-  background: #1c1c1c !important;
-  border-color: rgba(229, 229, 229, 0.1) !important;
+  background: #262626 !important;
+  border-color: rgba(229, 229, 229, 0.12) !important;
 }
 
 html.dark #dev-theme-container #dev-theme-bar,
@@ -1725,7 +1734,7 @@ html.dark #dev-theme-container #dev-theme-bar button.bg-white,
 [data-theme="dark"] #dev-theme-container #dev-theme-bar button.bg-white,
 [data-theme="dark-trae"] #dev-theme-container #dev-theme-bar button.active,
 [data-theme="dark-trae"] #dev-theme-container #dev-theme-bar button.bg-white {
-  background: #2a2a2a !important;
+  background: #363636 !important;
   color: #FAFAFA !important;
   border: 1px solid rgba(229, 229, 229, 0.16);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
@@ -1747,8 +1756,8 @@ html.dark #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white)
 html.dark #theme-segmented-group,
 [data-theme="dark"] #theme-segmented-group,
 [data-theme="dark-trae"] #theme-segmented-group {
-  background: #1c1c1c !important;
-  border-color: rgba(229, 229, 229, 0.1) !important;
+  background: #262626 !important;
+  border-color: rgba(229, 229, 229, 0.12) !important;
 }
 
 html.dark #theme-segmented-group button.bg-white,
@@ -2144,9 +2153,9 @@ html.dark [id$="-datepop"],
 html.dark [id$="-date-pop"],
 html.dark #bsa-date-pop,
 html.dark #ws-date-pop {
-  background-color: #1c1c1c !important;
-  border-color: rgba(229, 229, 229, 0.12) !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+  background-color: #262626 !important;
+  border-color: rgba(229, 229, 229, 0.16) !important;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.08) !important;
   color: #fafafa !important;
 }
 
@@ -2168,7 +2177,7 @@ html.dark [id$="-date-pop"] > div:first-child button {
 html.dark .cal-pop .cal-preset-btn:hover,
 html.dark [id$="-datepop"] > div:first-child button:hover,
 html.dark [id$="-date-pop"] > div:first-child button:hover {
-  background-color: #262626 !important;
+  background-color: #303030 !important;
   color: #fafafa !important;
 }
 
@@ -2191,7 +2200,7 @@ html.dark [id$="-date-pop"] button:not(.cal-preset-btn):not(.cal-btn-clear):not(
 html.dark .cal-pop .cal-nav-btn:hover,
 html.dark [id$="-datepop"] button:not(.cal-preset-btn):not(.cal-btn-clear):not(.cal-btn-apply):hover,
 html.dark [id$="-date-pop"] button:not(.cal-preset-btn):not(.cal-btn-clear):not(.cal-btn-apply):hover {
-  background-color: #262626 !important;
+  background-color: #303030 !important;
   color: #fafafa !important;
 }
 
@@ -2222,7 +2231,7 @@ html.dark [id$="-date-pop"] .cal-day {
 html.dark .cal-pop .cal-day:hover:not(.cal-day-start):not(.cal-day-end):not(.cal-day-mid),
 html.dark [id$="-datepop"] .cal-day:hover:not(.cal-day-start):not(.cal-day-end):not(.cal-day-mid),
 html.dark [id$="-date-pop"] .cal-day:hover:not(.cal-day-start):not(.cal-day-end):not(.cal-day-mid) {
-  background-color: #262626 !important;
+  background-color: #303030 !important;
   color: #fafafa !important;
 }
 
@@ -2277,7 +2286,7 @@ html.dark [id$="-date-pop"] [data-range="mid"] {
 html.dark .cal-pop .cal-btn-clear,
 html.dark [id$="-datepop"] .cal-btn-clear,
 html.dark [id$="-date-pop"] .cal-btn-clear {
-  background-color: #262626 !important;
+  background-color: #303030 !important;
   border-color: rgba(229, 229, 229, 0.16) !important;
   color: #e5e5e5 !important;
 }
@@ -2285,7 +2294,7 @@ html.dark [id$="-date-pop"] .cal-btn-clear {
 html.dark .cal-pop .cal-btn-clear:hover,
 html.dark [id$="-datepop"] .cal-btn-clear:hover,
 html.dark [id$="-date-pop"] .cal-btn-clear:hover {
-  background-color: #333333 !important;
+  background-color: #3a3a3a !important;
   color: #fafafa !important;
 }
 
