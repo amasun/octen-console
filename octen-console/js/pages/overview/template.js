@@ -184,10 +184,10 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style="background:#0398551a;color:#039855"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/></svg></span>
             <p class="text-[#0a0a0a] font-semibold">Answer</p>
           </div>
-          <p class="text-xs text-[#737373] leading-relaxed">Experience conversational search. Get verifiable AI answers grounded in live web sources.</p>
+          <p class="text-sm text-[#737373] leading-relaxed">Experience conversational search. Get verifiable AI answers grounded in live web sources.</p>
         </div>
         <div class="flex flex-col gap-2 pt-2 border-t border-[#f5f5f5]">
-          <span class="inline-flex items-center gap-1 text-xs font-medium w-fit" style="color:#039855">Try now <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
+          <span class="inline-flex items-center gap-1 text-sm font-medium w-fit" style="color:#039855">Try now <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
         </div>
       </a>
       <!-- Deep Research -->
@@ -197,10 +197,10 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style="background:#0398551a;color:#039855"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18h8M3 22h18M14 22a7 7 0 100-14h-1M9 14h2M9 12a2 2 0 01-2-2V6h6v4a2 2 0 01-2 2zM12 6V3a1 1 0 00-1-1H9a1 1 0 00-1 1v3"/></svg></span>
             <p class="text-[#0a0a0a] font-semibold">Deep Research</p>
           </div>
-          <p class="text-xs text-[#737373] leading-relaxed">Experience Deep Research. Get comprehensive reports distilled from thousands of sources.</p>
+          <p class="text-sm text-[#737373] leading-relaxed">Experience Deep Research. Get comprehensive reports distilled from thousands of sources.</p>
         </div>
         <div class="flex flex-col gap-2 pt-2 border-t border-[#f5f5f5]">
-          <span class="inline-flex items-center gap-1 text-xs font-medium w-fit" style="color:#039855">Try now <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
+          <span class="inline-flex items-center gap-1 text-sm font-medium w-fit" style="color:#039855">Try now <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
         </div>
       </a>
       <!-- Multimodal Chat -->
@@ -211,10 +211,10 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
             <p class="text-[#0a0a0a] font-semibold">Multimodal Chat</p>
             <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium" style="background:#0398551a;color:#039855">Early Access</span>
           </div>
-          <p class="text-xs text-[#737373] leading-relaxed">Experience multimodal chat. Get answers grounded in text, image, and video sources.</p>
+          <p class="text-sm text-[#737373] leading-relaxed">Experience multimodal chat. Get answers grounded in text, image, and video sources.</p>
         </div>
         <div class="flex flex-col gap-2 pt-2 border-t border-[#f5f5f5]">
-          <span class="inline-flex items-center gap-1 text-xs font-medium w-fit" style="color:#039855">Try now <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
+          <span class="inline-flex items-center gap-1 text-sm font-medium w-fit" style="color:#039855">Try now <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
         </div>
       </a>
       <!-- Grounded Generation -->
@@ -225,10 +225,10 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
             <p class="text-[#0a0a0a] font-semibold">Grounded Generation</p>
             <span class="inline-flex items-center px-2 py-1 rounded text-xs font-medium" style="background:#0398551a;color:#039855">Early Access</span>
           </div>
-          <p class="text-xs text-[#737373] leading-relaxed">Generate images and videos grounded in web-sourced references.</p>
+          <p class="text-sm text-[#737373] leading-relaxed">Generate images and videos grounded in web-sourced references.</p>
         </div>
         <div class="flex flex-col gap-2 pt-2 border-t border-[#f5f5f5]">
-          <span class="inline-flex items-center gap-1 text-xs font-medium w-fit" style="color:#039855">Try now <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
+          <span class="inline-flex items-center gap-1 text-sm font-medium w-fit" style="color:#039855">Try now <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg></span>
         </div>
       </a>
     </div>
