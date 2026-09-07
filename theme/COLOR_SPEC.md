@@ -168,7 +168,7 @@
 - `--chart-total`: `#737373`
 
 #### 环境骨架色 (Chart Chrome · 双主题翻转)
-- `--chart-grid`: 浅色 `#E2E8F0` / 暗色 `rgba(229, 229, 229, 0.08)`
+- `--chart-grid`: 浅色 `#E2E8F0` / 暗色 `#262626`
 - `--chart-axis`: 浅色 `#737373` / 暗色 `#737373`
 - `--chart-cursor`: 浅色 `#F8FAFC` / 暗色 `#262626`
 - `--chart-tooltip-bg`: 浅色 `#FFFFFF` / 暗色 `#262626`

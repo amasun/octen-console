@@ -310,7 +310,7 @@ html.dark,
   --chart-model: #22c55e;
   --chart-collect: #5FC000;
   --chart-total: #737373;
-  --chart-grid: rgba(229, 229, 229, 0.08);
+  --chart-grid: #262626;
   --chart-axis: #737373;
   --chart-cursor: #262626;
   --chart-tooltip-bg: #262626;
