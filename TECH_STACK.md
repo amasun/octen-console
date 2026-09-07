@@ -32,7 +32,14 @@
   - **图标升级**:
     - `Run`: 采用纤细现代的线框镂空圆角播放三角（`polygon points="6 3 20 12 6 21 6 3"`，描边粗细 `stroke-width="2.2"`）。
     - `Clear`: 采用现代单向顺时针环形刷新箭头（`path d="M21 12a9 9 0 1 1-9-9..."`，统一 `2.2` 描边粗细）。
-  - **尺寸与字体**:
-    - 统一字号提升至 `14px`（中等字重 `500`，正文字体 `DM Sans`），按钮高度统一为 `34px`，圆角升级为 `10px`，内边距 `6px 14px`，图标间距 `6px`。
-    - 浅色模式下 `Clear` 文字与边框采用高对比度深色（`#0a0a0a` / `#dbdbdb`），彻底告别暗淡发灰；暗色模式下完美响应语义表面色。
+- **Single-line Inputs & Selects (`.ui-input`, `.ui-select`)**:
+  - **高度规范**: 单行高度严格统一为 `36px`（`box-sizing: border-box; line-height: 34px; padding: 0 12px;`），多行 `textarea` 保留弹性自适应高度。
+  - **无文字溢出**: 基于 `14px` 正文字体 `DM Sans` 计算基准线，上下垂直居中且留有充足行高余量，彻底消除文字上下被截断（clipping）或溢出容器的问题。
+  - **去除浏览器上下箭头**: 全局应用 `-webkit-appearance: none;` 及 `-moz-appearance: textfield;`，彻底去除 Chrome/Edge/Firefox 等内置数字输入框的右侧上下步进箭头（spin buttons）。
+
+- **Syntax Highlighting (JavaScript 代码区域现代蓝色调)**:
+  - **告别红色警戒感**: 将原先沿袭自 GitHub 传统的保留关键字（`const`, `await`, `async`）和对象属性键名从易引起“报错错觉”的红色调（`#cf222e` / `#ff7b72`）全面转向现代编辑器标准蓝色调。
+  - **浅色模式**: 关键字采用深天蓝 `#0969da`，操作符收敛为中性灰 `#57606a`，属性名采用 `#0284c7`。
+  - **暗色模式（Octen & TraeWork）**: 关键字与属性名统一采用 VS Code / GitHub 冰蓝 `#79c0ff`，操作符为中性灰 `#c9d1d9`，构建柔和、理智、高可读的代码视觉体系。
+
 

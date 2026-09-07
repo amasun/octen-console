@@ -17,7 +17,7 @@ registerPage("page-collect", `
           <h2 class="text-[#0a0a0a] text-sm font-medium">Filter</h2>
           <div>
             <label class="ui-label">Query <span class="text-red-500">*</span></label>
-            <input id="col-query" type="text" placeholder="e.g. 护肤，美妆教程" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-lg text-sm focus:outline-none placeholder:text-[#a3a3a3] focus:border-[#039855]"/>
+            <input id="col-query" type="text" placeholder="e.g. 护肤，美妆教程" class="ui-input"/>
             <p class="text-xs text-[#a3a3a3] mt-1">Semantic query to filter matches from the dataset</p>
           </div>
           <div class="grid grid-cols-2 gap-3">

@@ -24,7 +24,7 @@ registerPage("page-extract", `
           </div>
           <div>
             <label class="block text-[#0a0a0a] text-sm font-medium mb-1">Query <span class="text-[#a3a3a3] text-xs font-normal">(optional)</span></label>
-            <input id="ex-query" type="text" placeholder="e.g. rate limits and authentication" class="w-full px-3 py-2 border border-[#dbdbdb] rounded-lg text-sm outline-none focus:border-[#039855] placeholder:text-[#a3a3a3]" oninput="exUpdateBtn()"/>
+            <input id="ex-query" type="text" placeholder="e.g. rate limits and authentication" class="ui-input" oninput="exUpdateBtn()"/>
           </div>
         </section>
 

@@ -111,7 +111,7 @@ registerPage("page-web-flow", `
       <!-- Query -->
       <div>
         <label class="block text-xs font-medium text-[#737373] mb-2">Query <span class="text-[#a3a3a3] font-normal">(optional)</span></label>
-        <input type="text" id="wf-query" placeholder="Optional. Leave empty for filter-only delivery." class="w-full px-3 py-2 border border-[#e7e7e7] rounded-md text-sm focus:outline-none focus:border-[#039855]"/>
+        <input type="text" id="wf-query" placeholder="Optional. Leave empty for filter-only delivery." class="ui-input"/>
         <p class="text-xs text-[#737373] mt-1">Flow must have at least one effective constraint: Query, Domains, or Crawled time range.</p>
       </div>
 
@@ -119,7 +119,7 @@ registerPage("page-web-flow", `
         <!-- Topic -->
         <div>
           <label class="block text-xs font-medium text-[#737373] mb-2">Topic</label>
-          <select id="wf-topic" class="w-full px-3 py-2 border border-[#e7e7e7] rounded-md text-sm bg-white focus:outline-none focus:border-[#039855]">
+          <select id="wf-topic" class="ui-select">
             <option value="general">General</option>
             <option value="finance">Finance</option>
             <option value="health">Health</option>
