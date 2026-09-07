@@ -49,33 +49,33 @@ input:focus-visible,select:focus-visible{outline:none;border-color:#039855 !impo
   --surface-inverse: #0f172b;
   --background-inverse: #111111;
 
-  /* 文字 Foregrounds */
-  --foreground: #0f172b;
-  --fg-strong: #0f172b;
-  --fg-body: #1d293d;
-  --fg-secondary: #314158;
-  --fg-tertiary: #45556c;
-  --fg-muted: #62748e;
-  --fg-faint: #90a1b9;
+  /* 文字 Foregrounds (保持主项目原生 Cult UI 高对比黑与中性灰阶) */
+  --foreground: #0a0a0a;
+  --fg-strong: #0a0a0a;
+  --fg-body: #171717;
+  --fg-secondary: #525252;
+  --fg-tertiary: #737373;
+  --fg-muted: #737373;
+  --fg-faint: #a3a3a3;
   --foreground-inverse: #ffffff;
 
-  /* 边框与分隔 Borders & Lines */
-  --border: #e5e5e5;
-  --line: #e2e8f0;
-  --line-subtle: #f1f5f9;
-  --input: #e5e5e5;
-  --ring: #b5b5b5;
+  /* 边框与分隔 Borders & Lines (保持主项目原生 Cult UI 边框阶) */
+  --border: #dbdbdb;
+  --line: #e5e5e5;
+  --line-subtle: #f0f0f0;
+  --input: #dbdbdb;
+  --ring: #a3a3a3;
   --panel-border: #e7e7e7;
-  --neutral-border: #cfd9d6;
+  --neutral-border: #dbdbdb;
 
-  /* 中性色 Neutrals */
-  --neutral-50: #f3f3f3;
+  /* 中性色 Neutrals (保持主项目原生 Cult UI 中性色) */
+  --neutral-50: #f5f5f5;
   --neutral-100: #eaeaea;
   --neutral-200: #e0e0e0;
   --neutral-300: #dbdbdb;
   --neutral-muted: #a3a3a3;
-  --neutral-foreground: #727272;
-  --neutral-overlay: #00000006;
+  --neutral-foreground: #737373;
+  --neutral-overlay: rgba(0, 0, 0, 0.04);
 
   /* 状态色 Status */
   --success: #009966;
