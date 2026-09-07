@@ -542,10 +542,12 @@ html, body {
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
 }
 
-/* Overview Sub-card Background & Border (新方案：产品卡片及子卡片采用 #161616 嵌入式深色背景与同色边框) */
+/* Overview Sub-card Background & Border (API & Application 子卡片采用 #161616 深色背景与区别于背景的微描边) */
+#page-overview .ov-card,
 #page-overview .ov-api-card,
 #page-overview .ov-app-card {
   background-color: #ffffff;
+  border-color: #e7e7e7;
 }
 html.dark #page-overview .ov-card,
 html.dark #page-overview .ov-api-card,
@@ -557,7 +559,14 @@ html.dark #page-overview .ov-app-card,
 [data-theme="dark-trae"] #page-overview .ov-api-card,
 [data-theme="dark-trae"] #page-overview .ov-app-card {
   background-color: #161616 !important;
-  border-color: #161616 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Application 子卡片内部底部分隔微线 */
+html.dark #page-overview .ov-app-card .border-t,
+[data-theme="dark"] #page-overview .ov-app-card .border-t,
+[data-theme="dark-trae"] #page-overview .ov-app-card .border-t {
+  border-color: rgba(255, 255, 255, 0.06) !important;
 }
 /* Light Mode Sub-cards Hover: Brand Green Border */
 #page-overview .ov-card:hover {

@@ -59,7 +59,7 @@
   - **新方案：工业控制台底板与微量发丝边框**: 暗色模式下主面板容器 `.layout-pane` 统一采用开阔通透的 `#1a1a1a` 作为控制台主工作台底色，边框采用微量半透明微描边（`border-color: rgba(255, 255, 255, 0.07) !important`），与外层工作区底色 `--shell`（`#141414`）形成细腻发丝级轮廓界限。
 
 - **Overview Dashboard & Subcard Interactions (Overview 子卡片悬浮与暗色层级规范)**:
-  - **新方案：嵌入式深色卡片 (`#161616`)**: Overview 中所有子卡片（API、Application、Getting Started、Built with MCP）采用更深邃纯粹的 `#161616` 作为嵌入式插槽暗底，默认边框同色（`border-color: #161616 !important`），极大提升卡片内文字标题、描述、图标与徽标的边缘锐度与可读性。
+  - **新方案：嵌入式深色卡片 (`#161616`) 与区别于背景的微描边**: Overview 中所有子卡片（API、Application、Getting Started、Built with MCP）采用更深邃纯粹的 `#161616` 作为嵌入式插槽暗底；默认边框由原同色升级为**区别于背景的优雅微描边**（`border-color: rgba(255, 255, 255, 0.08) !important`），在 `#1a1a1a` 主面板上清晰界定卡片物理轮廓，极大提升卡片内文字标题、描述、图标与徽标的边缘锐度与立体质感。Application 子卡片底部操作区横向分隔线同步适配为微量半透微线（`rgba(255, 255, 255, 0.06)`）。
   - **暗色模式 Hover 高亮绿边框 (`.ov-card`)**: 悬浮至任何子卡片时，触发标志性翡翠绿高亮边框（`border-color: var(--primary) !important`，暗色下解析为 `#60ff70`），并伴随柔和外发光微投影（`box-shadow: 0 0 0 1px var(--primary-muted), 0 8px 24px -4px rgba(0, 0, 0, 0.45)`），右上角交互箭头同步点亮为高亮绿，形成极具未来感的“暗盒激活点亮”质感。
   - **Application 排版字号统一规范**: Application 卡片描述正文与底部操作项（Try now）从原 12px（`text-xs`）统一升级为 14px（`text-sm`），与 API 核心卡片正文字号视觉平衡一致。
 
