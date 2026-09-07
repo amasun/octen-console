@@ -55,11 +55,11 @@
   - **暗色模式父级高亮聚焦规范**: 双暗色模式（Octen Dark & TraeWork Dark）下彻底解除内层 `<textarea>` 的默认高亮边框和外阴影（`border: none !important; outline: none !important; box-shadow: none !important;`），将焦点聚焦反馈统一提升至最外层父容器边框（`focus-within` 响应 `var(--primary)` 与精细发光外圈），实现浑然一体的现代输入卡片质感。
 
 - **Main Card Layout Pane in Dark Mode (`.layout-pane` 主面板卡片暗色层级规范)**:
-  - **背景与微量边框区分规范**: 暗色模式下，主面板卡片容器 `.layout-pane` 背景色微幅提亮（Octen Dark 下为 `--surface: #141922`，Trae Dark 下为 `--surface: #1a1a1a`），边框统一采用现代半透明微量描边（`border-color: rgba(255, 255, 255, 0.07) !important`），与背景形成精细微妙的发丝级轮廓区分，既清晰定义主面板形态，又极致柔和克制，绝不生硬抢眼。
+  - **新方案：工业控制台底板与微量发丝边框**: 暗色模式下主面板容器 `.layout-pane` 统一采用开阔通透的 `#1e1e1e` 作为控制台主工作台底色，边框采用微量半透明微描边（`border-color: rgba(255, 255, 255, 0.07) !important`），与外层工作区底色 `--shell`（`#05070b` / `#141414`）形成细腻发丝级轮廓界限。
 
 - **Overview Dashboard & Subcard Interactions (Overview 子卡片悬浮与暗色层级规范)**:
-  - **暗色模式 Hover 高亮绿边框 (`.ov-card`)**: 悬浮至 API、Application、Getting Started 及 Built with MCP 等所有子卡片时，边框统一高亮为标志性翡翠绿（`border-color: var(--primary) !important`，暗色下解析为 `#60ff70`），并伴随柔和外发光微投影（`box-shadow: 0 0 0 1px var(--primary-muted), 0 8px 24px -4px rgba(0, 0, 0, 0.45)`），右上角交互箭头同步点亮为高亮绿。亮色模式下优雅过渡至品牌绿 `#039855`。
-  - **API & Application 子卡片背景与边框同色灰度阶梯 (`.ov-api-card`, `.ov-app-card`)**: 暗色模式下，主卡片背景为 `--surface`，8 个 API 子卡片及 4 个 Application 子卡片统一采用设计系统标准灰度 Token `--neutral-100`（明显亮于主卡片背景：Dark 下为 `#1f242d`，Trae 下为 `#202020`）；默认状态下卡片外边框与卡片背景完全同色（`border-color: var(--neutral-100) !important`），呈现极简无缝的块面层级，并在 Hover 时平滑点亮高亮绿边框。
+  - **新方案：嵌入式深色卡片 (`#161616`)**: Overview 中所有子卡片（API、Application、Getting Started、Built with MCP）采用更深邃纯粹的 `#161616` 作为嵌入式插槽暗底，默认边框同色（`border-color: #161616 !important`），极大提升卡片内文字标题、描述、图标与徽标的边缘锐度与可读性。
+  - **暗色模式 Hover 高亮绿边框 (`.ov-card`)**: 悬浮至任何子卡片时，触发标志性翡翠绿高亮边框（`border-color: var(--primary) !important`，暗色下解析为 `#60ff70`），并伴随柔和外发光微投影（`box-shadow: 0 0 0 1px var(--primary-muted), 0 8px 24px -4px rgba(0, 0, 0, 0.45)`），右上角交互箭头同步点亮为高亮绿，形成极具未来感的“暗盒激活点亮”质感。
   - **Application 排版字号统一规范**: Application 卡片描述正文与底部操作项（Try now）从原 12px（`text-xs`）统一升级为 14px（`text-sm`），与 API 核心卡片正文字号视觉平衡一致。
 
 
