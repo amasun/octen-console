@@ -17,6 +17,6 @@
 - `octen-console/`: The extracted and refactored Octen Console application.
   - `index.html`: The main console application entry point.
   - `css/styles.css`: Custom styling, semantic color tokens, and layout classes.
-- `theme/`: Abstracted design and color tokens documentation (`README.md`) for Octen Console (Cult UI 4-color palette).
-- `tradecode/`: Independent dark-first design system and theme reference documentation (`README.md`) aligned with TraeCode / Nimbus Core.
+- `theme/`: Octen Console 现行主题规范与抽象颜色 Token（Cult UI 4 阶灰 + 翡翠绿体系，含可视化对照色卡 `theme-color.html`）。
+- `TraeCode/` (traecode): 独立暗色 IDE 与工作台设计系统参考（Nimbus Core / Dark-first IDE & Dashboard 规范，仅作为参考索引归档，不影响或改变 Octen Console 现行主题）。
 - `_archive/`: Contains old backups and deprecated files.
