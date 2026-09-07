@@ -1460,130 +1460,130 @@ html.dark .token.variable {
 
 
 /* ==========================================================================
-   TraeCode Dark Theme Specification (Based on TraeCode/colors_and_type.css)
+   TraeWork Theme Specification (Based on TraeWork Design System & work.trae.cn)
    Retaining Octen Brand Green: #60ff70
    ========================================================================== */
 
 html.dark.theme-trae,
 html.theme-trae,
 [data-theme="dark-trae"] {
-  /* 主题色 Brand (Strictly Preserved Octen Dark Green) */
+  /* 主题色 Brand (Strictly Preserved Octen Dark Green: #60ff70) */
   --primary: #60ff70;
   --primary-lite: #60ff70;
   --primary-dark: #60ff70;
   --primary-bright: #66ff69;
-  --primary-muted: #60ff7087;
+  --primary-muted: rgba(96, 255, 112, 0.14);
   --primary-tint-soft: hsl(111 60% 62%);
 
-  /* 背景与表面 Background & Surfaces (TraeCode charcoal spec) */
-  --shell: #1A1B1D;              /* --bg-base-default */
-  --background: #1A1B1D;         /* --bg-base-default */
-  --surface: #222427;            /* --bg-base-secondary */
-  --surface-subtle: #2A2D31;     /* --bg-base-tertiary */
-  --surface-muted: #2A2D31;      /* --bg-base-tertiary */
-  --surface-strong: #33373E;
-  --card: #222427;               /* --color-card */
-  --popover: #202123;            /* --bg-menu */
-  --surface-inverse: #DADDE5;    /* --bg-invert */
-  --background-inverse: #EDEFF2; /* --bg-invert-hover */
+  /* 背景与表面 Background & Surfaces (TraeWork / work.trae.cn Neutral 阶梯) */
+  --shell: #262626;                     /* 外层及侧边栏底色 (--bg-invert) */
+  --background: #171717;                /* 主工作区底色 (--bg-invert-active) */
+  --surface: #171717;                   /* 主卡片表面 (--bg-invert-active) */
+  --surface-subtle: rgba(212, 212, 212, 0.06); /* 输入框/次级卡片 (--bg-overlay-l2) */
+  --surface-muted: rgba(212, 212, 212, 0.08);  /* 选中项/微高亮 (--bg-overlay-l3) */
+  --surface-strong: #303030;
+  --card: #171717;                      /* 工作台主卡片 */
+  --popover: #202020;                   /* 弹出层与浮动菜单 (--bg-card) */
+  --surface-inverse: #FFFFFF;
+  --background-inverse: #F5F5F5;
 
-  /* 文字 Foregrounds (TraeCode SF typography spec) */
-  --foreground: #D1D3DB;         /* --text-default */
-  --fg-strong: #F5F9FE;          /* --text-default-hover / active */
-  --fg-body: #D1D3DB;            /* --text-default */
-  --fg-secondary: #9599A6;       /* --text-secondary */
-  --fg-tertiary: #666B75;        /* --text-tertiary */
-  --fg-muted: #9599A6;           /* --color-muted-foreground */
-  --fg-faint: #666B75;           /* --text-disabled */
-  --foreground-inverse: #0C0C0D; /* --text-onbrand */
+  /* 文字 Foregrounds (TraeWork 纯中性文字阶梯) */
+  --foreground: #E5E5E5;                /* 主文字 (--brand-grey-200) */
+  --fg-strong: #FAFAFA;                 /* 强高亮文字 (--brand-grey-50) */
+  --fg-body: #E5E5E5;                   /* 正文 */
+  --fg-secondary: #A1A1A1;              /* 次级说明/占位符 (--text-disabled) */
+  --fg-tertiary: #737373;               /* 弱化小节标签 (--text-tertiary) */
+  --fg-muted: #737373;                  /* 弱化 */
+  --fg-faint: #525252;                  /* 极弱/不可用 */
+  --foreground-inverse: #171717;        /* 反转暗文字 */
 
-  /* 边框与分隔 Borders & Lines (TraeCode neutral border levels) */
-  --border: rgba(224, 226, 242, 0.1);     /* --border-neutral-l1 */
-  --line: rgba(224, 226, 242, 0.1);       /* --border-neutral-l1 */
-  --line-subtle: rgba(224, 226, 242, 0.06);
-  --input: rgba(224, 226, 242, 0.16);     /* --border-neutral-l2 */
-  --ring: rgba(224, 226, 242, 0.2);       /* --border-neutral-l3 */
-  --panel-border: rgba(224, 226, 242, 0.1);
-  --neutral-border: rgba(224, 226, 242, 0.14);
+  /* 边框与分隔 Borders & Lines (TraeWork 纯白半透明梯度) */
+  --border: rgba(229, 229, 229, 0.1);    /* 一级边框 (--border-neutral-l1) */
+  --line: rgba(229, 229, 229, 0.1);
+  --line-subtle: rgba(229, 229, 229, 0.06);
+  --input: rgba(229, 229, 229, 0.16);    /* 二级输入边框 (--border-neutral-l2) */
+  --ring: rgba(229, 229, 229, 0.2);      /* 强调描边 (--border-neutral-l3) */
+  --panel-border: rgba(229, 229, 229, 0.1);
+  --neutral-border: rgba(229, 229, 229, 0.14);
 
-  /* 中性色 Neutrals (TraeCode levels) */
-  --neutral-50: #222427;
-  --neutral-100: #2A2D31;
-  --neutral-200: #33373E;
-  --neutral-300: #3E434B;
-  --neutral-muted: #666B75;
-  --neutral-foreground: #9599A6;
-  --neutral-overlay: rgba(224, 226, 242, 0.06);
+  /* 中性色 Neutrals (TraeWork Neutral 阶梯) */
+  --neutral-50: #202020;
+  --neutral-100: #262626;
+  --neutral-200: #333333;
+  --neutral-300: #404040;
+  --neutral-muted: #737373;
+  --neutral-foreground: #A1A1A1;
+  --neutral-overlay: rgba(212, 212, 212, 0.06);
 
-  /* 状态色 Status (TraeCode status tokens) */
-  --success: #33C192;            /* --status-success-default */
-  --success-surface: rgba(0, 165, 110, 0.18);
-  --success-border: rgba(0, 165, 110, 0.28);
-  --success-muted: #27B082;
-  --success-foreground: #5ED4AD;
+  /* 状态色 Status (TraeWork status tokens) */
+  --success: #15A877;                   /* TraeWork --status-success-default */
+  --success-surface: rgba(21, 168, 119, 0.14);
+  --success-border: rgba(21, 168, 119, 0.26);
+  --success-muted: #1E8B56;
+  --success-foreground: #2FB287;
   --success-heavy: #E6FAF3;
 
-  --warning: #DCB364;            /* --accent-amber */
-  --warning-surface: rgba(220, 179, 100, 0.18);
-  --warning-border: rgba(220, 179, 100, 0.28);
-  --warning-muted: #C29A4D;
-  --warning-foreground: #F0D499;
+  --warning: #FEA900;                   /* TraeWork --status-alert-default */
+  --warning-surface: rgba(254, 169, 0, 0.14);
+  --warning-border: rgba(254, 169, 0, 0.26);
+  --warning-muted: #E59100;
+  --warning-foreground: #FFB700;
   --warning-heavy: #FFF9ED;
 
-  --danger: #FF9392;             /* --accent-coral */
-  --danger-surface: rgba(255, 147, 146, 0.18);
-  --danger-border: rgba(255, 147, 146, 0.28);
-  --danger-muted: #E06C6B;
-  --danger-foreground: #FFB8B7;
+  --danger: #E8463A;                    /* TraeWork --status-error-default */
+  --danger-surface: rgba(232, 70, 58, 0.14);
+  --danger-border: rgba(232, 70, 58, 0.26);
+  --danger-muted: #C9382F;
+  --danger-foreground: #EA574C;
   --danger-heavy: #FFF0F0;
 
-  --info: #387BFF;               /* --status-primary-default */
-  --info-surface: rgba(53, 121, 255, 0.18);
-  --info-border: rgba(53, 121, 255, 0.28);
+  --info: #2F74FF;                      /* TraeWork --status-primary-default */
+  --info-surface: rgba(47, 116, 255, 0.14);
+  --info-border: rgba(47, 116, 255, 0.26);
   --info-muted: #1759DD;
-  --info-foreground: #7BB8FF;
+  --info-foreground: #4C88FF;
   --info-heavy: #EBF2FF;
 
-  /* 强调色 Accents (TraeCode accent palette) */
+  /* 强调色 Accents */
   --accent-green: #32F08C;
-  --accent-teal: #2DD288;
-  --accent-cyan: #04CBE5;
-  --accent-sky: #80BBFF;
-  --accent-indigo: #7BB8FF;
-  --accent-violet: #BFA5FF;
-  --accent-pink: #EC93FF;
-  --accent-rose: #FF9392;
-  --accent-orange: #F29D79;
-  --accent-yellow: #DCB364;
-  --accent-lime: #8ACB3A;
+  --accent-teal: #00B983;
+  --accent-cyan: #00B6F5;
+  --accent-sky: #3F85FF;
+  --accent-indigo: #6A6FFF;
+  --accent-violet: #9570FF;
+  --accent-pink: #F53CFF;
+  --accent-rose: #FF6B45;
+  --accent-orange: #FF5D4D;
+  --accent-yellow: #F2A90C;
+  --accent-lime: #5FC000;
 
   /* 图表色 Charts */
-  --chart-broad-search: #7BB8FF;
-  --chart-search-calls: #2DD288;
-  --chart-content-tokens: #BFA5FF;
-  --chart-chat-tokens: #EC93FF;
-  --chart-embeddings: #DCB364;
-  --chart-vl-embeddings: #F29D79;
-  --chart-extract: #387BFF;
-  --chart-application: #B38CFF;
-  --chart-image-search: #04CBE5;
-  --chart-video-search: #80BBFF;
+  --chart-broad-search: #6A6FFF;
+  --chart-search-calls: #00B983;
+  --chart-content-tokens: #9570FF;
+  --chart-chat-tokens: #F53CFF;
+  --chart-embeddings: #F2A90C;
+  --chart-vl-embeddings: #FF5D4D;
+  --chart-extract: #2F74FF;
+  --chart-application: #B15EF2;
+  --chart-image-search: #00B6F5;
+  --chart-video-search: #3F85FF;
   --chart-model: #60ff70;
-  --chart-collect: #8ACB3A;
-  --chart-total: #9599A6;
-  --chart-grid: rgba(224, 226, 242, 0.08);
-  --chart-axis: #666B75;
-  --chart-cursor: #2A2D31;
-  --chart-tooltip-bg: #202123;
-  --chart-tooltip-border: rgba(224, 226, 242, 0.12);
-  --chart-tooltip-label: #F5F9FE;
+  --chart-collect: #5FC000;
+  --chart-total: #A1A1A1;
+  --chart-grid: rgba(229, 229, 229, 0.08);
+  --chart-axis: #737373;
+  --chart-cursor: #262626;
+  --chart-tooltip-bg: #202020;
+  --chart-tooltip-border: rgba(229, 229, 229, 0.12);
+  --chart-tooltip-label: #FAFAFA;
 
   /* Compatibility variables */
   --color-accent: var(--primary);
   --color-accent-1: color-mix(in oklab, var(--color-accent) 64%, #fff 36%);
   --color-accent-3: color-mix(in oklab, var(--color-accent) 50%, transparent 75%);
   --color-red: var(--danger);
-  --color-orange: #F29D79;
+  --color-orange: #FF5D4D;
   --color-yellow: var(--warning);
   --color-green: var(--success);
   --color-cyan: var(--accent-cyan);
@@ -1591,40 +1591,41 @@ html.theme-trae,
   --color-purple: var(--accent-violet);
   --color-pink: var(--accent-pink);
 
-  --color-base-00: #222427;
-  --color-base-05: #1A1B1D;
-  --color-base-10: #2A2D31;
-  --color-base-20: rgba(224, 226, 242, 0.1);
-  --color-base-25: rgba(224, 226, 242, 0.16);
-  --color-base-30: rgba(224, 226, 242, 0.2);
-  --color-base-35: #666B75;
-  --color-base-40: #666B75;
-  --color-base-50: #9599A6;
-  --color-base-60: #AFB9CF;
-  --color-base-70: #D1D3DB;
-  --color-base-80: #E0E3EE;
-  --color-base-90: #F5F9FE;
+  --color-base-00: #171717;
+  --color-base-05: #202020;
+  --color-base-10: #262626;
+  --color-base-20: rgba(229, 229, 229, 0.1);
+  --color-base-25: rgba(229, 229, 229, 0.16);
+  --color-base-30: rgba(229, 229, 229, 0.2);
+  --color-base-35: #737373;
+  --color-base-40: #737373;
+  --color-base-50: #A1A1A1;
+  --color-base-60: #D4D4D4;
+  --color-base-70: #E5E5E5;
+  --color-base-80: #E5E5E5;
+  --color-base-90: #FAFAFA;
   --color-base-100: #FFFFFF;
 
   --text-normal: var(--fg-strong);
   --text-muted: var(--fg-muted);
   --text-faint: var(--fg-faint);
-  --text-on-accent: #0C0C0D;
+  --text-on-accent: #171717;
   --bg-workspace: var(--shell);
   --background-primary: var(--surface);
   --background-secondary: var(--surface);
 }
 
-/* TraeCode Specific UI Refinements */
+/* TraeWork Specific UI Refinements */
 html.dark.theme-trae .ribbon {
-  background: var(--shell) !important;
-  border-right: 1px solid var(--panel-border) !important;
+  background: #262626 !important;
+  border-right: 1px solid rgba(229, 229, 229, 0.1) !important;
 }
 
 html.dark.theme-trae .layout-pane {
-  background: var(--surface) !important;
-  border-color: var(--panel-border) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+  background: #171717 !important;
+  border-color: rgba(229, 229, 229, 0.1) !important;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
 /* Direct [DEV] Theme Switcher Component Styles */
@@ -1661,73 +1662,74 @@ html.dark #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white)
   color: var(--fg-strong) !important;
 }
 
-/* TraeCode Dev Switcher Overrides */
+/* TraeWork Dev Switcher Overrides */
 html.dark.theme-trae #dev-theme-container {
-  background: #1A1B1D !important;
-  border-color: rgba(224, 226, 242, 0.1) !important;
+  background: #262626 !important;
+  border-color: rgba(229, 229, 229, 0.1) !important;
 }
 
 html.dark.theme-trae #dev-theme-container #dev-theme-bar {
-  background: #222427 !important;
-  border-color: rgba(224, 226, 242, 0.1) !important;
+  background: #171717 !important;
+  border-color: rgba(229, 229, 229, 0.1) !important;
 }
 
 html.dark.theme-trae #dev-theme-container #dev-theme-bar button.active,
 html.dark.theme-trae #dev-theme-container #dev-theme-bar button.bg-white {
-  background: #2A2D31 !important;
-  color: #F5F9FE !important;
+  background: #333333 !important;
+  color: #FAFAFA !important;
+  border: 1px solid rgba(229, 229, 229, 0.16);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
 html.dark.theme-trae #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white) {
-  color: #9599A6 !important;
+  color: #A1A1A1 !important;
 }
 
 html.dark.theme-trae #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white):hover {
-  color: #F5F9FE !important;
+  color: #FAFAFA !important;
 }
 
-/* Demo Card Theme Row in Trae Dark */
+/* Demo Card Theme Row in TraeWork Dark */
 html.dark.theme-trae #theme-segmented-group {
-  background: #1A1B1D !important;
-  border-color: rgba(224, 226, 242, 0.1) !important;
+  background: #262626 !important;
+  border-color: rgba(229, 229, 229, 0.1) !important;
 }
 
 html.dark.theme-trae #theme-segmented-group button.bg-white {
-  background: #2A2D31 !important;
-  color: #F5F9FE !important;
+  background: #333333 !important;
+  color: #FAFAFA !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
 html.dark.theme-trae #theme-segmented-group button:not(.bg-white) {
-  color: #9599A6 !important;
+  color: #A1A1A1 !important;
 }
 
 html.dark.theme-trae #theme-segmented-group button:not(.bg-white):hover {
-  color: #F5F9FE !important;
+  color: #FAFAFA !important;
 }
 
-/* TraeCode Prism / Code Syntax Highlighting */
+/* TraeWork Code Syntax Highlighting */
 html.dark.theme-trae .token.comment,
 html.dark.theme-trae .token.prolog,
 html.dark.theme-trae .token.doctype,
 html.dark.theme-trae .token.cdata {
-  color: #7F838C !important;
+  color: #737373 !important;
 }
 
 html.dark.theme-trae .token.punctuation {
-  color: #D1D3DB !important;
+  color: #D4D4D4 !important;
 }
 
 html.dark.theme-trae .token.property,
 html.dark.theme-trae .token.tag {
-  color: #F2858C !important;
+  color: #FF6B45 !important;
 }
 
 html.dark.theme-trae .token.boolean,
 html.dark.theme-trae .token.number,
 html.dark.theme-trae .token.constant {
-  color: #F48CCA !important;
+  color: #F53CFF !important;
 }
 
 html.dark.theme-trae .token.selector,
@@ -1740,19 +1742,20 @@ html.dark.theme-trae .token.builtin {
 
 html.dark.theme-trae .token.operator,
 html.dark.theme-trae .token.entity {
-  color: #80BBFF !important;
+  color: #3F85FF !important;
 }
 
 html.dark.theme-trae .token.keyword {
-  color: #B38CFF !important;
+  color: #9570FF !important;
 }
 
 html.dark.theme-trae .token.function {
-  color: #F29D79 !important;
+  color: #F2A90C !important;
 }
 
 html.dark.theme-trae .token.regex,
 html.dark.theme-trae .token.important,
 html.dark.theme-trae .token.variable {
-  color: #DCB364 !important;
+  color: #FEA900 !important;
 }
+

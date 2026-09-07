@@ -169,7 +169,7 @@ window.sidebarHtml = `<aside class="ribbon">
           <button type="button" onclick="setThemeMode('dark')" id="dev-theme-btn-dark" title="Octen Dark (theme-color.html)" class="py-1 px-1 rounded text-xs font-medium text-center transition-all text-[#737373]">
             🌙 Octen
           </button>
-          <button type="button" onclick="setThemeMode('dark-trae')" id="dev-theme-btn-dark-trae" title="TraeCode Dark (TraeCode)" class="py-1 px-1 rounded text-xs font-medium text-center transition-all text-[#737373]">
+          <button type="button" onclick="setThemeMode('dark-trae')" id="dev-theme-btn-dark-trae" title="TraeWork Dark (work.trae.cn)" class="py-1 px-1 rounded text-xs font-medium text-center transition-all text-[#737373]">
             ⚡ Trae
           </button>
         </div>
@@ -217,7 +217,7 @@ window.sidebarHtml = `<aside class="ribbon">
             <button type="button" onclick="setThemeMode('dark')" id="btn-theme-dark" title="Octen Dark" class="w-7 h-6 flex items-center justify-center rounded text-xs transition-all text-[#737373] hover:text-[#0a0a0a]">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
             </button>
-            <button type="button" onclick="setThemeMode('dark-trae')" id="btn-theme-dark-trae" title="TraeCode Dark" class="w-7 h-6 flex items-center justify-center rounded text-xs transition-all text-[#737373] hover:text-[#0a0a0a]">
+            <button type="button" onclick="setThemeMode('dark-trae')" id="btn-theme-dark-trae" title="TraeWork Dark" class="w-7 h-6 flex items-center justify-center rounded text-xs transition-all text-[#737373] hover:text-[#0a0a0a]">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
             </button>
             <button type="button" onclick="setThemeMode('system')" id="btn-theme-system" title="System" class="w-7 h-6 flex items-center justify-center rounded text-xs transition-all text-[#737373] hover:text-[#0a0a0a]">
