@@ -162,15 +162,18 @@ window.sidebarHtml = `<aside class="ribbon">
           </span>
           <span class="text-[10px] font-mono text-[#8a95a5]" id="dev-theme-name-tag">Octen Dark</span>
         </div>
-        <div class="grid grid-cols-3 gap-1 p-0.5 rounded-lg border border-[#e5e5e5] bg-white" id="dev-theme-bar">
-          <button type="button" onclick="setThemeMode('light')" id="dev-theme-btn-light" title="Cult UI Light" class="py-1 px-1 rounded text-xs font-medium text-center transition-all text-[#737373]">
+        <div class="grid grid-cols-4 gap-1 p-0.5 rounded-lg border border-[#e5e5e5] bg-white" id="dev-theme-bar">
+          <button type="button" onclick="setThemeMode('light')" id="dev-theme-btn-light" title="Cult UI Light" class="py-1 px-1 rounded text-[11px] font-medium text-center transition-all text-[#737373]">
             ☀️ Light
           </button>
-          <button type="button" onclick="setThemeMode('dark')" id="dev-theme-btn-dark" title="Octen Dark (theme-color.html)" class="py-1 px-1 rounded text-xs font-medium text-center transition-all text-[#737373]">
+          <button type="button" onclick="setThemeMode('dark')" id="dev-theme-btn-dark" title="Octen Dark (theme-color.html)" class="py-1 px-1 rounded text-[11px] font-medium text-center transition-all text-[#737373]">
             🌙 Octen
           </button>
-          <button type="button" onclick="setThemeMode('dark-trae')" id="dev-theme-btn-dark-trae" title="TraeWork Dark (work.trae.cn)" class="py-1 px-1 rounded text-xs font-medium text-center transition-all text-[#737373]">
+          <button type="button" onclick="setThemeMode('dark-trae')" id="dev-theme-btn-dark-trae" title="TraeWork Dark (work.trae.cn)" class="py-1 px-1 rounded text-[11px] font-medium text-center transition-all text-[#737373]">
             ⚡ Trae
+          </button>
+          <button type="button" onclick="setThemeMode('dark-cool')" id="dev-theme-btn-dark-cool" title="Trae Cool (10% 冷色调中和)" class="py-1 px-1 rounded text-[11px] font-medium text-center transition-all text-[#737373]">
+            ❄️ Cool
           </button>
         </div>
       </div>
@@ -219,6 +222,9 @@ window.sidebarHtml = `<aside class="ribbon">
             </button>
             <button type="button" onclick="setThemeMode('dark-trae')" id="btn-theme-dark-trae" title="TraeWork Dark" class="w-7 h-6 flex items-center justify-center rounded text-xs transition-all text-[#737373] hover:text-[#0a0a0a]">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </button>
+            <button type="button" onclick="setThemeMode('dark-cool')" id="btn-theme-dark-cool" title="Trae Cool (10% 冷色)" class="w-7 h-6 flex items-center justify-center rounded text-xs transition-all text-[#737373] hover:text-[#0a0a0a]">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07l14.14-14.14" /></svg>
             </button>
             <button type="button" onclick="setThemeMode('system')" id="btn-theme-system" title="System" class="w-7 h-6 flex items-center justify-center rounded text-xs transition-all text-[#737373] hover:text-[#0a0a0a]">
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>

@@ -33,7 +33,8 @@ input:focus-visible,select:focus-visible{outline:none;border-color:#039855 !impo
 }
 html.dark .sidebar-logo,
 [data-theme="dark"] .sidebar-logo,
-[data-theme="dark-trae"] .sidebar-logo {
+[data-theme="dark-trae"] .sidebar-logo,
+[data-theme="dark-cool"] .sidebar-logo {
   color: var(--primary-dark) !important;
 }
 
@@ -1230,7 +1231,9 @@ html.dark [id$="-dz"] textarea,
 [data-theme="dark"] #bsa-query,
 [data-theme="dark"] #ws-query,
 [data-theme="dark-trae"] #bsa-query,
-[data-theme="dark-trae"] #ws-query {
+[data-theme="dark-trae"] #ws-query,
+[data-theme="dark-cool"] #bsa-query,
+[data-theme="dark-cool"] #ws-query {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -1251,7 +1254,10 @@ html.dark [id$="-dz"]:focus-within,
 [data-theme="dark"] [id$="-dz"]:focus-within,
 [data-theme="dark-trae"] #bsa-query-box:focus-within,
 [data-theme="dark-trae"] #ws-query-box:focus-within,
-[data-theme="dark-trae"] [id$="-dz"]:focus-within {
+[data-theme="dark-trae"] [id$="-dz"]:focus-within,
+[data-theme="dark-cool"] #bsa-query-box:focus-within,
+[data-theme="dark-cool"] #ws-query-box:focus-within,
+[data-theme="dark-cool"] [id$="-dz"]:focus-within {
   border-color: var(--primary) !important;
   box-shadow: 0 0 0 1px var(--primary) !important;
 }
@@ -1748,6 +1754,233 @@ html.dark.theme-trae .layout-pane {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
+/* ==========================================================================
+   Trae Cool Theme Specification (Theme 4: 90% TraeWork + 10% Octen Cold Undertone)
+   Retaining Octen Brand Green: #60ff70
+   ========================================================================== */
+
+html.dark.theme-cool,
+html.theme-cool,
+[data-theme="dark-cool"] {
+  /* 主题色 Brand (Strictly Preserved Octen Dark Green: #60ff70) */
+  --primary: #60ff70;
+  --primary-lite: #60ff70;
+  --primary-dark: #60ff70;
+  --primary-bright: #66ff69;
+  --primary-muted: rgba(96, 255, 112, 0.14);
+  --primary-tint-soft: hsl(111 60% 62%);
+
+  /* 背景与表面 Background & Surfaces (90% Trae + 10% Octen 冷色调中和) */
+  --shell: #22252a;                     /* 外层及侧边栏底色：带微冷钛灰 */
+  --background: #15171c;                /* 主工作区底色：微冷蓝石墨黑 */
+  --surface: #15171c;                   /* 主卡片表面 */
+  --surface-subtle: rgba(210, 222, 245, 0.06); /* 输入框/次级卡片 (冷白微透) */
+  --surface-muted: rgba(210, 222, 245, 0.08);  /* 选中项/微高亮 */
+  --surface-strong: #2c2f37;
+  --card: #15171c;                      /* 工作台主卡片 */
+  --popover: #1d2026;                   /* 弹出层与浮动菜单 */
+  --surface-inverse: #FFFFFF;
+  --background-inverse: #F5F5F5;
+
+  /* 文字 Foregrounds (微冷银白文字阶梯) */
+  --foreground: #E2E6EE;                /* 主文字 (带微冷调的清爽白) */
+  --fg-strong: #F8FAFD;                 /* 强高亮文字 */
+  --fg-body: #E2E6EE;                   /* 正文 */
+  --fg-secondary: #9DA6B3;              /* 次级说明/占位符 */
+  --fg-tertiary: #727A88;               /* 弱化小节标签 */
+  --fg-muted: #727A88;                  /* 弱化 */
+  --fg-faint: #525866;                  /* 极弱/不可用 */
+  --foreground-inverse: #15171c;        /* 反转暗文字 */
+
+  /* 边框与分隔 Borders & Lines (微冷半透明白) */
+  --border: rgba(215, 228, 250, 0.11);  /* 一级边框 */
+  --line: rgba(215, 228, 250, 0.11);
+  --line-subtle: rgba(215, 228, 250, 0.06);
+  --input: rgba(215, 228, 250, 0.16);  /* 二级输入边框 */
+  --ring: rgba(215, 228, 250, 0.22);   /* 强调描边 */
+  --panel-border: rgba(215, 228, 250, 0.11);
+  --neutral-border: rgba(215, 228, 250, 0.14);
+
+  /* 中性色 Neutrals (冷中性阶梯) */
+  --neutral-50: #1d2026;
+  --neutral-100: #22252a;
+  --neutral-200: #2c2f37;
+  --neutral-300: #383d48;
+  --neutral-muted: #727A88;
+  --neutral-foreground: #9DA6B3;
+  --neutral-overlay: rgba(210, 222, 245, 0.06);
+
+  /* 状态色 Status */
+  --success: #15A877;
+  --success-surface: rgba(21, 168, 119, 0.14);
+  --success-border: rgba(21, 168, 119, 0.26);
+  --success-muted: #1E8B56;
+  --success-foreground: #2FB287;
+  --success-heavy: #E6FAF3;
+
+  --warning: #FEA900;
+  --warning-surface: rgba(254, 169, 0, 0.14);
+  --warning-border: rgba(254, 169, 0, 0.26);
+  --warning-muted: #E59100;
+  --warning-foreground: #FFB700;
+  --warning-heavy: #FFF9ED;
+
+  --danger: #E8463A;
+  --danger-surface: rgba(232, 70, 58, 0.14);
+  --danger-border: rgba(232, 70, 58, 0.26);
+  --danger-muted: #C9382F;
+  --danger-foreground: #EA574C;
+  --danger-heavy: #FFF0F0;
+
+  --info: #3b82f6;
+  --info-surface: rgba(59, 130, 246, 0.14);
+  --info-border: rgba(59, 130, 246, 0.26);
+  --info-muted: #2563eb;
+  --info-foreground: #60a5fa;
+  --info-heavy: #eff6ff;
+
+  /* 强调色 Accents */
+  --accent-green: #32F08C;
+  --accent-teal: #00B983;
+  --accent-cyan: #00B6F5;
+  --accent-sky: #3F85FF;
+  --accent-indigo: #6A6FFF;
+  --accent-violet: #9570FF;
+  --accent-pink: #F53CFF;
+  --accent-rose: #FF6B45;
+  --accent-orange: #FF5D4D;
+  --accent-yellow: #F2A90C;
+  --accent-lime: #5FC000;
+
+  /* 图表色 Charts */
+  --chart-broad-search: #6A6FFF;
+  --chart-search-calls: #00B983;
+  --chart-content-tokens: #9570FF;
+  --chart-chat-tokens: #F53CFF;
+  --chart-embeddings: #F2A90C;
+  --chart-vl-embeddings: #FF5D4D;
+  --chart-extract: #2F74FF;
+  --chart-application: #B15EF2;
+  --chart-image-search: #00B6F5;
+  --chart-video-search: #3F85FF;
+  --chart-model: #60ff70;
+  --chart-collect: #5FC000;
+  --chart-total: #9DA6B3;
+  --chart-grid: rgba(215, 228, 250, 0.08);
+  --chart-axis: #727A88;
+  --chart-cursor: #22252a;
+  --chart-tooltip-bg: #1d2026;
+  --chart-tooltip-border: rgba(215, 228, 250, 0.12);
+  --chart-tooltip-label: #F8FAFD;
+
+  /* Compatibility variables */
+  --color-accent: var(--primary);
+  --color-accent-1: color-mix(in oklab, var(--color-accent) 64%, #fff 36%);
+  --color-accent-3: color-mix(in oklab, var(--color-accent) 50%, transparent 75%);
+  --color-red: var(--danger);
+  --color-orange: #FF5D4D;
+  --color-yellow: var(--warning);
+  --color-green: var(--success);
+  --color-cyan: var(--accent-cyan);
+  --color-blue: var(--info);
+  --color-purple: var(--accent-violet);
+  --color-pink: var(--accent-pink);
+
+  --color-base-00: #15171c;
+  --color-base-05: #1d2026;
+  --color-base-10: #22252a;
+  --color-base-20: rgba(215, 228, 250, 0.11);
+  --color-base-25: rgba(215, 228, 250, 0.16);
+  --color-base-30: rgba(215, 228, 250, 0.22);
+  --color-base-35: #727A88;
+  --color-base-40: #727A88;
+  --color-base-50: #9DA6B3;
+  --color-base-60: #cbd5e1;
+  --color-base-70: #E2E6EE;
+  --color-base-80: #E2E6EE;
+  --color-base-90: #F8FAFD;
+  --color-base-100: #FFFFFF;
+
+  --text-normal: var(--fg-strong);
+  --text-muted: var(--fg-muted);
+  --text-faint: var(--fg-faint);
+  --text-on-accent: #15171c;
+  --bg-workspace: var(--shell);
+  --background-primary: var(--surface);
+  --background-secondary: var(--surface);
+
+  --code-base: #f0f6fc;
+  --code-bg: #15171c;
+  --code-numbers: #6e7681;
+  --code-keyword: #79c0ff;
+  --code-string: #7ee787;
+  --code-function: #d2a8ff;
+  --code-number: #79c0ff;
+  --code-property: #79c0ff;
+  --code-comment: #8b949e;
+  --code-punctuation: #c9d1d9;
+  --code-operator: #79c0ff;
+  --code-variable: #ffa657;
+}
+
+/* Trae Cool Specific UI Refinements */
+html.dark.theme-cool .ribbon {
+  background: var(--shell) !important;
+  border-right: none !important;
+}
+
+html.dark.theme-cool .layout-pane {
+  background: #15171c !important;
+  border-color: rgba(215, 228, 250, 0.11) !important;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark.theme-cool #dev-theme-container {
+  background: #22252a !important;
+  border-color: rgba(215, 228, 250, 0.11) !important;
+}
+
+html.dark.theme-cool #dev-theme-container #dev-theme-bar {
+  background: #15171c !important;
+  border-color: rgba(215, 228, 250, 0.11) !important;
+}
+
+html.dark.theme-cool #dev-theme-container #dev-theme-bar button.active,
+html.dark.theme-cool #dev-theme-container #dev-theme-bar button.bg-white {
+  background: #2c2f37 !important;
+  color: #F8FAFD !important;
+  border: 1px solid rgba(215, 228, 250, 0.16);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark.theme-cool #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white) {
+  color: #9DA6B3 !important;
+}
+
+html.dark.theme-cool #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white):hover {
+  color: #F8FAFD !important;
+}
+
+html.dark.theme-cool #theme-segmented-group {
+  background: #22252a !important;
+  border-color: rgba(215, 228, 250, 0.11) !important;
+}
+
+html.dark.theme-cool #theme-segmented-group button.bg-white {
+  background: #2c2f37 !important;
+  color: #F8FAFD !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark.theme-cool #theme-segmented-group button:not(.bg-white) {
+  color: #9DA6B3 !important;
+}
+
+html.dark.theme-cool #theme-segmented-group button:not(.bg-white):hover {
+  color: #F8FAFD !important;
+}
+
 /* Direct [DEV] Theme Switcher Component Styles */
 #dev-theme-container {
   transition: all 0.2s ease;
@@ -1951,7 +2184,8 @@ html.theme-trae,
 
 html.dark .ui-code-container,
 [data-theme="dark"] .ui-code-container,
-[data-theme="dark-trae"] .ui-code-container {
+[data-theme="dark-trae"] .ui-code-container,
+[data-theme="dark-cool"] .ui-code-container {
   background-color: var(--code-bg) !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
@@ -1972,7 +2206,9 @@ html.dark code,
 [data-theme="dark"] pre,
 [data-theme="dark"] code,
 [data-theme="dark-trae"] pre,
-[data-theme="dark-trae"] code {
+[data-theme="dark-trae"] code,
+[data-theme="dark-cool"] pre,
+[data-theme="dark-cool"] code {
   color: var(--code-base);
 }
 
@@ -1981,7 +2217,9 @@ html.dark code[class*="language-"],
 [data-theme="dark"] pre[class*="language-"],
 [data-theme="dark"] code[class*="language-"],
 [data-theme="dark-trae"] pre[class*="language-"],
-[data-theme="dark-trae"] code[class*="language-"] {
+[data-theme="dark-trae"] code[class*="language-"],
+[data-theme="dark-cool"] pre[class*="language-"],
+[data-theme="dark-cool"] code[class*="language-"] {
   text-shadow: none !important;
 }
 
@@ -1991,14 +2229,16 @@ html.dark .token.prolog,
 html.dark .token.doctype,
 html.dark .token.cdata,
 [data-theme="dark"] .token.comment,
-[data-theme="dark-trae"] .token.comment {
+[data-theme="dark-trae"] .token.comment,
+[data-theme="dark-cool"] .token.comment {
   color: var(--code-comment) !important;
   font-style: italic !important;
 }
 
 html.dark .token.punctuation,
 [data-theme="dark"] .token.punctuation,
-[data-theme="dark-trae"] .token.punctuation {
+[data-theme="dark-trae"] .token.punctuation,
+[data-theme="dark-cool"] .token.punctuation {
   color: var(--code-punctuation) !important;
 }
 
@@ -2008,14 +2248,16 @@ html.dark .token.constant,
 html.dark .token.symbol,
 html.dark .token.deleted,
 [data-theme="dark"] .token.property,
-[data-theme="dark-trae"] .token.property {
+[data-theme="dark-trae"] .token.property,
+[data-theme="dark-cool"] .token.property {
   color: var(--code-property) !important;
 }
 
 html.dark .token.boolean,
 html.dark .token.number,
 [data-theme="dark"] .token.number,
-[data-theme="dark-trae"] .token.number {
+[data-theme="dark-trae"] .token.number,
+[data-theme="dark-cool"] .token.number {
   color: var(--code-number) !important;
 }
 
@@ -2026,7 +2268,8 @@ html.dark .token.char,
 html.dark .token.builtin,
 html.dark .token.inserted,
 [data-theme="dark"] .token.string,
-[data-theme="dark-trae"] .token.string {
+[data-theme="dark-trae"] .token.string,
+[data-theme="dark-cool"] .token.string {
   color: var(--code-string) !important;
 }
 
@@ -2034,7 +2277,8 @@ html.dark .token.operator,
 html.dark .token.entity,
 html.dark .token.url,
 [data-theme="dark"] .token.operator,
-[data-theme="dark-trae"] .token.operator {
+[data-theme="dark-trae"] .token.operator,
+[data-theme="dark-cool"] .token.operator {
   color: var(--code-operator) !important;
 }
 
@@ -2042,14 +2286,16 @@ html.dark .token.atrule,
 html.dark .token.attr-value,
 html.dark .token.keyword,
 [data-theme="dark"] .token.keyword,
-[data-theme="dark-trae"] .token.keyword {
+[data-theme="dark-trae"] .token.keyword,
+[data-theme="dark-cool"] .token.keyword {
   color: var(--code-keyword) !important;
 }
 
 html.dark .token.function,
 html.dark .token.class-name,
 [data-theme="dark"] .token.function,
-[data-theme="dark-trae"] .token.function {
+[data-theme="dark-trae"] .token.function,
+[data-theme="dark-cool"] .token.function {
   color: var(--code-function) !important;
 }
 
@@ -2057,32 +2303,37 @@ html.dark .token.regex,
 html.dark .token.important,
 html.dark .token.variable,
 [data-theme="dark"] .token.variable,
-[data-theme="dark-trae"] .token.variable {
+[data-theme="dark-trae"] .token.variable,
+[data-theme="dark-cool"] .token.variable {
   color: var(--code-variable) !important;
 }
 
 /* 5. Specialized Language Refinements */
 html.dark .language-json .token.property,
 [data-theme="dark"] .language-json .token.property,
-[data-theme="dark-trae"] .language-json .token.property {
+[data-theme="dark-trae"] .language-json .token.property,
+[data-theme="dark-cool"] .language-json .token.property {
   color: #79c0ff !important;
 }
 
 html.dark .language-json .token.string,
 [data-theme="dark"] .language-json .token.string,
-[data-theme="dark-trae"] .language-json .token.string {
+[data-theme="dark-trae"] .language-json .token.string,
+[data-theme="dark-cool"] .language-json .token.string {
   color: #a5d6ff !important;
 }
 
 html.dark .language-bash .token.function,
 [data-theme="dark"] .language-bash .token.function,
-[data-theme="dark-trae"] .language-bash .token.function {
+[data-theme="dark-trae"] .language-bash .token.function,
+[data-theme="dark-cool"] .language-bash .token.function {
   color: #7ee787 !important;
 }
 
 html.dark .language-bash .token.parameter,
 [data-theme="dark"] .language-bash .token.parameter,
-[data-theme="dark-trae"] .language-bash .token.parameter {
+[data-theme="dark-trae"] .language-bash .token.parameter,
+[data-theme="dark-cool"] .language-bash .token.parameter {
   color: #79c0ff !important;
 }
 

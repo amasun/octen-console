@@ -15,14 +15,23 @@
 
 - `octen-console-prototype.html`: The original monolithic prototype file.
 - `octen-console/`: The extracted and refactored Octen Console application.
-  - `index.html`: The main console application entry point (含无闪烁早期主题初始化脚本)。
-  - `css/styles.css`: Custom styling, semantic color tokens, layout classes, and Prism Dual-Theme code styling（全量适配浅色 Light、Octen Dark 及 TraeWork Dark 规范；严格采用 `theme/theme-color.html` 92 个 Token 命名，并在各模式下精准保真各自的原生色彩数值；搭载高对比暗色代码高亮引擎，彻底解决暗色下深字看不清问题）。
+  - `index.html`: The main console application entry point (含无闪烁早期主题初始化脚本，无缝兼容 Light、Octen Dark、Trae Dark 及 Trae Cool 四套模式)。
+  - `css/styles.css`: Custom styling, semantic color tokens, layout classes, and Prism Dual-Theme code styling（全量适配浅色 Light、Octen Dark、Trae Dark 以及 10% 冷色调中和的 Trae Cool 规范；严格采用 `theme/theme-color.html` 92 个 Token 命名，并在各模式下精准保真各自的原生色彩数值；搭载高对比暗色代码高亮引擎，彻底解决暗色下深字看不清问题）。
   - `js/core/syntax-highlight.js`: 语法高亮驱动模块（支持语言自动推断、行号渲染与语义类解耦，双主题模式下自动适配前景色与高亮配色）。
   - `js/core/tailwind-config.js`: Tailwind 配置扩展（注入 `primary`, `shell`, `surface`, `foreground`, `fg`, `border`, `panel-border`, `neutral`, `status`, `accent`, `chart` 等全部设计 Token 实用类，同时保持与老项目的向下兼容）。
-  - `js/core/sidebar.js`: 侧边栏布局与交互（包含左上角品牌 Logo 支持暗色下动态渲染 `--primary-dark`、底部直出开发模式主题切换栏 `[DEV] Theme` 及账号弹出卡片）。
-  - `js/core/theme.js`: 主题状态管理模块（支持 `light`、`dark` (Octen)、`dark-trae` (TraeWork) 与 `system` 多模式切换、持久化储存与无缝样式派发）。
+  - `js/core/sidebar.js`: 侧边栏布局与交互（包含左上角品牌 Logo 支持暗色下动态渲染 `--primary-dark`、底部直出 4 格开发模式主题切换栏 `[DEV] Theme` 及账号弹出卡片）。
+  - `js/core/theme.js`: 主题状态管理模块（支持 `light`、`dark` (Octen)、`dark-trae` (Trae)、`dark-cool` (Trae Cool 10% 冷色) 与 `system` 多模式切换、持久化储存与无缝样式派发）。
 - `theme/`: Octen Console 现行主题规范与抽象颜色 Token（Cult UI 4 阶灰 + 翡翠绿体系，含可视化对照色卡 `theme-color.html`）。
 - `TraeWork/`: TraeWork 设计系统与规范参考（指导 Octen Console 第三颜色模式 `dark-trae`，基于 `work.trae.cn` 的中性黑阶 `#171717` / `#262626`、纯白微透边框 `rgba(229,229,229,0.1)` 及中性排版梯度，同时完整保留当前暗色模式的高对比翡翠绿主色 `--primary: #60ff70`）。
+- **Theme 4: Trae Cool (10% 冷色中和暗色主题)**:
+  - **设计理念**: 以 `work.trae.cn` 的纯粹炭黑梯阶和通透现代架构为基底（占比 90%），中和 Octen 的深海蓝调，**适度注入约 10% 的冷色钛灰调（Cool Slate / Titanium Grey）**。
+  - **核心色阶公式**:
+    - `--shell`（外衬底与侧边栏）: `#22252a`（带有 6% 极微冷钛灰碳色，彻底消除死板无生气的纯炭黑感）
+    - `--background` & `--surface` & `--card`（工作区与面板卡片）: `#15171c`（冷蓝石墨黑，RGB 21, 23, 28，微蓝冷色阶，提供卓越沉浸感与眼部舒适度）
+    - `--border` & `--line`: `rgba(215, 228, 250, 0.11)`（微透冰白描边，精致冷冽）
+    - `--foreground` / `--fg-body`: `#E2E6EE`（微冷银白正文字阶，高对比且不刺眼）
+    - `--primary`: 完整保留 Octen 标志性翡翠绿 `#60ff70`
+    - `--code-bg`: `#15171c`（融合 VS Code 冰蓝语法高亮体系）
 - `_archive/`: Contains old backups and deprecated files.
 
 ## 🎨 UI Component Standards (组件交互与视觉规范)

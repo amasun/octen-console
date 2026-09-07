@@ -20,15 +20,18 @@
         if (saved === 'system') {
           effective = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
         }
-        if (effective === 'dark-trae') {
+        if (effective === 'dark-cool') {
+          document.documentElement.classList.add('dark', 'theme-cool');
+          document.documentElement.setAttribute('data-theme', 'dark-cool');
+        } else if (effective === 'dark-trae') {
           document.documentElement.classList.add('dark', 'theme-trae');
           document.documentElement.setAttribute('data-theme', 'dark-trae');
         } else if (effective === 'dark') {
           document.documentElement.classList.add('dark');
-          document.documentElement.classList.remove('theme-trae');
+          document.documentElement.classList.remove('theme-trae', 'theme-cool');
           document.documentElement.setAttribute('data-theme', 'dark');
         } else {
-          document.documentElement.classList.remove('dark', 'theme-trae');
+          document.documentElement.classList.remove('dark', 'theme-trae', 'theme-cool');
           document.documentElement.setAttribute('data-theme', 'light');
         }
       } catch(e){}
