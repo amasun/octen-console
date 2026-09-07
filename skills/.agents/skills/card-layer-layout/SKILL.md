@@ -86,6 +86,76 @@ Ensure the following design tokens are registered and consistently referenced:
 
 ---
 
+## 🎛️ 2.5 Component Standards
+
+### Form Elements (32px / 14px Standard)
+All single-line form components (`.ui-input`, `.ui-select`, `.ui-btn`, tags/pills) MUST adhere strictly to a **32px height** and **14px font size**.
+To ensure perfect vertical text centering across all browsers—even for single-line textareas—use the following padding and line-height formula:
+`6px (top padding) + 18px (line-height) + 6px (bottom padding) + 2px (borders) = 32px`.
+
+```css
+.ui-input, .ui-select {
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 18px;
+  border-radius: 6px;
+  border: 1px solid #dbdbdb;
+  box-sizing: border-box;
+}
+input.ui-input, select.ui-select {
+  height: 32px;
+}
+textarea.ui-input {
+  height: auto;
+  min-height: 32px;
+  resize: vertical;
+}
+```
+
+### Segmented Controls (.seg-group)
+For inline tab switching and filter controls, use the standard segmented group pattern. It sits on a subtle grey background with floating white pill indicators for the active state.
+
+```html
+<div class="seg-group">
+  <button class="seg-item active">Request</button>
+  <button class="seg-item">Response</button>
+</div>
+```
+
+```css
+.seg-group {
+  display: inline-flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  padding: 4px;
+  gap: 4px;
+}
+.seg-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 0 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #737373;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  transition: all 0.15s ease;
+}
+.seg-item:hover { color: #0a0a0a; }
+.seg-item.active {
+  background-color: #ffffff;
+  color: #0a0a0a;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+```
+
+---
+
 ## 🏗️ 3. Layout Implementation Template
 
 Use this HTML/CSS skeleton as the starting boilerplate for any card-layered dashboard:
@@ -239,6 +309,15 @@ Use this HTML/CSS skeleton as the starting boilerplate for any card-layered dash
   overflow: hidden;
 }
 
+/* header for sub-panels or segment groups */
+.pane-sub-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  flex-shrink: 0;
+}
+
 /* code & typography standard (JetBrains Mono) */
 code {
   font-family: "JetBrains Mono", monospace;
@@ -262,9 +341,14 @@ pre code {
   line-height: 1.55;
 }
 
-/* code block containers (e.g. #bsa-code) */
-.code-container, #bsa-code {
+/* code block containers (e.g. .ui-code-container) */
+.ui-code-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
   border-radius: 8px;
+  overflow: hidden;
   border: 1px solid #F5F5F5;
   background: rgba(245, 245, 245, 0.50);
 }

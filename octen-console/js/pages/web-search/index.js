@@ -80,14 +80,14 @@
     else el.textContent=wsReqCode();
     document.querySelectorAll('.ws-lang').forEach(b=>{
       const on = b.dataset.l === wsLang;
-      b.className = 'ws-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+      b.className = 'ws-lang seg-item ' + (on ? 'active' : '');
       b.style.cssText = '';
     });
   };
   window.wsSetLang=function(l){ wsLang=l; wsRefreshCode(); };
   window.wsBasis=function(b){ document.querySelectorAll('.ws-tb').forEach(x=>{
     const on=x.getAttribute('data-b')===b;
-    x.className = 'ws-tb px-3 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+    x.className = 'ws-tb ui-pill ' + (on ? 'active' : '');
   }); wsRefreshCode(); };
   window.wsCopyReq=function(){ try{navigator.clipboard&&navigator.clipboard.writeText(wsReqCode());}catch(e){} const b=$('ws-copyreq'); if(b){const o=b.innerHTML;b.innerHTML='<svg class="w-3.5 h-3.5" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Copied</span>';setTimeout(()=>b.innerHTML=o,1500);} };
   // ── shared query-suggestion dropdown (focus to pick an example) ──

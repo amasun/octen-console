@@ -153,62 +153,123 @@ window.sidebarHtml = `<aside class="ribbon">
   <!-- Bottom account info (matches ConsoleLayout.tsx) -->
   <div class="shrink-0 mt-auto">
     <div class="p-4 relative" id="demo-toggle-wrap">
-      <div id="demo-toggle" aria-controls="demo-card" class="w-full rounded-xl transition-colors px-2 py-2 border border-[#dbdbdb] cursor-pointer" style="background-color: transparent; background-image: linear-gradient(rgb(239, 239, 239), rgb(239, 239, 239));">
+      <div id="demo-toggle" onclick="toggleDemoCard(event)" aria-controls="demo-card" class="w-full rounded-xl transition-colors px-2 py-2 border border-[#dbdbdb] cursor-pointer" style="background-color: transparent; background-image: linear-gradient(rgb(239, 239, 239), rgb(239, 239, 239));">
         <div class="flex items-center justify-between">
           <div class="flex items-center gap-3 min-w-0">
-            <div class="w-9 h-9 rounded-full bg-[#0F172B] text-white flex items-center justify-center font-medium shrink-0">J</div>
+            <div class="w-9 h-9 rounded-full bg-[#0F172B] text-white flex items-center justify-center font-medium shrink-0">C</div>
             <div class="min-w-0 text-left">
-              <div class="text-[#0a0a0a] text-sm font-medium truncate">Jane Niu</div>
-              <div class="text-[#737373] text-xs truncate">user@example.com</div>
+              <div class="text-[#0a0a0a] text-sm font-medium truncate">cyrussun</div>
+              <div class="text-[#737373] text-xs truncate">cyrussun@octen.ai</div>
             </div>
           </div>
-          <svg class="w-4 h-4 text-[#a3a3a3] rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/></svg>
+          <svg class="w-4 h-4 text-[#a3a3a3] transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
         </div>
       </div>
 
-      <!-- Demo switches (prototype only) - nested inside wrapper for bulletproof hover -->
-      <div id="demo-card" class="hidden absolute left-4 right-4 bottom-full mb-2 z-20 rounded-lg border border-[#dbdbdb] bg-white p-3 shadow-[0_16px_40px_rgba(10,10,10,0.12)] space-y-2">
-        <div>
-          <div class="text-xs text-[#a3a3a3] mb-2">Demo: view as</div>
-          <div class="flex gap-1">
-            <button onclick="setRole('owner')" id="rb-owner" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Owner</button>
-            <button onclick="setRole('manager')" id="rb-manager" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Manager</button>
-            <button onclick="setRole('member')" id="rb-member" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Member</button>
+      <!-- Account Popover Menu matching screenshot -->
+      <div id="demo-card" class="hidden absolute left-4 right-4 bottom-full mb-2 z-20 rounded-2xl border border-[#dbdbdb] bg-white p-3.5 shadow-[0_16px_40px_rgba(10,10,10,0.12)] space-y-2">
+        <!-- User Info -->
+        <div class="px-1 py-0.5">
+          <div class="font-medium text-[#0a0a0a] text-sm leading-snug">cyrussun</div>
+          <div class="text-xs text-[#737373] mt-0.5">cyrussun@octen.ai</div>
+        </div>
+
+        <!-- Theme Switcher Row (Red Box in screenshot) -->
+        <div class="flex items-center justify-between py-1.5 px-1 rounded-lg transition-colors" id="theme-switch-row">
+          <div class="flex items-center gap-2.5 text-sm text-[#0a0a0a] font-normal">
+            <svg class="w-4 h-4 text-[#737373] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
+              <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/>
+              <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/>
+              <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/>
+              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/>
+            </svg>
+            <span>Theme</span>
+          </div>
+          <div class="inline-flex items-center p-0.5 rounded-lg border border-[#e5e5e5] bg-[#f5f5f5]" id="theme-segmented-group">
+            <button type="button" onclick="setThemeMode('light')" id="btn-theme-light" title="Light" class="w-7 h-6 flex items-center justify-center rounded text-xs transition-all text-[#737373] hover:text-[#0a0a0a]">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+            </button>
+            <button type="button" onclick="setThemeMode('dark')" id="btn-theme-dark" title="Dark" class="w-7 h-6 flex items-center justify-center rounded text-xs transition-all text-[#737373] hover:text-[#0a0a0a]">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            </button>
+            <button type="button" onclick="setThemeMode('system')" id="btn-theme-system" title="System" class="w-7 h-6 flex items-center justify-center rounded text-xs transition-all text-[#737373] hover:text-[#0a0a0a]">
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            </button>
           </div>
         </div>
-        <div>
-          <div class="text-xs text-[#a3a3a3] mb-2">Demo: payment</div>
-          <div class="flex gap-1">
-            <button onclick="setPayment(false)" id="rb-nocard" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">No card</button>
-            <button onclick="setPayment(true)" id="rb-active" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Active</button>
+
+        <!-- Navigation Links -->
+        <a href="#" onclick="go('api-keys'); return false;" class="flex items-center gap-2.5 py-1.5 px-1 rounded-lg hover:bg-[#f5f5f5] text-sm text-[#0a0a0a] transition-colors">
+          <svg class="w-4 h-4 text-[#737373] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
+          <span>API Keys</span>
+        </a>
+        <a href="#" onclick="return false;" class="flex items-center gap-2.5 py-1.5 px-1 rounded-lg hover:bg-[#f5f5f5] text-sm text-[#0a0a0a] transition-colors">
+          <svg class="w-4 h-4 text-[#737373] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+          <span>Document</span>
+        </a>
+        <a href="mailto:support@octen.ai" class="flex items-center gap-2.5 py-1.5 px-1 rounded-lg hover:bg-[#f5f5f5] text-sm text-[#0a0a0a] transition-colors">
+          <svg class="w-4 h-4 text-[#737373] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span>Contact us</span>
+        </a>
+
+        <!-- Divider -->
+        <div class="border-t border-[#f1f5f9] my-1"></div>
+
+        <!-- [DEV] Payment -->
+        <div class="px-1 py-0.5">
+          <div class="text-xs text-[#8a95a5] font-medium mb-1.5">[DEV] Payment</div>
+          <div class="flex items-center gap-4 text-xs text-[#0a0a0a]">
+            <label class="inline-flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="dev-payment-radio" value="paid" onchange="setPayment(true)" class="accent-[#039855]" checked id="pay-radio-paid"/>
+              <span>Paid</span>
+            </label>
+            <label class="inline-flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="dev-payment-radio" value="unpaid" onchange="setPayment(false)" class="accent-[#039855]" id="pay-radio-unpaid"/>
+              <span>Unpaid</span>
+            </label>
           </div>
         </div>
-        <div>
-          <div class="text-xs text-[#a3a3a3] mb-2">Demo: billing mode</div>
-          <div class="flex gap-1">
-            <button onclick="setBillingMode('prepaid')" id="bm-prepaid" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Prepaid</button>
-            <button onclick="setBillingMode('postpaid')" id="bm-postpaid" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Invoiced</button>
+
+        <!-- [DEV] Postpaid -->
+        <div class="px-1 py-0.5">
+          <div class="text-xs text-[#8a95a5] font-medium mb-1.5">[DEV] Postpaid</div>
+          <div class="space-y-1.5 text-xs text-[#0a0a0a]">
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="dev-postpaid-radio" value="firstMonth" onchange="setPostpaidStatus(this.value)" class="accent-[#039855]"/>
+              <span>Real data</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="dev-postpaid-radio" value="prepaid" onchange="setBillingMode('prepaid')" class="accent-[#039855]"/>
+              <span>Off (prepaid)</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="dev-postpaid-radio" value="normal" checked onchange="setPostpaidStatus(this.value)" class="accent-[#039855]"/>
+              <span>Active</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="dev-postpaid-radio" value="warn80" onchange="setPostpaidStatus(this.value)" class="accent-[#039855]"/>
+              <span>Due in 3d</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="dev-postpaid-radio" value="overdue" onchange="setPostpaidStatus(this.value)" class="accent-[#039855]"/>
+              <span>Overdue 4d</span>
+            </label>
+            <label class="flex items-center gap-1.5 cursor-pointer">
+              <input type="radio" name="dev-postpaid-radio" value="suspended" onchange="setPostpaidStatus(this.value)" class="accent-[#039855]"/>
+              <span>Suspended 18d</span>
+            </label>
           </div>
         </div>
-        <div class="mt-2.5">
-          <div class="text-xs text-[#a3a3a3] mb-2">Demo: access state</div>
-          <div class="flex gap-1">
-            <button onclick="setAccessState('signed-out')" id="ax-signed-out" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Signed out</button>
-            <button onclick="setAccessState('apply')" id="ax-apply" class="flex-1 text-xs py-1 rounded border font-medium transition-all" style="background:#0398551a;color:#039855;border-color:rgba(3,152,85,.3)">Apply</button>
-            <button onclick="setAccessState('approved')" id="ax-approved" class="flex-1 text-xs py-1 rounded border border-[#dbdbdb] text-[#737373]">Approved</button>
-          </div>
-        </div>
-        <div id="bm-status-wrap" class="hidden">
-          <div class="text-xs text-[#a3a3a3] mb-2">Demo: postpaid status</div>
-          <select id="bm-status" onchange="setPostpaidStatus(this.value)" class="w-full text-xs py-1 px-2 rounded border border-[#dbdbdb] text-[#737373] bg-white outline-none">
-            <option value="firstMonth">First month (no usage yet)</option>
-            <option value="normal">Normal (&lt;80%)</option>
-            <option value="warn80">Warning ?0%</option>
-            <option value="warn90">Warning ?0%</option>
-            <option value="overdue">Invoice overdue</option>
-            <option value="suspended">Suspended (?00% / D+37)</option>
-          </select>
-        </div>
+
+        <!-- Divider -->
+        <div class="border-t border-[#f1f5f9] my-1"></div>
+
+        <!-- Logout -->
+        <a href="#" onclick="return false;" class="flex items-center gap-2.5 py-1.5 px-1 rounded-lg hover:bg-red-50 text-sm text-[#dc2626] font-normal transition-colors">
+          <svg class="w-4 h-4 text-[#dc2626] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          <span>Logout</span>
+        </a>
       </div>
     </div>
   </div>

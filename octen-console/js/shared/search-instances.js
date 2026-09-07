@@ -1,5 +1,5 @@
 (function(){
-  const PRIMARY = 'var(--color-accent)', CODE_BG='rgba(245, 245, 245, 0.5)', FB='#e2e8f0', CARD='#ecedf0', HEAD='#1e293b', MONO='"JetBrains Mono",ui-monospace,"SF Mono",Menlo,Consolas,monospace';
+  const PRIMARY = 'var(--color-accent)', CODE_BG='rgba(245, 245, 245, 0.5)', FB='#e2e8f0', CARD='#ecedf0', HEAD='#1e293b', MONO='ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace';
   const C_KEY='#0550ae',C_STR='#0a3069',C_NUM='#0550ae',C_KW='#cf222e',C_DEF='#24292f';
   const MASKED='octen-7c2b••••••••••••••••••••••••5f0a', B64_IMG='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA...';
   const MAX_IMAGES=5;
@@ -24,7 +24,7 @@
   window.PGS_serialize=serialize;
   function hlCode(line){const toks=[];const re=/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g;let last=0,m;const plain=t=>{const pr=/(\b(?:import|from|const|let|var|await|async|function|return|print|new)\b)|(\b(?:True|False|None|true|false|null)\b)|(\b\d+(?:\.\d+)?\b)/g;let l=0,mm;while((mm=pr.exec(t))){if(mm.index>l)toks.push({t:t.slice(l,mm.index),c:C_DEF});if(mm[1])toks.push({t:mm[0],c:C_KW});else toks.push({t:mm[0],c:C_NUM});l=mm.index+mm[0].length;}if(l<t.length)toks.push({t:t.slice(l),c:C_DEF});};while((m=re.exec(line))){if(m.index>last)plain(line.slice(last,m.index));toks.push({t:m[0],c:C_STR});last=m.index+m[0].length;}if(last<line.length)plain(line.slice(last));if(!toks.length)toks.push({t:line,c:C_DEF});return toks;}
   function hlJson(line){const toks=[];const re=/("(?:[^"\\]|\\.)*")(\s*:)?|(\b\d+(?:\.\d+)?\b)|(\btrue\b|\bfalse\b|\bnull\b)/g;let last=0,m;while((m=re.exec(line))){if(m.index>last)toks.push({t:line.slice(last,m.index),c:C_DEF});if(m[1]!==undefined){if(m[2]){toks.push({t:m[1],c:C_KEY});toks.push({t:m[2],c:C_DEF});}else toks.push({t:m[1],c:C_STR});}else if(m[3]!==undefined)toks.push({t:m[3],c:C_NUM});else if(m[4]!==undefined)toks.push({t:m[4],c:C_KW});last=m.index+m[0].length;}if(last<line.length)toks.push({t:line.slice(last),c:C_DEF});if(!toks.length)toks.push({t:line,c:C_DEF});return toks;}
-  function codeBlock(code,hl){const lines=code.split('\n');const nums=lines.map((_,i)=>'<div>'+(i+1)+'</div>').join('');const body=lines.map(ln=>'<div>'+hl(ln).map(tk=>'<span style="color:'+tk.c+'">'+esc(tk.t)+'</span>').join('')+(ln===''?'​':'')+'</div>').join('');return '<div style="max-height:560px;overflow:auto;background:'+CODE_BG+';padding:14px 0"><div style="display:flex;width:max-content;min-width:100%;font-family:'+MONO+';font-size:12.5px;line-height:21px"><div style="flex-shrink:0;text-align:right;color:#6e7681;user-select:none;padding:0 16px">'+nums+'</div><div style="flex:1;padding-right:16px;white-space:pre">'+body+'</div></div></div>';}
+  function codeBlock(code,hl){const lines=code.split('\n');const nums=lines.map((_,i)=>'<div>'+(i+1)+'</div>').join('');const body=lines.map(ln=>'<div>'+hl(ln).map(tk=>'<span style="color:'+tk.c+'">'+esc(tk.t)+'</span>').join('')+(ln===''?'​':'')+'</div>').join('');return '<div style="max-height:560px;overflow:auto;background:'+CODE_BG+';padding:14px 0"><div style="display:flex;width:max-content;min-width:100%;font-family:'+MONO+';font-size:14px;line-height:22px"><div style="flex-shrink:0;text-align:right;color:#6e7681;user-select:none;padding:0 16px">'+nums+'</div><div style="flex:1;padding-right:16px;white-space:pre">'+body+'</div></div></div>';}
 
   // SVG thumbnails
   const T_DASH=svgUri("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='#f1f5f9'/><rect width='84' height='300' fill='#fff'/><circle cx='24' cy='30' r='8' fill='#039855'/><rect x='104' y='24' width='120' height='12' rx='6' fill='#1e293b'/><rect x='104' y='60' width='86' height='62' rx='10' fill='#fff' stroke='#e2e8f0'/><rect x='200' y='60' width='86' height='62' rx='10' fill='#ecfdf5' stroke='#a7f3d0'/><polyline points='118,238 158,210 198,224 238,180 278,196 318,150 360,168' fill='none' stroke='#039855' stroke-width='3'/></svg>");
@@ -86,7 +86,7 @@
         '<section class="space-y-3"><h3 class="text-xs text-[#737373] uppercase tracking-wide font-semibold">Basic settings</h3><div class="grid grid-cols-2 gap-4">'+
           (c.topic?'<div class="space-y-1.5"><label class="ui-label-primary">Topic</label><select id="'+k+'-topic" class="ui-select" onchange="PGS_set(\''+k+'\',\'topic\',this.value)"><option value="general">general</option><option value="news">news</option><option value="design">design</option></select></div>':'')+
           '<div class="space-y-1.5"><label class="ui-label-primary">Output modalities</label>'+(c.selectable?
-            '<div class="seg-group w-full">'+['text','image','video'].map((mm,i)=>'<button type="button" class="'+k+'-mod px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-m="'+mm+'" onclick="PGS_toggleMod(\''+k+'\',\''+mm+'\')">'+mm+'</button>').join('')+'</div>'
+            '<div class="seg-group w-full">'+['text','image','video'].map((mm,i)=>'<button type="button" class="'+k+'-mod seg-item" data-m="'+mm+'" onclick="PGS_toggleMod(\''+k+'\',\''+mm+'\')">'+mm+'</button>').join('')+'</div>'
             :'<div class="ui-input bg-[#f5f5f5] text-[#a3a3a3]">'+c.modalities[0]+'</div>')+'</div>'+
           '<div class="space-y-1.5"><label class="ui-label-primary">Max results</label><input id="'+k+'-max" type="number" min="1" max="100" value="10" class="ui-input" oninput="PGS_set(\''+k+'\',\'max\',this.value)"/></div>'+
         '</div></section>'+
@@ -97,8 +97,8 @@
             ['auto','published','crawled'].map((b,i)=>'<button type="button" class="'+k+'-tb pgs-seg px-3 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-b="'+b+'" onclick="PGS_basis(\''+k+'\',\''+b+'\')">'+(b[0].toUpperCase()+b.slice(1))+'</button>').join('')+'</div></div>'+
             '<div class="relative space-y-1.5"><label class="ui-label-primary">Date range</label><button type="button" id="'+k+'-datebtn" onclick="PGS_dateToggle(\''+k+'\')" class="ui-input flex items-center gap-2 cursor-pointer text-[#737373]"><svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg><span id="'+k+'-datelbl">Custom range</span></button><div id="'+k+'-datepop" class="hidden absolute top-[calc(100%+6px)] right-0 z-50 bg-white border border-[#dbdbdb] rounded-xl shadow-[0_12px_32px_rgba(15,23,42,0.16)] p-4 flex flex-col gap-3"></div></div></div>'+
           '<p class="text-xs text-[#a3a3a3]">Auto prefers published time and falls back to crawled time.</p>'+
-          '<div class="space-y-1.5"><label class="ui-label-primary">Include domains</label><textarea id="'+k+'-inc" rows="2" placeholder="e.g. octen.ai (one per line)" class="ui-textarea" oninput="PGS_code(\''+k+'\')"></textarea></div>'+
-          '<div class="space-y-1.5"><label class="ui-label-primary">Exclude domains</label><textarea id="'+k+'-exc" rows="2" placeholder="e.g. octen.ai (one per line)" class="ui-textarea" oninput="PGS_code(\''+k+'\')"></textarea></div>'+
+          '<div class="space-y-1.5"><label class="ui-label-primary">Include domains</label><textarea id="'+k+'-inc" rows="2" placeholder="e.g. octen.ai (one per line)" class="ui-input" oninput="PGS_code(\''+k+'\')"></textarea></div>'+
+          '<div class="space-y-1.5"><label class="ui-label-primary">Exclude domains</label><textarea id="'+k+'-exc" rows="2" placeholder="e.g. octen.ai (one per line)" class="ui-input" oninput="PGS_code(\''+k+'\')"></textarea></div>'+
         '</section>'+
         '<div class="border-t border-[#dbdbdb]"></div>'+
         // Output options
@@ -116,17 +116,17 @@
         '</div>'+
         '<div class="flex-1 flex flex-col min-h-0">'+
           // Sub-nav for Request
-          '<div id="'+k+'-sub-req" class="flex items-center justify-between shrink-0 px-4 py-4">'+
+          '<div id="'+k+'-sub-req" class="pane-sub-header hidden">'+
             '<div class="seg-group">'+
-              ['python','javascript','curl'].map((l,i)=>'<button type="button" class="'+k+'-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="'+l+'" onclick="PGS_lang(\''+k+'\',\''+l+'\')">'+(l==='curl'?'cURL':l[0].toUpperCase()+l.slice(1))+'</button>').join('')+
+              ['python','javascript','curl'].map((l,i)=>'<button type="button" class="'+k+'-lang seg-item '+(i===0?'active':'')+'" data-l="'+l+'" onclick="PGS_lang(\''+k+'\',\''+l+'\')">'+(l==='curl'?'cURL':l[0].toUpperCase()+l.slice(1))+'</button>').join('')+
             '</div>'+
             '<button type="button" onclick="PGS_copyReq(\''+k+'\')" id="'+k+'-copyreq" class="ui-btn-outline"><svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.166 5.9165C15.028 5.9165 15.8546 6.25891 16.4641 6.86841C17.0736 7.4779 17.416 8.30455 17.416 9.1665V14.1665C17.416 15.0285 17.0736 15.8551 16.4641 16.4646C15.8546 17.0741 15.028 17.4165 14.166 17.4165H9.16602C8.30406 17.4165 7.47741 17.0741 6.86792 16.4646C6.25843 15.8551 5.91602 15.0285 5.91602 14.1665V9.1665C5.91602 8.30455 6.25843 7.4779 6.86792 6.86841C7.47741 6.25891 8.30406 5.9165 9.16602 5.9165H14.166ZM9.16602 7.4165C8.70189 7.4165 8.25677 7.60088 7.92858 7.92907C7.60039 8.25726 7.41602 8.70238 7.41602 9.1665V14.1665C7.41602 15.1332 8.19935 15.9165 9.16602 15.9165H14.166C14.6301 15.9165 15.0753 15.7321 15.4035 15.4039C15.7316 15.0758 15.916 14.6306 15.916 14.1665V9.1665C15.916 8.70238 15.7316 8.25726 15.4035 7.92907C15.0753 7.60088 14.6301 7.4165 14.166 7.4165H9.16602Z" fill="currentColor" fill-opacity="0.6"/><path d="M10.834 2.5835C11.4045 2.58342 11.9651 2.73356 12.4592 3.01881C12.9534 3.30406 13.3637 3.71437 13.649 4.2085C13.7484 4.38078 13.7754 4.58551 13.7239 4.77766C13.6724 4.9698 13.5467 5.13362 13.3744 5.23308C13.2021 5.33254 12.9974 5.35948 12.8052 5.30799C12.6131 5.25649 12.4493 5.13078 12.3498 4.9585C12.1963 4.69231 11.9754 4.47127 11.7093 4.31766C11.4432 4.16404 11.1413 4.08328 10.834 4.0835H5.83398C5.60417 4.0835 5.37661 4.12876 5.16429 4.21671C4.95197 4.30465 4.75905 4.43356 4.59655 4.59606C4.43405 4.75856 4.30514 4.95148 4.2172 5.1638C4.12925 5.37612 4.08398 5.60368 4.08398 5.8335V10.8335C4.08398 11.4802 4.43398 12.046 4.95898 12.3502C5.12516 12.4526 5.24486 12.6158 5.29264 12.805C5.34043 12.9943 5.31254 13.1947 5.21489 13.3638C5.11725 13.5328 4.95755 13.6571 4.76972 13.7103C4.58189 13.7634 4.38073 13.7413 4.20898 13.6485C3.71486 13.3632 3.30455 12.9529 3.0193 12.4587C2.73405 11.9646 2.58391 11.4041 2.58398 10.8335V5.8335C2.58398 4.97154 2.92639 4.14489 3.53589 3.5354C4.14538 2.92591 4.97203 2.5835 5.83398 2.5835H10.834Z" fill="currentColor" fill-opacity="0.6"/></svg><span>Copy</span></button>'+
           '</div>'+
           // Sub-nav for Response
-          '<div id="'+k+'-sub-res" class="hidden flex items-center justify-between shrink-0 px-4 py-4">'+
+          '<div id="'+k+'-sub-res" class="pane-sub-header hidden">'+
             '<div class="seg-group">'+
-              '<button type="button" class="'+k+'-rt px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-r="json" onclick="PGS_rtab(\''+k+'\',\'json\')">JSON</button>'+
-              '<button type="button" class="'+k+'-rt px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-r="preview" onclick="PGS_rtab(\''+k+'\',\'preview\')">Preview</button>'+
+              '<button type="button" class="'+k+'-rt seg-item active" data-r="json" onclick="PGS_rtab(\''+k+'\',\'json\')">JSON</button>'+
+              '<button type="button" class="'+k+'-rt seg-item" data-r="preview" onclick="PGS_rtab(\''+k+'\',\'preview\')">Preview</button>'+
             '</div>'+
             '<div class="flex items-center gap-3"><span id="'+k+'-took" class="text-xs text-[#a3a3a3]"></span><button type="button" onclick="PGS_copyResp(\''+k+'\')" id="'+k+'-copyresp" class="ui-btn-outline"><svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.166 5.9165C15.028 5.9165 15.8546 6.25891 16.4641 6.86841C17.0736 7.4779 17.416 8.30455 17.416 9.1665V14.1665C17.416 15.0285 17.0736 15.8551 16.4641 16.4646C15.8546 17.0741 15.028 17.4165 14.166 17.4165H9.16602C8.30406 17.4165 7.47741 17.0741 6.86792 16.4646C6.25843 15.8551 5.91602 15.0285 5.91602 14.1665V9.1665C5.91602 8.30455 6.25843 7.4779 6.86792 6.86841C7.47741 6.25891 8.30406 5.9165 9.16602 5.9165H14.166ZM9.16602 7.4165C8.70189 7.4165 8.25677 7.60088 7.92858 7.92907C7.60039 8.25726 7.41602 8.70238 7.41602 9.1665V14.1665C7.41602 15.1332 8.19935 15.9165 9.16602 15.9165H14.166C14.6301 15.9165 15.0753 15.7321 15.4035 15.4039C15.7316 15.0758 15.916 14.6306 15.916 14.1665V9.1665C15.916 8.70238 15.7316 8.25726 15.4035 7.92907C15.0753 7.60088 14.6301 7.4165 14.166 7.4165H9.16602Z" fill="currentColor" fill-opacity="0.6"/><path d="M10.834 2.5835C11.4045 2.58342 11.9651 2.73356 12.4592 3.01881C12.9534 3.30406 13.3637 3.71437 13.649 4.2085C13.7484 4.38078 13.7754 4.58551 13.7239 4.77766C13.6724 4.9698 13.5467 5.13362 13.3744 5.23308C13.2021 5.33254 12.9974 5.35948 12.8052 5.30799C12.6131 5.25649 12.4493 5.13078 12.3498 4.9585C12.1963 4.69231 11.9754 4.47127 11.7093 4.31766C11.4432 4.16404 11.1413 4.08328 10.834 4.0835H5.83398C5.60417 4.0835 5.37661 4.12876 5.16429 4.21671C4.95197 4.30465 4.75905 4.43356 4.59655 4.59606C4.43405 4.75856 4.30514 4.95148 4.2172 5.1638C4.12925 5.37612 4.08398 5.60368 4.08398 5.8335V10.8335C4.08398 11.4802 4.43398 12.046 4.95898 12.3502C5.12516 12.4526 5.24486 12.6158 5.29264 12.805C5.34043 12.9943 5.31254 13.1947 5.21489 13.3638C5.11725 13.5328 4.95755 13.6571 4.76972 13.7103C4.58189 13.7634 4.38073 13.7413 4.20898 13.6485C3.71486 13.3632 3.30455 12.9529 3.0193 12.4587C2.73405 11.9646 2.58391 11.4041 2.58398 10.8335V5.8335C2.58398 4.97154 2.92639 4.14489 3.53589 3.5354C4.14538 2.92591 4.97203 2.5835 5.83398 2.5835H10.834Z" fill="currentColor" fill-opacity="0.6"/></svg><span>Copy</span></button></div>'+
           '</div>'+
@@ -174,9 +174,9 @@
   }
   function renderMods(I){
     const k=K(I); if(!I.cfg.selectable)return;
-    document.querySelectorAll('.'+k+'-mod').forEach(x=>{
-      const on=I.mods.includes(x.dataset.m);
-      x.className = k+'-mod px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+    document.querySelectorAll('.'+k+'-mod').forEach(b=>{
+      const mm=b.dataset.m; const on=I.mods.includes(mm);
+      b.className = k+'-mod seg-item ' + (on ? 'active' : '');
     });
   }
   function renderOutOpts(I){ const k=K(I), c=I.cfg; let h='';
@@ -204,11 +204,11 @@
     
     document.querySelectorAll('.'+k+'-lang').forEach(b=>{
       const on=b.dataset.l===I.lang;
-      b.className = k+'-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+      b.className = k+'-lang seg-item ' + (on ? 'active' : '');
     });
     document.querySelectorAll('.'+k+'-rt').forEach(b=>{
       const on=b.dataset.r===I.rtab;
-      b.className = k+'-rt px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+      b.className = k+'-rt seg-item ' + (on ? 'active' : '');
     });
   }
 
@@ -348,9 +348,9 @@
     // Each search page (image/video/multimodal) is now its own SPA page and
     // injects only its own root. Init whichever roots are present in the DOM.
     const specs = [
-      {key:'is', rootId:'is-root', modalities:['image'], topic:true, selectable:false, htmlSnippet:true, highlightFull:false},
-      {key:'vs', rootId:'vs-root', modalities:['video'], topic:false, selectable:false, htmlSnippet:false, highlightFull:false},
-      {key:'mm', rootId:'mm-root', modalities:['text','image','video'], topic:true, selectable:true, htmlSnippet:true, highlightFull:true},
+      {key:'is', rootId:'page-image-search', modalities:['image'], topic:true, selectable:false, htmlSnippet:true, highlightFull:false},
+      {key:'vs', rootId:'page-video-search', modalities:['video'], topic:false, selectable:false, htmlSnippet:false, highlightFull:false},
+      {key:'mm', rootId:'page-multimodal-search', modalities:['text','image','video'], topic:true, selectable:true, htmlSnippet:true, highlightFull:true},
     ];
     const present = specs.filter(s => document.getElementById(s.rootId));
     if (!present.length) return;

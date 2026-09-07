@@ -6,7 +6,7 @@ registerPage("page-web-search", `<div id="page-web-search" class="page h-full">
       <!-- Configuration header -->
       <div class="flex items-center justify-between shrink-0 px-4 pt-4 pb-2 border-b border-transparent">
         <h2 class="text-[#0a0a0a] font-semibold text-lg">Configuration</h2>
-        <a href="#" onclick="return false" class="inline-flex items-center gap-2 px-3 py-2 border border-[#dbdbdb] text-[#737373] rounded-md text-xs hover:bg-[#f5f5f5]">
+        <a href="#" onclick="return false" class="ui-btn-outline">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           <span>Docs</span>
         </a>
@@ -63,15 +63,15 @@ registerPage("page-web-search", `<div id="page-web-search" class="page h-full">
           <div class="grid grid-cols-2 gap-3 items-start">
             <div>
               <label class="ui-label">Time basis</label>
-              <div class="seg-group w-full">
-                <button type="button" class="ws-tb px-3 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center bg-white shadow-sm text-[#0a0a0a]" data-b="auto" onclick="wsBasis('auto')">Auto</button>
-                <button type="button" class="ws-tb px-3 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-b="published" onclick="wsBasis('published')">Published</button>
-                <button type="button" class="ws-tb px-3 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-b="crawled" onclick="wsBasis('crawled')">Crawled</button>
+              <div class="ui-pills">
+                <button type="button" class="ws-tb ui-pill active" data-b="auto" onclick="wsBasis('auto')">Auto</button>
+                <button type="button" class="ws-tb ui-pill" data-b="published" onclick="wsBasis('published')">Published</button>
+                <button type="button" class="ws-tb ui-pill" data-b="crawled" onclick="wsBasis('crawled')">Crawled</button>
               </div>
             </div>
             <div class="relative">
               <label class="ui-label">Date range</label>
-              <button type="button" id="ws-date-btn" onclick="wsDateToggle()" class="w-full flex items-center gap-2 px-3 py-2 border border-[#dbdbdb] rounded-lg text-xs bg-white outline-none focus:border-[#039855]">
+              <button type="button" id="ws-date-btn" onclick="wsDateToggle()" class="w-full h-8 flex items-center gap-2 px-3 border border-[#dbdbdb] rounded-lg text-sm bg-white outline-none focus:border-[#039855]">
                 <svg class="w-3.5 h-3.5 text-[#a3a3a3] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
                 <span id="ws-date-label" class="text-[#a3a3a3]">Custom range</span>
               </button>
@@ -108,33 +108,31 @@ registerPage("page-web-search", `<div id="page-web-search" class="page h-full">
         <section class="space-y-4">
           <h2 class="text-[#0a0a0a] text-sm font-medium">Output options</h2>
 
-          <!-- Return highlights -->
           <div class="flex items-start justify-between gap-3">
             <div class="flex-1 min-w-0">
-              <label class="flex items-center gap-2 text-[#0a0a0a] text-xs font-medium cursor-pointer">
+              <label class="flex items-center gap-2 text-[#0a0a0a] text-sm font-medium cursor-pointer">
                 <input type="checkbox" id="ws-hl" checked onchange="wsRefreshCode()" class="ui-checkbox"/>
                 <span>Return highlights</span>
               </label>
               <p class="text-xs text-[#737373] ml-6 mt-1">Extract query-relevant highlights from the content.</p>
             </div>
-            <div class="shrink-0">
+            <div id="ws-hltok-wrap" class="shrink-0">
               <label class="ui-label">Max tokens</label>
-              <input type="number" id="ws-hltok" min="1" value="512" oninput="wsRefreshCode()" class="w-28 px-3 py-2 border border-[#dbdbdb] rounded-md text-xs outline-none focus:border-[#039855] tabular-nums"/>
+              <input type="number" id="ws-hltok" min="1" value="512" oninput="wsRefreshCode()" class="ui-input w-28 tabular-nums"/>
             </div>
           </div>
 
-          <!-- Return full content -->
           <div class="flex items-start justify-between gap-3">
             <div class="flex-1 min-w-0">
-              <label class="flex items-center gap-2 text-[#0a0a0a] text-xs font-medium cursor-pointer">
+              <label class="flex items-center gap-2 text-[#0a0a0a] text-sm font-medium cursor-pointer">
                 <input type="checkbox" id="ws-fc" onchange="wsRefreshCode()" class="ui-checkbox"/>
                 <span>Return full content</span>
               </label>
-              <p class="text-xs text-[#737373] ml-6 mt-1">Billed via full_content_max_tokens.</p>
+              <p class="text-xs text-[#737373] ml-6 mt-1">Include the full page content for text results.</p>
             </div>
-            <div class="shrink-0">
+            <div id="ws-fctok-wrap" class="hidden shrink-0">
               <label class="ui-label">Max tokens</label>
-              <input type="number" id="ws-fctok" min="1" value="2048" oninput="wsRefreshCode()" class="w-28 px-3 py-2 border border-[#dbdbdb] rounded-md text-xs outline-none focus:border-[#039855] tabular-nums"/>
+              <input type="number" id="ws-fctok" min="1" value="2048" oninput="wsRefreshCode()" class="ui-input w-28 tabular-nums"/>
             </div>
           </div>
 
@@ -160,11 +158,11 @@ registerPage("page-web-search", `<div id="page-web-search" class="page h-full">
       <div class="flex-1 flex flex-col min-h-0">
         <!-- Request pane -->
         <div id="ws-pane-request" class="flex-1 flex flex-col min-h-0">
-          <div class="flex items-center justify-between shrink-0 px-4 py-4">
+          <div id="ws-sub-req" class="pane-sub-header">
             <div class="seg-group">
-              <button type="button" class="ws-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-white shadow-sm text-[#0a0a0a]" data-l="python" onclick="wsSetLang('python')">Python</button>
-              <button type="button" class="ws-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="javascript" onclick="wsSetLang('javascript')">JavaScript</button>
-              <button type="button" class="ws-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]" data-l="curl" onclick="wsSetLang('curl')">cURL</button>
+              <button type="button" class="ws-lang seg-item active" data-l="python" onclick="wsSetLang('python')">Python</button>
+              <button type="button" class="ws-lang seg-item" data-l="javascript" onclick="wsSetLang('javascript')">JavaScript</button>
+              <button type="button" class="ws-lang seg-item" data-l="curl" onclick="wsSetLang('curl')">cURL</button>
             </div>
             <button type="button" onclick="wsCopyReq()" id="ws-copyreq" class="ui-btn-outline">
               <svg class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14.166 5.9165C15.028 5.9165 15.8546 6.25891 16.4641 6.86841C17.0736 7.4779 17.416 8.30455 17.416 9.1665V14.1665C17.416 15.0285 17.0736 15.8551 16.4641 16.4646C15.8546 17.0741 15.028 17.4165 14.166 17.4165H9.16602C8.30406 17.4165 7.47741 17.0741 6.86792 16.4646C6.25843 15.8551 5.91602 15.0285 5.91602 14.1665V9.1665C5.91602 8.30455 6.25843 7.4779 6.86792 6.86841C7.47741 6.25891 8.30406 5.9165 9.16602 5.9165H14.166ZM9.16602 7.4165C8.70189 7.4165 8.25677 7.60088 7.92858 7.92907C7.60039 8.25726 7.41602 8.70238 7.41602 9.1665V14.1665C7.41602 15.1332 8.19935 15.9165 9.16602 15.9165H14.166C14.6301 15.9165 15.0753 15.7321 15.4035 15.4039C15.7316 15.0758 15.916 14.6306 15.916 14.1665V9.1665C15.916 8.70238 15.7316 8.25726 15.4035 7.92907C15.0753 7.60088 14.6301 7.4165 14.166 7.4165H9.16602Z" fill="currentColor" fill-opacity="0.6"/><path d="M10.834 2.5835C11.4045 2.58342 11.9651 2.73356 12.4592 3.01881C12.9534 3.30406 13.3637 3.71437 13.649 4.2085C13.7484 4.38078 13.7754 4.58551 13.7239 4.77766C13.6724 4.9698 13.5467 5.13362 13.3744 5.23308C13.2021 5.33254 12.9974 5.35948 12.8052 5.30799C12.6131 5.25649 12.4493 5.13078 12.3498 4.9585C12.1963 4.69231 11.9754 4.47127 11.7093 4.31766C11.4432 4.16404 11.1413 4.08328 10.834 4.0835H5.83398C5.60417 4.0835 5.37661 4.12876 5.16429 4.21671C4.95197 4.30465 4.75905 4.43356 4.59655 4.59606C4.43405 4.75856 4.30514 4.95148 4.2172 5.1638C4.12925 5.37612 4.08398 5.60368 4.08398 5.8335V10.8335C4.08398 11.4802 4.43398 12.046 4.95898 12.3502C5.12516 12.4526 5.24486 12.6158 5.29264 12.805C5.34043 12.9943 5.31254 13.1947 5.21489 13.3638C5.11725 13.5328 4.95755 13.6571 4.76972 13.7103C4.58189 13.7634 4.38073 13.7413 4.20898 13.6485C3.71486 13.3632 3.30455 12.9529 3.0193 12.4587C2.73405 11.9646 2.58391 11.4041 2.58398 10.8335V5.8335C2.58398 4.97154 2.92639 4.14489 3.53589 3.5354C4.14538 2.92591 4.97203 2.5835 5.83398 2.5835H10.834Z" fill="currentColor" fill-opacity="0.6"/></svg>

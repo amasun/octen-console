@@ -1843,11 +1843,8 @@ function wsTabSwitch(tab) {
   reqPane.classList.toggle('hidden', !req);
   if(resPane) resPane.classList.toggle('hidden', req);
   
-  const activeCls = 'py-4 text-base font-medium text-[#0a0a0a] border-b-2 border-[#0a0a0a] transition-colors relative top-px';
-  const inactiveCls = 'py-4 text-base font-medium text-[#737373] border-b-2 border-transparent hover:text-[#0a0a0a] transition-colors relative top-px';
-  
-  if(tReq) tReq.className = req ? activeCls : inactiveCls;
-  if(tRes) tRes.className = req ? inactiveCls : activeCls;
+  if(tReq) tReq.className = 'ui-tab ' + (req ? 'active' : 'inactive');
+  if(tRes) tRes.className = 'ui-tab ' + (!req ? 'active' : 'inactive');
 }
 function doSaveSvcEdit() {
   const n = document.getElementById('esvc-name').value.trim();
@@ -2072,7 +2069,7 @@ function exLang(lang) {
     const btn = document.getElementById('ex-lang-'+l);
     if (!btn) return;
     const on = l === lang;
-    btn.className = 'px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+    btn.className = 'ex-lang seg-item ' + (on ? 'active' : '');
   });
   exRefreshCode();
 }

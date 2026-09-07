@@ -57,7 +57,7 @@
   let tbActive='auto';
   document.addEventListener('click',function(e){ const b=e.target.closest&&e.target.closest('.bsa-tb'); if(!b)return;
     tbActive=b.getAttribute('data-tb');
-    document.querySelectorAll('.bsa-tb').forEach((x,i)=>{ const on=x===b; x.style.cssText='padding:4px 10px;'+(i<2?'border-right:1px solid #e2e8f0;':'')+(on?'background:#0398551a;color:#039855;font-weight:500':'background:#fff;color:#475569'); });
+    document.querySelectorAll('.bsa-tb').forEach((x,i)=>{ const on=x===b; x.className='bsa-tb ui-pill '+(on?'active':''); x.style.cssText=''; });
     refreshCode();
   });
 
@@ -122,7 +122,7 @@
     else { el.textContent=reqCode(); }
     document.querySelectorAll('.bsa-lang').forEach(b=>{
       const on = b.dataset.l === bsaLang;
-      b.className = 'bsa-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
+      b.className = 'bsa-lang seg-item ' + (on ? 'active' : '');
     });
   }
   window.bsaSetLang=function(l){ bsaLang=l; refreshCode(); };
@@ -157,18 +157,12 @@
     const req=t==='request';
     $('bsa-pane-request').classList.toggle('hidden',!req);
     $('bsa-pane-response').classList.toggle('hidden',req);
-    $('bsa-tab-req').style.cssText = '';
-    $('bsa-tab-res').style.cssText = '';
-    
-    const activeCls = 'py-4 text-base font-medium text-[#0a0a0a] border-b-2 border-[#0a0a0a] transition-colors relative top-px';
-    const inactiveCls = 'py-4 text-base font-medium text-[#737373] border-b-2 border-transparent hover:text-[#0a0a0a] transition-colors relative top-px';
-    
-    $('bsa-tab-req').className = req ? activeCls : inactiveCls;
-    $('bsa-tab-res').className = req ? inactiveCls : activeCls;
+    $('bsa-tab-req').className = 'ui-tab ' + (req ? 'active' : 'inactive');
+    $('bsa-tab-res').className = 'ui-tab ' + (!req ? 'active' : 'inactive');
   };
   window.bsaRtab=function(t){ rtab=t;
-    const activeCls = 'px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center bg-white shadow-sm text-[#0a0a0a]';
-    const inactiveCls = 'px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex justify-center items-center bg-transparent text-[#737373] hover:text-[#0a0a0a]';
+    const activeCls = 'seg-item active';
+    const inactiveCls = 'seg-item';
     $('bsa-rt-preview').className = t === 'preview' ? activeCls : inactiveCls;
     $('bsa-rt-json').className = t === 'json' ? activeCls : inactiveCls;
     renderRespBody();

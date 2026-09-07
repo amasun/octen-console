@@ -68,25 +68,7 @@
     p.safesearch=$('ws-safe')?$('ws-safe').value:'off';
     return p;
   }
-  function wsReqCode(){
-    const p=wsBuildPayload(); const SZ=window.PGS_serialize||((v)=>JSON.stringify(v,null,2)); const KEY=(window.PGS_MASKED)||'YOUR_API_KEY';
-    if(wsLang==='python')return ['import requests','import json','','url = "https://api.octen.ai/search"','headers = {','    "x-api-key": "'+KEY+'",','    "Content-Type": "application/json",','}','','payload = '+SZ(p,'python',0),'','response = requests.post(url, headers=headers, json=payload)','data = response.json()','print(json.dumps(data, indent=2))'].join('\n');
-    if(wsLang==='javascript'){const b=SZ(p,'json',1);return ['const response = await fetch("https://api.octen.ai/search", {','  method: "POST",','  headers: {','    "x-api-key": "'+KEY+'",','    "Content-Type": "application/json",','  },','  body: JSON.stringify('+b+'),','});','','const data = await response.json();'].join('\n');}
-    const json=SZ(p,'json',0).split('\n').map((l,i)=>i===0?l:'  '+l).join('\n');
-    return ['curl https://api.octen.ai/search \\','  -X POST \\',"  -H 'x-api-key: "+KEY+"' \\","  -H 'Content-Type: application/json' \\","  -d '"+json+"'"].join('\n');
-  }
-  window.wsRefreshCode=function(){ const el=$('ws-code'); if(!el)return;
-    if(window.PGS_codeBlock){ el.innerHTML=window.PGS_codeBlock(wsReqCode(),window.PGS_hlCode); }
-    else el.textContent=wsReqCode();
-    document.querySelectorAll('.ws-lang').forEach(b=>{
-      const on = b.dataset.l === wsLang;
-      b.className = 'ws-lang px-4 rounded-md text-sm font-medium transition-colors cursor-pointer inline-flex items-center ' + (on ? 'bg-white shadow-sm text-[#0a0a0a]' : 'bg-transparent text-[#737373] hover:text-[#0a0a0a]');
-      b.style.cssText = '';
-    });
-  };
-  window.wsSetLang=function(l){ wsLang=l; wsRefreshCode(); };
-  window.wsBasis=function(b){ document.querySelectorAll('.ws-tb').forEach(x=>{const on=x.getAttribute('data-b')===b;x.classList.toggle('on',on);x.style.cssText='padding:4px 10px;font-size:12px;cursor:pointer;'+(x.getAttribute('data-b')!=='crawled'?'border-right:1px solid #e2e8f0;':'')+(on?'background:#0398551a;color:#039855;font-weight:500':'background:#fff;color:#64748b');}); wsRefreshCode(); };
-  window.wsCopyReq=function(){ try{navigator.clipboard&&navigator.clipboard.writeText(wsReqCode());}catch(e){} const b=$('ws-copyreq'); if(b){const o=b.innerHTML;b.innerHTML='<svg class="w-3.5 h-3.5" style="color:#039855" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg><span>Copied</span>';setTimeout(()=>b.innerHTML=o,1500);} };
+
   // ── shared query-suggestion dropdown (focus to pick an example) ──
   window.attachSuggest=function(input, examples, onPick, anchor){
     if(!input||input.dataset.suggest)return; input.dataset.suggest='1'; const anc=anchor||input;

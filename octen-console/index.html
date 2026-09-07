@@ -11,7 +11,22 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@300..700&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css?v=20260717e">
+  <link rel="stylesheet" href="css/styles.css?v=15">
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('octen-theme') || 'system';
+        var isDark = saved === 'dark' || (saved === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        if (isDark) {
+          document.documentElement.classList.add('dark');
+          document.documentElement.setAttribute('data-theme', 'dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch(e){}
+    })();
+  </script>
 </head>
 <body class="text-[#0a0a0a] bg-workspace">
 <div class="app">
@@ -27,37 +42,38 @@
 </div>
 
   <!-- core: tailwind config + console-wide state/behaviors -->
-  <script src="js/core/tailwind-config.js?v=11"></script>
-  <script src="js/core/console-core.js?v=11"></script>
+  <script src="js/core/tailwind-config.js?v=13"></script>
+  <script src="js/core/console-core.js?v=13"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
-  <script src="js/core/syntax-highlight.js?v=11"></script>
-  <script src="js/core/split-handle.js?v=11"></script>
-  <script src="js/core/ui-access.js?v=11"></script>
-  <script src="js/core/ui-state.js?v=11"></script>
+  <script src="js/core/syntax-highlight.js?v=13"></script>
+  <script src="js/core/split-handle.js?v=13"></script>
+  <script src="js/core/ui-access.js?v=13"></script>
+  <script src="js/core/ui-state.js?v=13"></script>
+  <script src="js/core/theme.js?v=15"></script>
   <!-- page behaviors + shared modules (load order preserved from prototype) -->
-  <script src="js/pages/model-gateway/index.js?v=11"></script>
-  <script src="js/shared/models.js?v=11"></script>
-  <script src="js/shared/search-shared.js?v=11"></script>
-  <script src="js/shared/deep-research-data.js?v=11"></script>
-  <script src="js/pages/answer/index.js?v=11"></script>
-  <script src="js/pages/broad-search-api/index.js?v=11"></script>
-  <script src="js/pages/web-search/index.js?v=11"></script>
-  <script src="js/pages/web-search/enhancements.js?v=11"></script>
-  <script src="js/shared/search-instances.js?v=11"></script>
-  <script src="js/pages/billing/index.js?v=11"></script>
-  <script src="js/core/modals.js?v=11"></script>
+  <script src="js/pages/model-gateway/index.js?v=13"></script>
+  <script src="js/shared/models.js?v=13"></script>
+  <script src="js/shared/search-shared.js?v=13"></script>
+  <script src="js/shared/deep-research-data.js?v=13"></script>
+  <script src="js/pages/answer/index.js?v=13"></script>
+  <script src="js/pages/broad-search-api/index.js?v=13"></script>
+  <script src="js/pages/web-search/index.js?v=13"></script>
+  <script src="js/pages/web-search/enhancements.js?v=13"></script>
+  <script src="js/shared/search-instances.js?v=13"></script>
+  <script src="js/pages/billing/index.js?v=13"></script>
+  <script src="js/core/modals.js?v=13"></script>
   <!-- router (defines registerPage/pageInit contract used by templates below) -->
-  <script src="js/core/app.js?v=11"></script>
-  <script src="js/core/sidebar.js?v=11"></script>
+  <script src="js/core/app.js?v=13"></script>
+  <script src="js/core/sidebar.js?v=13"></script>
   <!-- page templates -->
-  <script src="js/pages/overview/template.js?v=11"></script>
-  <script src="js/pages/overview/index.js?v=11"></script>
-  <script src="js/pages/billing/template.js?v=11"></script>
-  <script src="js/pages/broad-search-api/template.js?v=11"></script>
+  <script src="js/pages/overview/template.js?v=13"></script>
+  <script src="js/pages/overview/index.js?v=13"></script>
+  <script src="js/pages/billing/template.js?v=13"></script>
+  <script src="js/pages/broad-search-api/template.js?v=13"></script>
   <script src="js/pages/answer/template.js?v=11"></script>
   <script src="js/pages/web-search/template.js?v=11"></script>
   <script src="js/pages/web-flow/template.js?v=11"></script>

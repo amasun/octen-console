@@ -6,7 +6,7 @@ registerPage("page-collect", `
     <div class="layout-pane min-w-[400px] flex flex-col min-h-0">
       <div class="flex items-center justify-between shrink-0 px-4 pt-4 pb-2 border-b border-transparent">
         <h2 class="text-[#0a0a0a] font-semibold text-lg">Collect</h2>
-        <a href="#" onclick="return false" class="inline-flex items-center gap-2 px-3 py-2 border border-[#dbdbdb] text-[#737373] rounded-md text-xs hover:bg-[#f5f5f5]">
+        <a href="#" onclick="return false" class="ui-btn-outline">
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           <span>Docs</span>
         </a>

@@ -17,13 +17,23 @@ To maintain the "Cult UI" aesthetic, the interface must strictly adhere to a 4-c
 
 ## 2. Component Abstractions
 
-### Segmented Controls (Toggle Buttons)
-When building tab switchers or segmented controls, follow the "joined pill-group" structural pattern:
-- **Container**: `inline-flex items-stretch border border-[#dbdbdb] rounded-[6px] p-px overflow-hidden`.
-- **Items**: Must be separated by borders (e.g. `border-r border-[#dbdbdb]`), except for the last item.
-- **Active State**: Brand tinted background (`bg-[#039855]/10`), primary brand text (`text-[#039855]`), and `font-medium`.
-- **Inactive State**: Pure white background (`bg-white`), Secondary text color (`text-[#737373]`), and `font-normal`.
-- **Interaction**: Inactive tabs can have subtle hover text color changes if needed.
+### Segmented Controls (Toggle Buttons) & Form Pills
+When building tab switchers or form pills (like Time Basis), follow one of these structural patterns:
+
+**1. Form Pills (.ui-pills)** (Preferred for form elements)
+- **Container**: Use `.ui-pills`. It provides `display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr; border-radius: 6px; border: 1px solid #dbdbdb; height: 32px; overflow: hidden;`
+- **Items**: Use `.ui-pill`. It provides `font-size: 14px`, `height: 32px`, pure white inactive background with `#737373` text, and proper hover states.
+- **Active State**: `.ui-pill.active` provides the green brand tint and text color.
+- **Note**: This ensures perfectly equal-width segments (based on the longest word) that tightly hug the content without stretching to 100% width.
+
+**2. Standard Segment Group (.seg-group)** (Preferred for module-level language toggles)
+- **Container**: `.seg-group`.
+- **Items**: `.seg-item`.
+
+### Form Element Dimensions & Typography
+- **Uniform Height**: All inline form components (buttons, dropdowns, date pickers, segmented controls) must have a uniform height of **32px**.
+- **Date Range Buttons**: Buttons like `#bsa-date-btn` should use `text-sm` (14px font size) and be 32px high.
+- **Typography**: Form elements should generally use 14px text (`text-sm`) instead of `text-xs` to maintain readability.
 
 ### Borders and Forms
 - **Form Borders**: All form elements (inputs, segmented controls, dropdown borders) must use `#DBDBDB` for their border color (`border-[#dbdbdb]`) instead of Tailwind's default slate grays.
