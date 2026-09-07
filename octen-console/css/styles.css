@@ -1085,11 +1085,11 @@ html.dark .bg-workspace {
   background: var(--shell) !important;
 }
 
-/* Layout Panes & Surfaces (暗色模式下主卡片背景与边框同色，略微提亮但不高于子卡片背景色) */
+/* Layout Panes & Surfaces (暗色模式下主卡片微量边框，与背景细腻区分) */
 html.dark .layout-pane,
 [data-theme="dark"] .layout-pane {
   background: var(--surface) !important;
-  border-color: var(--surface) !important;
+  border-color: rgba(255, 255, 255, 0.07) !important;
 }
 
 html.dark .bg-white,
@@ -1815,7 +1815,7 @@ html.theme-trae .ribbon {
 html.dark.theme-trae .layout-pane,
 [data-theme="dark-trae"] .layout-pane {
   background: #1a1a1a !important;
-  border-color: #1a1a1a !important;
+  border-color: rgba(255, 255, 255, 0.07) !important;
   border-radius: 14px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
