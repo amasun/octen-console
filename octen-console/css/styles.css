@@ -204,12 +204,12 @@ html.dark, [data-theme="dark"] {
   /* 背景与表面 Background & Surfaces */
   --shell: #05070b;
   --background: #080b12;
-  --surface: #0f1319;
-  --surface-subtle: #12161d;
-  --surface-muted: #1a1f27;
+  --surface: #141922;
+  --surface-subtle: #171d27;
+  --surface-muted: #1d232e;
   --surface-strong: #232a35;
-  --card: #0f1319;
-  --popover: #12161d;
+  --card: #141922;
+  --popover: #171d27;
   --surface-inverse: #1f2733;
   --background-inverse: #1b1f26;
 
@@ -547,14 +547,14 @@ html.dark #page-overview .ov-api-card,
 html.dark #page-overview .ov-app-card,
 [data-theme="dark"] #page-overview .ov-api-card,
 [data-theme="dark"] #page-overview .ov-app-card {
-  background-color: var(--neutral-100) !important; /* #1f242d, 明显亮于主卡片 --surface #0f1319 */
+  background-color: var(--neutral-100) !important; /* #1f242d, 明显亮于主卡片 --surface #141922 */
   border-color: var(--neutral-100) !important;
 }
 html.dark.theme-trae #page-overview .ov-api-card,
 html.dark.theme-trae #page-overview .ov-app-card,
 [data-theme="dark-trae"] #page-overview .ov-api-card,
 [data-theme="dark-trae"] #page-overview .ov-app-card {
-  background-color: var(--neutral-100) !important; /* #202020, 明显亮于主卡片 #171717 */
+  background-color: var(--neutral-100) !important; /* #202020, 明显亮于主卡片 #1a1a1a */
   border-color: var(--neutral-100) !important;
 }
 /* Light Mode Sub-cards Hover: Brand Green Border */
@@ -1085,7 +1085,7 @@ html.dark .bg-workspace {
   background: var(--shell) !important;
 }
 
-/* Layout Panes & Surfaces (暗色模式下主卡片背景与边框同色) */
+/* Layout Panes & Surfaces (暗色模式下主卡片背景与边框同色，略微提亮但不高于子卡片背景色) */
 html.dark .layout-pane,
 [data-theme="dark"] .layout-pane {
   background: var(--surface) !important;
@@ -1655,12 +1655,12 @@ html.theme-trae,
 
   /* 背景与表面 Background & Surfaces (TraeWork / work.trae.cn Neutral 阶梯) */
   --shell: #141414;                     /* 外层及侧边栏底色、workspace 背景 */
-  --background: #171717;                /* 主工作区底色 (--bg-invert-active) */
-  --surface: #171717;                   /* 主卡片表面 (--bg-invert-active) */
+  --background: #1a1a1a;                /* 主工作区底色 (--bg-invert-active) */
+  --surface: #1a1a1a;                   /* 主卡片表面 (--bg-invert-active) */
   --surface-subtle: rgba(212, 212, 212, 0.06); /* 输入框/次级卡片 (--bg-overlay-l2) */
   --surface-muted: rgba(212, 212, 212, 0.08);  /* 选中项/微高亮 (--bg-overlay-l3) */
   --surface-strong: #242424;
-  --card: #171717;                      /* 工作台主卡片 */
+  --card: #1a1a1a;                      /* 工作台主卡片 */
   --popover: #1c1c1c;                   /* 弹出层与浮动菜单 (--bg-card) */
   --surface-inverse: #FFFFFF;
   --background-inverse: #F5F5F5;
@@ -1814,8 +1814,8 @@ html.theme-trae .ribbon {
 
 html.dark.theme-trae .layout-pane,
 [data-theme="dark-trae"] .layout-pane {
-  background: #171717 !important;
-  border-color: #171717 !important;
+  background: #1a1a1a !important;
+  border-color: #1a1a1a !important;
   border-radius: 14px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
