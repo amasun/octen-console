@@ -1,0 +1,1211 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Octen 设计系统色卡 · 新版 Dark 规范对照 (v2.0)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pg-bg: #fcfcf8;
+    --pg-surface: #ffffff;
+    --pg-fg: #1d293d;
+    --pg-strong: #0f172b;
+    --pg-muted: #62748e;
+    --pg-faint: #90a1b9;
+    --pg-line: #e2e8f0;
+    --pg-primary: #039855;
+    --pg-tag-bg: #f1f5f9;
+    --pg-chip-edge: rgba(15, 23, 43, 0.16);
+    --pg-flip-fg: #1447e6;
+    --pg-flip-bg: hsl(214 100% 95%);
+    --pg-flip-bd: #bedbff;
+    --pg-same-fg: #bb4d00;
+    --pg-same-bg: #fffbeb;
+    --pg-same-bd: #fee685;
+    --pg-new-fg: #039855;
+    --pg-new-bg: #e6f7ef;
+    --pg-new-bd: #a3e6c8;
+    --pg-banner-bg: #f5f5f5;
+  }
+
+  html.dark {
+    --pg-bg: #141414;
+    --pg-surface: #1a1a1a;
+    --pg-fg: #e5e5e5;
+    --pg-strong: #fafafa;
+    --pg-muted: #a1a1a1;
+    --pg-faint: #737373;
+    --pg-line: rgba(229, 229, 229, 0.1);
+    --pg-primary: #60ff70;
+    --pg-tag-bg: rgba(229, 229, 229, 0.08);
+    --pg-chip-edge: rgba(255, 255, 255, 0.18);
+    --pg-flip-fg: #93c5fd;
+    --pg-flip-bg: rgba(47, 116, 255, 0.16);
+    --pg-flip-bd: rgba(47, 116, 255, 0.32);
+    --pg-same-fg: #ffd566;
+    --pg-same-bg: rgba(254, 169, 0, 0.16);
+    --pg-same-bd: rgba(254, 169, 0, 0.32);
+    --pg-new-fg: #60ff70;
+    --pg-new-bg: rgba(96, 255, 112, 0.12);
+    --pg-new-bd: rgba(96, 255, 112, 0.28);
+    --pg-banner-bg: #1e1e1e;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 40px 32px 100px;
+    background: var(--pg-bg);
+    color: var(--pg-fg);
+    font: 14px/1.6 "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", sans-serif;
+    transition: background-color .2s ease, color .2s ease;
+  }
+
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  header {
+    margin-bottom: 32px;
+    padding-right: 210px;
+    position: relative;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    background: var(--pg-new-bg);
+    color: var(--pg-new-fg);
+    border: 1px solid var(--pg-new-bd);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  h1 {
+    margin: 0 0 10px;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--pg-strong);
+  }
+
+  .sub {
+    margin: 0;
+    color: var(--pg-muted);
+    max-width: 88ch;
+    font-size: 13.5px;
+    line-height: 1.65;
+  }
+  .sub + .sub { margin-top: 6px; }
+  .sub code {
+    background: var(--pg-surface);
+    border: 1px solid var(--pg-line);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--pg-strong);
+  }
+
+  /* 顶部三阶空间层级卡片 */
+  .tier-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+    margin: 28px 0 36px;
+  }
+
+  .tier-card {
+    background: var(--pg-surface);
+    border: 1px solid var(--pg-line);
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+
+  .tier-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .tier-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 4px;
+    background: var(--pg-tag-bg);
+    color: var(--pg-muted);
+  }
+
+  .tier-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--pg-strong);
+  }
+
+  .tier-color-preview {
+    height: 36px;
+    border-radius: 6px;
+    border: 1px solid var(--pg-chip-edge);
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .tier-desc {
+    font-size: 12px;
+    color: var(--pg-muted);
+    line-height: 1.5;
+  }
+
+  /* 固定在右上角的切换与操作栏 */
+  .top-actions {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    z-index: 50;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  #toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    background: var(--pg-surface);
+    color: var(--pg-strong);
+    border: 1px solid var(--pg-line);
+    border-radius: 9px;
+    font: inherit;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(8px);
+    transition: border-color .15s, transform .15s;
+  }
+  #toggle:hover {
+    border-color: var(--pg-primary);
+    transform: translateY(-1px);
+  }
+
+  /* 搜索框 */
+  .search-wrap {
+    margin: 20px 0 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .search-input {
+    width: 100%;
+    max-width: 420px;
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 8px;
+    border: 1px solid var(--pg-line);
+    background: var(--pg-surface);
+    color: var(--pg-strong);
+    font: inherit;
+    font-size: 13px;
+    outline: none;
+    transition: border-color .15s;
+  }
+  .search-input:focus {
+    border-color: var(--pg-primary);
+  }
+
+  /* 分组与色卡网格 */
+  section {
+    margin-top: 48px;
+  }
+  h2 {
+    margin: 0 0 8px;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--pg-strong);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h2::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background: var(--pg-primary);
+    border-radius: 2px;
+  }
+  h3 {
+    margin: 24px 0 10px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--pg-muted);
+  }
+  .desc {
+    margin: 0 0 18px;
+    color: var(--pg-muted);
+    font-size: 13px;
+    max-width: 80ch;
+  }
+
+  .grid {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+
+  /* 单个色卡容器 */
+  .sw {
+    display: flex;
+    gap: 12px;
+    padding: 12px;
+    background: var(--pg-surface);
+    border: 1px solid var(--pg-line);
+    border-radius: 10px;
+    transition: border-color .15s ease, box-shadow .15s ease;
+  }
+  .sw:hover {
+    border-color: var(--pg-primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+  }
+
+  .chips {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .chip {
+    width: 46px;
+    height: 28px;
+    border: 1px solid var(--pg-chip-edge);
+    background-image:
+      linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%),
+      linear-gradient(45deg, #ccc 25%, transparent 25%, transparent 75%, #ccc 75%);
+    background-size: 8px 8px;
+    background-position: 0 0, 4px 4px;
+    position: relative;
+  }
+  .chip.l { border-radius: 6px 6px 2px 2px; }
+  .chip.d { border-radius: 2px 2px 6px 6px; }
+
+  .meta {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+  }
+  .name {
+    padding: 0;
+    background: none;
+    border: 0;
+    text-align: left;
+    cursor: pointer;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--pg-strong);
+    overflow-wrap: anywhere;
+    transition: color .15s;
+  }
+  .name:hover {
+    color: var(--pg-primary);
+  }
+
+  .pair {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    font-size: 11.5px;
+  }
+  .tag {
+    flex: none;
+    font-size: 10px;
+    padding: 0 4px;
+    border-radius: 3px;
+    line-height: 16px;
+    font-weight: 500;
+    background: var(--pg-tag-bg);
+    color: var(--pg-muted);
+  }
+  .tag.dk {
+    color: var(--pg-strong);
+    background: var(--pg-chip-edge);
+  }
+  .pair code {
+    font-family: "JetBrains Mono", monospace;
+    color: var(--pg-muted);
+    overflow-wrap: anywhere;
+  }
+
+  .flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .flags:empty { display: none; }
+  .flag {
+    font-size: 10px;
+    line-height: 16px;
+    padding: 0 6px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    font-weight: 500;
+  }
+  .flag.flip { color: var(--pg-flip-fg); background: var(--pg-flip-bg); border-color: var(--pg-flip-bd); }
+  .flag.same { color: var(--pg-same-fg); background: var(--pg-same-bg); border-color: var(--pg-same-bd); }
+  .flag.inherit { color: var(--pg-muted); background: var(--pg-tag-bg); }
+  .flag.new { color: var(--pg-new-fg); background: var(--pg-new-bg); border-color: var(--pg-new-bd); }
+
+  .note {
+    font-size: 11px;
+    color: var(--pg-faint);
+    margin-top: 3px;
+    line-height: 1.4;
+  }
+
+  /* 底部现场实装层级 Sandbox 演示 */
+  .sandbox-section {
+    margin-top: 60px;
+    padding: 24px;
+    background: var(--pg-surface);
+    border: 1px solid var(--pg-line);
+    border-radius: 14px;
+  }
+  .sandbox-preview {
+    margin-top: 16px;
+    padding: 24px;
+    border-radius: 12px;
+    background: #141414;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .sandbox-pane {
+    background: #1a1a1a;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+  .sandbox-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    margin-top: 14px;
+  }
+  .sandbox-card {
+    background: #161616;
+    border: 1px solid #161616;
+    border-radius: 10px;
+    padding: 16px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  .sandbox-card:hover {
+    border-color: #60ff70 !important;
+    box-shadow: 0 0 0 1px rgba(96, 255, 112, 0.14), 0 8px 24px -4px rgba(0, 0, 0, 0.45);
+  }
+  .sandbox-code {
+    background: #161616;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    margin-top: 14px;
+    color: #f0f6fc;
+  }
+
+  /* Toast 浮层 */
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: 30px;
+    transform: translateX(-50%) translateY(20px);
+    background: #0f172b;
+    color: #ffffff;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .18s, transform .18s;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    z-index: 100;
+  }
+  .toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  @media (max-width: 800px) {
+    header { padding-right: 0; }
+    .top-actions { position: static; margin-bottom: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top-actions">
+    <button id="toggle" type="button">
+      <span id="toggle-icon">🌙</span>
+      <span id="toggle-text">切到暗色</span>
+    </button>
+  </div>
+
+  <header>
+    <div class="badge">OCTEN DESIGN SYSTEM v2.0</div>
+    <h1>Octen 主题色卡 · 新版 Dark 规范对照</h1>
+    <p class="sub">
+      依据最新系统标准，已全面淘汰旧版偏蓝的 Octen Dark（<code>#05070b</code> / <code>#232a35</code>），将 <strong>TraeWork 极简高质感中性黑方案全面晋升为标准 Dark 模式</strong>。
+      本色卡为核心控制台、营销与 SDK 样式的设计基准真值。
+    </p>
+    <p class="sub">
+      每张色卡上下两个色块分别为 <strong>Light（亮）</strong> 与 <strong>Dark（暗）</strong>。
+      点击任意 Token 变量名即可自动复制到剪贴板。右上角可随时切换全局外观预览真实环境对比。
+    </p>
+  </header>
+
+  <!-- 三阶暗色深度核心层级展示 -->
+  <div class="tier-overview">
+    <div class="tier-card">
+      <div class="tier-card-header">
+        <span class="tier-tag">Tier 1 · 最外层</span>
+        <span class="flag new">标准新值</span>
+      </div>
+      <div class="tier-title">--shell (Workspace & Ribbon)</div>
+      <div class="tier-color-preview" style="background:#141414; color:#fafafa;">
+        #141414
+      </div>
+      <div class="tier-desc">外层控制台全局基底与侧边栏 Ribbon 底色，提供深邃稳重的外层空间包裹。</div>
+    </div>
+
+    <div class="tier-card">
+      <div class="tier-card-header">
+        <span class="tier-tag">Tier 2 · 主工作台</span>
+        <span class="flag new">标准新值</span>
+      </div>
+      <div class="tier-title">.layout-pane (--surface)</div>
+      <div class="tier-color-preview" style="background:#1a1a1a; color:#fafafa; border-color:rgba(255,255,255,0.15);">
+        #1a1a1a · 14px 半透微边
+      </div>
+      <div class="tier-desc">控制台主卡片底板，搭配 <code>rgba(255,255,255,0.07)</code> 发丝级微描边，开阔平整。</div>
+    </div>
+
+    <div class="tier-card">
+      <div class="tier-card-header">
+        <span class="tier-tag">Tier 3 · 产品槽位</span>
+        <span class="flag new">标准新值</span>
+      </div>
+      <div class="tier-title">.ov-card / --code-bg (Subcards)</div>
+      <div class="tier-color-preview" style="background:#161616; color:#fafafa;">
+        #161616 · 同色嵌合边框
+      </div>
+      <div class="tier-desc">API、Application、MCP 子卡片及代码视窗插槽底色，悬浮激活 #60ff70 绿边框。</div>
+    </div>
+
+    <div class="tier-card">
+      <div class="tier-card-header">
+        <span class="tier-tag">Brand · 品牌色</span>
+        <span class="flag new">保持翡翠绿</span>
+      </div>
+      <div class="tier-title">--primary (Cyber Emerald)</div>
+      <div class="tier-color-preview" style="background:#60ff70; color:#141414;">
+        #60ff70 (Dark) / #039855 (Light)
+      </div>
+      <div class="tier-desc">品牌标志性荧光翡翠绿，满足暗色下的高对比度与未来科技交互激活感。</div>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <input type="text" id="filter-input" class="search-input" placeholder="🔍 快速搜索 Token (如 --primary, --surface, --border)...">
+  </div>
+
+  <!-- 1. 控制台核心架构层级 -->
+  <section>
+    <h2>控制台核心架构层级 (Console Architecture)</h2>
+    <p class="desc">控制台独有的三阶空间深度层级与嵌合边框系统。</p>
+    <div class="grid">
+      <div class="sw" data-token="--shell" data-light="#f5f5f5" data-dark="#141414">
+        <div class="chips"><span class="chip l" style="background:#f5f5f5"></span><span class="chip d" style="background:#141414"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--shell</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#f5f5f5</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#141414</code></div>
+          <div class="flags"><span class="flag new">标准新标</span></div>
+          <div class="note">外层及侧边栏底色、workspace 背景</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--layout-pane-bg" data-light="#ffffff" data-dark="#1a1a1a">
+        <div class="chips"><span class="chip l" style="background:#ffffff"></span><span class="chip d" style="background:#1a1a1a"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--layout-pane-bg</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#ffffff</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#1a1a1a</code></div>
+          <div class="flags"><span class="flag new">标准新标</span></div>
+          <div class="note">控制台主面板卡片底板背景色</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--subcard-bg" data-light="#ffffff" data-dark="#161616">
+        <div class="chips"><span class="chip l" style="background:#ffffff"></span><span class="chip d" style="background:#161616"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--subcard-bg</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#ffffff</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#161616</code></div>
+          <div class="flags"><span class="flag new">标准新标</span></div>
+          <div class="note">嵌入式产品功能卡片（API、Application、MCP）与代码插槽</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--layout-pane-border" data-light="#e7e7e7" data-dark="rgba(255, 255, 255, 0.07)">
+        <div class="chips"><span class="chip l" style="background:#e7e7e7"></span><span class="chip d" style="background:rgba(255, 255, 255, 0.07)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--layout-pane-border</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#e7e7e7</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(255, 255, 255, 0.07)</code></div>
+          <div class="flags"><span class="flag new">标准新标</span></div>
+          <div class="note">主面板微描边，形成发丝级精细界限</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. 主题色 -->
+  <section>
+    <h2>品牌主题色 (Brand Primary)</h2>
+    <p class="desc">Octen 品牌绿。浅色下采用深翡翠绿保证白底可读性，暗色下采用高光荧光绿释放前卫科技感。</p>
+    <div class="grid">
+      <div class="sw" data-token="--primary" data-light="#039855" data-dark="#60ff70">
+        <div class="chips"><span class="chip l" style="background:#039855"></span><span class="chip d" style="background:#60ff70"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--primary</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#039855</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#60ff70</code></div>
+          <div class="flags"></div>
+          <div class="note">品牌主色，主 CTA 按钮、激活状态点亮</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--primary-lite" data-light="#00a63e" data-dark="#60ff70">
+        <div class="chips"><span class="chip l" style="background:#00a63e"></span><span class="chip d" style="background:#60ff70"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--primary-lite</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#00a63e</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#60ff70</code></div>
+          <div class="flags"></div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--primary-dark" data-light="#60ff70" data-dark="#60ff70">
+        <div class="chips"><span class="chip l" style="background:#60ff70"></span><span class="chip d" style="background:#60ff70"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--primary-dark</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#60ff70</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#60ff70</code></div>
+          <div class="flags"><span class="flag inherit">两端一致</span></div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--primary-bright" data-light="#66ff69" data-dark="#66ff69">
+        <div class="chips"><span class="chip l" style="background:#66ff69"></span><span class="chip d" style="background:#66ff69"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--primary-bright</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#66ff69</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#66ff69</code></div>
+          <div class="flags"><span class="flag inherit">两端一致</span></div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--primary-muted" data-light="#03985587" data-dark="rgba(96, 255, 112, 0.14)">
+        <div class="chips"><span class="chip l" style="background:#03985587"></span><span class="chip d" style="background:rgba(96, 255, 112, 0.14)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--primary-muted</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#03985587</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(96, 255, 112, 0.14)</code></div>
+          <div class="flags"><span class="flag new">精细微透</span></div>
+          <div class="note">卡片悬浮外发光微投影、胶囊微亮底</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--primary-tint-soft" data-light="hsl(111 92% 77%)" data-dark="hsl(111 60% 62%)">
+        <div class="chips"><span class="chip l" style="background:hsl(111 92% 77%)"></span><span class="chip d" style="background:hsl(111 60% 62%)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--primary-tint-soft</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>hsl(111 92% 77%)</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>hsl(111 60% 62%)</code></div>
+          <div class="flags"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. 背景与表面 -->
+  <section>
+    <h2>背景与表面 (Background & Surfaces)</h2>
+    <p class="desc">纯中性黑灰表面阶梯。全面替换原偏蓝底色。</p>
+    <div class="grid">
+      <div class="sw" data-token="--background" data-light="#fcfcf8" data-dark="#1a1a1a">
+        <div class="chips"><span class="chip l" style="background:#fcfcf8"></span><span class="chip d" style="background:#1a1a1a"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--background</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#fcfcf8</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#1a1a1a</code></div>
+          <div class="flags"></div>
+          <div class="note">主工作区底色</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--surface" data-light="#ffffff" data-dark="#1a1a1a">
+        <div class="chips"><span class="chip l" style="background:#ffffff"></span><span class="chip d" style="background:#1a1a1a"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--surface</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#ffffff</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#1a1a1a</code></div>
+          <div class="flags"></div>
+          <div class="note">主工作卡片表面</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--surface-subtle" data-light="#f8fafc" data-dark="rgba(212, 212, 212, 0.06)">
+        <div class="chips"><span class="chip l" style="background:#f8fafc"></span><span class="chip d" style="background:rgba(212, 212, 212, 0.06)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--surface-subtle</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#f8fafc</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(212, 212, 212, 0.06)</code></div>
+          <div class="flags"><span class="flag new">中性半透</span></div>
+          <div class="note">输入框/次级卡片微表面</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--surface-muted" data-light="#f1f5f9" data-dark="rgba(212, 212, 212, 0.08)">
+        <div class="chips"><span class="chip l" style="background:#f1f5f9"></span><span class="chip d" style="background:rgba(212, 212, 212, 0.08)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--surface-muted</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#f1f5f9</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(212, 212, 212, 0.08)</code></div>
+          <div class="flags"><span class="flag new">中性半透</span></div>
+          <div class="note">交互选中项/微高亮表面</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--surface-strong" data-light="#e2e8f0" data-dark="#2a2a2a">
+        <div class="chips"><span class="chip l" style="background:#e2e8f0"></span><span class="chip d" style="background:#2a2a2a"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--surface-strong</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#e2e8f0</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#2a2a2a</code></div>
+          <div class="flags"></div>
+          <div class="note">DEV 主题切换条激活按钮底色</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--card" data-light="oklch(1 0 0)" data-dark="#1a1a1a">
+        <div class="chips"><span class="chip l" style="background:oklch(1 0 0)"></span><span class="chip d" style="background:#1a1a1a"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--card</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>oklch(1 0 0)</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#1a1a1a</code></div>
+          <div class="flags"></div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--popover" data-light="oklch(1 0 0)" data-dark="#1c1c1c">
+        <div class="chips"><span class="chip l" style="background:oklch(1 0 0)"></span><span class="chip d" style="background:#1c1c1c"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--popover</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>oklch(1 0 0)</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#1c1c1c</code></div>
+          <div class="flags"></div>
+          <div class="note">弹出层与浮动菜单底色</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--surface-inverse" data-light="#0f172b" data-dark="#ffffff">
+        <div class="chips"><span class="chip l" style="background:#0f172b"></span><span class="chip d" style="background:#ffffff"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--surface-inverse</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#0f172b</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#ffffff</code></div>
+          <div class="flags"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. 文字层级 -->
+  <section>
+    <h2>文字与排版阶梯 (Typography Foregrounds)</h2>
+    <p class="desc">纯中性文字阶梯（TraeWork Brand Grey 规范）。消除旧版的冷蓝灰偏色，呈现清晰的专业排版。</p>
+    <div class="grid">
+      <div class="sw" data-token="--foreground" data-light="#0f172b" data-dark="#e5e5e5">
+        <div class="chips"><span class="chip l" style="background:#0f172b"></span><span class="chip d" style="background:#e5e5e5"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--foreground</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#0f172b</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#e5e5e5</code></div>
+          <div class="flags"></div>
+          <div class="note">主文字 (Brand Grey 200)</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--fg-strong" data-light="#0f172b" data-dark="#fafafa">
+        <div class="chips"><span class="chip l" style="background:#0f172b"></span><span class="chip d" style="background:#fafafa"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--fg-strong</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#0f172b</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#fafafa</code></div>
+          <div class="flags"></div>
+          <div class="note">强高亮文字、大标题 (Brand Grey 50)</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--fg-body" data-light="#1d293d" data-dark="#e5e5e5">
+        <div class="chips"><span class="chip l" style="background:#1d293d"></span><span class="chip d" style="background:#e5e5e5"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--fg-body</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#1d293d</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#e5e5e5</code></div>
+          <div class="flags"></div>
+          <div class="note">正文文本</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--fg-secondary" data-light="#314158" data-dark="#a1a1a1">
+        <div class="chips"><span class="chip l" style="background:#314158"></span><span class="chip d" style="background:#a1a1a1"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--fg-secondary</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#314158</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#a1a1a1</code></div>
+          <div class="flags"></div>
+          <div class="note">次级说明、辅助占位符</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--fg-tertiary" data-light="#45556c" data-dark="#737373">
+        <div class="chips"><span class="chip l" style="background:#45556c"></span><span class="chip d" style="background:#737373"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--fg-tertiary</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#45556c</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#737373</code></div>
+          <div class="flags"></div>
+          <div class="note">弱化小节标签、元数据</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--fg-muted" data-light="#62748e" data-dark="#737373">
+        <div class="chips"><span class="chip l" style="background:#62748e"></span><span class="chip d" style="background:#737373"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--fg-muted</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#62748e</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#737373</code></div>
+          <div class="flags"></div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--fg-faint" data-light="#90a1b9" data-dark="#525252">
+        <div class="chips"><span class="chip l" style="background:#90a1b9"></span><span class="chip d" style="background:#525252"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--fg-faint</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#90a1b9</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#525252</code></div>
+          <div class="flags"></div>
+          <div class="note">极弱、禁用状态文本</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--foreground-inverse" data-light="#ffffff" data-dark="#171717">
+        <div class="chips"><span class="chip l" style="background:#ffffff"></span><span class="chip d" style="background:#171717"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--foreground-inverse</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#ffffff</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#171717</code></div>
+          <div class="flags"></div>
+          <div class="note">反转暗文字</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. 边框与分隔 -->
+  <section>
+    <h2>边框与分隔线 (Borders & Dividers)</h2>
+    <p class="desc">纯白半透明梯度（TraeWork 规范），在深黑背景上呈现精细高级的发丝边界，消除色彩生硬感。</p>
+    <div class="grid">
+      <div class="sw" data-token="--border" data-light="oklch(0.922 0 0)" data-dark="rgba(229, 229, 229, 0.1)">
+        <div class="chips"><span class="chip l" style="background:oklch(0.922 0 0)"></span><span class="chip d" style="background:rgba(229, 229, 229, 0.1)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--border</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>oklch(0.922 0 0)</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(229, 229, 229, 0.1)</code></div>
+          <div class="flags"><span class="flag new">半透白 10%</span></div>
+          <div class="note">一级外层边框</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--line" data-light="#e2e8f0" data-dark="rgba(229, 229, 229, 0.1)">
+        <div class="chips"><span class="chip l" style="background:#e2e8f0"></span><span class="chip d" style="background:rgba(229, 229, 229, 0.1)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--line</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#e2e8f0</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(229, 229, 229, 0.1)</code></div>
+          <div class="flags"><span class="flag new">半透白 10%</span></div>
+          <div class="note">分割线</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--line-subtle" data-light="#f1f5f9" data-dark="rgba(229, 229, 229, 0.06)">
+        <div class="chips"><span class="chip l" style="background:#f1f5f9"></span><span class="chip d" style="background:rgba(229, 229, 229, 0.06)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--line-subtle</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#f1f5f9</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(229, 229, 229, 0.06)</code></div>
+          <div class="flags"><span class="flag new">半透白 6%</span></div>
+          <div class="note">次级弱化分割线</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--input" data-light="oklch(0.922 0 0)" data-dark="rgba(229, 229, 229, 0.16)">
+        <div class="chips"><span class="chip l" style="background:oklch(0.922 0 0)"></span><span class="chip d" style="background:rgba(229, 229, 229, 0.16)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--input</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>oklch(0.922 0 0)</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(229, 229, 229, 0.16)</code></div>
+          <div class="flags"><span class="flag new">半透白 16%</span></div>
+          <div class="note">二级输入框边框</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--ring" data-light="oklch(0.708 0 0)" data-dark="rgba(229, 229, 229, 0.2)">
+        <div class="chips"><span class="chip l" style="background:oklch(0.708 0 0)"></span><span class="chip d" style="background:rgba(229, 229, 229, 0.2)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--ring</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>oklch(0.708 0 0)</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(229, 229, 229, 0.2)</code></div>
+          <div class="flags"><span class="flag new">半透白 20%</span></div>
+          <div class="note">键盘聚焦外轮廓与描边</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--panel-border" data-light="#e7e7e7" data-dark="rgba(229, 229, 229, 0.1)">
+        <div class="chips"><span class="chip l" style="background:#e7e7e7"></span><span class="chip d" style="background:rgba(229, 229, 229, 0.1)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--panel-border</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#e7e7e7</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(229, 229, 229, 0.1)</code></div>
+          <div class="flags"><span class="flag new">半透白 10%</span></div>
+          <div class="note">通用面板描边</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--neutral-border" data-light="#cfd9d6" data-dark="rgba(229, 229, 229, 0.14)">
+        <div class="chips"><span class="chip l" style="background:#cfd9d6"></span><span class="chip d" style="background:rgba(229, 229, 229, 0.14)"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--neutral-border</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#cfd9d6</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(229, 229, 229, 0.14)</code></div>
+          <div class="flags"><span class="flag new">半透白 14%</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. 状态语义色 -->
+  <section>
+    <h2>状态语义色系统 (Semantic Status Tokens)</h2>
+    <p class="desc">四大语义状态：主色、浅表面、描边、前景文字与深色强调。</p>
+
+    <h3>成功 Success</h3>
+    <div class="grid">
+      <div class="sw" data-token="--success" data-light="#009966" data-dark="#15A877">
+        <div class="chips"><span class="chip l" style="background:#009966"></span><span class="chip d" style="background:#15A877"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--success</button><div class="pair"><span class="tag">亮</span><code data-l>#009966</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#15A877</code></div><div class="flags"></div><div class="note">TraeWork status-success-default</div></div>
+      </div>
+      <div class="sw" data-token="--success-surface" data-light="hsl(142 76% 94%)" data-dark="rgba(21, 168, 119, 0.14)">
+        <div class="chips"><span class="chip l" style="background:hsl(142 76% 94%)"></span><span class="chip d" style="background:rgba(21, 168, 119, 0.14)"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--success-surface</button><div class="pair"><span class="tag">亮</span><code data-l>hsl(142 76% 94%)</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>rgba(21, 168, 119, 0.14)</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--success-border" data-light="#a4f4cf" data-dark="rgba(21, 168, 119, 0.26)">
+        <div class="chips"><span class="chip l" style="background:#a4f4cf"></span><span class="chip d" style="background:rgba(21, 168, 119, 0.26)"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--success-border</button><div class="pair"><span class="tag">亮</span><code data-l>#a4f4cf</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>rgba(21, 168, 119, 0.26)</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--success-foreground" data-light="#007a55" data-dark="#2FB287">
+        <div class="chips"><span class="chip l" style="background:#007a55"></span><span class="chip d" style="background:#2FB287"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--success-foreground</button><div class="pair"><span class="tag">亮</span><code data-l>#007a55</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#2FB287</code></div><div class="flags"></div></div>
+      </div>
+    </div>
+
+    <h3>警告 Warning</h3>
+    <div class="grid">
+      <div class="sw" data-token="--warning" data-light="#fe9a00" data-dark="#FEA900">
+        <div class="chips"><span class="chip l" style="background:#fe9a00"></span><span class="chip d" style="background:#FEA900"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--warning</button><div class="pair"><span class="tag">亮</span><code data-l>#fe9a00</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#FEA900</code></div><div class="flags"></div><div class="note">TraeWork status-alert-default</div></div>
+      </div>
+      <div class="sw" data-token="--warning-surface" data-light="#fffbeb" data-dark="rgba(254, 169, 0, 0.14)">
+        <div class="chips"><span class="chip l" style="background:#fffbeb"></span><span class="chip d" style="background:rgba(254, 169, 0, 0.14)"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--warning-surface</button><div class="pair"><span class="tag">亮</span><code data-l>#fffbeb</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>rgba(254, 169, 0, 0.14)</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--warning-border" data-light="#fee685" data-dark="rgba(254, 169, 0, 0.26)">
+        <div class="chips"><span class="chip l" style="background:#fee685"></span><span class="chip d" style="background:rgba(254, 169, 0, 0.26)"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--warning-border</button><div class="pair"><span class="tag">亮</span><code data-l>#fee685</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>rgba(254, 169, 0, 0.26)</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--warning-foreground" data-light="#bb4d00" data-dark="#FFB700">
+        <div class="chips"><span class="chip l" style="background:#bb4d00"></span><span class="chip d" style="background:#FFB700"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--warning-foreground</button><div class="pair"><span class="tag">亮</span><code data-l>#bb4d00</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#FFB700</code></div><div class="flags"></div></div>
+      </div>
+    </div>
+
+    <h3>错误 Danger / Destructive</h3>
+    <div class="grid">
+      <div class="sw" data-token="--danger" data-light="#e7000b" data-dark="#E8463A">
+        <div class="chips"><span class="chip l" style="background:#e7000b"></span><span class="chip d" style="background:#E8463A"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--danger</button><div class="pair"><span class="tag">亮</span><code data-l>#e7000b</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#E8463A</code></div><div class="flags"></div><div class="note">TraeWork status-error-default</div></div>
+      </div>
+      <div class="sw" data-token="--danger-surface" data-light="#fef2f2" data-dark="rgba(232, 70, 58, 0.14)">
+        <div class="chips"><span class="chip l" style="background:#fef2f2"></span><span class="chip d" style="background:rgba(232, 70, 58, 0.14)"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--danger-surface</button><div class="pair"><span class="tag">亮</span><code data-l>#fef2f2</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>rgba(232, 70, 58, 0.14)</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--danger-border" data-light="#ffc9c9" data-dark="rgba(232, 70, 58, 0.26)">
+        <div class="chips"><span class="chip l" style="background:#ffc9c9"></span><span class="chip d" style="background:rgba(232, 70, 58, 0.26)"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--danger-border</button><div class="pair"><span class="tag">亮</span><code data-l>#ffc9c9</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>rgba(232, 70, 58, 0.26)</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--danger-foreground" data-light="#c10007" data-dark="#EA574C">
+        <div class="chips"><span class="chip l" style="background:#c10007"></span><span class="chip d" style="background:#EA574C"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--danger-foreground</button><div class="pair"><span class="tag">亮</span><code data-l>#c10007</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#EA574C</code></div><div class="flags"></div></div>
+      </div>
+    </div>
+
+    <h3>信息 Info</h3>
+    <div class="grid">
+      <div class="sw" data-token="--info" data-light="#155dfc" data-dark="#2F74FF">
+        <div class="chips"><span class="chip l" style="background:#155dfc"></span><span class="chip d" style="background:#2F74FF"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--info</button><div class="pair"><span class="tag">亮</span><code data-l>#155dfc</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#2F74FF</code></div><div class="flags"></div><div class="note">TraeWork status-primary-default</div></div>
+      </div>
+      <div class="sw" data-token="--info-surface" data-light="hsl(214 100% 95%)" data-dark="rgba(47, 116, 255, 0.14)">
+        <div class="chips"><span class="chip l" style="background:hsl(214 100% 95%)"></span><span class="chip d" style="background:rgba(47, 116, 255, 0.14)"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--info-surface</button><div class="pair"><span class="tag">亮</span><code data-l>hsl(214 100% 95%)</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>rgba(47, 116, 255, 0.14)</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--info-border" data-light="#bedbff" data-dark="rgba(47, 116, 255, 0.26)">
+        <div class="chips"><span class="chip l" style="background:#bedbff"></span><span class="chip d" style="background:rgba(47, 116, 255, 0.26)"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--info-border</button><div class="pair"><span class="tag">亮</span><code data-l>#bedbff</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>rgba(47, 116, 255, 0.26)</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--info-foreground" data-light="#1447e6" data-dark="#4C88FF">
+        <div class="chips"><span class="chip l" style="background:#1447e6"></span><span class="chip d" style="background:#4C88FF"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--info-foreground</button><div class="pair"><span class="tag">亮</span><code data-l>#1447e6</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#4C88FF</code></div><div class="flags"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. 中性色 -->
+  <section>
+    <h2>中性色阶梯 (Neutral Palette)</h2>
+    <p class="desc">TraeWork 中性灰色梯度系统。</p>
+    <div class="grid">
+      <div class="sw" data-token="--neutral-50" data-light="#f3f3f3" data-dark="#1a1a1a">
+        <div class="chips"><span class="chip l" style="background:#f3f3f3"></span><span class="chip d" style="background:#1a1a1a"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--neutral-50</button><div class="pair"><span class="tag">亮</span><code data-l>#f3f3f3</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#1a1a1a</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--neutral-100" data-light="#eaeaea" data-dark="#202020">
+        <div class="chips"><span class="chip l" style="background:#eaeaea"></span><span class="chip d" style="background:#202020"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--neutral-100</button><div class="pair"><span class="tag">亮</span><code data-l>#eaeaea</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#202020</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--neutral-200" data-light="#e0e0e0" data-dark="#2c2c2c">
+        <div class="chips"><span class="chip l" style="background:#e0e0e0"></span><span class="chip d" style="background:#2c2c2c"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--neutral-200</button><div class="pair"><span class="tag">亮</span><code data-l>#e0e0e0</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#2c2c2c</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--neutral-300" data-light="#dbdbdb" data-dark="#3a3a3a">
+        <div class="chips"><span class="chip l" style="background:#dbdbdb"></span><span class="chip d" style="background:#3a3a3a"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--neutral-300</button><div class="pair"><span class="tag">亮</span><code data-l>#dbdbdb</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#3a3a3a</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--neutral-muted" data-light="#a3a3a3" data-dark="#737373">
+        <div class="chips"><span class="chip l" style="background:#a3a3a3"></span><span class="chip d" style="background:#737373"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--neutral-muted</button><div class="pair"><span class="tag">亮</span><code data-l>#a3a3a3</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#737373</code></div><div class="flags"></div></div>
+      </div>
+      <div class="sw" data-token="--neutral-foreground" data-light="#727272" data-dark="#a1a1a1">
+        <div class="chips"><span class="chip l" style="background:#727272"></span><span class="chip d" style="background:#a1a1a1"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--neutral-foreground</button><div class="pair"><span class="tag">亮</span><code data-l>#727272</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#a1a1a1</code></div><div class="flags"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. 代码高亮引擎 -->
+  <section>
+    <h2>代码高亮引擎 Tokens (Syntax Highlighting)</h2>
+    <p class="desc">消除红色报错感的专业暗色代码高亮色彩方案，背景色完美契合产品嵌入式卡片（#161616）。</p>
+    <div class="grid">
+      <div class="sw" data-token="--code-bg" data-light="rgba(245, 245, 245, 0.5)" data-dark="#161616">
+        <div class="chips"><span class="chip l" style="background:rgba(245, 245, 245, 0.5)"></span><span class="chip d" style="background:#161616"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--code-bg</button><div class="pair"><span class="tag">亮</span><code data-l>rgba(245, 245, 245, 0.5)</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#161616</code></div><div class="flags"><span class="flag new">插槽底色</span></div><div class="note">代码视窗与嵌入式插槽一致</div></div>
+      </div>
+
+      <div class="sw" data-token="--code-keyword" data-light="#cf222e" data-dark="#79c0ff">
+        <div class="chips"><span class="chip l" style="background:#cf222e"></span><span class="chip d" style="background:#79c0ff"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--code-keyword</button><div class="pair"><span class="tag">亮</span><code data-l>#cf222e</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#79c0ff</code></div><div class="flags"><span class="flag new">清透冰蓝</span></div><div class="note">关键字、控制流、类型内置词</div></div>
+      </div>
+
+      <div class="sw" data-token="--code-function" data-light="#8250df" data-dark="#d2a8ff">
+        <div class="chips"><span class="chip l" style="background:#8250df"></span><span class="chip d" style="background:#d2a8ff"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--code-function</button><div class="pair"><span class="tag">亮</span><code data-l>#8250df</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#d2a8ff</code></div><div class="flags"></div><div class="note">函数调用、类名、Python 装饰器</div></div>
+      </div>
+
+      <div class="sw" data-token="--code-string" data-light="#0a7a3c" data-dark="#7ee787">
+        <div class="chips"><span class="chip l" style="background:#0a7a3c"></span><span class="chip d" style="background:#7ee787"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--code-string</button><div class="pair"><span class="tag">亮</span><code data-l>#0a7a3c</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#7ee787</code></div><div class="flags"></div><div class="note">字符串文本</div></div>
+      </div>
+
+      <div class="sw" data-token="--code-variable" data-light="#953800" data-dark="#ffa657">
+        <div class="chips"><span class="chip l" style="background:#953800"></span><span class="chip d" style="background:#ffa657"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--code-variable</button><div class="pair"><span class="tag">亮</span><code data-l>#953800</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#ffa657</code></div><div class="flags"></div><div class="note">CLI Flags (-X, -H, -d)、变量</div></div>
+      </div>
+
+      <div class="sw" data-token="--code-comment" data-light="#6e7781" data-dark="#8b949e">
+        <div class="chips"><span class="chip l" style="background:#6e7781"></span><span class="chip d" style="background:#8b949e"></span></div>
+        <div class="meta"><button class="name" title="点击复制">--code-comment</button><div class="pair"><span class="tag">亮</span><code data-l>#6e7781</code></div><div class="pair"><span class="tag dk">暗</span><code data-d>#8b949e</code></div><div class="flags"></div><div class="note">代码注释（斜体沉浸灰）</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. 现场交互实装 Sandbox -->
+  <div class="sandbox-section">
+    <h2>现场环境实时架构预览 (Interactive Architecture Sandbox)</h2>
+    <p class="desc">直观验证外层 <code>#141414</code>、主工作台 <code>#1a1a1a</code> 与产品子卡片 <code>#161616</code> 的真实层级嵌合效果（试着悬浮下方卡片）：</p>
+
+    <div class="sandbox-preview">
+      <div style="font-size: 11px; color: #737373; margin-bottom: 8px;">WORKSPACE SHELL · #141414</div>
+      <div class="sandbox-pane">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+          <div style="font-size: 13px; font-weight: 600; color: #fafafa;">MAIN WORKBENCH PANE · #1a1a1a</div>
+          <div style="font-size: 11px; color: #60ff70; background: rgba(96,255,112,0.12); padding: 2px 8px; border-radius: 4px;">ACTIVE STATE</div>
+        </div>
+
+        <div class="sandbox-cards">
+          <div class="sandbox-card">
+            <div style="font-size: 12px; font-weight: 600; color: #fafafa;">API Sub-Card</div>
+            <div style="font-size: 11px; color: #a1a1a1; margin-top: 4px;">嵌入式插槽底色 #161616，悬浮触发翡翠绿高亮外框。</div>
+          </div>
+          <div class="sandbox-card">
+            <div style="font-size: 12px; font-weight: 600; color: #fafafa;">Application Card</div>
+            <div style="font-size: 11px; color: #a1a1a1; margin-top: 4px;">正文字号统一为 14px，视觉平衡一致。</div>
+          </div>
+        </div>
+
+        <div class="sandbox-code">
+          <span style="color: #79c0ff;">curl</span> <span style="color: #ffa657;">-X</span> POST <span style="color: #7ee787;">"https://api.octen.ai/v1/search"</span> \<br>
+          &nbsp;&nbsp;<span style="color: #ffa657;">-H</span> <span style="color: #7ee787;">"Authorization: Bearer octen_key"</span> \<br>
+          &nbsp;&nbsp;<span style="color: #ffa657;">-d</span> <span style="color: #f0f6fc;">'{"query": "Octen Dark Theme"}'</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const cv = document.createElement('canvas'); cv.width = cv.height = 1;
+  const cx = cv.getContext('2d', { willReadFrequently: true });
+  const h2 = (n) => Math.round(n).toString(16).padStart(2, '0');
+  const sampleHex = (css) => {
+    cx.clearRect(0, 0, 1, 1); cx.fillStyle = '#000'; cx.fillStyle = css; cx.fillRect(0, 0, 1, 1);
+    const [r, g, b, a] = cx.getImageData(0, 0, 1, 1).data;
+    return '#' + h2(r) + h2(g) + h2(b) + (a < 255 ? h2(a) : '');
+  };
+  const chipHex = (chip) => {
+    const c = getComputedStyle(chip).backgroundColor;
+    const m = c.match(/^rgba?\(([^)]+)\)$/);
+    if (!m) return sampleHex(c);
+    const n = m[1].split(/[,\s/]+/).filter(Boolean).map(Number);
+    const a = n.length > 3 ? n[3] : 1;
+    return '#' + h2(n[0]) + h2(n[1]) + h2(n[2]) + (a < 1 ? h2(a * 255) : '');
+  };
+  const lumOf = (chip) => {
+    const hex = chipHex(chip).slice(1, 7);
+    const ch = [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255)
+      .map((c) => (c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)));
+    return 0.2126 * ch[0] + 0.7152 * ch[1] + 0.0722 * ch[2];
+  };
+  const isHex = (v) => /^#[0-9a-f]{3,8}$/i.test(v);
+
+  // 初始化所有色卡交互
+  document.querySelectorAll('.sw').forEach((sw) => {
+    const lv = sw.dataset.light, dv = sw.dataset.dark;
+    const [chipL, chipD] = sw.querySelectorAll('.chip');
+    if (lv && !isHex(lv) && chipL) sw.querySelector('[data-l]').textContent = lv + '  ' + chipHex(chipL);
+    if (dv && !isHex(dv) && chipD) sw.querySelector('[data-d]').textContent = dv + '  ' + chipHex(chipD);
+
+    const flags = sw.querySelector('.flags');
+    if (!flags.innerHTML.trim()) {
+      if (lv && dv && chipL && chipD) {
+        const MID = 0.18;
+        const flipped = (lumOf(chipL) > MID) !== (lumOf(chipD) > MID);
+        flags.innerHTML = flipped
+          ? '<span class="flag flip">翻转</span>'
+          : '<span class="flag same">同向</span>';
+      }
+    }
+
+    sw.querySelector('.name').addEventListener('click', async () => {
+      const token = sw.dataset.token;
+      try { await navigator.clipboard.writeText(token); } catch (e) {}
+      const toast = document.getElementById('toast');
+      toast.textContent = '已复制 ' + token;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 1200);
+    });
+  });
+
+  // 主题切换逻辑
+  const sync = () => {
+    const dark = document.documentElement.classList.contains('dark');
+    document.getElementById('toggle-icon').textContent = dark ? '☀️' : '🌙';
+    document.getElementById('toggle-text').textContent = dark ? '切到亮色' : '切到暗色';
+  };
+  document.getElementById('toggle').addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    sync();
+  });
+  // 默认启动优先暗色展示
+  document.documentElement.classList.add('dark');
+  sync();
+
+  // 快捷过滤搜索
+  const filterInput = document.getElementById('filter-input');
+  filterInput.addEventListener('input', (e) => {
+    const val = e.target.value.toLowerCase().trim();
+    document.querySelectorAll('.sw').forEach((sw) => {
+      const token = sw.dataset.token.toLowerCase();
+      const text = sw.textContent.toLowerCase();
+      if (!val || token.includes(val) || text.includes(val)) {
+        sw.style.display = '';
+      } else {
+        sw.style.display = 'none';
+      }
+    });
+  });
+</script>
+</body>
+</html>
