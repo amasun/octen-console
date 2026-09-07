@@ -176,7 +176,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
   <!-- Application -->
   <section class="mb-8">
     <h2 class="text-[16px] text-[#000] font-semibold mb-3">Application</h2>
-    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="grid md:grid-cols-2 gap-4">
       <!-- Answer (formerly Broad Search Application) -->
       <a href="#" onclick="go('broad-search');return false" class="group bg-white border border-[#e7e7e7] rounded-xl p-5 flex flex-col gap-3 hover:shadow-md hover:border-[#a3a3a3] transition-all cursor-pointer">
         <div class="flex-1">
