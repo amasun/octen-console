@@ -553,20 +553,27 @@ html.dark #page-overview .ov-card:hover,
   box-shadow: 0 0 0 1px var(--primary-muted), 0 8px 24px -4px rgba(0, 0, 0, 0.45) !important;
 }
 
-/* Overview API Sub-card Background: In dark mode, use a gray token brighter than main card surface */
-#page-overview .ov-api-card {
+/* Overview Sub-card Background (API & Application): In dark mode, use a gray token brighter than main card surface */
+#page-overview .ov-api-card,
+#page-overview .ov-app-card {
   background-color: #ffffff;
 }
 html.dark #page-overview .ov-api-card,
-[data-theme="dark"] #page-overview .ov-api-card {
+html.dark #page-overview .ov-app-card,
+[data-theme="dark"] #page-overview .ov-api-card,
+[data-theme="dark"] #page-overview .ov-app-card {
   background-color: var(--neutral-100) !important; /* #1f242d, 明显亮于主卡片 --surface #0f1319 */
 }
 html.dark.theme-trae #page-overview .ov-api-card,
-[data-theme="dark-trae"] #page-overview .ov-api-card {
+html.dark.theme-trae #page-overview .ov-app-card,
+[data-theme="dark-trae"] #page-overview .ov-api-card,
+[data-theme="dark-trae"] #page-overview .ov-app-card {
   background-color: var(--neutral-100) !important; /* #202020, 明显亮于主卡片 #171717 */
 }
 html.dark.theme-cool #page-overview .ov-api-card,
-[data-theme="dark-cool"] #page-overview .ov-api-card {
+html.dark.theme-cool #page-overview .ov-app-card,
+[data-theme="dark-cool"] #page-overview .ov-api-card,
+[data-theme="dark-cool"] #page-overview .ov-app-card {
   background-color: var(--neutral-100) !important; /* #22252a, 明显亮于主卡片 #15171c */
 }
 

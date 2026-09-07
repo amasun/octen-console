@@ -178,7 +178,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
     <h2 class="text-[16px] text-[#000] font-semibold mb-3">Application</h2>
     <div class="grid md:grid-cols-2 gap-4">
       <!-- Answer (formerly Broad Search Application) -->
-      <a href="#" onclick="go('broad-search');return false" class="ov-card group bg-white border border-[#e7e7e7] rounded-xl p-5 flex flex-col gap-3 hover:shadow-md transition-all cursor-pointer">
+      <a href="#" onclick="go('broad-search');return false" class="ov-card ov-app-card ov-api-card group bg-white border border-[#e7e7e7] rounded-xl p-5 flex flex-col gap-3 hover:shadow-md transition-all cursor-pointer">
         <div class="flex-1">
           <div class="flex items-center gap-3 mb-2">
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style="background:#0398551a;color:#039855"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z"/></svg></span>
@@ -191,7 +191,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
         </div>
       </a>
       <!-- Deep Research -->
-      <a href="#" onclick="go('deep-research');return false" class="ov-card group bg-white border border-[#e7e7e7] rounded-xl p-5 flex flex-col gap-3 hover:shadow-md transition-all cursor-pointer">
+      <a href="#" onclick="go('deep-research');return false" class="ov-card ov-app-card ov-api-card group bg-white border border-[#e7e7e7] rounded-xl p-5 flex flex-col gap-3 hover:shadow-md transition-all cursor-pointer">
         <div class="flex-1">
           <div class="flex items-center gap-3 mb-2">
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style="background:#0398551a;color:#039855"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18h8M3 22h18M14 22a7 7 0 100-14h-1M9 14h2M9 12a2 2 0 01-2-2V6h6v4a2 2 0 01-2 2zM12 6V3a1 1 0 00-1-1H9a1 1 0 00-1 1v3"/></svg></span>
@@ -204,7 +204,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
         </div>
       </a>
       <!-- Multimodal Chat -->
-      <a href="#" onclick="openRequestAccess('Multimodal Chat');return false" class="ov-card group bg-white border border-[#e7e7e7] rounded-xl p-5 flex flex-col gap-3 hover:shadow-md transition-all cursor-pointer">
+      <a href="#" onclick="openRequestAccess('Multimodal Chat');return false" class="ov-card ov-app-card ov-api-card group bg-white border border-[#e7e7e7] rounded-xl p-5 flex flex-col gap-3 hover:shadow-md transition-all cursor-pointer">
         <div class="flex-1">
           <div class="flex items-center gap-3 mb-2">
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style="background:#0398551a;color:#039855"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg></span>
@@ -218,7 +218,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
         </div>
       </a>
       <!-- Grounded Generation -->
-      <a href="#" onclick="openRequestAccess('Grounded Generation');return false" class="ov-card group bg-white border border-[#e7e7e7] rounded-xl p-5 flex flex-col gap-3 hover:shadow-md transition-all cursor-pointer">
+      <a href="#" onclick="openRequestAccess('Grounded Generation');return false" class="ov-card ov-app-card ov-api-card group bg-white border border-[#e7e7e7] rounded-xl p-5 flex flex-col gap-3 hover:shadow-md transition-all cursor-pointer">
         <div class="flex-1">
           <div class="flex items-center gap-3 mb-2">
             <span class="inline-flex items-center justify-center w-9 h-9 rounded-lg shrink-0" style="background:#0398551a;color:#039855"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path stroke-linecap="round" stroke-linejoin="round" d="M21 15l-5-5L5 21"/></svg></span>
