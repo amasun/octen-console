@@ -8,7 +8,7 @@
   - Vanilla CSS (custom properties, glassmorphism effects, semantic color palette in `css/styles.css`)
 - **Scripting**: Vanilla JavaScript (ES6+, DOM manipulation for Modals, Tabs, and UI state)
 - **Typography**: 
-  - Primary UI: `Inter`, system fonts (`-apple-system`, `BlinkMacSystemFont`)
+  - Primary UI: `DM Sans`, system fonts (`-apple-system`, `BlinkMacSystemFont`, `Segoe UI`, `Roboto`)
   - Code/Monospace: `JetBrains Mono`, `ui-monospace`, `SFMono-Regular`
 
 ## 📁 Project Structure

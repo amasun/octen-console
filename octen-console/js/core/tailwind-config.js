@@ -2,6 +2,10 @@ tailwind.config = {
     darkMode: ['class', '[data-theme="dark"]'],
     theme: {
       extend: {
+        fontFamily: {
+          sans: ['"DM Sans"', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'ui-monospace', '"SF Mono"', 'Menlo', 'Consolas', 'monospace'],
+        },
         colors: {
           // --- 核心品牌色 Brand Tokens (严格遵循 theme-color.html) ---
           primary: {
