@@ -46,7 +46,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
         <p class="text-sm text-[#737373] leading-relaxed">Auto-decomposes one query into many parallel subqueries. Ready for production.</p>
         <div class="flex flex-col gap-3">
           <div class="flex items-start gap-2 text-sm text-[#737373]">
-            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gauge w-3.5 h-3.5 text-primary-lite shrink-0 mt-0.5" aria-hidden="true"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>
             <span>&lt;62ms latency · Scales to 1M+ QPS · Broader coverage in a single call.</span>
           </div>
           <div class="flex items-start gap-2 text-sm text-[#737373]">
@@ -63,7 +63,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
         <p class="text-sm text-[#737373] leading-relaxed">Ranked web results, highlights, and summaries. Ready for generation.</p>
         <div class="flex flex-col gap-3">
           <div class="flex items-start gap-2 text-sm text-[#737373]">
-            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gauge w-3.5 h-3.5 text-primary-lite shrink-0 mt-0.5" aria-hidden="true"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>
             <span>&lt;62ms latency · Scales to 1M+ QPS</span>
           </div>
           <div class="flex items-start gap-2 text-sm text-[#737373]">
@@ -108,7 +108,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
         <p class="text-sm text-[#737373] leading-relaxed">Clean markdown, intent-focused highlights, and page classification. Ready for ingestion.</p>
         <div class="flex flex-col gap-3">
           <div class="flex items-start gap-2 text-sm text-[#737373]">
-            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gauge w-3.5 h-3.5 text-primary-lite shrink-0 mt-0.5" aria-hidden="true"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>
             <span>Clean markdown extraction · success-only pricing</span>
           </div>
           <div class="flex items-start gap-2 text-sm text-[#737373]">
@@ -126,7 +126,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
         <p class="text-sm text-[#737373] leading-relaxed">One API to call any LLM, with unified billing. Ready for production.</p>
         <div class="flex flex-col gap-3">
           <div class="flex items-start gap-2 text-sm text-[#737373]">
-            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gauge w-3.5 h-3.5 text-primary-lite shrink-0 mt-0.5" aria-hidden="true"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>
             <span>OpenAI-compatible · Switch providers without rewriting code.</span>
           </div>
           <div class="flex items-start gap-2 text-sm text-[#737373]">
@@ -143,7 +143,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
         <p class="text-sm text-[#737373] leading-relaxed">Vector embeddings for retrieval, similarity, and ranking. Ready for production.</p>
         <div class="flex flex-col gap-3">
           <div class="flex items-start gap-2 text-sm text-[#737373]">
-            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gauge w-3.5 h-3.5 text-primary-lite shrink-0 mt-0.5" aria-hidden="true"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>
             <span>#1 on RTEB (0.7953) · Strong multilingual performance.</span>
           </div>
           <div class="flex items-start gap-2 text-sm text-[#737373]">
@@ -161,7 +161,7 @@ registerPage("page-overview", `<div id="page-overview" class="page active pl-0 p
         <p class="text-sm text-[#737373] leading-relaxed">Multimodal embeddings for cross-modal retrieval, similarity, and ranking. Ready for production.</p>
         <div class="flex flex-col gap-3">
           <div class="flex items-start gap-2 text-sm text-[#737373]">
-            <svg class="w-3.5 h-3.5 mt-0.5 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-gauge w-3.5 h-3.5 text-primary-lite shrink-0 mt-0.5" aria-hidden="true"><path d="m12 14 4-4"></path><path d="M3.34 19a10 10 0 1 1 17.32 0"></path></svg>
             <span>#1 on MMEB-V2 (80.09) · Unified vision-language space.</span>
           </div>
           <div class="flex items-start gap-2 text-sm text-[#737373]">
