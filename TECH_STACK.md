@@ -25,3 +25,14 @@
 - `TraeWork/`: TraeWork 设计系统与规范参考（指导 Octen Console 第三颜色模式 `dark-trae`，基于 `work.trae.cn` 的中性黑阶 `#171717` / `#262626`、纯白微透边框 `rgba(229,229,229,0.1)` 及中性排版梯度，同时完整保留当前暗色模式的高对比翡翠绿主色 `--primary: #60ff70`）。
 - `_archive/`: Contains old backups and deprecated files.
 
+## 🎨 UI Component Standards (组件交互与视觉规范)
+
+- **Action Buttons (`Run` & `Clear`)**:
+  - **顺序规范**: `[▷ Run]` 在前（主动作/正向），`[⟳ Clear]` 在后（辅助动作/重置）。
+  - **图标升级**:
+    - `Run`: 采用纤细现代的线框镂空圆角播放三角（`polygon points="6 3 20 12 6 21 6 3"`，描边粗细 `stroke-width="2.2"`）。
+    - `Clear`: 采用现代单向顺时针环形刷新箭头（`path d="M21 12a9 9 0 1 1-9-9..."`，统一 `2.2` 描边粗细）。
+  - **尺寸与字体**:
+    - 统一字号提升至 `14px`（中等字重 `500`，正文字体 `DM Sans`），按钮高度统一为 `34px`，圆角升级为 `10px`，内边距 `6px 14px`，图标间距 `6px`。
+    - 浅色模式下 `Clear` 文字与边框采用高对比度深色（`#0a0a0a` / `#dbdbdb`），彻底告别暗淡发灰；暗色模式下完美响应语义表面色。
+
