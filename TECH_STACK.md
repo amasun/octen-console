@@ -14,7 +14,9 @@
 ## 📁 Project Structure
 
 - `octen-console-prototype.html`: The original monolithic prototype file.
-- `octen-broad-search/`: The extracted and refactored directory focusing on the "Broad Search" feature.
-  - `index.html`: The main entry point for Broad Search.
-  - `css/styles.css`: Extracted custom styles, CSS variables, and light/dark theme definitions.
+- `octen-console/`: The extracted and refactored Octen Console application.
+  - `index.html`: The main console application entry point.
+  - `css/styles.css`: Custom styling, semantic color tokens, and layout classes.
+- `theme/`: Abstracted design and color tokens documentation (`README.md`) for Octen Console (Cult UI 4-color palette).
+- `tradecode/`: Independent dark-first design system and theme reference documentation (`README.md`) aligned with TraeCode / Nimbus Core.
 - `_archive/`: Contains old backups and deprecated files.
