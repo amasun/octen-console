@@ -36,6 +36,7 @@
   - **高度规范**: 单行高度严格统一为 `36px`（`box-sizing: border-box; line-height: 34px; padding: 0 12px;`），多行 `textarea` 保留弹性自适应高度。
   - **无文字溢出**: 基于 `14px` 正文字体 `DM Sans` 计算基准线，上下垂直居中且留有充足行高余量，彻底消除文字上下被截断（clipping）或溢出容器的问题。
   - **去除浏览器上下箭头**: 全局应用 `-webkit-appearance: none;` 及 `-moz-appearance: textfield;`，彻底去除 Chrome/Edge/Firefox 等内置数字输入框的右侧上下步进箭头（spin buttons）。
+  - **暗色模式输入框背景色规范 (`#141414`)**: 暗色模式下所有表单输入框（`.ui-input`、`input`、`select`、`.ui-select`）以及复合查询容器（`#bsa-query-box`、`#ws-query-box`、`[id$="-dz"]`）背景色统一由微透色升级为深邃沉浸黑 `#141414`（`--input-bg: #141414`），在主面板卡片底板 `#1a1a1a` 上形成内凹嵌合槽位质感，内部透明 textarea 保持透气，聚焦时触发高亮翡翠绿描边。
 - **Syntax Highlighting (代码区域全语言色彩优化与规范)**:
   - **浅色模式**: 完整保持原生代码高亮体系不变（Prism/GitHub 原生规范）。
   - **全暗色主题（Octen Dark, TraeWork Dark）多语言全覆盖**:

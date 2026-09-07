@@ -41,6 +41,7 @@
 | `--layout-pane-border` | `1px solid #E7E7E7` | `1px solid rgba(255, 255, 255, 0.07)` | 主卡片外框微描边（发丝级轮廓界限） |
 | `--subcard-bg` / `--code-bg` | `#FFFFFF` / `#F5F5F580` | `#161616` | 产品卡片（API、Application、MCP）与代码高亮视窗插槽底色 |
 | `--subcard-border` | `1px solid #E7E7E7` | `1px solid #161616` | 嵌入式卡片边框（暗色下同色嵌合） |
+| `--input-bg` | `#FFFFFF` | `#141414` | 单行/多行输入框、选择框及复合查询框插槽底色 |
 | `--popover` | `#FFFFFF` | `#1C1C1C` | 下拉菜单、气泡提示卡与用户账户弹窗 |
 
 ---

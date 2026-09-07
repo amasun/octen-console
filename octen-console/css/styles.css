@@ -62,6 +62,7 @@ html.dark .sidebar-logo,
   --popover: #ffffff;
   --surface-inverse: #0f172b;
   --background-inverse: #111111;
+  --input-bg: #ffffff;
 
   /* 文字 Foregrounds (保持主项目原生 Cult UI 高对比黑与中性灰阶) */
   --foreground: #0a0a0a;
@@ -214,6 +215,7 @@ html.dark,
   --popover: #1c1c1c;                   /* 弹出层与浮动菜单 */
   --surface-inverse: #FFFFFF;
   --background-inverse: #F5F5F5;
+  --input-bg: #141414;
 
   /* 文字 Foregrounds (纯中性文字阶梯) */
   --foreground: #E5E5E5;                /* 主文字 */
@@ -1241,18 +1243,42 @@ html.dark .ui-btn-outline:hover {
   color: var(--fg-strong) !important;
 }
 
-/* Forms & Inputs */
+/* Forms & Inputs (暗色模式下，输入框及复合查询框背景色统一定义为 #141414) */
 html.dark .ui-input,
 html.dark .ui-select,
-html.dark .pgs-f {
-  background-color: var(--surface-subtle) !important;
-  border-color: var(--input, #2b333f) !important;
-  color: var(--fg-strong) !important;
-}
-
-html.dark .pgs-fake {
-  background-color: var(--surface-subtle) !important;
-  border-color: var(--input, #2b333f) !important;
+html.dark input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="file"]),
+html.dark textarea:not(#bsa-query):not(#ws-query):not(#bsa-query-box textarea):not(#ws-query-box textarea):not([id$="-dz"] textarea):not(#md-input),
+html.dark select,
+html.dark .pgs-f,
+html.dark .pgs-fake,
+html.dark #bsa-query-box,
+html.dark #ws-query-box,
+html.dark [id$="-dz"],
+html.dark div:has(> #md-input),
+[data-theme="dark"] .ui-input,
+[data-theme="dark"] .ui-select,
+[data-theme="dark"] input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="file"]),
+[data-theme="dark"] textarea:not(#bsa-query):not(#ws-query):not(#bsa-query-box textarea):not(#ws-query-box textarea):not([id$="-dz"] textarea):not(#md-input),
+[data-theme="dark"] select,
+[data-theme="dark"] .pgs-f,
+[data-theme="dark"] .pgs-fake,
+[data-theme="dark"] #bsa-query-box,
+[data-theme="dark"] #ws-query-box,
+[data-theme="dark"] [id$="-dz"],
+[data-theme="dark"] div:has(> #md-input),
+[data-theme="dark-trae"] .ui-input,
+[data-theme="dark-trae"] .ui-select,
+[data-theme="dark-trae"] input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="file"]),
+[data-theme="dark-trae"] textarea:not(#bsa-query):not(#ws-query):not(#bsa-query-box textarea):not(#ws-query-box textarea):not([id$="-dz"] textarea):not(#md-input),
+[data-theme="dark-trae"] select,
+[data-theme="dark-trae"] .pgs-f,
+[data-theme="dark-trae"] .pgs-fake,
+[data-theme="dark-trae"] #bsa-query-box,
+[data-theme="dark-trae"] #ws-query-box,
+[data-theme="dark-trae"] [id$="-dz"],
+[data-theme="dark-trae"] div:has(> #md-input) {
+  background-color: #141414 !important;
+  border-color: var(--input, rgba(229, 229, 229, 0.16)) !important;
   color: var(--fg-strong) !important;
 }
 
@@ -1290,10 +1316,20 @@ html.dark #ws-query,
 html.dark #bsa-query-box textarea,
 html.dark #ws-query-box textarea,
 html.dark [id$="-dz"] textarea,
+html.dark #md-input,
 [data-theme="dark"] #bsa-query,
 [data-theme="dark"] #ws-query,
+[data-theme="dark"] #bsa-query-box textarea,
+[data-theme="dark"] #ws-query-box textarea,
+[data-theme="dark"] [id$="-dz"] textarea,
+[data-theme="dark"] #md-input,
 [data-theme="dark-trae"] #bsa-query,
-[data-theme="dark-trae"] #ws-query {
+[data-theme="dark-trae"] #ws-query,
+[data-theme="dark-trae"] #bsa-query-box textarea,
+[data-theme="dark-trae"] #ws-query-box textarea,
+[data-theme="dark-trae"] [id$="-dz"] textarea,
+[data-theme="dark-trae"] #md-input {
+  background-color: transparent !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;

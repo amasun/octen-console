@@ -229,6 +229,9 @@
     outline: none;
     transition: border-color .15s;
   }
+  html.dark .search-input {
+    background: #141414 !important;
+  }
   .search-input:focus {
     border-color: var(--pg-primary);
   }
@@ -590,6 +593,17 @@
           <div class="pair"><span class="tag dk">暗</span><code data-d>rgba(255, 255, 255, 0.07)</code></div>
           <div class="flags"><span class="flag new">标准新标</span></div>
           <div class="note">主面板微描边，形成发丝级精细界限</div>
+        </div>
+      </div>
+
+      <div class="sw" data-token="--input-bg" data-light="#ffffff" data-dark="#141414">
+        <div class="chips"><span class="chip l" style="background:#ffffff"></span><span class="chip d" style="background:#141414"></span></div>
+        <div class="meta">
+          <button class="name" title="点击复制">--input-bg</button>
+          <div class="pair"><span class="tag">亮</span><code data-l>#ffffff</code></div>
+          <div class="pair"><span class="tag dk">暗</span><code data-d>#141414</code></div>
+          <div class="flags"><span class="flag new">标准新标</span></div>
+          <div class="note">输入框、下拉框与复合查询框沉浸插槽底色</div>
         </div>
       </div>
     </div>
