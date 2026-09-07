@@ -33,10 +33,10 @@ window.PGS_codeBlock = function(code, hl) {
   const body = lines.map(ln=>'<div>'+ln+(ln===''?'<br>':'')+'</div>').join('');
 
   const MONO = 'ui-monospace, "SF Mono", "JetBrains Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace';
-  return '<div style="height:100%;flex:1;overflow:auto;background:'+CODE_BG+';padding:16px 0">' +
+  return '<div class="code-block-wrapper" style="height:100%;flex:1;overflow:auto;background:'+CODE_BG+';padding:16px 0">' +
          '<div style="display:flex;width:max-content;min-width:100%;font-family:'+MONO+';font-size:14px;line-height:22px">' +
-         '<div style="flex-shrink:0;text-align:right;color:#a3a3a3;user-select:none;padding:0 16px">' + nums + '</div>' +
-         '<div class="language-'+lang+'" style="flex:1;padding-right:16px;white-space:pre;color:#0a0a0a">' + body + '</div>' +
+         '<div class="code-numbers" style="flex-shrink:0;text-align:right;user-select:none;padding:0 16px">' + nums + '</div>' +
+         '<div class="code-content language-'+lang+'" style="flex:1;padding-right:16px;white-space:pre">' + body + '</div>' +
          '</div></div>';
 };
 })();

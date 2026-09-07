@@ -16,7 +16,8 @@
 - `octen-console-prototype.html`: The original monolithic prototype file.
 - `octen-console/`: The extracted and refactored Octen Console application.
   - `index.html`: The main console application entry point (含无闪烁早期主题初始化脚本)。
-  - `css/styles.css`: Custom styling, semantic color tokens, and layout classes（全量适配浅色 Light、Octen Dark 及 TraeWork Dark 规范；严格采用 `theme/theme-color.html` 92 个 Token 命名，并在各模式下精准保真各自的原生色彩数值）。
+  - `css/styles.css`: Custom styling, semantic color tokens, layout classes, and Prism Dual-Theme code styling（全量适配浅色 Light、Octen Dark 及 TraeWork Dark 规范；严格采用 `theme/theme-color.html` 92 个 Token 命名，并在各模式下精准保真各自的原生色彩数值；搭载高对比暗色代码高亮引擎，彻底解决暗色下深字看不清问题）。
+  - `js/core/syntax-highlight.js`: 语法高亮驱动模块（支持语言自动推断、行号渲染与语义类解耦，双主题模式下自动适配前景色与高亮配色）。
   - `js/core/tailwind-config.js`: Tailwind 配置扩展（注入 `primary`, `shell`, `surface`, `foreground`, `fg`, `border`, `panel-border`, `neutral`, `status`, `accent`, `chart` 等全部设计 Token 实用类，同时保持与老项目的向下兼容）。
   - `js/core/sidebar.js`: 侧边栏布局与交互（包含左上角品牌 Logo 支持暗色下动态渲染 `--primary-dark`、底部直出开发模式主题切换栏 `[DEV] Theme` 及账号弹出卡片）。
   - `js/core/theme.js`: 主题状态管理模块（支持 `light`、`dark` (Octen)、`dark-trae` (TraeWork) 与 `system` 多模式切换、持久化储存与无缝样式派发）。

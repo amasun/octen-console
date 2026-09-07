@@ -1773,3 +1773,214 @@ html.dark.theme-trae .token.variable {
   color: #FEA900 !important;
 }
 
+
+
+/* ==========================================================================
+   Code & Syntax Highlighting System (Dual-Theme Engine)
+   ========================================================================== */
+
+/* 1. Base Code Styling Tokens */
+:root, [data-theme="light"] {
+  --code-base: #0a0a0a;
+  --code-bg: rgba(245, 245, 245, 0.5);
+  --code-numbers: #a3a3a3;
+  --code-keyword: #cf222e;
+  --code-string: #0a7a3c;
+  --code-function: #8250df;
+  --code-number: #0550ae;
+  --code-property: #0550ae;
+  --code-comment: #6e7781;
+  --code-punctuation: #57606a;
+  --code-operator: #cf222e;
+  --code-variable: #953800;
+}
+
+html.dark, [data-theme="dark"] {
+  --code-base: #e6edf3;
+  --code-bg: #080b12;
+  --code-numbers: #6e7681;
+  --code-keyword: #ff7b72;
+  --code-string: #7ee787;
+  --code-function: #d2a8ff;
+  --code-number: #79c0ff;
+  --code-property: #79c0ff;
+  --code-comment: #8b949e;
+  --code-punctuation: #c9d1d9;
+  --code-operator: #ff7b72;
+  --code-variable: #ffa657;
+}
+
+html.dark.theme-trae,
+html.theme-trae,
+[data-theme="dark-trae"] {
+  --code-base: #f0f6fc;
+  --code-bg: #171717;
+  --code-numbers: #6e7681;
+  --code-keyword: #ff7b72;
+  --code-string: #7ee787;
+  --code-function: #d2a8ff;
+  --code-number: #79c0ff;
+  --code-property: #79c0ff;
+  --code-comment: #8b949e;
+  --code-punctuation: #c9d1d9;
+  --code-operator: #ff7b72;
+  --code-variable: #ffa657;
+}
+
+/* 2. Code Block Container & Line Numbers */
+.ui-code-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--neutral-100);
+  background-color: var(--code-bg);
+  transition: background-color .15s, border-color .15s;
+}
+
+html.dark .ui-code-container,
+[data-theme="dark"] .ui-code-container,
+[data-theme="dark-trae"] .ui-code-container {
+  background-color: var(--code-bg) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.code-numbers {
+  color: var(--code-numbers) !important;
+  transition: color .15s;
+}
+
+.code-content {
+  color: var(--code-base) !important;
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace !important;
+}
+
+/* 3. Global Code & Pre elements in Dark Mode */
+html.dark pre,
+html.dark code,
+[data-theme="dark"] pre,
+[data-theme="dark"] code,
+[data-theme="dark-trae"] pre,
+[data-theme="dark-trae"] code {
+  color: var(--code-base);
+}
+
+html.dark pre[class*="language-"],
+html.dark code[class*="language-"],
+[data-theme="dark"] pre[class*="language-"],
+[data-theme="dark"] code[class*="language-"],
+[data-theme="dark-trae"] pre[class*="language-"],
+[data-theme="dark-trae"] code[class*="language-"] {
+  text-shadow: none !important;
+}
+
+/* 4. Syntax Highlighting Token Colors (Dark Mode Overrides) */
+html.dark .token.comment,
+html.dark .token.prolog,
+html.dark .token.doctype,
+html.dark .token.cdata,
+[data-theme="dark"] .token.comment,
+[data-theme="dark-trae"] .token.comment {
+  color: var(--code-comment) !important;
+  font-style: italic !important;
+}
+
+html.dark .token.punctuation,
+[data-theme="dark"] .token.punctuation,
+[data-theme="dark-trae"] .token.punctuation {
+  color: var(--code-punctuation) !important;
+}
+
+html.dark .token.property,
+html.dark .token.tag,
+html.dark .token.constant,
+html.dark .token.symbol,
+html.dark .token.deleted,
+[data-theme="dark"] .token.property,
+[data-theme="dark-trae"] .token.property {
+  color: var(--code-property) !important;
+}
+
+html.dark .token.boolean,
+html.dark .token.number,
+[data-theme="dark"] .token.number,
+[data-theme="dark-trae"] .token.number {
+  color: var(--code-number) !important;
+}
+
+html.dark .token.selector,
+html.dark .token.attr-name,
+html.dark .token.string,
+html.dark .token.char,
+html.dark .token.builtin,
+html.dark .token.inserted,
+[data-theme="dark"] .token.string,
+[data-theme="dark-trae"] .token.string {
+  color: var(--code-string) !important;
+}
+
+html.dark .token.operator,
+html.dark .token.entity,
+html.dark .token.url,
+[data-theme="dark"] .token.operator,
+[data-theme="dark-trae"] .token.operator {
+  color: var(--code-operator) !important;
+}
+
+html.dark .token.atrule,
+html.dark .token.attr-value,
+html.dark .token.keyword,
+[data-theme="dark"] .token.keyword,
+[data-theme="dark-trae"] .token.keyword {
+  color: var(--code-keyword) !important;
+}
+
+html.dark .token.function,
+html.dark .token.class-name,
+[data-theme="dark"] .token.function,
+[data-theme="dark-trae"] .token.function {
+  color: var(--code-function) !important;
+}
+
+html.dark .token.regex,
+html.dark .token.important,
+html.dark .token.variable,
+[data-theme="dark"] .token.variable,
+[data-theme="dark-trae"] .token.variable {
+  color: var(--code-variable) !important;
+}
+
+/* 5. Specialized Language Refinements */
+html.dark .language-json .token.property,
+[data-theme="dark"] .language-json .token.property,
+[data-theme="dark-trae"] .language-json .token.property {
+  color: #79c0ff !important;
+}
+
+html.dark .language-json .token.string,
+[data-theme="dark"] .language-json .token.string,
+[data-theme="dark-trae"] .language-json .token.string {
+  color: #a5d6ff !important;
+}
+
+html.dark .language-bash .token.function,
+[data-theme="dark"] .language-bash .token.function,
+[data-theme="dark-trae"] .language-bash .token.function {
+  color: #7ee787 !important;
+}
+
+html.dark .language-bash .token.parameter,
+[data-theme="dark"] .language-bash .token.parameter,
+[data-theme="dark-trae"] .language-bash .token.parameter {
+  color: #79c0ff !important;
+}
+
+/* 6. Selection Highlight */
+.ui-code-container ::selection,
+.code-content ::selection {
+  background-color: rgba(96, 255, 112, 0.28) !important;
+  color: inherit !important;
+}
+
