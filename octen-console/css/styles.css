@@ -530,6 +530,54 @@ html, body {
   background: transparent;
 }
 
+/* ==========================================================================
+   Overview Page Sub-cards Styling (Hover Green Border & API Subcard BG)
+   ========================================================================== */
+
+/* Overview Sub-cards Base Transitions */
+#page-overview .ov-card {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+
+/* Light Mode Sub-cards Hover: Brand Green Border */
+#page-overview .ov-card:hover {
+  border-color: var(--primary) !important;
+}
+
+/* Dark Mode Sub-cards Hover: Bright Green Highlight Border + Subtle Glow */
+html.dark #page-overview .ov-card:hover,
+[data-theme="dark"] #page-overview .ov-card:hover,
+[data-theme="dark-trae"] #page-overview .ov-card:hover,
+[data-theme="dark-cool"] #page-overview .ov-card:hover {
+  border-color: var(--primary) !important; /* #60ff70 高亮绿 */
+  box-shadow: 0 0 0 1px var(--primary-muted), 0 8px 24px -4px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Overview API Sub-card Background: In dark mode, use a gray token brighter than main card surface */
+#page-overview .ov-api-card {
+  background-color: #ffffff;
+}
+html.dark #page-overview .ov-api-card,
+[data-theme="dark"] #page-overview .ov-api-card {
+  background-color: var(--neutral-100) !important; /* #1f242d, 明显亮于主卡片 --surface #0f1319 */
+}
+html.dark.theme-trae #page-overview .ov-api-card,
+[data-theme="dark-trae"] #page-overview .ov-api-card {
+  background-color: var(--neutral-100) !important; /* #202020, 明显亮于主卡片 #171717 */
+}
+html.dark.theme-cool #page-overview .ov-api-card,
+[data-theme="dark-cool"] #page-overview .ov-api-card {
+  background-color: var(--neutral-100) !important; /* #22252a, 明显亮于主卡片 #15171c */
+}
+
+/* Dark mode: Arrow icon in API sub-card changes to bright green on hover */
+html.dark #page-overview .ov-card:hover .group-hover\:text-\[\#039855\],
+[data-theme="dark"] #page-overview .ov-card:hover .group-hover\:text-\[\#039855\],
+[data-theme="dark-trae"] #page-overview .ov-card:hover .group-hover\:text-\[\#039855\],
+[data-theme="dark-cool"] #page-overview .ov-card:hover .group-hover\:text-\[\#039855\] {
+  color: var(--primary) !important;
+}
+
 /* --- Ensure bsa-code fills 100% height of parent pane --- */
 #bsa-code {
   flex: 1 1 0% !important;
