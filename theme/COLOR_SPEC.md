@@ -2,7 +2,7 @@
 
 > **版本**：v2.0 (2026 最新标准)  
 > **适用范围**：Octen Console 核心控制台、营销页面、SDK 与开发者工具  
-> **配套交互式色板**：👉 [`theme/color-palette.html`](file:///x:/XCoding/Octen/03-console/theme/color-palette.html) | 本地快速访问：`http://localhost:3333/color-palette.html`
+> **配套交互式色板**：👉 [`theme/theme-color v1.1.html`](file:///x:/XCoding/Octen/03-console/theme/theme-color%20v1.1.html) | 本地访问：`http://localhost:3333/theme/theme-color%20v1.1.html`
 
 ---
 

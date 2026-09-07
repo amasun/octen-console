@@ -4,8 +4,8 @@
 
 同目录下提供了详细的技术规范文档与配套的可视化交互式对照色卡：
 - 📖 **详细规范**：👉 [`theme/COLOR_SPEC.md`](file:///x:/XCoding/Octen/03-console/theme/COLOR_SPEC.md)
-- 🖥️ **新版交互色卡**：👉 [`theme/color-palette.html`](file:///x:/XCoding/Octen/03-console/theme/color-palette.html)（支持实时切换暗色、十六进制实时换算与点击复制 Token）
-- 🌐 **本地在线预览**：`http://localhost:3333/color-palette.html`
+- 🖥️ **新版交互色卡**：👉 [`theme/theme-color v1.1.html`](file:///x:/XCoding/Octen/03-console/theme/theme-color%20v1.1.html)（支持实时切换暗色、十六进制实时换算与点击复制 Token）
+- 🌐 **本地在线预览**：`http://localhost:3333/theme/theme-color%20v1.1.html`
 
 ---
 
