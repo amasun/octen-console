@@ -23,6 +23,20 @@ input:focus-visible,select:focus-visible{outline:none;border-color:#039855 !impo
 .ex-tip:hover .ex-tip-bubble{opacity:1}
 
 
+/* Sidebar Logo */
+.sidebar-logo {
+  color: var(--primary);
+  transition: color .15s;
+}
+.sidebar-logo path {
+  fill: currentColor;
+}
+html.dark .sidebar-logo,
+[data-theme="dark"] .sidebar-logo,
+[data-theme="dark-trae"] .sidebar-logo {
+  color: var(--primary-dark) !important;
+}
+
 /* --- Theme Color System (based on theme/theme-color.html) --- */
 
 :root, [data-theme="light"] {
