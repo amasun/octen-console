@@ -1,147 +1,129 @@
-# 🎨 Octen Console 颜色 Token 规范 (Theme Tokens)
+# 🎨 Octen 主题颜色 Token 规范 (Octen Theme Tokens)
 
-本文档归纳并抽象了 **Octen Console** 现行界面的全部设计系统颜色 Token（Design Tokens），遵循 **Cult UI 4-Color 极简灰阶体系** 与语义化规范，为后续组件复用、跨端还原及样式维护提供标准参考。
+本文档系统归纳了 **Octen Console** 的全套设计系统颜色 Token（Design Tokens），涵盖 **Cult UI 4-Color 极简规范** 及跨亮/暗双模式的语义色彩映射。
+
+同目录下提供了可视化的交互式对照色卡：👉 **[`theme/theme-color.html`](file:///x:/XCoding/Octen/03-console/theme/theme-color.html)**（支持实时一键切换暗色、十六进制实时换算与点击复制 Token）。
 
 ---
 
 ## 1. 核心设计原则 (Design Principles)
 
-1. **4-Color Grayscale (极简 4 阶灰)**：界面的基础中性色严格收敛至 4 个基准阶度，避免任意 Tailwind 灰阶（如 slate-500, gray-400）造成的视觉混乱。
-2. **High-Contrast Surface (高反差基底)**：采用 `#F5F5F5` 工作区背景叠加 `#FFFFFF` 纯白内容卡片，通过背景明度对比与 1px 微轮廓分隔层级，而非厚重硬边框。
-3. **Emerald Brand Signature (翡翠绿品牌标识)**：以 `#039855` 作为品牌主色、活跃指示与主要动作强调，辅以 OKLab 混合微透色。
-4. **Data & Code Elegance (浅色代码优雅度)**：摒弃传统全黑高对比代码块，采用半透明柔和基底与 `JetBrains Mono` 浅色高亮。
+1. **Cult UI 4-Color Grayscale (极简 4 阶灰)**：
+   - 界面的核心中性色聚焦在 `#0A0A0A`（主强调）、`#737373`（次强调）、`#A3A3A3`（弱强调）与 `#F5F5F5`（基底），避免色彩繁杂。
+2. **High-Contrast Surface (高反差面板与卡片)**：
+   - 浅色模式采用 `#F5F5F5` / `#FCFCF8` 作为外层 Shell 底色，叠加 `#FFFFFF` 纯白内容卡片，并以 `1px solid #E7E7E7` / `#DBDBDB` 进行轻量分割。
+3. **Octen Cyber Emerald (品牌翡翠绿)**：
+   - 浅色下使用深翡翠绿 `#039855` 保证在白底上的极致可读与合规对比度；暗色下自动映射至高光荧光绿 `#60FF70` / `#32F08C`。
+4. **Data & Code Elegance (浅色代码优雅度)**：
+   - 代码视窗统一使用 `.ui-code-container`，采用半透明柔和基底 `rgba(245, 245, 245, 0.50)`，配合 `JetBrains Mono` 字体输出浅色高亮。
 
 ---
 
-## 2. 基础色彩矩阵 (Base Color System)
+## 2. 核心主题色 (Brand Theme Tokens)
 
-### 2.1 极简 4-Color 主中性色 (Primary Grayscale)
-
-| Token 变量名 | HEX / 格式 | 角色定位 | 应用场景 |
+| Token 变量名 | 浅色 (Light) | 暗色 (Dark) | 角色与场景 |
 | :--- | :--- | :--- | :--- |
-| `--color-primary` | `#0A0A0A` | 高强调 (High Emphasis) | 大标题、主要按钮文本、活动 Tab 文字、主要图标、代码主文本 |
-| `--color-secondary` | `#737373` | 中强调 (Medium Emphasis) | 正文描述、次要标签、未激活 Tab、导航未选中文本、辅助提示 |
-| `--color-tertiary` | `#A3A3A3` | 低强调 (Low Emphasis) | 输入框占位符 (Placeholder)、次级元数据、禁用状态、微弱图标 |
-| `--color-surface` | `#F5F5F5` | 基底强调 (Surface / Canvas) | 工作区总背景 (`--bg-workspace`)、分段控制器背景、输入框悬浮态 |
-| `--color-white` | `#FFFFFF` | 纯白承载 (Card / Surface) | 主布局面板 (`.layout-pane`)、弹窗背景、选中的分段控制器卡片 |
-
-### 2.2 边框与分割线 (Borders & Dividers)
-
-| Token 变量名 | HEX / 格式 | 应用规范 |
-| :--- | :--- | :--- |
-| `--border-form` | `#DBDBDB` | 所有表单控件的基准边框（输入框、下拉选框、分段药丸组外框） |
-| `--border-pane` | `#E7E7E7` | 主布局面板 (`.layout-pane`) 1px 细微物理边框 |
-| `--border-subtle` | `rgba(0, 0, 0, 0.05)` | 列表项分割线、极弱内部线条 |
-| `--border-focus` | `#039855` | 元素获得焦点（Focus-Visible）时的轮廓边框 |
+| `--primary` | `#039855` | `#60FF70` | 品牌主色，用于主 CTA 按钮、活动 Tab 文字、主要图标 |
+| `--primary-lite` | `#00A63E` | `#60FF70` | 浅色次级高亮 |
+| `--primary-muted` | `#03985587` | `#60FF7087` | 品牌半透明背景（53% Alpha） |
+| `--primary-tint-soft` | `hsl(111 92% 77%)` | `hsl(111 60% 62%)` | 浅绿柔和微光 |
+| `--badge-ea-bg` | `#E3FFE2` | `rgba(96,255,112,0.12)` | Early Access 徽章背景 |
+| `--badge-ea-text` | `#1B9C62` | `#60FF70` | Early Access 徽章字色 |
 
 ---
 
-## 3. 品牌与语义辅助色 (Brand & Semantic Tokens)
+## 3. 背景与表面 (Surfaces & Backgrounds)
 
-### 3.1 品牌翡翠绿阶 (Octen Cyber Emerald)
-
-| Token 变量名 | 值 / 计算式 | 说明 |
-| :--- | :--- | :--- |
-| `--color-accent` | `#039855` | Octen 品牌主绿，用于主 CTA 按钮、激活状态、选中边框 |
-| `--color-accent-hover` | `#027A44` | 主按钮悬浮态、深沉按压态 |
-| `--color-accent-1` | `color-mix(in oklab, #039855 64%, #fff 36%)` | 浅绿高亮微光、标签浅色边框 |
-| `--color-accent-3` | `color-mix(in oklab, #039855 50%, transparent 75%)` | 激活光晕、输入框聚焦阴影 (`--shadow-input-active`) |
-| `--badge-ea-bg` | `#E3FFE2` | Early Access / 新功能标签浅色药丸底色 |
-| `--badge-ea-border` | `#6FD1A5` | Early Access 标签描边 |
-| `--badge-ea-text` | `#1B9C62` | Early Access 标签字色 |
-
-### 3.2 功能状态色 (Functional & Status)
-
-| 语义类型 | Token 变量名 | HEX / 格式 | 含义与场景 |
+| Token 变量名 | 浅色 (Light) | 暗色 (Dark) | 映射场景 |
 | :--- | :--- | :--- | :--- |
-| **Success** | `--color-success` | `#039855` / `rgb(18, 170, 95)` | API 成功返回 200、服务健康状态正常 |
-| **Error / Danger**| `--color-danger` | `#E13C42` / `rgb(225, 60, 66)` | API 错误 500、危险操作（删除 Key、注销账户） |
-| **Warning** | `--color-warning` | `#DC7828` / `rgb(220, 120, 40)` | 配额告警、即达限额、黄色警戒提示 |
-| **Info / Blue** | `--color-info` | `#286EEB` / `rgb(40, 110, 235)` | 引导提示、文档跳转链接、信息高亮 |
-| **Purple** | `--color-purple` | `#8C5AEB` / `rgb(140, 90, 235)` | 特殊多模态能力、高阶模型网关标识 |
+| `--shell` | `#F5F5F5` | `#05070B` | Platform 外壳与全局工作区底色 (`--bg-workspace`) |
+| `--background` | `#FCFCF8` | `#080B12` | 页面主背景底色 |
+| `--surface` | `#FFFFFF` | `#0F1319` | 核心卡片表面 (`.layout-pane`、表格底色、弹窗) |
+| `--surface-subtle` | `#F8FAFC` | `#12161D` | 浅阶微调表面 (`slate-50`) |
+| `--surface-muted` | `#F1F5F9` | `#1A1F27` | 禁用块、弱化区域 (`slate-100`) |
+| `--surface-strong` | `#E2E8F0` | `#232A35` | 较强微表面 (`slate-200`) |
+| `--surface-inverse`| `#0F172B` | `#1F2733` | 恒深区块（深色代码块、媒体遮罩） |
 
 ---
 
-## 4. 阴影与微光系统 (Elevation & Glassmorphism)
+## 4. 文字层级 (Typography Colors)
+
+| Token 变量名 | 浅色 (Light) | 暗色 (Dark) | 语义与层级 |
+| :--- | :--- | :--- | :--- |
+| `--foreground` / `--fg-strong` | `#0F172B` | `#E8EAED` | 页面最高强调文本、大标题、主数据项 |
+| `--fg-body` | `#1D293D` | `#D3D8E0` | 标准正文 (`slate-800`) |
+| `--fg-secondary` | `#314158` | `#B9BFC9` | 次级标签、辅助信息 (`slate-700`) |
+| `--fg-muted` | `#62748E` | `#8B95A5` | 非活动项、常规描述 (`slate-500`) |
+| `--fg-faint` | `#90A1B9` | `#6F7A8A` | 禁用项、占位符、边注 (`slate-400`) |
+| `--foreground-inverse` | `#FFFFFF` | `#E8EAED` | 恒白文字（深底卡片或按钮上的文字） |
+
+---
+
+## 5. 边框与分隔线 (Borders & Dividers)
+
+| Token 变量名 | 浅色 (Light) | 暗色 (Dark) | 应用规范 |
+| :--- | :--- | :--- | :--- |
+| `--panel-border` | `#E7E7E7` | `#232A35` | 主布局面板 (`.layout-pane`) 1px 细微描边 |
+| `--border-form` / `--neutral-300` | `#DBDBDB` | `#2F3742` | 表单控件（输入框、分段药丸组外框） |
+| `--line` | `#E2E8F0` | `#232A35` | 常规横线分割线 (`slate-200`) |
+| `--line-subtle` | `#F1F5F9` | `#1A1F27` | 极弱内部列表分割线 |
+| `--ring` | `oklch(0.708 0 0)` | `#3D4756` | 键盘聚焦光圈 (Focus Ring) |
+
+---
+
+## 6. 四大状态语义色 (Semantic Status Matrix)
+
+| 语义分类 | 基础色 (`--{status}`) | 浅底表面 (`--{status}-surface`) | 描边 (`--{status}-border`) | 前景文字 (`--{status}-foreground`) |
+| :--- | :--- | :--- | :--- | :--- |
+| **成功 Success** | `#009966` / `#34D399` | `hsl(142 76% 94%)` | `#A4F4CF` | `#007A55` / `#6EE7B7` |
+| **警告 Warning** | `#FE9A00` / `#FBBF24` | `#FFFBEB` | `#FEE685` | `#BB4D00` / `#FCD34D` |
+| **错误 Danger**  | `#E7000B` / `#FF6166` | `#FEF2F2` | `#FFC9C9` | `#C10007` / `#FCA5A5` |
+| **信息 Info**    | `#155DFC` / `#60A5FA` | `hsl(214 100% 95%)` | `#BEDBFF` | `#1447E6` / `#93C5FD` |
+
+---
+
+## 7. 阴影与微光系统 (Elevation & Shadows)
 
 ```css
-/* 精细轮廓与浮层阴影 */
+/* 轮廓微阴影 */
 --shadow-outline: 0 0 0 1px rgba(0, 0, 0, 0.04);
 --shadow-faint:   0px 3px 15px 0px rgba(0, 0, 0, 0.03);
 --shadow-muted:   0px 3px 18px 0px rgba(0, 0, 0, 0.04);
---shadow-normal:  0px 8px 30px 0px rgba(0, 0, 0, 0.05); /* 卡片浮起主阴影 */
---shadow-strong:  0px 6px 28px 0px rgba(0, 0, 0, 0.12); /* 模态弹窗阴影 */
+--shadow-normal:  0px 8px 30px 0px rgba(0, 0, 0, 0.05); /* 核心浮起卡片阴影 */
+--shadow-strong:  0px 6px 28px 0px rgba(0, 0, 0, 0.12); /* 模态弹窗主阴影 */
 
-/* 复合引用阴影 */
+/* 组合阴影 */
 --shadow-s: var(--shadow-outline), var(--shadow-normal);
 --shadow-l: var(--shadow-outline), var(--shadow-strong);
 
-/* 控件交互状态 */
+/* 交互状态阴影 */
 --shadow-input: 0 0 0 0.5px rgba(0, 0, 0, 0.08);
---shadow-input-active: 0 0 0 2.5px var(--color-accent-3);
+--shadow-input-active: 0 0 0 2.5px color-mix(in oklab, #039855 50%, transparent 75%);
 ```
 
 ---
 
-## 5. 组件级语义 Token 映射 (Component Tokens)
+## 8. 快速引入与调用指南
 
-### 5.1 主面板容器 (`.layout-pane`)
-- **背景**: `#FFFFFF` (`var(--background-primary)`)
-- **边框**: `1px solid #E7E7E7`
-- **圆角**: `16px` (`rounded-2xl`)
-- **阴影**: `var(--shadow-s)`
+```html
+<!-- 1. 在页面中引入或查看可视化色卡 -->
+<a href="theme/theme-color.html" target="_blank">打开 Octen 可视化主题色卡</a>
 
-### 5.2 浅色代码视窗 (`.ui-code-container`)
-- **背景**: `rgba(245, 245, 245, 0.50)` (`bg-[#f5f5f5]/50`)
-- **边框**: `1px solid #F5F5F5`
-- **圆角**: `8px` (`rounded-lg`)
-- **字体**: `'JetBrains Mono', ui-monospace, monospace` (字号 13px, 行高 1.6)
-
-### 5.3 分段控制器与药丸组 (`.ui-pills` / `.seg-group`)
-- **容器背景**: `#F5F5F5`
-- **未激活项**: 背景透明，文字 `#737373`
-- **激活项**: 背景 `#FFFFFF`，文字 `#0A0A0A`，阴影 `0 1px 3px rgba(0, 0, 0, 0.05)`
-- **标准高度**: `32px`
-
-### 5.4 表单输入与按钮 (`.ui-input` / `.ui-btn-*`)
-- **输入框高度**: `32px`
-- **输入框边框**: `1px solid #DBDBDB` (Focus: `#039855`)
-- **主按钮**: 背景 `#0A0A0A`，文字 `#FFFFFF` (Hover: `#262626`)
-- **品牌按钮**: 背景 `#039855`，文字 `#FFFFFF` (Hover: `#027A44`)
-- **线框按钮**: 背景 `#FFFFFF`，边框 `1px solid #DBDBDB`，文字 `#0A0A0A`
-
----
-
-## 6. CSS 变量一键引入清单 (Tokens Ready-to-use)
-
-```css
-:root {
-  /* 基础 4-Color */
-  --color-primary: #0A0A0A;
-  --color-secondary: #737373;
-  --color-tertiary: #A3A3A3;
-  --color-surface: #F5F5F5;
-  --color-white: #FFFFFF;
-
-  /* 边框 */
-  --border-form: #DBDBDB;
-  --border-pane: #E7E7E7;
-
-  /* 品牌色 */
-  --color-accent: #039855;
-  --color-accent-hover: #027A44;
-  --color-accent-1: color-mix(in oklab, var(--color-accent) 64%, #fff 36%);
-  --color-accent-3: color-mix(in oklab, var(--color-accent) 50%, transparent 75%);
-
-  /* 状态色 */
-  --color-success: #039855;
-  --color-danger: #E13C42;
-  --color-warning: #DC7828;
-  --color-info: #286EEB;
-
-  /* 阴影 */
-  --shadow-outline: 0 0 0 1px rgba(0, 0, 0, 0.04);
-  --shadow-normal: 0px 8px 30px 0px rgba(0, 0, 0, 0.05);
-  --shadow-strong: 0px 6px 28px 0px rgba(0, 0, 0, 0.12);
+<!-- 2. 在 CSS 中调用抽象语义 Token -->
+<style>
+.my-card {
+  background: var(--surface, #ffffff);
+  border: 1px solid var(--panel-border, #e7e7e7);
+  border-radius: 16px;
+  color: var(--foreground, #0f172b);
+  box-shadow: var(--shadow-s);
 }
+
+.my-btn-primary {
+  background: var(--primary, #039855);
+  color: var(--foreground-inverse, #ffffff);
+  border-radius: 8px;
+  height: 32px;
+}
+</style>
 ```
