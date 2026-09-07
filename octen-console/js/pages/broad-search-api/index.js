@@ -74,18 +74,24 @@
   function nextM(o){ return o.m===11?{y:o.y+1,m:0}:{y:o.y,m:o.m+1}; }
   function monthGrid(y,m){
     const days=calDays(y,m);
-    let h='<div style="width:224px"><div style="text-align:center;font-size:13px;font-weight:600;color:#1e293b;margin-bottom:8px">'+MONTHS[m]+' '+y+'</div><div style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px">';
-    h+=DOW.map(d=>'<div style="text-align:center;font-size:11px;color:#94a3b8;height:24px;line-height:24px">'+d+'</div>').join('');
-    h+=days.map(d=>{ const tm=d.getMonth()===m; const r=inRange(d); const bg=(r==='start'||r==='end')?PRIMARY:(r==='mid'?'#f0fdf4':'transparent'); const col=!tm?'#cbd5e1':(r?(r==='mid'?'#15803d':'#fff'):'#0f172b');
-      return '<div onclick="bsaPick('+d.getFullYear()+','+d.getMonth()+','+d.getDate()+')" style="text-align:center;height:30px;line-height:30px;font-size:12px;border-radius:7px;cursor:pointer;color:'+col+';background:'+bg+'">'+d.getDate()+'</div>'; }).join('');
+    let h='<div class="cal-month" style="width:224px"><div class="cal-month-title" style="text-align:center;font-size:13px;font-weight:600;margin-bottom:8px">'+MONTHS[m]+' '+y+'</div><div class="cal-grid" style="display:grid;grid-template-columns:repeat(7,1fr);gap:2px">';
+    h+=DOW.map(d=>'<div class="cal-dow" style="text-align:center;font-size:11px;height:24px;line-height:24px">'+d+'</div>').join('');
+    h+=days.map(d=>{
+      const tm=d.getMonth()===m;
+      const r=inRange(d);
+      const rCls=r ? ' cal-day-'+r : '';
+      const otherCls=!tm ? ' cal-day-other' : '';
+      return '<div class="cal-day'+rCls+otherCls+'" data-range="'+(r||'')+'" data-other="'+(!tm?'1':'0')+'" onclick="bsaPick('+d.getFullYear()+','+d.getMonth()+','+d.getDate()+')" style="text-align:center;height:30px;line-height:30px;font-size:12px;border-radius:7px;cursor:pointer">'+d.getDate()+'</div>';
+    }).join('');
     return h+'</div></div>';
   }
   function renderCal(){
     const pop=$('bsa-date-pop'); if(!pop)return; const nm=nextM(cal);
-    pop.innerHTML='<div style="display:flex;flex-direction:column;gap:2px;width:120px;border-right:1px solid #f1f5f9;padding-right:12px">'+
-        [['Last 24 hours','day'],['Last week','week'],['Last month','month'],['Last year','year']].map(p=>'<button type="button" onclick="bsaPreset(\''+p[1]+'\',\''+p[0]+'\')" onmouseenter="if(!this.dataset.on)this.style.background=\'#f8fafc\'" onmouseleave="if(!this.dataset.on)this.style.background=\'transparent\'" '+(cal.range===p[1]?'data-on="1"':'')+' style="text-align:left;padding:8px 10px;border-radius:7px;border:none;cursor:pointer;font-size:13px;'+(cal.range===p[1]?'background:#0398551a;color:#039855;font-weight:500':'background:transparent;color:#475569')+'">'+p[0]+'</button>').join('')+'</div>'+
-      '<div><div style="display:flex;align-items:flex-start;gap:20px"><button type="button" onclick="bsaCalNav(-1)" style="border:none;background:none;cursor:pointer;color:#64748b;font-size:16px;line-height:24px">&larr;</button><div style="display:flex;gap:20px;flex:1">'+monthGrid(cal.y,cal.m)+monthGrid(nm.y,nm.m)+'</div><button type="button" onclick="bsaCalNav(1)" style="border:none;background:none;cursor:pointer;color:#64748b;font-size:16px;line-height:24px">&rarr;</button></div>'+
-      '<div style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px"><button type="button" onclick="bsaClearRange()" style="padding:7px 14px;border-radius:8px;border:1px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;color:#64748b">Clear</button><button type="button" onclick="bsaApplyRange()" style="padding:7px 14px;border-radius:8px;border:none;background:'+PRIMARY+';cursor:pointer;font-size:13px;color:#fff;font-weight:500">Apply</button></div></div>';
+    if(!pop.classList.contains('cal-pop')) pop.classList.add('cal-pop');
+    pop.innerHTML='<div class="cal-presets" style="display:flex;flex-direction:column;gap:2px;width:120px;padding-right:12px">'+
+        [['Last 24 hours','day'],['Last week','week'],['Last month','month'],['Last year','year']].map(p=>'<button type="button" class="cal-preset-btn'+(cal.range===p[1]?' active':'')+'" onclick="bsaPreset(\''+p[1]+'\',\''+p[0]+'\')" '+(cal.range===p[1]?'data-on="1"':'')+' style="text-align:left;padding:8px 10px;border-radius:7px;border:none;cursor:pointer;font-size:13px">'+p[0]+'</button>').join('')+'</div>'+
+      '<div class="cal-body"><div class="cal-nav-row" style="display:flex;align-items:flex-start;gap:20px"><button type="button" class="cal-nav-btn" onclick="bsaCalNav(-1)" style="border:none;background:none;cursor:pointer;font-size:16px;line-height:24px">&larr;</button><div class="cal-months-wrap" style="display:flex;gap:20px;flex:1">'+monthGrid(cal.y,cal.m)+monthGrid(nm.y,nm.m)+'</div><button type="button" class="cal-nav-btn" onclick="bsaCalNav(1)" style="border:none;background:none;cursor:pointer;font-size:16px;line-height:24px">&rarr;</button></div>'+
+      '<div class="cal-actions" style="display:flex;justify-content:flex-end;gap:8px;margin-top:12px"><button type="button" class="cal-btn-clear" onclick="bsaClearRange()" style="padding:7px 14px;border-radius:8px;cursor:pointer;font-size:13px">Clear</button><button type="button" class="cal-btn-apply" onclick="bsaApplyRange()" style="padding:7px 14px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:500">Apply</button></div></div>';
   }
   function closeCal(){ cal.open=false; const pop=$('bsa-date-pop'); if(pop)pop.style.display='none'; }
   window.bsaDateToggle=function(){ cal.open=!cal.open; const pop=$('bsa-date-pop');
@@ -103,10 +109,10 @@
   function isoOf(d,end){ const pad=n=>String(n).padStart(2,'0'); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())+'T'+(end?'23:59:59':'00:00:00')+'+08:00'; }
   function shortD(d){ return MONTHS[d.getMonth()].slice(0,3)+' '+d.getDate(); }
   // Left presets &rarr;time_range enum (mutually exclusive with custom start/end)
-  window.bsaPreset=function(range,label){ cal.range=range; cal.start=null; cal.end=null; $('bsa-start').value=''; $('bsa-end').value=''; $('bsa-date-label').textContent=label; $('bsa-date-label').className='text-[#737373]'; closeCal(); refreshCode(); };
+  window.bsaPreset=function(range,label){ cal.range=range; cal.start=null; cal.end=null; $('bsa-start').value=''; $('bsa-end').value=''; $('bsa-date-label').textContent=label; $('bsa-date-label').className='cal-label-active'; closeCal(); refreshCode(); };
   // Right calendar &rarr;custom start/end (clears time_range)
-  window.bsaApplyRange=function(){ if(cal.start){ cal.range=''; $('bsa-start').value=isoOf(cal.start,false); $('bsa-end').value=isoOf(cal.end||cal.start,true); $('bsa-date-label').textContent=cal.end?(shortD(cal.start)+' é?'+shortD(cal.end)):shortD(cal.start); $('bsa-date-label').className='text-[#737373]'; } closeCal(); refreshCode(); };
-  window.bsaClearRange=function(){ cal.start=null; cal.end=null; cal.range=''; $('bsa-start').value=''; $('bsa-end').value=''; $('bsa-date-label').textContent='Custom range'; $('bsa-date-label').className='text-[#a3a3a3]'; closeCal(); refreshCode(); };
+  window.bsaApplyRange=function(){ if(cal.start){ cal.range=''; $('bsa-start').value=isoOf(cal.start,false); $('bsa-end').value=isoOf(cal.end||cal.start,true); $('bsa-date-label').textContent=cal.end?(shortD(cal.start)+' – '+shortD(cal.end)):shortD(cal.start); $('bsa-date-label').className='cal-label-active'; } closeCal(); refreshCode(); };
+  window.bsaClearRange=function(){ cal.start=null; cal.end=null; cal.range=''; $('bsa-start').value=''; $('bsa-end').value=''; $('bsa-date-label').textContent='Custom range'; $('bsa-date-label').className='cal-label-empty'; closeCal(); refreshCode(); };
   document.addEventListener('mousedown',function(e){ if(cal.open){ const wrap=$('bsa-date-pop'); const btn=$('bsa-date-btn'); if(wrap&&!wrap.contains(e.target)&&btn&&!btn.contains(e.target)){ closeCal(); } } });
   let bsaLang='python';
   const SZ=(window.PGS_serialize)||((v)=>JSON.stringify(v,null,2));

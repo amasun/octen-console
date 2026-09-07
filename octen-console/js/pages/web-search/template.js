@@ -71,11 +71,11 @@ registerPage("page-web-search", `<div id="page-web-search" class="page h-full">
             </div>
             <div class="relative">
               <label class="ui-label">Date range</label>
-              <button type="button" id="ws-date-btn" onclick="wsDateToggle()" class="w-full h-8 flex items-center gap-2 px-3 border border-[#dbdbdb] rounded-lg text-sm bg-white outline-none focus:border-[#039855]">
+              <button type="button" id="ws-date-btn" onclick="wsDateToggle()" class="ui-input w-full h-8 flex items-center gap-2 px-3 border border-[#dbdbdb] rounded-lg text-sm outline-none">
                 <svg class="w-3.5 h-3.5 text-[#a3a3a3] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path stroke-linecap="round" d="M16 2v4M8 2v4M3 10h18"/></svg>
-                <span id="ws-date-label" class="text-[#a3a3a3]">Custom range</span>
+                <span id="ws-date-label" class="cal-label-empty text-[#a3a3a3]">Custom range</span>
               </button>
-              <div id="ws-date-pop" style="display:none;position:absolute;top:calc(100% + 6px);right:0;z-index:60;background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 12px 32px rgba(15,23,42,0.16);padding:14px;gap:12px;width:max-content;max-width:90vw"></div>
+              <div id="ws-date-pop" class="cal-pop" style="display:none;position:absolute;top:calc(100% + 6px);right:0;z-index:60;border-radius:12px;padding:14px;gap:12px;width:max-content;max-width:90vw"></div>
               <input type="hidden" id="ws-start"/><input type="hidden" id="ws-end"/>
             </div>
           </div>

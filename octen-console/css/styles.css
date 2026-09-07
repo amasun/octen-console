@@ -1583,6 +1583,9 @@ html.dark .modal-bg > div {
 
 html.dark [id$="-pop"],
 html.dark [id$="-datepop"],
+html.dark [id$="-date-pop"],
+html.dark #bsa-date-pop,
+html.dark #ws-date-pop,
 html.dark #wf-examples-drop,
 html.dark #wf-saved-drop,
 html.dark #chart-tooltip {
@@ -2005,4 +2008,330 @@ html.dark .language-bash .token.shebang,
   background-color: rgba(96, 255, 112, 0.28) !important;
   color: inherit !important;
 }
+
+/* ==========================================================================
+   7. Date Range Calendar Picker Component (.cal-pop)
+   Light & Dark Mode Theme Synchronized
+   ========================================================================== */
+
+.cal-pop {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.16);
+  color: #0f172b;
+  z-index: 9000;
+  user-select: none;
+}
+
+.cal-presets {
+  border-right: 1px solid #f1f5f9;
+}
+
+.cal-preset-btn {
+  background: transparent;
+  color: #475569;
+  transition: all 0.15s ease;
+}
+
+.cal-preset-btn:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.cal-preset-btn.active,
+.cal-preset-btn[data-on="1"] {
+  background: rgba(3, 152, 85, 0.1) !important;
+  color: #039855 !important;
+  font-weight: 500;
+}
+
+.cal-month-title {
+  color: #1e293b;
+}
+
+.cal-dow {
+  color: #94a3b8;
+}
+
+.cal-nav-btn {
+  color: #64748b;
+  transition: all 0.15s ease;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cal-nav-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+.cal-day {
+  color: #0f172b;
+  background: transparent;
+  transition: background-color 0.12s ease, color 0.12s ease;
+}
+
+.cal-day:hover:not(.cal-day-start):not(.cal-day-end):not(.cal-day-mid) {
+  background: #f1f5f9;
+}
+
+.cal-day-other {
+  color: #cbd5e1 !important;
+}
+
+.cal-day-start,
+.cal-day-end {
+  background: #039855 !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.cal-day-mid {
+  background: #f0fdf4 !important;
+  color: #15803d !important;
+  font-weight: 500 !important;
+}
+
+.cal-btn-clear {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #64748b;
+  transition: all 0.15s ease;
+}
+
+.cal-btn-clear:hover {
+  background: #f8fafc;
+  color: #0f172a;
+}
+
+.cal-btn-apply {
+  background: #039855;
+  color: #ffffff;
+  transition: all 0.15s ease;
+}
+
+.cal-btn-apply:hover {
+  filter: brightness(1.06);
+}
+
+.cal-label-active {
+  color: #171717;
+}
+
+.cal-label-empty {
+  color: #a3a3a3;
+}
+
+/* ──────────────────────────────────────────────────────────────────────────
+   Dark Theme Synchronized Calendar Rules
+   ────────────────────────────────────────────────────────────────────────── */
+html.dark .cal-pop,
+html.dark [id$="-datepop"],
+html.dark [id$="-date-pop"],
+html.dark #bsa-date-pop,
+html.dark #ws-date-pop {
+  background-color: #1c1c1c !important;
+  border-color: rgba(229, 229, 229, 0.12) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+  color: #fafafa !important;
+}
+
+/* Left presets column divider */
+html.dark .cal-pop .cal-presets,
+html.dark [id$="-datepop"] > div:first-child,
+html.dark [id$="-date-pop"] > div:first-child {
+  border-right-color: rgba(229, 229, 229, 0.1) !important;
+}
+
+/* Preset buttons */
+html.dark .cal-pop .cal-preset-btn,
+html.dark [id$="-datepop"] > div:first-child button,
+html.dark [id$="-date-pop"] > div:first-child button {
+  color: #a1a1a1 !important;
+  background-color: transparent !important;
+}
+
+html.dark .cal-pop .cal-preset-btn:hover,
+html.dark [id$="-datepop"] > div:first-child button:hover,
+html.dark [id$="-date-pop"] > div:first-child button:hover {
+  background-color: #262626 !important;
+  color: #fafafa !important;
+}
+
+html.dark .cal-pop .cal-preset-btn.active,
+html.dark .cal-pop .cal-preset-btn[data-on="1"],
+html.dark [id$="-datepop"] > div:first-child button[data-on="1"],
+html.dark [id$="-date-pop"] > div:first-child button[data-on="1"] {
+  background-color: rgba(96, 255, 112, 0.14) !important;
+  color: #60ff70 !important;
+  font-weight: 500 !important;
+}
+
+/* Month navigation buttons */
+html.dark .cal-pop .cal-nav-btn,
+html.dark [id$="-datepop"] button:not(.cal-preset-btn):not(.cal-btn-clear):not(.cal-btn-apply),
+html.dark [id$="-date-pop"] button:not(.cal-preset-btn):not(.cal-btn-clear):not(.cal-btn-apply) {
+  color: #a1a1a1 !important;
+}
+
+html.dark .cal-pop .cal-nav-btn:hover,
+html.dark [id$="-datepop"] button:not(.cal-preset-btn):not(.cal-btn-clear):not(.cal-btn-apply):hover,
+html.dark [id$="-date-pop"] button:not(.cal-preset-btn):not(.cal-btn-clear):not(.cal-btn-apply):hover {
+  background-color: #262626 !important;
+  color: #fafafa !important;
+}
+
+/* Month title */
+html.dark .cal-pop .cal-month-title,
+html.dark [id$="-datepop"] .cal-month-title,
+html.dark [id$="-date-pop"] .cal-month-title,
+html.dark [id$="-datepop"] [style*="font-weight:600"],
+html.dark [id$="-date-pop"] [style*="font-weight:600"] {
+  color: #fafafa !important;
+}
+
+/* Day of week labels */
+html.dark .cal-pop .cal-dow,
+html.dark [id$="-datepop"] .cal-dow,
+html.dark [id$="-date-pop"] .cal-dow {
+  color: #737373 !important;
+}
+
+/* Normal unselected day cells */
+html.dark .cal-pop .cal-day,
+html.dark [id$="-datepop"] .cal-day,
+html.dark [id$="-date-pop"] .cal-day {
+  color: #e5e5e5 !important;
+  background-color: transparent !important;
+}
+
+html.dark .cal-pop .cal-day:hover:not(.cal-day-start):not(.cal-day-end):not(.cal-day-mid),
+html.dark [id$="-datepop"] .cal-day:hover:not(.cal-day-start):not(.cal-day-end):not(.cal-day-mid),
+html.dark [id$="-date-pop"] .cal-day:hover:not(.cal-day-start):not(.cal-day-end):not(.cal-day-mid) {
+  background-color: #262626 !important;
+  color: #fafafa !important;
+}
+
+/* Days belonging to other months */
+html.dark .cal-pop .cal-day-other,
+html.dark [id$="-datepop"] .cal-day-other,
+html.dark [id$="-date-pop"] .cal-day-other,
+html.dark .cal-pop [data-other="1"],
+html.dark [id$="-datepop"] [data-other="1"],
+html.dark [id$="-date-pop"] [data-other="1"] {
+  color: #525252 !important;
+}
+
+html.dark .cal-pop .cal-day-other:hover,
+html.dark [id$="-datepop"] .cal-day-other:hover,
+html.dark [id$="-date-pop"] .cal-day-other:hover {
+  background-color: transparent !important;
+  color: #737373 !important;
+}
+
+/* Range Start & End Selection */
+html.dark .cal-pop .cal-day-start,
+html.dark .cal-pop .cal-day-end,
+html.dark [id$="-datepop"] .cal-day-start,
+html.dark [id$="-datepop"] .cal-day-end,
+html.dark [id$="-date-pop"] .cal-day-start,
+html.dark [id$="-date-pop"] .cal-day-end,
+html.dark .cal-pop [data-range="start"],
+html.dark .cal-pop [data-range="end"],
+html.dark [id$="-datepop"] [data-range="start"],
+html.dark [id$="-datepop"] [data-range="end"],
+html.dark [id$="-date-pop"] [data-range="start"],
+html.dark [id$="-date-pop"] [data-range="end"] {
+  background-color: #60ff70 !important;
+  color: #141414 !important;
+  font-weight: 600 !important;
+}
+
+/* Range Mid In-Between Selection */
+html.dark .cal-pop .cal-day-mid,
+html.dark [id$="-datepop"] .cal-day-mid,
+html.dark [id$="-date-pop"] .cal-day-mid,
+html.dark .cal-pop [data-range="mid"],
+html.dark [id$="-datepop"] [data-range="mid"],
+html.dark [id$="-date-pop"] [data-range="mid"] {
+  background-color: rgba(96, 255, 112, 0.16) !important;
+  color: #60ff70 !important;
+  font-weight: 500 !important;
+}
+
+/* Clear button */
+html.dark .cal-pop .cal-btn-clear,
+html.dark [id$="-datepop"] .cal-btn-clear,
+html.dark [id$="-date-pop"] .cal-btn-clear {
+  background-color: #262626 !important;
+  border-color: rgba(229, 229, 229, 0.16) !important;
+  color: #e5e5e5 !important;
+}
+
+html.dark .cal-pop .cal-btn-clear:hover,
+html.dark [id$="-datepop"] .cal-btn-clear:hover,
+html.dark [id$="-date-pop"] .cal-btn-clear:hover {
+  background-color: #333333 !important;
+  color: #fafafa !important;
+}
+
+/* Apply button */
+html.dark .cal-pop .cal-btn-apply,
+html.dark [id$="-datepop"] .cal-btn-apply,
+html.dark [id$="-date-pop"] .cal-btn-apply {
+  background-color: #60ff70 !important;
+  border: none !important;
+  color: #141414 !important;
+  font-weight: 600 !important;
+}
+
+html.dark .cal-pop .cal-btn-apply:hover,
+html.dark [id$="-datepop"] .cal-btn-apply:hover,
+html.dark [id$="-date-pop"] .cal-btn-apply:hover {
+  filter: brightness(1.08) !important;
+}
+
+/* Date range trigger buttons */
+html.dark #bsa-date-btn,
+html.dark #ws-date-btn,
+html.dark [id$="-datebtn"],
+html.dark [id$="-date-btn"] {
+  background-color: #141414 !important;
+  border-color: rgba(229, 229, 229, 0.12) !important;
+  color: var(--fg-body) !important;
+}
+
+html.dark #bsa-date-btn:hover,
+html.dark #ws-date-btn:hover,
+html.dark [id$="-datebtn"]:hover,
+html.dark [id$="-date-btn"]:hover {
+  border-color: rgba(229, 229, 229, 0.24) !important;
+}
+
+html.dark #bsa-date-btn svg,
+html.dark #ws-date-btn svg,
+html.dark [id$="-datebtn"] svg,
+html.dark [id$="-date-btn"] svg {
+  color: var(--fg-secondary) !important;
+}
+
+html.dark .cal-label-active,
+html.dark #bsa-date-label.cal-label-active,
+html.dark #ws-date-label.cal-label-active,
+html.dark [id$="-datelbl"].cal-label-active {
+  color: #fafafa !important;
+}
+
+html.dark .cal-label-empty,
+html.dark #bsa-date-label.cal-label-empty,
+html.dark #ws-date-label.cal-label-empty,
+html.dark [id$="-datelbl"].cal-label-empty {
+  color: #737373 !important;
+}
+
 
