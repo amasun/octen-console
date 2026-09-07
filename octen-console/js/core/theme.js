@@ -1,4 +1,4 @@
-// Theme Management (Light / Dark / System)
+// Theme Management (Light / Dark Octen / Dark TraeCode / System)
 (function() {
   function getEffectiveTheme(mode) {
     if (mode === 'system') {
@@ -8,7 +8,10 @@
   }
 
   function updateSwitcherUI(mode) {
-    ['light', 'dark', 'system'].forEach(function(m) {
+    var effective = getEffectiveTheme(mode);
+
+    // 1. Update left-bottom popup card buttons
+    ['light', 'dark', 'dark-trae', 'system'].forEach(function(m) {
       var btn = document.getElementById('btn-theme-' + m);
       if (!btn) return;
       var isActive = (m === mode);
@@ -20,6 +23,42 @@
         btn.classList.add('text-[#737373]');
       }
     });
+
+    // 2. Update direct sidebar [DEV] Theme buttons
+    ['light', 'dark', 'dark-trae'].forEach(function(m) {
+      var btn = document.getElementById('dev-theme-btn-' + m);
+      if (!btn) return;
+      var isActive = (m === mode) || (mode === 'system' && m === effective);
+      if (isActive) {
+        btn.classList.add('active', 'bg-white', 'shadow-sm', 'text-[#0a0a0a]');
+        btn.classList.remove('text-[#737373]');
+      } else {
+        btn.classList.remove('active', 'bg-white', 'shadow-sm', 'text-[#0a0a0a]');
+        btn.classList.add('text-[#737373]');
+      }
+    });
+
+    // 3. Update sidebar tag indicator
+    var tag = document.getElementById('dev-theme-name-tag');
+    var dot = document.getElementById('dev-theme-indicator-dot');
+    if (tag) {
+      if (mode === 'dark-trae') {
+        tag.textContent = 'Trae Dark';
+      } else if (mode === 'dark') {
+        tag.textContent = 'Octen Dark';
+      } else if (mode === 'light') {
+        tag.textContent = 'Light';
+      } else {
+        tag.textContent = 'System (' + (effective === 'dark' ? 'Dark' : 'Light') + ')';
+      }
+    }
+    if (dot) {
+      if (mode === 'light') {
+        dot.style.backgroundColor = '#039855';
+      } else {
+        dot.style.backgroundColor = '#60ff70';
+      }
+    }
   }
 
   window.setThemeMode = function(mode) {
@@ -29,11 +68,16 @@
 
     var effective = getEffectiveTheme(mode);
     var html = document.documentElement;
-    if (effective === 'dark') {
+
+    if (effective === 'dark-trae' || mode === 'dark-trae') {
+      html.classList.add('dark', 'theme-trae');
+      html.setAttribute('data-theme', 'dark-trae');
+    } else if (effective === 'dark' || mode === 'dark') {
       html.classList.add('dark');
+      html.classList.remove('theme-trae');
       html.setAttribute('data-theme', 'dark');
     } else {
-      html.classList.remove('dark');
+      html.classList.remove('dark', 'theme-trae');
       html.setAttribute('data-theme', 'light');
     }
     updateSwitcherUI(mode);

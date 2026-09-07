@@ -16,12 +16,19 @@
     (function() {
       try {
         var saved = localStorage.getItem('octen-theme') || 'system';
-        var isDark = saved === 'dark' || (saved === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        if (isDark) {
+        var effective = saved;
+        if (saved === 'system') {
+          effective = (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+        }
+        if (effective === 'dark-trae') {
+          document.documentElement.classList.add('dark', 'theme-trae');
+          document.documentElement.setAttribute('data-theme', 'dark-trae');
+        } else if (effective === 'dark') {
           document.documentElement.classList.add('dark');
+          document.documentElement.classList.remove('theme-trae');
           document.documentElement.setAttribute('data-theme', 'dark');
         } else {
-          document.documentElement.classList.remove('dark');
+          document.documentElement.classList.remove('dark', 'theme-trae');
           document.documentElement.setAttribute('data-theme', 'light');
         }
       } catch(e){}

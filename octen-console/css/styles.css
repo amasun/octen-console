@@ -1457,3 +1457,302 @@ html.dark .token.important,
 html.dark .token.variable {
   color: #fdc700 !important;
 }
+
+
+/* ==========================================================================
+   TraeCode Dark Theme Specification (Based on TraeCode/colors_and_type.css)
+   Retaining Octen Brand Green: #60ff70
+   ========================================================================== */
+
+html.dark.theme-trae,
+html.theme-trae,
+[data-theme="dark-trae"] {
+  /* 主题色 Brand (Strictly Preserved Octen Dark Green) */
+  --primary: #60ff70;
+  --primary-lite: #60ff70;
+  --primary-dark: #60ff70;
+  --primary-bright: #66ff69;
+  --primary-muted: #60ff7087;
+  --primary-tint-soft: hsl(111 60% 62%);
+
+  /* 背景与表面 Background & Surfaces (TraeCode charcoal spec) */
+  --shell: #1A1B1D;              /* --bg-base-default */
+  --background: #1A1B1D;         /* --bg-base-default */
+  --surface: #222427;            /* --bg-base-secondary */
+  --surface-subtle: #2A2D31;     /* --bg-base-tertiary */
+  --surface-muted: #2A2D31;      /* --bg-base-tertiary */
+  --surface-strong: #33373E;
+  --card: #222427;               /* --color-card */
+  --popover: #202123;            /* --bg-menu */
+  --surface-inverse: #DADDE5;    /* --bg-invert */
+  --background-inverse: #EDEFF2; /* --bg-invert-hover */
+
+  /* 文字 Foregrounds (TraeCode SF typography spec) */
+  --foreground: #D1D3DB;         /* --text-default */
+  --fg-strong: #F5F9FE;          /* --text-default-hover / active */
+  --fg-body: #D1D3DB;            /* --text-default */
+  --fg-secondary: #9599A6;       /* --text-secondary */
+  --fg-tertiary: #666B75;        /* --text-tertiary */
+  --fg-muted: #9599A6;           /* --color-muted-foreground */
+  --fg-faint: #666B75;           /* --text-disabled */
+  --foreground-inverse: #0C0C0D; /* --text-onbrand */
+
+  /* 边框与分隔 Borders & Lines (TraeCode neutral border levels) */
+  --border: rgba(224, 226, 242, 0.1);     /* --border-neutral-l1 */
+  --line: rgba(224, 226, 242, 0.1);       /* --border-neutral-l1 */
+  --line-subtle: rgba(224, 226, 242, 0.06);
+  --input: rgba(224, 226, 242, 0.16);     /* --border-neutral-l2 */
+  --ring: rgba(224, 226, 242, 0.2);       /* --border-neutral-l3 */
+  --panel-border: rgba(224, 226, 242, 0.1);
+  --neutral-border: rgba(224, 226, 242, 0.14);
+
+  /* 中性色 Neutrals (TraeCode levels) */
+  --neutral-50: #222427;
+  --neutral-100: #2A2D31;
+  --neutral-200: #33373E;
+  --neutral-300: #3E434B;
+  --neutral-muted: #666B75;
+  --neutral-foreground: #9599A6;
+  --neutral-overlay: rgba(224, 226, 242, 0.06);
+
+  /* 状态色 Status (TraeCode status tokens) */
+  --success: #33C192;            /* --status-success-default */
+  --success-surface: rgba(0, 165, 110, 0.18);
+  --success-border: rgba(0, 165, 110, 0.28);
+  --success-muted: #27B082;
+  --success-foreground: #5ED4AD;
+  --success-heavy: #E6FAF3;
+
+  --warning: #DCB364;            /* --accent-amber */
+  --warning-surface: rgba(220, 179, 100, 0.18);
+  --warning-border: rgba(220, 179, 100, 0.28);
+  --warning-muted: #C29A4D;
+  --warning-foreground: #F0D499;
+  --warning-heavy: #FFF9ED;
+
+  --danger: #FF9392;             /* --accent-coral */
+  --danger-surface: rgba(255, 147, 146, 0.18);
+  --danger-border: rgba(255, 147, 146, 0.28);
+  --danger-muted: #E06C6B;
+  --danger-foreground: #FFB8B7;
+  --danger-heavy: #FFF0F0;
+
+  --info: #387BFF;               /* --status-primary-default */
+  --info-surface: rgba(53, 121, 255, 0.18);
+  --info-border: rgba(53, 121, 255, 0.28);
+  --info-muted: #1759DD;
+  --info-foreground: #7BB8FF;
+  --info-heavy: #EBF2FF;
+
+  /* 强调色 Accents (TraeCode accent palette) */
+  --accent-green: #32F08C;
+  --accent-teal: #2DD288;
+  --accent-cyan: #04CBE5;
+  --accent-sky: #80BBFF;
+  --accent-indigo: #7BB8FF;
+  --accent-violet: #BFA5FF;
+  --accent-pink: #EC93FF;
+  --accent-rose: #FF9392;
+  --accent-orange: #F29D79;
+  --accent-yellow: #DCB364;
+  --accent-lime: #8ACB3A;
+
+  /* 图表色 Charts */
+  --chart-broad-search: #7BB8FF;
+  --chart-search-calls: #2DD288;
+  --chart-content-tokens: #BFA5FF;
+  --chart-chat-tokens: #EC93FF;
+  --chart-embeddings: #DCB364;
+  --chart-vl-embeddings: #F29D79;
+  --chart-extract: #387BFF;
+  --chart-application: #B38CFF;
+  --chart-image-search: #04CBE5;
+  --chart-video-search: #80BBFF;
+  --chart-model: #60ff70;
+  --chart-collect: #8ACB3A;
+  --chart-total: #9599A6;
+  --chart-grid: rgba(224, 226, 242, 0.08);
+  --chart-axis: #666B75;
+  --chart-cursor: #2A2D31;
+  --chart-tooltip-bg: #202123;
+  --chart-tooltip-border: rgba(224, 226, 242, 0.12);
+  --chart-tooltip-label: #F5F9FE;
+
+  /* Compatibility variables */
+  --color-accent: var(--primary);
+  --color-accent-1: color-mix(in oklab, var(--color-accent) 64%, #fff 36%);
+  --color-accent-3: color-mix(in oklab, var(--color-accent) 50%, transparent 75%);
+  --color-red: var(--danger);
+  --color-orange: #F29D79;
+  --color-yellow: var(--warning);
+  --color-green: var(--success);
+  --color-cyan: var(--accent-cyan);
+  --color-blue: var(--info);
+  --color-purple: var(--accent-violet);
+  --color-pink: var(--accent-pink);
+
+  --color-base-00: #222427;
+  --color-base-05: #1A1B1D;
+  --color-base-10: #2A2D31;
+  --color-base-20: rgba(224, 226, 242, 0.1);
+  --color-base-25: rgba(224, 226, 242, 0.16);
+  --color-base-30: rgba(224, 226, 242, 0.2);
+  --color-base-35: #666B75;
+  --color-base-40: #666B75;
+  --color-base-50: #9599A6;
+  --color-base-60: #AFB9CF;
+  --color-base-70: #D1D3DB;
+  --color-base-80: #E0E3EE;
+  --color-base-90: #F5F9FE;
+  --color-base-100: #FFFFFF;
+
+  --text-normal: var(--fg-strong);
+  --text-muted: var(--fg-muted);
+  --text-faint: var(--fg-faint);
+  --text-on-accent: #0C0C0D;
+  --bg-workspace: var(--shell);
+  --background-primary: var(--surface);
+  --background-secondary: var(--surface);
+}
+
+/* TraeCode Specific UI Refinements */
+html.dark.theme-trae .ribbon {
+  background: var(--shell) !important;
+  border-right: 1px solid var(--panel-border) !important;
+}
+
+html.dark.theme-trae .layout-pane {
+  background: var(--surface) !important;
+  border-color: var(--panel-border) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* Direct [DEV] Theme Switcher Component Styles */
+#dev-theme-container {
+  transition: all 0.2s ease;
+}
+
+#dev-theme-bar button {
+  cursor: pointer;
+}
+
+html.dark #dev-theme-container {
+  background: var(--surface-subtle) !important;
+  border-color: var(--panel-border) !important;
+}
+
+html.dark #dev-theme-container #dev-theme-bar {
+  background: var(--surface) !important;
+  border-color: var(--panel-border) !important;
+}
+
+html.dark #dev-theme-container #dev-theme-bar button.active,
+html.dark #dev-theme-container #dev-theme-bar button.bg-white {
+  background: var(--surface-strong) !important;
+  color: var(--fg-strong) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white) {
+  color: var(--fg-muted) !important;
+}
+
+html.dark #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white):hover {
+  color: var(--fg-strong) !important;
+}
+
+/* TraeCode Dev Switcher Overrides */
+html.dark.theme-trae #dev-theme-container {
+  background: #1A1B1D !important;
+  border-color: rgba(224, 226, 242, 0.1) !important;
+}
+
+html.dark.theme-trae #dev-theme-container #dev-theme-bar {
+  background: #222427 !important;
+  border-color: rgba(224, 226, 242, 0.1) !important;
+}
+
+html.dark.theme-trae #dev-theme-container #dev-theme-bar button.active,
+html.dark.theme-trae #dev-theme-container #dev-theme-bar button.bg-white {
+  background: #2A2D31 !important;
+  color: #F5F9FE !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark.theme-trae #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white) {
+  color: #9599A6 !important;
+}
+
+html.dark.theme-trae #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white):hover {
+  color: #F5F9FE !important;
+}
+
+/* Demo Card Theme Row in Trae Dark */
+html.dark.theme-trae #theme-segmented-group {
+  background: #1A1B1D !important;
+  border-color: rgba(224, 226, 242, 0.1) !important;
+}
+
+html.dark.theme-trae #theme-segmented-group button.bg-white {
+  background: #2A2D31 !important;
+  color: #F5F9FE !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark.theme-trae #theme-segmented-group button:not(.bg-white) {
+  color: #9599A6 !important;
+}
+
+html.dark.theme-trae #theme-segmented-group button:not(.bg-white):hover {
+  color: #F5F9FE !important;
+}
+
+/* TraeCode Prism / Code Syntax Highlighting */
+html.dark.theme-trae .token.comment,
+html.dark.theme-trae .token.prolog,
+html.dark.theme-trae .token.doctype,
+html.dark.theme-trae .token.cdata {
+  color: #7F838C !important;
+}
+
+html.dark.theme-trae .token.punctuation {
+  color: #D1D3DB !important;
+}
+
+html.dark.theme-trae .token.property,
+html.dark.theme-trae .token.tag {
+  color: #F2858C !important;
+}
+
+html.dark.theme-trae .token.boolean,
+html.dark.theme-trae .token.number,
+html.dark.theme-trae .token.constant {
+  color: #F48CCA !important;
+}
+
+html.dark.theme-trae .token.selector,
+html.dark.theme-trae .token.attr-name,
+html.dark.theme-trae .token.string,
+html.dark.theme-trae .token.char,
+html.dark.theme-trae .token.builtin {
+  color: #60ff70 !important; /* Preserves green brand theme */
+}
+
+html.dark.theme-trae .token.operator,
+html.dark.theme-trae .token.entity {
+  color: #80BBFF !important;
+}
+
+html.dark.theme-trae .token.keyword {
+  color: #B38CFF !important;
+}
+
+html.dark.theme-trae .token.function {
+  color: #F29D79 !important;
+}
+
+html.dark.theme-trae .token.regex,
+html.dark.theme-trae .token.important,
+html.dark.theme-trae .token.variable {
+  color: #DCB364 !important;
+}
