@@ -1,8 +1,11 @@
-// Theme Management (Light / Dark Octen / Dark TraeCode / System)
+// Theme Management (Light / Dark / System)
 (function() {
   function getEffectiveTheme(mode) {
     if (mode === 'system') {
       return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+    }
+    if (mode === 'dark-trae' || mode === 'dark-cool' || mode === 'octen') {
+      return 'dark';
     }
     return mode;
   }
@@ -11,10 +14,10 @@
     var effective = getEffectiveTheme(mode);
 
     // 1. Update left-bottom popup card buttons
-    ['light', 'dark', 'dark-trae', 'system'].forEach(function(m) {
+    ['light', 'dark', 'system'].forEach(function(m) {
       var btn = document.getElementById('btn-theme-' + m);
       if (!btn) return;
-      var isActive = (m === mode);
+      var isActive = (m === mode) || (mode === 'system' && m === 'system') || (m === 'dark' && (mode === 'dark-trae' || mode === 'dark-cool'));
       if (isActive) {
         btn.classList.add('bg-white', 'shadow-sm', 'text-[#0a0a0a]');
         btn.classList.remove('text-[#737373]');
@@ -25,10 +28,10 @@
     });
 
     // 2. Update direct sidebar [DEV] Theme buttons
-    ['light', 'dark', 'dark-trae'].forEach(function(m) {
+    ['light', 'dark'].forEach(function(m) {
       var btn = document.getElementById('dev-theme-btn-' + m);
       if (!btn) return;
-      var isActive = (m === mode) || (mode === 'system' && m === effective);
+      var isActive = (m === mode) || (mode === 'system' && m === effective) || (m === 'dark' && (mode === 'dark-trae' || mode === 'dark-cool'));
       if (isActive) {
         btn.classList.add('active', 'bg-white', 'shadow-sm', 'text-[#0a0a0a]');
         btn.classList.remove('text-[#737373]');
@@ -42,19 +45,14 @@
     var tag = document.getElementById('dev-theme-name-tag');
     var dot = document.getElementById('dev-theme-indicator-dot');
     if (tag) {
-      if (mode === 'dark-trae') {
-        tag.textContent = 'Trae Dark';
-      } else if (mode === 'dark') {
-        tag.textContent = 'Octen Dark';
-      } else if (mode === 'light') {
-        tag.textContent = 'Light';
+      if (mode === 'dark' || mode === 'dark-trae' || (mode === 'system' && effective === 'dark')) {
+        tag.textContent = mode === 'system' ? 'System (Dark)' : 'Dark';
       } else {
-        var effLabel = effective === 'dark-trae' ? 'Trae' : (effective === 'dark' ? 'Dark' : 'Light');
-        tag.textContent = 'System (' + effLabel + ')';
+        tag.textContent = mode === 'system' ? 'System (Light)' : 'Light';
       }
     }
     if (dot) {
-      if (mode === 'light' || (mode === 'system' && effective === 'light')) {
+      if (effective === 'light') {
         dot.style.backgroundColor = '#039855';
       } else {
         dot.style.backgroundColor = '#60ff70';
@@ -63,7 +61,7 @@
   }
 
   window.setThemeMode = function(mode) {
-    if (mode === 'dark-cool') mode = 'dark';
+    if (mode === 'dark-cool' || mode === 'dark-trae' || mode === 'octen') mode = 'dark';
     try {
       localStorage.setItem('octen-theme', mode);
     } catch(e) {}
@@ -71,11 +69,7 @@
     var effective = getEffectiveTheme(mode);
     var html = document.documentElement;
 
-    if (effective === 'dark-trae' || mode === 'dark-trae') {
-      html.classList.add('dark', 'theme-trae');
-      html.classList.remove('theme-cool');
-      html.setAttribute('data-theme', 'dark-trae');
-    } else if (effective === 'dark' || mode === 'dark') {
+    if (effective === 'dark') {
       html.classList.add('dark');
       html.classList.remove('theme-trae', 'theme-cool');
       html.setAttribute('data-theme', 'dark');

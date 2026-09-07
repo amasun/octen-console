@@ -15,14 +15,14 @@
 
 - `octen-console-prototype.html`: The original monolithic prototype file.
 - `octen-console/`: The extracted and refactored Octen Console application.
-  - `index.html`: The main console application entry point (含无闪烁早期主题初始化脚本，无缝兼容 Light、Octen Dark 及 Trae Dark 三套模式)。
-  - `css/styles.css`: Custom styling, semantic color tokens, layout classes, and Prism Dual-Theme code styling（全量适配浅色 Light、Octen Dark 及 Trae Dark 规范；严格采用 `theme/theme-color.html` 92 个 Token 命名，并在各模式下精准保真各自的原生色彩数值；搭载高对比暗色代码高亮引擎，彻底解决暗色下深字看不清问题）。
+  - `index.html`: The main console application entry point (含无闪烁早期主题初始化脚本，原生支持 Light 与 Dark 双主题体系及 System 自动跟随，并对历史缓存主题平滑兼容自动映射)。
+  - `css/styles.css`: Custom styling, semantic color tokens, layout classes, and Prism Dual-Theme code styling（全面移除旧版偏蓝的 Octen Dark 方案，将 TraeWork 极简高质感中性黑方案全面晋升为标准 Dark 模式：外层底色 `#141414`、主工作台底板 `#1e1e1e`、嵌入式产品子卡片 `#161616`，结合微量透白发丝轮廓线与标志性 Octen 翡翠绿 `--primary: #60ff70`；搭载高对比暗色代码高亮引擎，彻底消除冗余覆盖）。
   - `js/core/syntax-highlight.js`: 语法高亮驱动模块（支持语言自动推断、行号渲染与语义类解耦，双主题模式下自动适配前景色与高亮配色）。
   - `js/core/tailwind-config.js`: Tailwind 配置扩展（注入 `primary`, `shell`, `surface`, `foreground`, `fg`, `border`, `panel-border`, `neutral`, `status`, `accent`, `chart` 等全部设计 Token 实用类，同时保持与老项目的向下兼容）。
-  - `js/core/sidebar.js`: 侧边栏布局与交互（包含左上角品牌 Logo 支持暗色下动态渲染 `--primary-dark`、底部直出 3 格开发模式主题切换栏 `[DEV] Theme` 及账号弹出卡片）。
-  - `js/core/theme.js`: 主题状态管理模块（支持 `light`、`dark` (Octen)、`dark-trae` (Trae) 与 `system` 模式切换、持久化储存与无缝样式派发）。
-- `theme/`: Octen Console 现行主题规范与抽象颜色 Token（Cult UI 4 阶灰 + 翡翠绿体系，含可视化对照色卡 `theme-color.html`）。
-- `TraeWork/`: TraeWork 设计系统与规范参考（指导 Octen Console 第三颜色模式 `dark-trae`，侧边栏与外层 workspace 背景统一采用纯粹深邃的 `#141414`，主卡片面板采用 `#171717`，纯白微透边框 `rgba(229,229,229,0.1)` 及中性排版梯度，同时完整保留当前暗色模式的高对比翡翠绿主色 `--primary: #60ff70`）。
+  - `js/core/sidebar.js`: 侧边栏布局与交互（包含左上角品牌 Logo 支持暗色下动态渲染 `--primary-dark`、底部精简双格 `[DEV] Theme` 切换栏 `☀️ Light` / `🌙 Dark` 及账号弹出卡片 3 状态快速切换行）。
+  - `js/core/theme.js`: 主题状态管理模块（标准双主题引擎：支持 `light`、`dark` 与 `system` 模式切换、历史遗留方案平滑自动升级、持久化储存与无缝样式派发）。
+- `theme/`: Octen Console 现行主题规范与抽象颜色 Token（含可视化对照色卡 `theme-color.html`）。
+- `TraeWork/`: TraeWork 设计系统与规范参考（作为标准 Dark 模式的核心基准：外层工作区统一采用 `#141414`，主卡片面板采用 `#1e1e1e`，产品子卡片采用 `#161616`，纯白微透边框梯度与纯净中性排版灰阶，同时完整保留高对比翡翠绿主色 `--primary: #60ff70`）。
 - `_archive/`: Contains old backups and deprecated files.
 
 ## 🎨 UI Component Standards (组件交互与视觉规范)

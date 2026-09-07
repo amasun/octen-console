@@ -192,150 +192,152 @@ html.dark .sidebar-logo,
   --background-secondary: var(--surface);
 }
 
-html.dark, [data-theme="dark"] {
-  /* 主题色 Brand */
+html.dark,
+[data-theme="dark"],
+[data-theme="dark-trae"] {
+  /* 主题色 Brand (Strictly Preserved Octen Brand Green: #60ff70) */
   --primary: #60ff70;
   --primary-lite: #60ff70;
   --primary-dark: #60ff70;
   --primary-bright: #66ff69;
-  --primary-muted: #60ff7087;
+  --primary-muted: rgba(96, 255, 112, 0.14);
   --primary-tint-soft: hsl(111 60% 62%);
 
-  /* 背景与表面 Background & Surfaces */
-  --shell: #05070b;
-  --background: #080b12;
-  --surface: #1e1e1e;
-  --surface-subtle: #242424;
-  --surface-muted: #2a2a2a;
-  --surface-strong: #333333;
-  --card: #1e1e1e;
-  --popover: #242424;
-  --surface-inverse: #1f2733;
-  --background-inverse: #1b1f26;
+  /* 背景与表面 Background & Surfaces (Neutral 阶梯) */
+  --shell: #141414;                     /* 外层及侧边栏底色、workspace 背景 */
+  --background: #1e1e1e;                /* 主工作区底色 */
+  --surface: #1e1e1e;                   /* 主卡片表面 */
+  --surface-subtle: rgba(212, 212, 212, 0.06); /* 输入框/次级卡片 */
+  --surface-muted: rgba(212, 212, 212, 0.08);  /* 选中项/微高亮 */
+  --surface-strong: #2a2a2a;
+  --card: #1e1e1e;                      /* 工作台主卡片 */
+  --popover: #1c1c1c;                   /* 弹出层与浮动菜单 */
+  --surface-inverse: #FFFFFF;
+  --background-inverse: #F5F5F5;
 
-  /* 文字 Foregrounds */
-  --foreground: #e8eaed;
-  --fg-strong: #e8eaed;
-  --fg-body: #d3d8e0;
-  --fg-secondary: #b9bfc9;
-  --fg-tertiary: #a2acbb;
-  --fg-muted: #8b95a5;
-  --fg-faint: #6f7a8a;
-  --foreground-inverse: #e8eaed;
+  /* 文字 Foregrounds (纯中性文字阶梯) */
+  --foreground: #E5E5E5;                /* 主文字 */
+  --fg-strong: #FAFAFA;                 /* 强高亮文字 */
+  --fg-body: #E5E5E5;                   /* 正文 */
+  --fg-secondary: #A1A1A1;              /* 次级说明/占位符 */
+  --fg-tertiary: #737373;               /* 弱化小节标签 */
+  --fg-muted: #737373;                  /* 弱化 */
+  --fg-faint: #525252;                  /* 极弱/不可用 */
+  --foreground-inverse: #171717;        /* 反转暗文字 */
 
-  /* 边框与分隔 Borders & Lines */
-  --border: #232a35;
-  --line: #232a35;
-  --line-subtle: #1a1f27;
-  --input: #2b333f;
-  --ring: #3d4756;
-  --panel-border: #232a35;
-  --neutral-border: #313b48;
+  /* 边框与分隔 Borders & Lines (纯白半透明梯度) */
+  --border: rgba(229, 229, 229, 0.1);    /* 一级边框 */
+  --line: rgba(229, 229, 229, 0.1);
+  --line-subtle: rgba(229, 229, 229, 0.06);
+  --input: rgba(229, 229, 229, 0.16);    /* 二级输入边框 */
+  --ring: rgba(229, 229, 229, 0.2);      /* 强调描边 */
+  --panel-border: rgba(229, 229, 229, 0.1);
+  --neutral-border: rgba(229, 229, 229, 0.14);
 
-  /* 中性色 Neutrals */
-  --neutral-50: #1a1f27;
-  --neutral-100: #1f242d;
-  --neutral-200: #262d37;
-  --neutral-300: #2f3742;
-  --neutral-muted: #6f7a8a;
-  --neutral-foreground: #a2acbb;
-  --neutral-overlay: #ffffff0a;
+  /* 中性色 Neutrals (Neutral 阶梯) */
+  --neutral-50: #1a1a1a;
+  --neutral-100: #202020;
+  --neutral-200: #2c2c2c;
+  --neutral-300: #3a3a3a;
+  --neutral-muted: #737373;
+  --neutral-foreground: #A1A1A1;
+  --neutral-overlay: rgba(212, 212, 212, 0.06);
 
   /* 状态色 Status */
-  --success: #34d399;
-  --success-surface: hsl(144 61% 16%);
-  --success-border: #1c4c3a;
-  --success-muted: hsl(157 80% 50%);
-  --success-foreground: #6ee7b7;
-  --success-heavy: hsl(138 80% 90%);
+  --success: #15A877;
+  --success-surface: rgba(21, 168, 119, 0.14);
+  --success-border: rgba(21, 168, 119, 0.26);
+  --success-muted: #1E8B56;
+  --success-foreground: #2FB287;
+  --success-heavy: #E6FAF3;
 
-  --warning: #fbbf24;
-  --warning-surface: #2b1e08;
-  --warning-border: hsl(36 85% 18%);
-  --warning-muted: hsl(44 92% 46%);
-  --warning-foreground: #fcd34d;
-  --warning-heavy: hsl(48 96% 82%);
+  --warning: #FEA900;
+  --warning-surface: rgba(254, 169, 0, 0.14);
+  --warning-border: rgba(254, 169, 0, 0.26);
+  --warning-muted: #E59100;
+  --warning-foreground: #FFB700;
+  --warning-heavy: #FFF9ED;
 
-  --danger: #ff6166;
-  --danger-surface: #2b1113;
-  --danger-border: #5c2427;
-  --danger-muted: #fb2c36;
-  --danger-foreground: #fca5a5;
-  --danger-heavy: #ffc9c9;
+  --danger: #E8463A;
+  --danger-surface: rgba(232, 70, 58, 0.14);
+  --danger-border: rgba(232, 70, 58, 0.26);
+  --danger-muted: #C9382F;
+  --danger-foreground: #EA574C;
+  --danger-heavy: #FFF0F0;
 
-  --info: #60a5fa;
-  --info-surface: hsl(224 64% 18%);
-  --info-border: #24406e;
-  --info-muted: hsl(210 80% 62%);
-  --info-foreground: #93c5fd;
-  --info-heavy: #bedbff;
+  --info: #2F74FF;
+  --info-surface: rgba(47, 116, 255, 0.14);
+  --info-border: rgba(47, 116, 255, 0.26);
+  --info-muted: #1759DD;
+  --info-foreground: #4C88FF;
+  --info-heavy: #EBF2FF;
 
   /* 强调色 Accents */
-  --accent-green: #05df72;
-  --accent-teal: #00d5be;
-  --accent-cyan: hsl(185 90% 60%);
-  --accent-sky: hsl(202 90% 65%);
-  --accent-indigo: #7c86ff;
-  --accent-violet: #a684ff;
-  --accent-pink: #fb64b6;
-  --accent-rose: #ff637e;
-  --accent-orange: hsl(30 90% 60%);
-  --accent-yellow: #fdc700;
-  --accent-lime: #9ae600;
+  --accent-green: #32F08C;
+  --accent-teal: #00B983;
+  --accent-cyan: #00B6F5;
+  --accent-sky: #3F85FF;
+  --accent-indigo: #6A6FFF;
+  --accent-violet: #9570FF;
+  --accent-pink: #F53CFF;
+  --accent-rose: #FF6B45;
+  --accent-orange: #FF5D4D;
+  --accent-yellow: #F2A90C;
+  --accent-lime: #5FC000;
 
   /* 图表色 Charts */
-  --chart-broad-search: #38bdf8;
-  --chart-search-calls: #2dd4bf;
-  --chart-content-tokens: #c084fc;
-  --chart-chat-tokens: #f472b6;
-  --chart-embeddings: #fbbf24;
-  --chart-vl-embeddings: #fb923c;
-  --chart-extract: #60a5fa;
-  --chart-application: #a78bfa;
-  --chart-image-search: #22d3ee;
-  --chart-video-search: #818cf8;
-  --chart-model: #4ade80;
-  --chart-collect: #a3e635;
-  --chart-total: #94a3b8;
-  --chart-grid: #232a35;
-  --chart-axis: #8b95a5;
-  --chart-cursor: #161b22;
-  --chart-tooltip-bg: #12161d;
-  --chart-tooltip-border: #232a35;
-  --chart-tooltip-label: #e8eaed;
+  --chart-broad-search: #6A6FFF;
+  --chart-search-calls: #00B983;
+  --chart-content-tokens: #9570FF;
+  --chart-chat-tokens: #F53CFF;
+  --chart-embeddings: #F2A90C;
+  --chart-vl-embeddings: #FF5D4D;
+  --chart-extract: #2F74FF;
+  --chart-application: #B15EF2;
+  --chart-image-search: #00B6F5;
+  --chart-video-search: #3F85FF;
+  --chart-model: #60ff70;
+  --chart-collect: #5FC000;
+  --chart-total: #A1A1A1;
+  --chart-grid: rgba(229, 229, 229, 0.08);
+  --chart-axis: #737373;
+  --chart-cursor: #202020;
+  --chart-tooltip-bg: #202020;
+  --chart-tooltip-border: rgba(229, 229, 229, 0.12);
+  --chart-tooltip-label: #FAFAFA;
 
   /* Compatibility variables */
   --color-accent: var(--primary);
   --color-accent-1: color-mix(in oklab, var(--color-accent) 64%, #fff 36%);
   --color-accent-3: color-mix(in oklab, var(--color-accent) 50%, transparent 75%);
   --color-red: var(--danger);
-  --color-orange: #fb923c;
-  --color-yellow: #facc15;
+  --color-orange: #FF5D4D;
+  --color-yellow: var(--warning);
   --color-green: var(--success);
-  --color-cyan: #22d3ee;
+  --color-cyan: var(--accent-cyan);
   --color-blue: var(--info);
-  --color-purple: #c084fc;
-  --color-pink: #f472b6;
+  --color-purple: var(--accent-violet);
+  --color-pink: var(--accent-pink);
 
-  --color-base-00: #0f1319;
-  --color-base-05: #12161d;
-  --color-base-10: #1a1f27;
-  --color-base-20: #232a35;
-  --color-base-25: #2b333f;
-  --color-base-30: #2f3742;
-  --color-base-35: #6f7a8a;
-  --color-base-40: #6f7a8a;
-  --color-base-50: #8b95a5;
-  --color-base-60: #a2acbb;
-  --color-base-70: #b9bfc9;
-  --color-base-80: #d3d8e0;
-  --color-base-90: #e8eaed;
-  --color-base-100: #f8fafc;
+  --color-base-00: #171717;
+  --color-base-05: #202020;
+  --color-base-10: #141414;
+  --color-base-20: rgba(229, 229, 229, 0.1);
+  --color-base-25: rgba(229, 229, 229, 0.16);
+  --color-base-30: rgba(229, 229, 229, 0.2);
+  --color-base-35: #737373;
+  --color-base-40: #737373;
+  --color-base-50: #A1A1A1;
+  --color-base-60: #D4D4D4;
+  --color-base-70: #E5E5E5;
+  --color-base-80: #E5E5E5;
+  --color-base-90: #FAFAFA;
+  --color-base-100: #FFFFFF;
 
   --text-normal: var(--fg-strong);
   --text-muted: var(--fg-muted);
   --text-faint: var(--fg-faint);
-  --text-on-accent: #05070b;
+  --text-on-accent: #171717;
   --bg-workspace: var(--shell);
   --vl-layout-padding: 10px;
   --background-primary: var(--surface);
@@ -549,9 +551,6 @@ html.dark #page-overview .ov-app-card,
 [data-theme="dark"] #page-overview .ov-card,
 [data-theme="dark"] #page-overview .ov-api-card,
 [data-theme="dark"] #page-overview .ov-app-card,
-html.dark.theme-trae #page-overview .ov-card,
-html.dark.theme-trae #page-overview .ov-api-card,
-html.dark.theme-trae #page-overview .ov-app-card,
 [data-theme="dark-trae"] #page-overview .ov-card,
 [data-theme="dark-trae"] #page-overview .ov-api-card,
 [data-theme="dark-trae"] #page-overview .ov-app-card {
@@ -1078,19 +1077,27 @@ html.dark .workspace {
   color: var(--fg-body);
 }
 
-html.dark .ribbon {
-  background: var(--shell);
+html.dark .ribbon,
+[data-theme="dark"] .ribbon,
+[data-theme="dark-trae"] .ribbon {
+  background: var(--shell) !important;
+  border-right: none !important;
 }
 
-html.dark .bg-workspace {
+html.dark .bg-workspace,
+[data-theme="dark"] .bg-workspace,
+[data-theme="dark-trae"] .bg-workspace {
   background: var(--shell) !important;
 }
 
 /* Layout Panes & Surfaces (新方案：暗色模式下主卡片 #1e1e1e，边框微量区分) */
 html.dark .layout-pane,
-[data-theme="dark"] .layout-pane {
+[data-theme="dark"] .layout-pane,
+[data-theme="dark-trae"] .layout-pane {
   background: #1e1e1e !important;
   border-color: rgba(255, 255, 255, 0.07) !important;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
 html.dark .bg-white,
@@ -1639,189 +1646,9 @@ html.dark .token.variable {
 
 
 /* ==========================================================================
-   TraeWork Theme Specification (Based on TraeWork Design System & work.trae.cn)
-   Retaining Octen Brand Green: #60ff70
+   [DEV] Theme Switcher & Segmented Control Component Styles
    ========================================================================== */
 
-html.dark.theme-trae,
-html.theme-trae,
-[data-theme="dark-trae"] {
-  /* 主题色 Brand (Strictly Preserved Octen Dark Green: #60ff70) */
-  --primary: #60ff70;
-  --primary-lite: #60ff70;
-  --primary-dark: #60ff70;
-  --primary-bright: #66ff69;
-  --primary-muted: rgba(96, 255, 112, 0.14);
-  --primary-tint-soft: hsl(111 60% 62%);
-
-  /* 背景与表面 Background & Surfaces (TraeWork / work.trae.cn Neutral 阶梯) */
-  --shell: #141414;                     /* 外层及侧边栏底色、workspace 背景 */
-  --background: #1e1e1e;                /* 主工作区底色 (--bg-invert-active) */
-  --surface: #1e1e1e;                   /* 主卡片表面 (--bg-invert-active) */
-  --surface-subtle: rgba(212, 212, 212, 0.06); /* 输入框/次级卡片 (--bg-overlay-l2) */
-  --surface-muted: rgba(212, 212, 212, 0.08);  /* 选中项/微高亮 (--bg-overlay-l3) */
-  --surface-strong: #2a2a2a;
-  --card: #1e1e1e;                      /* 工作台主卡片 */
-  --popover: #1c1c1c;                   /* 弹出层与浮动菜单 (--bg-card) */
-  --surface-inverse: #FFFFFF;
-  --background-inverse: #F5F5F5;
-
-  /* 文字 Foregrounds (TraeWork 纯中性文字阶梯) */
-  --foreground: #E5E5E5;                /* 主文字 (--brand-grey-200) */
-  --fg-strong: #FAFAFA;                 /* 强高亮文字 (--brand-grey-50) */
-  --fg-body: #E5E5E5;                   /* 正文 */
-  --fg-secondary: #A1A1A1;              /* 次级说明/占位符 (--text-disabled) */
-  --fg-tertiary: #737373;               /* 弱化小节标签 (--text-tertiary) */
-  --fg-muted: #737373;                  /* 弱化 */
-  --fg-faint: #525252;                  /* 极弱/不可用 */
-  --foreground-inverse: #171717;        /* 反转暗文字 */
-
-  /* 边框与分隔 Borders & Lines (TraeWork 纯白半透明梯度) */
-  --border: rgba(229, 229, 229, 0.1);    /* 一级边框 (--border-neutral-l1) */
-  --line: rgba(229, 229, 229, 0.1);
-  --line-subtle: rgba(229, 229, 229, 0.06);
-  --input: rgba(229, 229, 229, 0.16);    /* 二级输入边框 (--border-neutral-l2) */
-  --ring: rgba(229, 229, 229, 0.2);      /* 强调描边 (--border-neutral-l3) */
-  --panel-border: rgba(229, 229, 229, 0.1);
-  --neutral-border: rgba(229, 229, 229, 0.14);
-
-  /* 中性色 Neutrals (TraeWork Neutral 阶梯) */
-  --neutral-50: #1a1a1a;
-  --neutral-100: #202020;
-  --neutral-200: #2c2c2c;
-  --neutral-300: #3a3a3a;
-  --neutral-muted: #737373;
-  --neutral-foreground: #A1A1A1;
-  --neutral-overlay: rgba(212, 212, 212, 0.06);
-
-  /* 状态色 Status (TraeWork status tokens) */
-  --success: #15A877;                   /* TraeWork --status-success-default */
-  --success-surface: rgba(21, 168, 119, 0.14);
-  --success-border: rgba(21, 168, 119, 0.26);
-  --success-muted: #1E8B56;
-  --success-foreground: #2FB287;
-  --success-heavy: #E6FAF3;
-
-  --warning: #FEA900;                   /* TraeWork --status-alert-default */
-  --warning-surface: rgba(254, 169, 0, 0.14);
-  --warning-border: rgba(254, 169, 0, 0.26);
-  --warning-muted: #E59100;
-  --warning-foreground: #FFB700;
-  --warning-heavy: #FFF9ED;
-
-  --danger: #E8463A;                    /* TraeWork --status-error-default */
-  --danger-surface: rgba(232, 70, 58, 0.14);
-  --danger-border: rgba(232, 70, 58, 0.26);
-  --danger-muted: #C9382F;
-  --danger-foreground: #EA574C;
-  --danger-heavy: #FFF0F0;
-
-  --info: #2F74FF;                      /* TraeWork --status-primary-default */
-  --info-surface: rgba(47, 116, 255, 0.14);
-  --info-border: rgba(47, 116, 255, 0.26);
-  --info-muted: #1759DD;
-  --info-foreground: #4C88FF;
-  --info-heavy: #EBF2FF;
-
-  /* 强调色 Accents */
-  --accent-green: #32F08C;
-  --accent-teal: #00B983;
-  --accent-cyan: #00B6F5;
-  --accent-sky: #3F85FF;
-  --accent-indigo: #6A6FFF;
-  --accent-violet: #9570FF;
-  --accent-pink: #F53CFF;
-  --accent-rose: #FF6B45;
-  --accent-orange: #FF5D4D;
-  --accent-yellow: #F2A90C;
-  --accent-lime: #5FC000;
-
-  /* 图表色 Charts */
-  --chart-broad-search: #6A6FFF;
-  --chart-search-calls: #00B983;
-  --chart-content-tokens: #9570FF;
-  --chart-chat-tokens: #F53CFF;
-  --chart-embeddings: #F2A90C;
-  --chart-vl-embeddings: #FF5D4D;
-  --chart-extract: #2F74FF;
-  --chart-application: #B15EF2;
-  --chart-image-search: #00B6F5;
-  --chart-video-search: #3F85FF;
-  --chart-model: #60ff70;
-  --chart-collect: #5FC000;
-  --chart-total: #A1A1A1;
-  --chart-grid: rgba(229, 229, 229, 0.08);
-  --chart-axis: #737373;
-  --chart-cursor: #202020;
-  --chart-tooltip-bg: #202020;
-  --chart-tooltip-border: rgba(229, 229, 229, 0.12);
-  --chart-tooltip-label: #FAFAFA;
-
-  /* Compatibility variables */
-  --color-accent: var(--primary);
-  --color-accent-1: color-mix(in oklab, var(--color-accent) 64%, #fff 36%);
-  --color-accent-3: color-mix(in oklab, var(--color-accent) 50%, transparent 75%);
-  --color-red: var(--danger);
-  --color-orange: #FF5D4D;
-  --color-yellow: var(--warning);
-  --color-green: var(--success);
-  --color-cyan: var(--accent-cyan);
-  --color-blue: var(--info);
-  --color-purple: var(--accent-violet);
-  --color-pink: var(--accent-pink);
-
-  --color-base-00: #171717;
-  --color-base-05: #202020;
-  --color-base-10: #141414;
-  --color-base-20: rgba(229, 229, 229, 0.1);
-  --color-base-25: rgba(229, 229, 229, 0.16);
-  --color-base-30: rgba(229, 229, 229, 0.2);
-  --color-base-35: #737373;
-  --color-base-40: #737373;
-  --color-base-50: #A1A1A1;
-  --color-base-60: #D4D4D4;
-  --color-base-70: #E5E5E5;
-  --color-base-80: #E5E5E5;
-  --color-base-90: #FAFAFA;
-  --color-base-100: #FFFFFF;
-
-  --text-normal: var(--fg-strong);
-  --text-muted: var(--fg-muted);
-  --text-faint: var(--fg-faint);
-  --text-on-accent: #171717;
-  --bg-workspace: var(--shell);
-  --background-primary: var(--surface);
-  --background-secondary: var(--surface);
-}
-
-/* TraeWork Specific UI Refinements */
-html.dark.theme-trae body,
-html.dark.theme-trae .app,
-html.dark.theme-trae .workspace,
-html.dark.theme-trae .bg-workspace,
-[data-theme="dark-trae"] body,
-[data-theme="dark-trae"] .app,
-[data-theme="dark-trae"] .workspace,
-[data-theme="dark-trae"] .bg-workspace {
-  background: #141414 !important;
-}
-
-html.dark.theme-trae .ribbon,
-[data-theme="dark-trae"] .ribbon,
-html.theme-trae .ribbon {
-  background: #141414 !important;
-  border-right: none !important;
-}
-
-html.dark.theme-trae .layout-pane,
-[data-theme="dark-trae"] .layout-pane {
-  background: #1e1e1e !important;
-  border-color: rgba(255, 255, 255, 0.07) !important;
-  border-radius: 14px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
-}
-
-/* Direct [DEV] Theme Switcher Component Styles */
 #dev-theme-container {
   transition: all 0.2s ease;
 }
@@ -1830,132 +1657,71 @@ html.dark.theme-trae .layout-pane,
   cursor: pointer;
 }
 
-html.dark #dev-theme-container {
-  background: var(--surface-subtle) !important;
-  border-color: var(--panel-border) !important;
-}
-
-html.dark #dev-theme-container #dev-theme-bar {
-  background: var(--surface) !important;
-  border-color: var(--panel-border) !important;
-}
-
-html.dark #dev-theme-container #dev-theme-bar button.active,
-html.dark #dev-theme-container #dev-theme-bar button.bg-white {
-  background: var(--surface-strong) !important;
-  color: var(--fg-strong) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4) !important;
-}
-
-html.dark #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white) {
-  color: var(--fg-muted) !important;
-}
-
-html.dark #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white):hover {
-  color: var(--fg-strong) !important;
-}
-
-/* TraeWork Dev Switcher Overrides */
-html.dark.theme-trae #dev-theme-container {
+html.dark #dev-theme-container,
+[data-theme="dark"] #dev-theme-container,
+[data-theme="dark-trae"] #dev-theme-container {
   background: #1c1c1c !important;
   border-color: rgba(229, 229, 229, 0.1) !important;
 }
 
-html.dark.theme-trae #dev-theme-container #dev-theme-bar {
+html.dark #dev-theme-container #dev-theme-bar,
+[data-theme="dark"] #dev-theme-container #dev-theme-bar,
+[data-theme="dark-trae"] #dev-theme-container #dev-theme-bar {
   background: #141414 !important;
   border-color: rgba(229, 229, 229, 0.1) !important;
 }
 
-html.dark.theme-trae #dev-theme-container #dev-theme-bar button.active,
-html.dark.theme-trae #dev-theme-container #dev-theme-bar button.bg-white {
+html.dark #dev-theme-container #dev-theme-bar button.active,
+html.dark #dev-theme-container #dev-theme-bar button.bg-white,
+[data-theme="dark"] #dev-theme-container #dev-theme-bar button.active,
+[data-theme="dark"] #dev-theme-container #dev-theme-bar button.bg-white,
+[data-theme="dark-trae"] #dev-theme-container #dev-theme-bar button.active,
+[data-theme="dark-trae"] #dev-theme-container #dev-theme-bar button.bg-white {
   background: #2a2a2a !important;
   color: #FAFAFA !important;
   border: 1px solid rgba(229, 229, 229, 0.16);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
-html.dark.theme-trae #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white) {
+html.dark #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white),
+[data-theme="dark"] #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white),
+[data-theme="dark-trae"] #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white) {
   color: #A1A1A1 !important;
 }
 
-html.dark.theme-trae #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white):hover {
+html.dark #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white):hover,
+[data-theme="dark"] #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white):hover,
+[data-theme="dark-trae"] #dev-theme-container #dev-theme-bar button:not(.active):not(.bg-white):hover {
   color: #FAFAFA !important;
 }
 
-/* Demo Card Theme Row in TraeWork Dark */
-html.dark.theme-trae #theme-segmented-group {
+/* Demo Card Theme Row in Dark */
+html.dark #theme-segmented-group,
+[data-theme="dark"] #theme-segmented-group,
+[data-theme="dark-trae"] #theme-segmented-group {
   background: #1c1c1c !important;
   border-color: rgba(229, 229, 229, 0.1) !important;
 }
 
-html.dark.theme-trae #theme-segmented-group button.bg-white {
+html.dark #theme-segmented-group button.bg-white,
+[data-theme="dark"] #theme-segmented-group button.bg-white,
+[data-theme="dark-trae"] #theme-segmented-group button.bg-white {
   background: #333333 !important;
   color: #FAFAFA !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3) !important;
 }
 
-html.dark.theme-trae #theme-segmented-group button:not(.bg-white) {
+html.dark #theme-segmented-group button:not(.bg-white),
+[data-theme="dark"] #theme-segmented-group button:not(.bg-white),
+[data-theme="dark-trae"] #theme-segmented-group button:not(.bg-white) {
   color: #A1A1A1 !important;
 }
 
-html.dark.theme-trae #theme-segmented-group button:not(.bg-white):hover {
+html.dark #theme-segmented-group button:not(.bg-white):hover,
+[data-theme="dark"] #theme-segmented-group button:not(.bg-white):hover,
+[data-theme="dark-trae"] #theme-segmented-group button:not(.bg-white):hover {
   color: #FAFAFA !important;
 }
-
-/* TraeWork Code Syntax Highlighting */
-html.dark.theme-trae .token.comment,
-html.dark.theme-trae .token.prolog,
-html.dark.theme-trae .token.doctype,
-html.dark.theme-trae .token.cdata {
-  color: #737373 !important;
-}
-
-html.dark.theme-trae .token.punctuation {
-  color: #D4D4D4 !important;
-}
-
-html.dark.theme-trae .token.property {
-  color: #79c0ff !important;
-}
-
-html.dark.theme-trae .token.tag {
-  color: #FF6B45 !important;
-}
-
-html.dark.theme-trae .token.boolean,
-html.dark.theme-trae .token.number,
-html.dark.theme-trae .token.constant {
-  color: #F53CFF !important;
-}
-
-html.dark.theme-trae .token.selector,
-html.dark.theme-trae .token.attr-name,
-html.dark.theme-trae .token.string,
-html.dark.theme-trae .token.char,
-html.dark.theme-trae .token.builtin {
-  color: #60ff70 !important; /* Preserves green brand theme */
-}
-
-html.dark.theme-trae .token.operator,
-html.dark.theme-trae .token.entity {
-  color: #3F85FF !important;
-}
-
-html.dark.theme-trae .token.keyword {
-  color: #9570FF !important;
-}
-
-html.dark.theme-trae .token.function {
-  color: #F2A90C !important;
-}
-
-html.dark.theme-trae .token.regex,
-html.dark.theme-trae .token.important,
-html.dark.theme-trae .token.variable {
-  color: #FEA900 !important;
-}
-
-
 
 /* ==========================================================================
    Code & Syntax Highlighting System (Dual-Theme Engine)
@@ -1977,26 +1743,11 @@ html.dark.theme-trae .token.variable {
   --code-variable: #953800;
 }
 
-html.dark, [data-theme="dark"] {
-  --code-base: #e6edf3;
-  --code-bg: #080b12;
-  --code-numbers: #6e7681;
-  --code-keyword: #79c0ff;
-  --code-string: #7ee787;
-  --code-function: #d2a8ff;
-  --code-number: #79c0ff;
-  --code-property: #79c0ff;
-  --code-comment: #8b949e;
-  --code-punctuation: #c9d1d9;
-  --code-operator: #79c0ff;
-  --code-variable: #ffa657;
-}
-
-html.dark.theme-trae,
-html.theme-trae,
+html.dark,
+[data-theme="dark"],
 [data-theme="dark-trae"] {
   --code-base: #f0f6fc;
-  --code-bg: #171717;
+  --code-bg: #161616;
   --code-numbers: #6e7681;
   --code-keyword: #79c0ff;
   --code-string: #7ee787;
