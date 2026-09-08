@@ -10,7 +10,8 @@
 - **`theme-color v1.1.html`**：新版色板可视化浏览器交互页面（包含浅色/暗色实时预览、对齐状态审计、色值一键复制）。
 - **`COLOR_SPEC.md`**：完整的设计 Token 参数定义与中英文说明文档。
 - **`sample/`**：包含完整交互逻辑的控制台示例工程：
-  - 打开 `sample/index.html` 即可直接在浏览器中体验 Overview（全局概览）与 Broad Search API（多路搜索调试台）的完整交互，包括亮暗模式切换、多语言代码生成、Mock 查询响应、参数表单以及分栏自由拖拽等。
+  - 打开 `sample/index.html` 即可直接在浏览器中体验 Overview（全局概览）、Broad Search API（多路搜索调试台）以及 Settings（设置项）的完整交互，包括亮暗模式切换、多语言代码生成、Mock 查询响应、参数表单以及分栏自由拖拽等。
+  - **侧边栏聚焦交互**：侧边栏严格聚焦于本次转交的核心模块，仅支持点击跳转 **Overview**、**Broad Search** 和 **Settings**；其余未交付页面在**视觉外观上保持 100% 完整质感（不置灰、不改变透明度与文字色彩）**，仅在鼠标悬停时体现为禁止点击手势（`cursor: not-allowed`）并拦截跳转，确保原型视觉高保真的同时防止误触。
 
 ---
 
@@ -42,7 +43,7 @@
 
 ---
 
-## 三、 Broad Search 双栏布局与自由调节宽度组件规范
+## 三、双栏布局与自由调节宽度组件规范
 
 在控制台的“Broad Search API”以及后续所有类似的分栏工作台（如 Web Search、Extract、Multimodal Search 等模块）中，中间均配备了**自由调节宽度组件（Split Handle Resizer）**。其核心交互规范与刚性边界参数如下：
 

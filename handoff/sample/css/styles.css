@@ -5,6 +5,7 @@ body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sa
 .nav-item span{font-size:14px !important}
 .nav-item:hover,.nav-item.active{background-color:transparent;background-image:linear-gradient(rgb(234, 234, 234), rgb(234, 234, 234))}
 .nav-item.active,.nav-item.active span,.nav-item.active svg{color:#039855 !important}
+.nav-item.disabled{cursor:not-allowed !important}
 .nav-item svg{width:18px;height:18px;flex-shrink:0}
 .nav-section-label{font-size:14px;font-weight:500;color:rgba(115, 115, 115, 0.75);letter-spacing:.05em;padding:4px 12px}
 .ribbon nav{padding:8px 12px !important}
