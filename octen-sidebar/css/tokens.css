@@ -14,12 +14,12 @@
   --sidebar-nav-gap: 4px;
   --sidebar-item-radius: 8px;
 
-  /* Light Theme (Default) */
-  --sidebar-bg: #ffffff;
+  /* Light Theme (Default — strictly matches octen-console/index.html rules) */
+  --sidebar-bg: #f5f5f5;              /* Gray background matching main console --shell & --bg-workspace */
   --sidebar-shell-bg: #f5f5f5;
-  --sidebar-border: #dbdbdb;
-  --sidebar-border-subtle: #e5e5e5;
-  --sidebar-divider: #f1f5f9;
+  --sidebar-border: #e5e5e5;
+  --sidebar-border-subtle: #eaeaea;
+  --sidebar-divider: #e5e5e5;
 
   --sidebar-fg: #0a0a0a;
   --sidebar-fg-secondary: #475569;

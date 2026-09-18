@@ -247,22 +247,32 @@
   transition: color 0.15s ease;
 }
 
-.nav-item:hover {
-  background-color: var(--sidebar-hover-bg);
-  color: var(--sidebar-fg);
+.nav-item:hover,
+.nav-item.active {
+  background-color: transparent;
+  background-image: linear-gradient(rgb(234, 234, 234), rgb(234, 234, 234));
 }
 
 .nav-item:hover svg {
   color: var(--sidebar-fg);
 }
 
-.nav-item.active {
-  background-color: var(--sidebar-hover-bg);
+.nav-item.active,
+.nav-item.active span,
+.nav-item.active svg {
   color: var(--sidebar-primary) !important;
   font-weight: 500;
 }
 
-.nav-item.active svg {
+html.dark .nav-item:hover,
+html.dark .nav-item.active {
+  background-color: #262626 !important;
+  background-image: none !important;
+}
+
+html.dark .nav-item.active,
+html.dark .nav-item.active span,
+html.dark .nav-item.active svg {
   color: var(--sidebar-primary) !important;
 }
 
@@ -302,12 +312,23 @@
   border-radius: 12px;
   border: 1px solid var(--sidebar-border);
   background-color: transparent;
+  background-image: linear-gradient(rgb(239, 239, 239), rgb(239, 239, 239));
   cursor: pointer;
   transition: background-color 0.15s ease, border-color 0.15s ease;
 }
 
 .user-profile-toggle:hover {
-  background-color: var(--sidebar-hover-bg-subtle);
+  background-image: linear-gradient(rgb(234, 234, 234), rgb(234, 234, 234));
+}
+
+html.dark .user-profile-toggle {
+  background-color: #1a1a1a !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark .user-profile-toggle:hover {
+  background-color: #262626 !important;
 }
 
 .user-profile-left {
