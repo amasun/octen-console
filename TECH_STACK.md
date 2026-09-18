@@ -19,7 +19,7 @@
   - `css/styles.css`: Custom styling, semantic color tokens, layout classes, and Prism Dual-Theme code styling（全面移除旧版偏蓝的 Octen Dark 方案，将 TraeWork 极简高质感中性黑方案全面晋升为标准 Dark 模式：外层底色 `#141414`、主工作台底板 `#1a1a1a`、嵌入式产品子卡片 `#161616`，结合微量透白发丝轮廓线与标志性 Octen 翡翠绿 `--primary: #60ff70`；搭载高对比暗色代码高亮引擎，彻底消除冗余覆盖）。
   - `js/core/syntax-highlight.js`: 语法高亮驱动模块（支持语言自动推断、行号渲染与语义类解耦，双主题模式下自动适配前景色与高亮配色）。
   - `js/core/tailwind-config.js`: Tailwind 配置扩展（注入 `primary`, `shell`, `surface`, `foreground`, `fg`, `border`, `panel-border`, `neutral`, `status`, `accent`, `chart` 等全部设计 Token 实用类，同时保持与老项目的向下兼容）。
-  - `js/core/sidebar.js`: 侧边栏布局与交互（包含左上角品牌 Logo 支持暗色下动态渲染 `--primary-dark`、底部精简双格 `[DEV] Theme` 切换栏 `☀️ Light` / `🌙 Dark` 及账号弹出卡片 3 状态快速切换行）。
+  - `js/core/sidebar.js`: 侧边栏布局与交互（包含左上角品牌 Logo 支持暗色下动态渲染 `--primary-dark` 及底部账号弹出卡片内置 3 状态 `☀️ Light` / `🌙 Dark` / `💻 System` 快速切换行）。
   - `js/core/theme.js`: 主题状态管理模块（标准双主题引擎：支持 `light`、`dark` 与 `system` 模式切换、历史遗留方案平滑自动升级、持久化储存与无缝样式派发）。
 - `theme/`: Octen Console 现行主题规范与抽象颜色 Token（包含最新 v2.0 详细设计规范文档 `COLOR_SPEC.md`、新一代交互色板 `theme-color v1.1.html` 以及原参照色卡 `theme-color.html`）。
 - `handoff/`: 完整的交付/转交包目录，专为下游研发与设计对接准备（包含无代码纯设计规范说明文档 `README.md`、新版 92-Token 交互色板 `theme-color v1.1.html`、Token 规范文件 `COLOR_SPEC.md` 以及包含 Overview 与 Broad Search 完整交互的原型工程 `sample/`）。

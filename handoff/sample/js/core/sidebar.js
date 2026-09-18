@@ -152,26 +152,6 @@ window.sidebarHtml = `<aside class="ribbon">
 
   <!-- Bottom account info (matches ConsoleLayout.tsx) -->
   <div class="shrink-0 mt-auto">
-    <!-- [DEV] Direct Sidebar Theme Switcher -->
-    <div class="px-4 pt-2 pb-0">
-      <div class="rounded-xl border border-[#dbdbdb] p-2 bg-[#f5f5f5]" id="dev-theme-container">
-        <div class="flex items-center justify-between mb-1.5 px-0.5">
-          <span class="text-[11px] font-semibold text-[#737373] flex items-center gap-1.5">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#039855]" id="dev-theme-indicator-dot"></span>
-            [DEV] Theme
-          </span>
-          <span class="text-[10px] font-mono text-[#8a95a5]" id="dev-theme-name-tag">Dark</span>
-        </div>
-        <div class="grid grid-cols-2 gap-1 p-0.5 rounded-lg border border-[#e5e5e5] bg-white" id="dev-theme-bar">
-          <button type="button" onclick="setThemeMode('light')" id="dev-theme-btn-light" title="Light" class="py-1 px-1 rounded text-[11px] font-medium text-center transition-all text-[#737373]">
-            ☀️ Light
-          </button>
-          <button type="button" onclick="setThemeMode('dark')" id="dev-theme-btn-dark" title="Dark" class="py-1 px-1 rounded text-[11px] font-medium text-center transition-all text-[#737373]">
-            🌙 Dark
-          </button>
-        </div>
-      </div>
-    </div>
 
     <div class="p-4 relative" id="demo-toggle-wrap">
       <div id="demo-toggle" onclick="toggleDemoCard(event)" aria-controls="demo-card" class="w-full rounded-xl transition-colors px-2 py-2 border border-[#dbdbdb] cursor-pointer" style="background-color: transparent; background-image: linear-gradient(rgb(239, 239, 239), rgb(239, 239, 239));">
