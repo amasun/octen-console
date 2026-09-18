@@ -1,0 +1,87 @@
+/**
+ * Octen Design System — Sidebar Tokens
+ * Fully supports Light, Dark (TraeWork standard), and System appearance modes
+ */
+
+:root {
+  /* Typography */
+  --sidebar-font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --sidebar-font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Dimensions */
+  --sidebar-width: 256px;
+  --sidebar-header-height: 64px;
+  --sidebar-nav-gap: 4px;
+  --sidebar-item-radius: 8px;
+
+  /* Light Theme (Default) */
+  --sidebar-bg: #ffffff;
+  --sidebar-shell-bg: #f5f5f5;
+  --sidebar-border: #dbdbdb;
+  --sidebar-border-subtle: #e5e5e5;
+  --sidebar-divider: #f1f5f9;
+
+  --sidebar-fg: #0a0a0a;
+  --sidebar-fg-secondary: #475569;
+  --sidebar-fg-muted: #737373;
+  --sidebar-fg-subtle: #a3a3a3;
+  --sidebar-fg-faint: #94a3b8;
+
+  --sidebar-primary: #039855;
+  --sidebar-primary-active-bg: rgba(3, 152, 85, 0.1);
+  --sidebar-hover-bg: #eaeaea;
+  --sidebar-hover-bg-subtle: #f5f5f5;
+
+  /* Popover & Floating Menus */
+  --sidebar-popover-bg: #ffffff;
+  --sidebar-popover-border: #dbdbdb;
+  --sidebar-popover-shadow: 0 16px 40px rgba(10, 10, 10, 0.12);
+
+  /* Segmented Controls */
+  --sidebar-seg-bg: #f5f5f5;
+  --sidebar-seg-border: #e5e5e5;
+  --sidebar-seg-active-bg: #ffffff;
+  --sidebar-seg-active-fg: #0a0a0a;
+  --sidebar-seg-active-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+
+  /* Destructive / Danger */
+  --sidebar-danger: #dc2626;
+  --sidebar-danger-hover: #fef2f2;
+}
+
+/* Dark Theme (TraeWork Minimalist Obsidian Carbon Spec) */
+html.dark,
+[data-theme="dark"] {
+  --sidebar-bg: #141414;
+  --sidebar-shell-bg: #141414;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-border-subtle: rgba(255, 255, 255, 0.06);
+  --sidebar-divider: rgba(255, 255, 255, 0.08);
+
+  --sidebar-fg: #f5f5f5;
+  --sidebar-fg-secondary: #b9bfc9;
+  --sidebar-fg-muted: #8b95a5;
+  --sidebar-fg-subtle: #6f7a8a;
+  --sidebar-fg-faint: rgba(255, 255, 255, 0.35);
+
+  --sidebar-primary: #60ff70;
+  --sidebar-primary-active-bg: rgba(96, 255, 112, 0.12);
+  --sidebar-hover-bg: rgba(255, 255, 255, 0.06);
+  --sidebar-hover-bg-subtle: rgba(255, 255, 255, 0.04);
+
+  /* Popover & Floating Menus */
+  --sidebar-popover-bg: #262626;
+  --sidebar-popover-border: rgba(255, 255, 255, 0.14);
+  --sidebar-popover-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+
+  /* Segmented Controls */
+  --sidebar-seg-bg: #141414;
+  --sidebar-seg-border: rgba(255, 255, 255, 0.1);
+  --sidebar-seg-active-bg: #363636;
+  --sidebar-seg-active-fg: #fafafa;
+  --sidebar-seg-active-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+
+  /* Destructive / Danger */
+  --sidebar-danger: #ff6166;
+  --sidebar-danger-hover: rgba(255, 97, 102, 0.12);
+}

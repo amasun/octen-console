@@ -1,0 +1,329 @@
+/**
+ * Octen Sidebar Workbench & Test Harness Styles
+ * Cult UI Minimalist Design (4-color palette, high contrast, clean monospace logs)
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #f5f5f5;
+  color: #0a0a0a;
+  overflow: hidden;
+  height: 100vh;
+  display: flex;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+html.dark body {
+  background-color: #141414;
+  color: #f5f5f5;
+}
+
+.workbench-app {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar Mount Area */
+.workbench-sidebar-mount {
+  height: 100vh;
+  flex-shrink: 0;
+}
+
+/* Main Preview Workbench Stage */
+.workbench-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: #f8fafc;
+  transition: background-color 0.2s ease;
+}
+
+html.dark .workbench-stage {
+  background-color: #1a1a1a;
+}
+
+/* Workbench Top Bar */
+.workbench-topbar {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  border-bottom: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+html.dark .workbench-topbar {
+  background-color: #141414;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+.workbench-title-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.workbench-badge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background-color: rgba(3, 152, 85, 0.12);
+  color: #039855;
+  border: 1px solid rgba(3, 152, 85, 0.25);
+}
+
+html.dark .workbench-badge {
+  background-color: rgba(96, 255, 112, 0.12);
+  color: #60ff70;
+  border-color: rgba(96, 255, 112, 0.25);
+}
+
+.workbench-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.workbench-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.workbench-tool-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.workbench-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid #dbdbdb;
+  background-color: #ffffff;
+  color: #475569;
+  transition: all 0.15s ease;
+}
+
+.workbench-btn:hover {
+  background-color: #f1f5f9;
+  color: #0a0a0a;
+}
+
+html.dark .workbench-btn {
+  background-color: #262626;
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #b9bfc9;
+}
+
+html.dark .workbench-btn:hover {
+  background-color: #333333;
+  color: #ffffff;
+}
+
+/* Workbench Content Area */
+.workbench-content {
+  flex: 1;
+  padding: 32px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Route Feedback Card */
+.workbench-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+html.dark .workbench-card {
+  background-color: #161616;
+  border-color: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+
+.route-hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.route-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background-color: rgba(3, 152, 85, 0.1);
+  color: #039855;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.dark .route-icon-box {
+  background-color: rgba(96, 255, 112, 0.12);
+  color: #60ff70;
+}
+
+.route-icon-box svg {
+  width: 24px;
+  height: 24px;
+}
+
+.route-info h1 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.route-info p {
+  font-size: 14px;
+  color: #737373;
+  margin-top: 4px;
+}
+
+html.dark .route-info p {
+  color: #8b95a5;
+}
+
+.route-id-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #039855;
+  background: rgba(3, 152, 85, 0.08);
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+}
+
+html.dark .route-id-tag {
+  color: #60ff70;
+  background: rgba(96, 255, 112, 0.1);
+}
+
+/* Two Columns: Config Structure & Live Event Log */
+.workbench-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 960px) {
+  .workbench-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.grid-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0a0a0a;
+}
+
+html.dark .grid-card-header {
+  color: #f5f5f5;
+}
+
+.log-box {
+  background-color: #0F172B;
+  color: #e2e8f0;
+  border-radius: 10px;
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  height: 260px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  scrollbar-width: thin;
+}
+
+html.dark .log-box {
+  background-color: #101010;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.log-line {
+  line-height: 1.5;
+  display: flex;
+  gap: 8px;
+}
+
+.log-time {
+  color: #64748b;
+  flex-shrink: 0;
+}
+
+.log-tag {
+  color: #38bdf8;
+  flex-shrink: 0;
+}
+
+.log-msg {
+  color: #f1f5f9;
+}
+
+/* Action hint box */
+.workbench-hint {
+  padding: 14px 18px;
+  border-radius: 10px;
+  background-color: rgba(3, 152, 85, 0.06);
+  border: 1px dashed rgba(3, 152, 85, 0.3);
+  font-size: 13px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+html.dark .workbench-hint {
+  background-color: rgba(96, 255, 112, 0.06);
+  border-color: rgba(96, 255, 112, 0.25);
+  color: #cbd5e1;
+}
+
+.workbench-hint code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+html.dark .workbench-hint code {
+  background: rgba(255, 255, 255, 0.1);
+  color: #60ff70;
+}

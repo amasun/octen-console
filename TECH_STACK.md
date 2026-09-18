@@ -21,6 +21,7 @@
   - `js/core/tailwind-config.js`: Tailwind 配置扩展（注入 `primary`, `shell`, `surface`, `foreground`, `fg`, `border`, `panel-border`, `neutral`, `status`, `accent`, `chart` 等全部设计 Token 实用类，同时保持与老项目的向下兼容）。
   - `js/core/sidebar.js`: 侧边栏布局与交互（包含左上角品牌 Logo 支持暗色下动态渲染 `--primary-dark` 及底部账号弹出卡片内置 3 状态 `☀️ Light` / `🌙 Dark` / `💻 System` 快速切换行）。
   - `js/core/theme.js`: 主题状态管理模块（标准双主题引擎：支持 `light`、`dark` 与 `system` 模式切换、历史遗留方案平滑自动升级、持久化储存与无缝样式派发）。
+- `octen-sidebar/`: 独立侧边栏工程化套件（专用于单独调整和测试侧边栏结构，支持数据驱动声明式配置、纯净双主题 Token 抽取、键盘无障碍及独立画板预览测试）。
 - `theme/`: Octen Console 现行主题规范与抽象颜色 Token（包含最新 v2.0 详细设计规范文档 `COLOR_SPEC.md`、新一代交互色板 `theme-color v1.1.html` 以及原参照色卡 `theme-color.html`）。
 - `handoff/`: 完整的交付/转交包目录，专为下游研发与设计对接准备（包含无代码纯设计规范说明文档 `README.md`、新版 92-Token 交互色板 `theme-color v1.1.html`、Token 规范文件 `COLOR_SPEC.md` 以及包含 Overview 与 Broad Search 完整交互的原型工程 `sample/`）。
 - `TraeWork/`: TraeWork 设计系统与规范参考（作为标准 Dark 模式的核心基准：采用五阶空间暗色深度——外层工作区与输入框采用 `#141414`，产品子卡片采用 `#161616`，主工作台面板采用 `#1a1a1a`，浮动弹层与菜单拉开至 `#262626`，强强调胶囊提升至 `#363636`，纯白微透边框梯度与纯净中性排版灰阶，同时完整保留高对比翡翠绿主色 `--primary: #60ff70`）。

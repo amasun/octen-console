@@ -1,0 +1,15 @@
+{
+  "name": "octen-sidebar",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Standalone, decoupled modular sidebar component for Octen Console",
+  "scripts": {
+    "dev": "pnpm dlx serve -l 3002 -n .",
+    "preview": "pnpm dlx serve -l 3002 -n ."
+  },
+  "keywords": [
+    "octen",
+    "sidebar",
+    "ui-component"
+  ]
+}
