@@ -19,11 +19,21 @@
       if (!btn) return;
       var isActive = (m === mode) || (mode === 'system' && m === 'system') || (m === 'dark' && (mode === 'dark-trae' || mode === 'dark-cool'));
       if (isActive) {
-        btn.classList.add('bg-white', 'shadow-sm', 'text-[#0a0a0a]');
+        btn.classList.add('bg-white', 'shadow-sm', 'text-[#0a0a0a]', 'active');
         btn.classList.remove('text-[#737373]');
       } else {
-        btn.classList.remove('bg-white', 'shadow-sm', 'text-[#0a0a0a]');
+        btn.classList.remove('bg-white', 'shadow-sm', 'text-[#0a0a0a]', 'active');
         btn.classList.add('text-[#737373]');
+      }
+    });
+
+    document.querySelectorAll('[data-theme-btn]').forEach(function(btn) {
+      var m = btn.getAttribute('data-theme-btn');
+      var isActive = (m === mode) || (mode === 'system' && m === 'system') || (m === 'dark' && (mode === 'dark-trae' || mode === 'dark-cool'));
+      if (isActive) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
       }
     });
 

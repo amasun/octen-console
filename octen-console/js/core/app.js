@@ -21,24 +21,38 @@ window.registerPage = function (fullId, html) {
 };
 
 function renderSidebar() {
-  const container = document.getElementById("sidebar-container");
-  if (container && window.sidebarHtml) {
-    // We set outerHTML because sidebarHtml contains the <aside> itself
-    container.outerHTML = window.sidebarHtml;
+  if (typeof window.initOctenSidebar === "function") {
+    window.initOctenSidebar();
+  } else {
+    const container = document.getElementById("sidebar-container");
+    if (container && window.sidebarHtml) {
+      // We set outerHTML because sidebarHtml contains the <aside> itself
+      container.outerHTML = window.sidebarHtml;
+    }
   }
 }
 
 window.go = function (pageId) {
   // Update sidebar active states
+  if (window.octenSidebar && typeof window.octenSidebar.setActiveRoute === "function") {
+    window.octenSidebar.setActiveRoute(pageId);
+  }
   document.querySelectorAll(".nav-item").forEach(el => el.classList.remove("active"));
-  const clicked = document.querySelector(`.nav-item[onclick*="go('${pageId}')"]`);
+  const clicked = document.querySelector(`.nav-item[data-route-id="${pageId}"], .nav-item[onclick*="go('${pageId}')"]`);
   if (clicked) clicked.classList.add("active");
+
+  // Route alias fallback mapping for Plan A entries
+  let targetId = pageId;
+  if (targetId === "broad-search") targetId = "answer";
+  if (targetId === "news-search") targetId = "image-search";
+  if (targetId === "multimodal-chat" || targetId === "ground-generation") targetId = "multimodal-search";
+  if (targetId === "model") targetId = "model-gateway";
 
   // Render page
   const container = document.getElementById("page-container");
   if (container) {
-    const fullId = `page-${pageId}`;
-    const htmlToRender = window.pageHtml[fullId] || window.pageHtml[pageId];
+    const fullId = `page-${targetId}`;
+    const htmlToRender = window.pageHtml[fullId] || window.pageHtml[targetId] || window.pageHtml[`page-${pageId}`] || window.pageHtml[pageId];
 
     if (htmlToRender) {
       container.innerHTML = htmlToRender;
@@ -48,9 +62,9 @@ window.go = function (pageId) {
         rootDiv.style.display = "block";
       }
       // Per-page init — runs after innerHTML is set so DOM nodes exist.
-      const init = window.pageInit[pageId];
+      const init = window.pageInit[targetId] || window.pageInit[pageId];
       if (init) {
-        try { init(); } catch (e) { console.error("[pageInit]", pageId, e); }
+        try { init(); } catch (e) { console.error("[pageInit]", targetId, e); }
       }
     } else {
       console.warn("Page not found:", pageId);
@@ -59,7 +73,7 @@ window.go = function (pageId) {
 
   // Cross-page hook from console-core (role gating, currentPage, …)
   if (typeof window.consolePageChanged === "function") {
-    try { window.consolePageChanged(pageId); } catch (e) { console.error("[consolePageChanged]", pageId, e); }
+    try { window.consolePageChanged(targetId); } catch (e) { console.error("[consolePageChanged]", targetId, e); }
   }
 };
 

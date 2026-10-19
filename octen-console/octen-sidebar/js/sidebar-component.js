@@ -36,7 +36,6 @@
     var currentOrg = ws.organizations.find(function(o) { return o.id === this.currentOrgId; }.bind(this)) || ws.organizations[0] || { name: 'Acme Inc' };
 
     var html = `
-      <aside class="octen-sidebar" id="octen-sidebar-root">
         <!-- 1. Header: Logo & Workspace Switcher -->
         <div class="sidebar-header">
           <a href="${brand.href || '#'}" class="sidebar-logo-link" title="${brand.title || 'Octen'}">
@@ -82,11 +81,12 @@
               var isActive = item.id === this.activeRoute;
               var badgeHtml = item.badge ? `<span class="nav-badge">${item.badge}</span>` : '';
               var settingsArrow = item.id === 'settings' ? '<svg class="settings-nav-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.75 4.5L11.25 9L6.75 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '';
+              var onclickAttr = (!item.external && item.id !== 'settings') ? `onclick="if(typeof go==='function'){go('${item.id}');return false;}"` : '';
               return `
                 <a href="${item.href || '#'}" 
                    class="nav-item ${isActive ? 'active' : ''} ${item.disabled ? 'disabled' : ''}" 
                    data-route-id="${item.id}"
-                   ${item.external ? 'target="_blank" rel="noopener noreferrer"' : ''}>
+                   ${item.external ? 'target="_blank" rel="noopener noreferrer"' : onclickAttr}>
                   ${item.icon || ''}
                   <span>${item.title}</span>
                   ${badgeHtml}
@@ -129,7 +129,7 @@
             </div>
 
             <!-- Standard Theme Switcher -->
-            <div class="popover-theme-row">
+            <div class="popover-theme-row" id="theme-switch-row">
               <div class="popover-theme-label">
                 <svg class="popover-theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/>
@@ -140,14 +140,14 @@
                 </svg>
                 <span>Theme</span>
               </div>
-              <div class="theme-segmented-group">
-                <button type="button" class="theme-segmented-btn" data-theme-btn="light" title="Light Theme">
+              <div class="theme-segmented-group" id="theme-segmented-group">
+                <button type="button" class="theme-segmented-btn" data-theme-btn="light" id="btn-theme-light" title="Light Theme">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
                 </button>
-                <button type="button" class="theme-segmented-btn" data-theme-btn="dark" title="Dark Theme">
+                <button type="button" class="theme-segmented-btn" data-theme-btn="dark" id="btn-theme-dark" title="Dark Theme">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                 </button>
-                <button type="button" class="theme-segmented-btn" data-theme-btn="system" title="Follow System">
+                <button type="button" class="theme-segmented-btn" data-theme-btn="system" id="btn-theme-system" title="Follow System">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                 </button>
               </div>
@@ -163,6 +163,52 @@
               `;
             }).join('')}
 
+            <!-- DEV Controls (Payment & Postpaid) -->
+            <div class="ws-divider"></div>
+            <div class="popover-dev-group">
+              <div class="popover-dev-title">[DEV] Payment</div>
+              <div class="popover-dev-radios">
+                <label class="popover-dev-label">
+                  <input type="radio" name="dev-payment-radio" value="paid" onchange="if(typeof setPayment==='function')setPayment(true)" checked id="pay-radio-paid"/>
+                  <span>Paid</span>
+                </label>
+                <label class="popover-dev-label">
+                  <input type="radio" name="dev-payment-radio" value="unpaid" onchange="if(typeof setPayment==='function')setPayment(false)" id="pay-radio-unpaid"/>
+                  <span>Unpaid</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="popover-dev-group">
+              <div class="popover-dev-title">[DEV] Postpaid</div>
+              <div class="popover-dev-radios-col">
+                <label class="popover-dev-label">
+                  <input type="radio" name="dev-postpaid-radio" value="firstMonth" onchange="if(typeof setPostpaidStatus==='function')setPostpaidStatus(this.value)"/>
+                  <span>Real data</span>
+                </label>
+                <label class="popover-dev-label">
+                  <input type="radio" name="dev-postpaid-radio" value="prepaid" onchange="if(typeof setBillingMode==='function')setBillingMode('prepaid')"/>
+                  <span>Off (prepaid)</span>
+                </label>
+                <label class="popover-dev-label">
+                  <input type="radio" name="dev-postpaid-radio" value="normal" checked onchange="if(typeof setPostpaidStatus==='function')setPostpaidStatus(this.value)"/>
+                  <span>Active</span>
+                </label>
+                <label class="popover-dev-label">
+                  <input type="radio" name="dev-postpaid-radio" value="warn80" onchange="if(typeof setPostpaidStatus==='function')setPostpaidStatus(this.value)"/>
+                  <span>Due in 3d</span>
+                </label>
+                <label class="popover-dev-label">
+                  <input type="radio" name="dev-postpaid-radio" value="overdue" onchange="if(typeof setPostpaidStatus==='function')setPostpaidStatus(this.value)"/>
+                  <span>Overdue 4d</span>
+                </label>
+                <label class="popover-dev-label">
+                  <input type="radio" name="dev-postpaid-radio" value="suspended" onchange="if(typeof setPostpaidStatus==='function')setPostpaidStatus(this.value)"/>
+                  <span>Suspended 18d</span>
+                </label>
+              </div>
+            </div>
+
             <div class="ws-divider"></div>
 
             <!-- Logout -->
@@ -174,10 +220,14 @@
             </a>
           </div>
         </div>
-      </aside>
     `;
 
-    this.container.innerHTML = html;
+    if (this.container.tagName === 'ASIDE') {
+      this.container.classList.add('octen-sidebar');
+      this.container.innerHTML = html;
+    } else {
+      this.container.innerHTML = `<aside class="octen-sidebar" id="octen-sidebar-root">${html}</aside>`;
+    }
 
     // Synchronize current theme state
     if (window.OctenTheme) {
@@ -371,6 +421,8 @@
       item.addEventListener('click', function() {
         nav.querySelectorAll('.settings-item').forEach(function(other) { other.classList.remove('active'); });
         item.classList.add('active');
+        var routeId = item.getAttribute('data-settings-route');
+        self.trigger('route-select', { routeId: routeId, isExternal: false });
       });
     });
   };
