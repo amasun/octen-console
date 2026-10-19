@@ -243,7 +243,8 @@
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  color: var(--sidebar-fg-muted);
+  color: #171717;
+  color: var(--sidebar-icon, #171717);
   transition: color 0.15s ease;
 }
 
@@ -254,7 +255,8 @@
 }
 
 .nav-item:hover svg {
-  color: var(--sidebar-fg);
+  color: #171717;
+  color: var(--sidebar-icon, #171717);
 }
 
 .nav-item.active,
@@ -740,6 +742,8 @@ html.dark .search-divider {
   width: 20px;
   height: 20px;
   flex-shrink: 0;
+  color: #171717;
+  color: var(--sidebar-icon, #171717);
 }
 
 .settings-nav-arrow {

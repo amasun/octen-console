@@ -26,6 +26,7 @@
   --sidebar-fg-muted: #737373;
   --sidebar-fg-subtle: #a3a3a3;
   --sidebar-fg-faint: #94a3b8;
+  --sidebar-icon: #171717;
 
   --sidebar-primary: #039855;
   --sidebar-primary-active-bg: rgba(3, 152, 85, 0.1);
@@ -63,6 +64,7 @@ html.dark,
   --sidebar-fg-muted: #8b95a5;
   --sidebar-fg-subtle: #6f7a8a;
   --sidebar-fg-faint: rgba(255, 255, 255, 0.35);
+  --sidebar-icon: #f5f5f5;
 
   --sidebar-primary: #60ff70;
   --sidebar-primary-active-bg: rgba(96, 255, 112, 0.12);

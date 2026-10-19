@@ -243,7 +243,8 @@
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  color: var(--sidebar-fg-muted);
+  color: #171717;
+  color: var(--sidebar-icon, #171717);
   transition: color 0.15s ease;
 }
 
@@ -254,7 +255,8 @@
 }
 
 .nav-item:hover svg {
-  color: var(--sidebar-fg);
+  color: #171717;
+  color: var(--sidebar-icon, #171717);
 }
 
 .nav-item.active,
@@ -540,3 +542,278 @@ html.dark .user-avatar {
     transform: translateY(0);
   }
 }
+
+/* ==========================================================================
+   Plan A: Structured Cards, Fraunces Badges & Settings Subnav
+   ========================================================================== */
+.nav-section-title {
+  padding: 6px 12px 4px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  line-height: 20px;
+  color: var(--sidebar-fg-muted);
+}
+
+.search-card {
+  border: 1px solid var(--sidebar-border);
+  border-radius: 12px;
+  padding: 6px;
+  gap: 2px;
+  margin-bottom: 8px !important;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  background-color: transparent;
+}
+
+.search-card:hover {
+  background-color: var(--sidebar-hover-bg-subtle);
+}
+
+html.dark .search-card {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html.dark .search-card:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.search-card .nav-section-label {
+  padding: 6px 12px 4px;
+  font-size: 12px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.search-card .nav-item {
+  padding: 8px 12px;
+}
+
+.search-card .nav-item span {
+  font-size: 14px;
+}
+
+.nav-section-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.search-label {
+  font-family: var(--sidebar-font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--sidebar-fg-muted);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.search-divider {
+  width: 1px;
+  height: 12px;
+  background: var(--sidebar-border);
+  display: inline-block;
+  margin: 0 2px;
+}
+
+.search-tier {
+  font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+  line-height: 20px;
+  letter-spacing: -0.42px;
+  text-transform: none;
+}
+
+.search-tier.fast {
+  color: #43bd2b;
+}
+
+.search-tier.premier {
+  color: #793fff;
+}
+
+.sidebar-nav {
+  gap: 0;
+}
+
+.nav-group:not(:last-child) {
+  border-bottom: 1px solid var(--sidebar-border-subtle);
+  padding-bottom: 12px;
+  margin-bottom: 6px;
+}
+
+.nav-group:not(:first-child) {
+  padding-top: 6px;
+}
+
+html.dark .nav-group:not(:last-child) {
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
+
+html.dark .search-label {
+  color: #9ca3af;
+}
+
+html.dark .search-divider {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* Settings Subnav Animation & Layout */
+@keyframes settingsIn {
+  from { opacity: 0; transform: translateX(14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes settingsOut {
+  from { opacity: 0; transform: translateX(-14px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.settings-enter {
+  animation: settingsIn 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.settings-return {
+  animation: settingsOut 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.settings-hidden {
+  display: none !important;
+}
+
+.settings-subnav {
+  padding: 0 12px !important;
+  gap: 0 !important;
+}
+
+.settings-back {
+  height: 56px;
+  width: 100%;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 70px;
+  padding: 0 12px;
+  color: var(--sidebar-fg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.settings-back span {
+  font-size: 34px;
+  font-weight: 300;
+  line-height: 1;
+}
+
+.settings-back strong {
+  font-size: 18px;
+}
+
+.settings-items {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.settings-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  text-align: left;
+  padding: 12px;
+  color: var(--sidebar-fg);
+  font: inherit;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.settings-item svg {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: #171717;
+  color: var(--sidebar-icon, #171717);
+}
+
+.settings-nav-arrow {
+  margin-left: auto;
+  width: 18px !important;
+  height: 18px !important;
+  color: var(--sidebar-fg-muted);
+}
+
+.settings-item:hover,
+.settings-item.active {
+  background-color: var(--sidebar-hover-bg);
+}
+
+.settings-item.active {
+  color: var(--sidebar-primary);
+  font-weight: 500;
+}
+
+.settings-item:hover svg,
+.settings-item.active svg {
+  color: var(--sidebar-primary);
+}
+
+html.dark .settings-item:hover,
+html.dark .settings-item.active {
+  background-color: #262626;
+  background-image: none;
+}
+
+/* Account Popover DEV Controls */
+.popover-dev-group {
+  padding: 4px 6px;
+}
+
+.popover-dev-title {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--sidebar-fg-subtle);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.popover-dev-radios {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: var(--sidebar-fg);
+}
+
+.popover-dev-radios-col {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--sidebar-fg);
+}
+
+.popover-dev-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.popover-dev-label input {
+  accent-color: var(--sidebar-primary);
+  cursor: pointer;
+}
+
