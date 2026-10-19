@@ -43,11 +43,11 @@ window.go = function (pageId) {
 
   // Route alias fallback mapping for Plan A entries
   let targetId = pageId;
-  if (targetId === "broad-search") targetId = "answer";
+  if (targetId === "answer") targetId = "broad-search";
+  if (targetId === "model-gateway") targetId = "model";
   if (targetId === "news-search") targetId = "image-search";
-  if (targetId === "business-search" || targetId === "place-search") targetId = "web-search";
+  if (targetId === "business-search" || targetId === "place-search" || targetId === "flash-search" || targetId === "monitor") targetId = "web-search";
   if (targetId === "multimodal-chat" || targetId === "ground-generation") targetId = "multimodal-search";
-  if (targetId === "model") targetId = "model-gateway";
 
   // Render page
   const container = document.getElementById("page-container");
