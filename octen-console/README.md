@@ -37,6 +37,7 @@ Navigate to `http://localhost:3000` to interact with the interface.
 - `css/styles.css` — Custom styling augmenting Tailwind.
 - `js/broad-search-api.js` — Logic for the interactive API playground, payload generation, and JSON rendering.
 - `js/syntax-highlight.js` — Syntax highlighting for generated code snippets.
+- `octen-sidebar/` — Standalone sidebar design engineering suite for previewing and customizing the navigation structure.
 
 ## License
 
