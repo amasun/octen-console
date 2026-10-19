@@ -1,104 +1,255 @@
 // Overview page template.
 (function () {
-  var IC = {
-    web: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/>',
-    broad: '<rect x="16" y="16" width="6" height="6" rx="1"/><rect x="2" y="16" width="6" height="6" rx="1"/><rect x="9" y="2" width="6" height="6" rx="1"/><path d="M5 16v-3a1 1 0 011-1h12a1 1 0 011 1v3M12 12V8"/>',
-    news: '<path d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h11l5 5v9a2 2 0 01-2 2z"/><path d="M7 8h6M7 12h10M7 16h10"/>',
-    image: '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/>',
-    video: '<rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8l-6 4 6 4V8z"/>',
-    model: '<path d="M12 3l1.8 4.6L18 9l-4.2 1.4L12 15l-1.8-4.6L6 9l4.2-1.4z"/><path d="M18 15l.9 2.3L21 18l-2.1.7L18 21l-.9-2.3L15 18l2.1-.7z"/>',
-    embed: '<ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v12c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/>',
-    vl: '<path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 12l9 5 9-5"/><path d="M3 16l9 5 9-5"/>',
-    extract: '<path d="M10 13a5 5 0 007 0l3-3a5 5 0 00-7-7l-1 1"/><path d="M14 11a5 5 0 00-7 0l-3 3a5 5 0 007 7l1-1"/>',
-    collect: '<path d="M3 8l2-4h14l2 4M3 8v10a1 1 0 001 1h16a1 1 0 001-1V8M3 8h6l1 3h4l1-3h6"/>',
-    monitor: '<circle cx="12" cy="12" r="2.4"/><path d="M12 3.5v3M12 17.5v3M20.5 12h-3M6.5 12h-3"/>',
-    answer: '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>',
-    research: '<circle cx="11" cy="11" r="6"/><path d="M21 21l-3.5-3.5"/>',
-    chat: '<path d="M21 12a8 8 0 01-11.5 7.2L3 21l1.8-6.5A8 8 0 1121 12z"/>',
-    grounded: '<path d="M12 3l7 4v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V7z"/><path d="M9 12l2 2 4-4"/>'
+  var ICONS = {
+    search: '<svg class="h-5 w-5 text-[var(--fg-strong,#0a0a0a)] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M20.9999 12C20.9999 10.22 20.4721 8.47991 19.4832 6.99987C18.4942 5.51983 17.0886 4.36628 15.4441 3.68509C13.7996 3.0039 11.99 2.82567 10.2441 3.17294C8.4983 3.5202 6.89465 4.37737 5.63598 5.63604C4.37731 6.89472 3.52014 8.49836 3.17288 10.2442C2.82561 11.99 3.00384 13.7996 3.68503 15.4442C4.36622 17.0887 5.51977 18.4943 6.99981 19.4832C8.47985 20.4722 10.2199 21 11.9999 21M3.59994 9H20.3999M3.59994 15H11.4999"/>' +
+      '<path d="M11.5 3C9.81532 5.69961 8.92218 8.81787 8.92218 12C8.92218 15.1821 9.81532 18.3004 11.5 21M12.5 3C14.1165 5.59006 15.0056 8.56766 15.074 11.62M20.2 20.2L22 22"/>' +
+      '<path d="M15 18C15 18.7956 15.316 19.5587 15.8787 20.1213C16.4413 20.6839 17.2043 21 18 21C18.7956 21 19.5587 20.6839 20.1213 20.1213C20.6839 19.5587 21 18.7956 21 18C21 17.2044 20.6839 16.4413 20.1213 15.8787C19.5587 15.3161 18.7956 15 18 15C17.2043 15 16.4413 15.3161 15.8787 15.8787C15.316 16.4413 15 17.2044 15 18Z"/>' +
+    '</svg>',
+    models: '<svg class="h-5 w-5 text-[var(--fg-strong,#0a0a0a)] shrink-0" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M9.99935 1.66675L13.541 3.75008L17.0827 5.83341V14.1667L13.541 16.2501L9.99935 18.3334L6.45768 16.2501L2.91602 14.1667V5.83341L6.45768 3.75008L9.99935 1.66675ZM2.91602 5.83341L17.0827 14.1667M2.91602 14.1667L17.0827 5.83341M9.99935 18.3334V1.66675"/>' +
+    '</svg>',
+    tools: '<svg class="h-5 w-5 text-[var(--fg-strong,#0a0a0a)] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/>' +
+    '</svg>',
+    application: '<svg class="h-5 w-5 text-[var(--fg-strong,#0a0a0a)] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+      '<rect width="7" height="7" x="3" y="3" rx="1"/>' +
+      '<rect width="7" height="7" x="14" y="3" rx="1"/>' +
+      '<rect width="7" height="7" x="14" y="14" rx="1"/>' +
+      '<rect width="7" height="7" x="3" y="14" rx="1"/>' +
+    '</svg>'
+  };
+
+  var GRID_MAP = {
+    1: 'grid-cols-1',
+    2: 'md:grid-cols-2',
+    3: 'md:grid-cols-2 lg:grid-cols-3',
+    4: 'md:grid-cols-2 xl:grid-cols-4'
   };
 
   function esc(s) { return String(s).replace(/'/g, "\\'"); }
-  function pbBadges(arr) {
-    return (arr || []).map(function (b) { return '<span class="pb-badge ' + b[1] + '">' + b[0] + '</span>'; }).join('');
-  }
-  function pbChips(uses) {
-    return '<div class="pb-list"><div class="pb-uk">Best for</div><div class="pb-chips">' +
-      (uses || []).map(function (u) { return '<span class="pb-chip">' + u + '</span>'; }).join('') +
-      '</div></div>';
-  }
-  function pbCard(c) {
+
+  function renderCard(c) {
     var attrs = c.url
       ? (' href="' + c.url + '" target="_blank" rel="noreferrer"')
-      : (' href="#" onclick="' + (c.go ? ("go('" + esc(c.go) + "')") : ("openRequestAccess('" + esc(c.req || c.n) + "')")) + ';return false"');
-    return '<a' + attrs + ' class="pb-card group">' +
-      '<span class="pb-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25"/></svg></span>' +
-      '<div class="pb-cn"><b>' + c.n + '</b>' + pbBadges(c.badges) + '</div>' +
-      '<div class="pb-cd">' + c.d + '</div>' +
-      (c.uses ? pbChips(c.uses) : '') +
-      '</a>';
-  }
-  function pbIcon(k) {
-    var m = {
-      search: IC.web,
-      models: IC.model,
-      tools: IC.extract,
-      app: '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>'
-    };
-    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">' + (m[k] || '') + '</svg>';
-  }
-  function pbShell(s) {
-    var tier = s.tier ? (' <span class="pb-tier ' + s.tier[1] + '">' + s.tier[0] + '</span>') : '';
-    return '<div class="pb-shell" style="--g1:' + s.mesh[0] + ';--g2:' + s.mesh[1] + ';--g3:' + s.mesh[2] + ';--acb:' + s.acb + '">' +
-      '<div class="pb-glow"></div>' +
-      '<div class="pb-shead">' +
-        '<div class="l">' + pbIcon(s.icon) + '<span class="t">' + s.title + tier + '</span></div>' +
-        '<span class="d">' + s.tag + '</span>' +
+      : (' href="#" onclick="' + (c.go ? ("go('" + esc(c.go) + "')") : ("openRequestAccess('" + esc(c.req || c.title) + "')")) + ';return false;"');
+
+    var badgeHtml = '';
+    if (c.badge === 'New') {
+      badgeHtml = '<span class="shrink-0 rounded-[4px] px-1.5 py-0.5 text-xs leading-4 whitespace-nowrap capability-badge-new">New</span>';
+    } else if (c.badge === 'Early Access') {
+      badgeHtml = '<span class="shrink-0 rounded-[4px] px-1.5 py-0.5 text-xs leading-4 whitespace-nowrap capability-badge-early-access">Early Access</span>';
+    } else if (c.badge === 'Docs') {
+      badgeHtml = '<span class="shrink-0 rounded-[4px] px-1.5 py-0.5 text-xs leading-4 whitespace-nowrap capability-badge-docs">Docs</span>';
+    }
+
+    var bestForHtml = '';
+    if (c.bestFor && c.bestFor.length) {
+      bestForHtml = '<div class="mt-auto border-t border-[var(--line-subtle,#efefec)] pt-3">' +
+        '<p class="text-xs tracking-wider uppercase text-[var(--fg-faint,#a3a3a3)] font-medium">Best for</p>' +
+        '<div class="mt-2 flex flex-wrap gap-1.5">' +
+        c.bestFor.map(function (item) {
+          return '<span class="rounded-[4px] border border-[var(--line,#e5e5e5)] bg-[var(--surface-sunken,#f5f5f3)] px-2 py-0.5 text-xs whitespace-nowrap text-[var(--fg-secondary,#525252)]">' + item + '</span>';
+        }).join('') +
+        '</div></div>';
+    }
+
+    return '<a' + attrs + ' class="capability-card flex flex-col rounded-xl border border-[var(--line-subtle,#efefec)] bg-[var(--surface,#ffffff)] p-4 transition-colors">' +
+      '<div class="flex flex-row items-center gap-2">' +
+        '<h3 class="font-sans text-base font-semibold text-[var(--fg-strong,#0a0a0a)] whitespace-nowrap">' + c.title + '</h3>' +
+        badgeHtml +
       '</div>' +
-      '<div class="pb-cards ' + s.cols + '">' + s.cards.map(pbCard).join('') + '</div>' +
-    '</div>';
+      '<p class="mt-1.5 mb-4 text-sm text-[var(--fg-muted,#737373)] leading-relaxed">' + c.description + '</p>' +
+      bestForHtml +
+    '</a>';
   }
 
-  var SHELLS = [
+  function renderPanel(p) {
+    var tierHtml = '';
+    if (p.tier) {
+      tierHtml = '<span class="text-[var(--border,#d4d4d4)] font-normal mx-0.5">|</span>' +
+        '<span class="capability-tier font-serif text-base font-bold italic ' + (p.tier.className || '') + '">' + p.tier.label + '</span>';
+    }
+    var violetCls = (p.accent === 'violet') ? ' capability-panel-violet' : '';
+    var gridCls = GRID_MAP[p.columns] || 'grid-cols-1';
+
+    return '<section class="capability-panel' + violetCls + '">' +
+      '<div class="glow-dots"></div>' +
+      '<div class="relative flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-1.5 pt-0.5 pb-3">' +
+        '<div class="flex items-center gap-2">' +
+          ICONS[p.icon] +
+          '<span class="font-sans text-base font-semibold text-[var(--fg-strong,#0a0a0a)]">' + p.name + '</span>' +
+          tierHtml +
+        '</div>' +
+        '<p class="text-sm text-[var(--fg-muted,#737373)]">' + p.tagline + '</p>' +
+      '</div>' +
+      '<div class="relative grid gap-3 ' + gridCls + '">' +
+        p.cards.map(renderCard).join('') +
+      '</div>' +
+    '</section>';
+  }
+
+  var CAPABILITY_PANELS = [
     {
-      icon: 'search', title: 'Search', tier: ['ULTRA FAST', 'ultra'], tag: 'Fastest, lowest-cost retrieval for common lookups.', cols: 'c1', mesh: ['#86EFAC', '#5EEAD4', '#34D399'], acb: 'rgba(31,188,46,.5)', cards: [
-        { n: 'Flash Search', badges: [['New', 'new']], d: 'Maps a query straight to the most relevant URLs. Fastest and lowest-cost search.', go: 'flash-search', uses: ['Navigation', 'Official sites', 'Docs lookup', 'Entity lookup'] }
+      name: 'Search',
+      tier: { label: 'ULTRA FAST', className: 'text-[#0d9488]' },
+      icon: 'search',
+      tagline: 'Fastest, lowest-cost retrieval for common lookups.',
+      columns: 1,
+      cards: [
+        {
+          title: 'Flash Search',
+          badge: 'New',
+          go: 'flash-search',
+          description: 'Maps a query straight to the most relevant URLs. Fastest and lowest-cost search.',
+          bestFor: ['Navigation', 'Official sites', 'Docs lookup', 'Entity lookup']
+        }
       ]
     },
     {
-      icon: 'search', title: 'Search', tier: ['FAST', 'fast'], tag: 'Low-latency retrieval from the live web.', cols: 'c4', mesh: ['#86EFAC', '#5EEAD4', '#34D399'], acb: 'rgba(31,188,46,.5)', cards: [
-        { n: 'Web Search', d: 'LLM-native search with ranked results, highlights, and optional full content.', go: 'web-search', uses: ['LLM tool calls', 'RAG', 'Agents', 'Fact-checking'] },
-        { n: 'Broad Search', d: 'Auto-decomposes one query into parallel subqueries.', go: 'broad-search-api', uses: ['Research agents', 'Deep questions', 'Comprehensive lookup'] },
-        { n: 'Image Search', badges: [['Early Access', 'ea']], d: 'Open-web image retrieval by text or reference image.', req: 'Image Search', uses: ['Design refs', 'Asset lookup', 'Content creation'] },
-        { n: 'Video Search', badges: [['Early Access', 'ea']], d: 'Video retrieval across the open web.', req: 'Video Search', uses: ['Media discovery', 'Tutorials', 'Reference footage'] }
+      name: 'Search',
+      tier: { label: 'FAST', className: 'text-[#039855]' },
+      icon: 'search',
+      tagline: 'Low-latency retrieval from the live web.',
+      columns: 4,
+      cards: [
+        {
+          title: 'Web Search',
+          go: 'web-search',
+          description: 'LLM-native search with ranked results, highlights, and optional full content.',
+          bestFor: ['LLM tool calls', 'RAG', 'Agents', 'Fact-checking']
+        },
+        {
+          title: 'Broad Search',
+          go: 'broad-search-api',
+          description: 'Auto-decomposes one query into parallel subqueries.',
+          bestFor: ['Research agents', 'Deep questions', 'Comprehensive lookup']
+        },
+        {
+          title: 'Image Search',
+          go: 'image-search',
+          description: 'Open-web image retrieval by text or reference image.',
+          bestFor: ['Design refs', 'Asset lookup', 'Content creation']
+        },
+        {
+          title: 'Video Search',
+          badge: 'Early Access',
+          go: 'video-search',
+          description: 'Video retrieval across the open web.',
+          bestFor: ['Media discovery', 'Tutorials', 'Reference footage']
+        }
       ]
     },
     {
-      icon: 'search', title: 'Search', tier: ['Premier', 'premier'], tag: 'Specialized retrieval across verticals.', cols: 'c2', mesh: ['#C4B5FD', '#DDD6FE', '#A78BFA'], acb: 'rgba(167,139,250,.6)', cards: [
-        { n: 'News Search', badges: [['New', 'new']], d: 'Real-time news, grouped by subject.', go: 'news-search', uses: ['Monitoring', 'Trend tracking', 'Breaking events'] },
-        { n: 'Business Search', badges: [['New', 'new']], d: 'Company and people search, as structured profiles.', req: 'Business Search', uses: ['Company profiles', 'People research', 'Competitive analysis'] }
+      name: 'Search',
+      tier: { label: 'Premier', className: 'text-[#793fff]' },
+      icon: 'search',
+      tagline: 'Specialized retrieval across verticals.',
+      accent: 'violet',
+      columns: 3,
+      cards: [
+        {
+          title: 'News Search',
+          badge: 'New',
+          go: 'news-search',
+          description: 'Real-time news, grouped by subject',
+          bestFor: ['Monitoring', 'Trend tracking', 'Breaking events']
+        },
+        {
+          title: 'Business Search',
+          badge: 'New',
+          req: 'Business Search',
+          description: 'Company and people search, as structured profiles.',
+          bestFor: ['Company profiles', 'People research', 'Competitive analysis']
+        },
+        {
+          title: 'Place Search',
+          badge: 'New',
+          req: 'Place Search',
+          description: 'Local places with ratings, hours, and reviews, plus web context.',
+          bestFor: ['Local discovery', 'Travel planning', 'Location-aware agents']
+        }
       ]
     },
     {
-      icon: 'tools', title: 'Tools', tag: 'Building blocks for retrieval and data pipelines.', cols: 'c4', mesh: ['#86EFAC', '#5EEAD4', '#34D399'], acb: 'rgba(31,188,46,.5)', cards: [
-        { n: 'Embedding', badges: [['Docs', 'docs']], d: 'Text embeddings for retrieval, similarity, and ranking.', url: 'https://docs.octen.ai/api-reference/embedding', uses: ['Semantic search', 'RAG', 'Ranking', 'Recommendations'] },
-        { n: 'VL Embedding', badges: [['Docs', 'docs']], d: 'One vector space across text, images, video, and documents.', url: 'https://docs.octen.ai/api-reference/vl-embedding', uses: ['Cross-modal search', 'Image retrieval', 'Multimodal RAG'] },
-        { n: 'Extract', d: 'Clean Markdown, highlights, and page classification from any URL.', go: 'extract', uses: ['RAG ingestion', 'Content monitoring', 'Data pipelines', 'Page classification'] },
-        { n: 'Monitor', badges: [['New', 'new']], d: 'Turn any search or URL into a continuous, subscribable monitor — notified only on meaningful change.', go: 'monitor', uses: ['Price alerts', 'News tracking', 'Event alerts', 'KB sync'] }
+      name: 'Models',
+      icon: 'models',
+      tagline: 'Model access and top-ranked embeddings.',
+      columns: 3,
+      cards: [
+        {
+          title: 'Model Gateway',
+          go: 'model-gateway',
+          description: 'One API to call any LLM, with unified billing.',
+          bestFor: ['AI agents', 'Chatbots', 'Content generation', 'Multimodal apps']
+        },
+        {
+          title: 'Embedding',
+          badge: 'Docs',
+          url: 'https://docs.octen.ai/api-reference/embedding',
+          description: 'Text embeddings for retrieval, similarity, and ranking.',
+          bestFor: ['Semantic search', 'RAG', 'Ranking', 'Recommendations']
+        },
+        {
+          title: 'VL Embedding',
+          badge: 'Docs',
+          url: 'https://docs.octen.ai/api-reference/vl-embedding',
+          description: 'One vector space across text, images, video, and documents.',
+          bestFor: ['Cross-modal search', 'Image retrieval', 'Multimodal RAG']
+        }
       ]
     },
     {
-      icon: 'app', title: 'Application', tag: 'Complete workflows built on the APIs above.', cols: 'c5b', mesh: ['#86EFAC', '#5EEAD4', '#34D399'], acb: 'rgba(31,188,46,.5)', cards: [
-        { n: 'Answer', d: 'Grounded answer synthesis with inline citations.', go: 'broad-search', uses: ['Support bots', 'Knowledge Q&A', 'Help center'] },
-        { n: 'Auto Research', badges: [['New', 'new']], d: 'Search-grounded models via OpenAI- and Anthropic-compatible APIs.', req: 'Auto Research', uses: ['Drop-in migration', 'Grounded chat', 'Image & video gen'] },
-        { n: 'Deep Research', d: 'Source-backed research across thousands of pages.', go: 'deep-research', uses: ['Reports', 'Market analysis', 'Due diligence'] },
-        { n: 'Multimodal Chat', badges: [['Early Access', 'ea']], d: 'Analyze, search, and chat across text, images, and video.', req: 'Multimodal Chat', uses: ['Doc chat', 'Video understanding', 'Visual Q&A'] },
-        { n: 'Grounded Generation', badges: [['Early Access', 'ea']], d: 'Images and videos grounded in real-world references.', req: 'Grounded Generation', uses: ['Cited images', 'Marketing assets', 'Illustrations'] }
+      name: 'Tools',
+      icon: 'tools',
+      tagline: 'Clean content from any URL.',
+      columns: 1,
+      cards: [
+        {
+          title: 'Extract',
+          go: 'extract',
+          description: 'Clean Markdown, highlights, and page classification from any URL.',
+          bestFor: ['RAG ingestion', 'Content monitoring', 'Data pipelines', 'Page classification']
+        }
+      ]
+    },
+    {
+      name: 'Application',
+      icon: 'application',
+      tagline: 'Complete workflows built on the APIs above.',
+      columns: 4,
+      cards: [
+        {
+          title: 'Answer',
+          go: 'answer',
+          description: 'Grounded answer synthesis with inline citations.',
+          bestFor: ['Support bots', 'Knowledge Q&A', 'Help center']
+        },
+        {
+          title: 'Deep Research',
+          go: 'deep-research',
+          description: 'Source-backed research across thousands of pages.',
+          bestFor: ['Reports', 'Market analysis', 'Due diligence']
+        },
+        {
+          title: 'Multimodal Chat',
+          badge: 'Early Access',
+          req: 'Multimodal Chat',
+          description: 'Analyze, search, and chat across text, images, and video.',
+          bestFor: ['Doc chat', 'Video understanding', 'Visual Q&A']
+        },
+        {
+          title: 'Grounded Generation',
+          badge: 'Early Access',
+          req: 'Grounded Generation',
+          description: 'Images and videos grounded in real-world references.',
+          bestFor: ['Cited images', 'Marketing assets', 'Illustrations']
+        }
       ]
     }
   ];
 
-  var matrixHtml = '<div class="pb-shells mb-8">' + SHELLS.map(pbShell).join('') + '</div>';
+  var matrixHtml = '<div class="capability-panels mb-8">' + CAPABILITY_PANELS.map(renderPanel).join('') + '</div>';
 
   registerPage("page-overview", `<div id="page-overview" class="page active pl-0 pr-[10px] py-[10px] h-full min-h-0 overflow-hidden">
 <div class="layout-pane w-full h-full overflow-y-auto relative min-h-0">

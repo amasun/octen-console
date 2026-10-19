@@ -38,6 +38,7 @@ Navigate to `http://localhost:3000` to interact with the interface.
 - `js/broad-search-api.js` — Logic for the interactive API playground, payload generation, and JSON rendering.
 - `js/syntax-highlight.js` — Syntax highlighting for generated code snippets.
 - `js/core/sidebar.js` — Plan A modular sidebar integration using `OctenSidebar` component.
+- `js/pages/overview/template.js` — Overview dashboard featuring the 6 capability panels (Search Ultra Fast, Search Fast, Search Premier, Models, Tools, Application) matching `https://octen.ai/platform/overview`.
 - `octen-sidebar/` — Standalone sidebar design engineering suite for previewing and customizing the navigation structure (aligned to Figma Node 13717:172917).
   - Workspace: `Octen Family` organization switcher
   - Primary Nav: Overview, Search (Fast & Premier dual cards), MODELS, TOOLS, APPLICATION, MANAGEMENT
