@@ -76,11 +76,12 @@
 
         <!-- 2. Navigation Area -->
         <nav class="sidebar-nav" id="sidebar-nav">
-          ${(this.config.navigation || []).map(function(groupBlock) {
-            var groupHeader = groupBlock.group ? `<div class="nav-section-label">${groupBlock.group}</div>` : '';
+          ${(this.config.navigation || []).map(function(groupBlock, groupIndex) {
+            var groupHeader = groupBlock.group ? `<div class="nav-section-label">${groupBlock.labelHtml || groupBlock.group}</div>` : '';
             var itemsHtml = (groupBlock.items || []).map(function(item) {
               var isActive = item.id === this.activeRoute;
               var badgeHtml = item.badge ? `<span class="nav-badge">${item.badge}</span>` : '';
+              var settingsArrow = item.id === 'settings' ? '<svg class="settings-nav-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.75 4.5L11.25 9L6.75 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '';
               return `
                 <a href="${item.href || '#'}" 
                    class="nav-item ${isActive ? 'active' : ''} ${item.disabled ? 'disabled' : ''}" 
@@ -89,12 +90,14 @@
                   ${item.icon || ''}
                   <span>${item.title}</span>
                   ${badgeHtml}
+                  ${settingsArrow}
                 </a>
               `;
             }.bind(this)).join('');
 
-            return `
-              <div class="nav-group">
+            var groupId = groupBlock.id || ('nav-group-' + groupIndex + '-' + String(groupBlock.group || 'default').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
+            return `${groupBlock.sectionTitle ? `<div class="nav-section-title">${groupBlock.sectionTitle}</div>` : ''}
+              <div class="nav-group ${groupBlock.card ? 'search-card' : ''}" id="${groupId}">
                 ${groupHeader}
                 ${itemsHtml}
               </div>
@@ -225,11 +228,17 @@
     }
 
     // 2. Navigation Item Click
-    this.container.querySelectorAll('.nav-item').forEach(function(item) {
-      item.addEventListener('click', function(e) {
-        var isExternal = item.hasAttribute('target');
-        var routeId = item.getAttribute('data-route-id');
-        if (!isExternal) {
+      this.container.querySelectorAll('.nav-item').forEach(function(item) {
+        item.addEventListener('click', function(e) {
+          var isExternal = item.hasAttribute('target');
+          var routeId = item.getAttribute('data-route-id');
+          if (routeId === 'settings') {
+            e.preventDefault();
+            self.showSettingsMenu();
+            self.trigger('route-select', { routeId: routeId, isExternal: false });
+            return;
+          }
+          if (!isExternal) {
           e.preventDefault();
           self.setActiveRoute(routeId);
         }
@@ -336,6 +345,49 @@
         item.classList.remove('active');
       }
     });
+  };
+
+  OctenSidebar.prototype.showSettingsMenu = function() {
+    var nav = this.container.querySelector('.sidebar-nav');
+    var header = this.container.querySelector('.sidebar-header');
+    var footer = this.container.querySelector('.sidebar-footer');
+    if (!nav) return;
+    // Keep the brand and workspace label visible while entering the submenu.
+    if (footer) footer.classList.add('settings-hidden');
+    nav.classList.add('settings-subnav');
+    nav.classList.remove('settings-return');
+    void nav.offsetWidth;
+    nav.classList.add('settings-enter');
+    var management = this.config.settingsNavigation || (this.config.navigation || []).find(function(group) { return group.group === 'MANAGEMENT'; });
+    var managementItems = management ? management.items.filter(function(item) { return item.id !== 'settings'; }) : [];
+    nav.innerHTML = '<button type="button" class="settings-back" data-settings-back><span aria-hidden="true">‹</span><strong>Settings</strong></button>' +
+      '<div class="settings-items">' +
+      managementItems.map(function(item, index) {
+        return '<button type="button" class="settings-item '+(index === 0 ? 'active' : '')+'" data-settings-route="'+item.id+'">'+(item.icon || '')+'<span>'+item.title+'</span></button>';
+      }).join('') + '</div>';
+    var self = this;
+    nav.querySelector('[data-settings-back]').addEventListener('click', function() { self.restorePrimaryMenu(); });
+    nav.querySelectorAll('.settings-item').forEach(function(item) {
+      item.addEventListener('click', function() {
+        nav.querySelectorAll('.settings-item').forEach(function(other) { other.classList.remove('active'); });
+        item.classList.add('active');
+      });
+    });
+  };
+
+  OctenSidebar.prototype.restorePrimaryMenu = function() {
+    var header = this.container.querySelector('.sidebar-header');
+    var footer = this.container.querySelector('.sidebar-footer');
+    if (header) header.classList.remove('settings-hidden');
+    if (footer) footer.classList.remove('settings-hidden');
+    this.render();
+    this.bindEvents();
+    var nav = this.container.querySelector('.sidebar-nav');
+    if (nav) {
+      nav.classList.remove('settings-enter');
+      void nav.offsetWidth;
+      nav.classList.add('settings-return');
+    }
   };
 
   OctenSidebar.prototype.setOrganization = function(orgId) {
