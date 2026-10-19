@@ -180,7 +180,7 @@
   padding: 8px 12px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
 }
@@ -200,6 +200,85 @@
   background: var(--sidebar-border);
 }
 
+.nav-section {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+.nav-section.with-divider {
+  border-bottom: 1px solid #e7e7e7;
+  padding-bottom: 8px;
+  margin-bottom: 2px;
+}
+
+html.dark .nav-section.with-divider {
+  border-bottom-color: var(--sidebar-divider);
+}
+
+.nav-section-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #717680;
+  opacity: 0.85;
+  padding: 6px 12px 4px 12px;
+  letter-spacing: 0.02em;
+}
+
+html.dark .nav-section-title {
+  color: var(--sidebar-fg-muted);
+}
+
+.search-cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.search-card {
+  border: 1px solid #d9d9d9;
+  border-radius: 12px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+html.dark .search-card {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.nav-card-label {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #717680;
+  opacity: 0.8;
+  text-transform: uppercase;
+  padding: 2px 12px;
+  letter-spacing: 0.05em;
+}
+
+html.dark .nav-card-label {
+  color: var(--sidebar-fg-muted);
+}
+
+.nav-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
 .nav-group {
   display: flex;
   flex-direction: column;
@@ -207,13 +286,18 @@
 }
 
 .nav-section-label {
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-  color: var(--sidebar-fg-muted);
+  line-height: 20px;
+  color: #717680;
   letter-spacing: 0.05em;
   padding: 6px 12px 4px 12px;
   text-transform: uppercase;
   opacity: 0.85;
+}
+
+html.dark .nav-section-label {
+  color: var(--sidebar-fg-muted);
 }
 
 .nav-item {

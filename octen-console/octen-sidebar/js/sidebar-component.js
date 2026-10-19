@@ -11,7 +11,7 @@
 
     this.config = options.config || window.OCTEN_SIDEBAR_CONFIG || {};
     this.activeRoute = options.activeRoute || 'overview';
-    this.currentOrgId = this.config.workspace ? this.config.workspace.currentId : 'org';
+    this.currentOrgId = (this.config.workspace && this.config.workspace.currentId) || 'octen-family';
     this.isWsDropdownOpen = false;
     this.isAccountPopoverOpen = false;
     this.eventListeners = {};
@@ -29,11 +29,29 @@
     this.bindEvents();
   };
 
+  OctenSidebar.prototype.renderNavItemHtml = function(item) {
+    var isActive = item.id === this.activeRoute;
+    var badgeHtml = item.badge ? `<span class="nav-badge">${item.badge}</span>` : '';
+    var settingsArrow = item.id === 'settings' ? '<svg class="settings-nav-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.75 4.5L11.25 9L6.75 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '';
+    var onclickAttr = (!item.external && item.id !== 'settings') ? `onclick="if(typeof go==='function'){go('${item.id}');return false;}"` : '';
+    return `
+      <a href="${item.href || '#'}" 
+         class="nav-item ${isActive ? 'active' : ''} ${item.disabled ? 'disabled' : ''}" 
+         data-route-id="${item.id}"
+         ${item.external ? 'target="_blank" rel="noopener noreferrer"' : onclickAttr}>
+        ${item.icon || ''}
+        <span>${item.title}</span>
+        ${badgeHtml}
+        ${settingsArrow}
+      </a>
+    `;
+  };
+
   OctenSidebar.prototype.render = function() {
     var brand = this.config.brand || {};
     var ws = this.config.workspace || { organizations: [] };
     var user = this.config.user || {};
-    var currentOrg = ws.organizations.find(function(o) { return o.id === this.currentOrgId; }.bind(this)) || ws.organizations[0] || { name: 'Acme Inc' };
+    var currentOrg = ws.organizations.find(function(o) { return o.id === this.currentOrgId; }.bind(this)) || ws.organizations[0] || { name: 'Octen Family' };
 
     var html = `
         <!-- 1. Header: Logo & Workspace Switcher -->
@@ -75,31 +93,67 @@
 
         <!-- 2. Navigation Area -->
         <nav class="sidebar-nav" id="sidebar-nav">
-          ${(this.config.navigation || []).map(function(groupBlock, groupIndex) {
-            var groupHeader = groupBlock.group ? `<div class="nav-section-label">${groupBlock.labelHtml || groupBlock.group}</div>` : '';
-            var itemsHtml = (groupBlock.items || []).map(function(item) {
-              var isActive = item.id === this.activeRoute;
-              var badgeHtml = item.badge ? `<span class="nav-badge">${item.badge}</span>` : '';
-              var settingsArrow = item.id === 'settings' ? '<svg class="settings-nav-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.75 4.5L11.25 9L6.75 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' : '';
-              var onclickAttr = (!item.external && item.id !== 'settings') ? `onclick="if(typeof go==='function'){go('${item.id}');return false;}"` : '';
+          ${(this.config.navigation || []).map(function(section, secIdx) {
+            var dividerClass = section.divider ? 'with-divider' : '';
+            var sectionTitleHtml = section.sectionTitle 
+              ? `<div class="nav-section-title">${section.sectionTitle}</div>` 
+              : '';
+            var groupHeaderHtml = section.group 
+              ? `<div class="nav-section-label">${section.labelHtml || section.group}</div>` 
+              : '';
+
+            // 1. If section has explicit cards (e.g. Search: Fast & Premier)
+            if (section.cards && section.cards.length > 0) {
+              var cardsHtml = section.cards.map(function(card) {
+                var cardLabelHtml = card.title ? `<div class="nav-card-label">${card.title}</div>` : '';
+                var cardItemsHtml = (card.items || []).map(function(item) {
+                  return this.renderNavItemHtml(item);
+                }.bind(this)).join('');
+                return `
+                  <div class="search-card" id="${card.id || ''}">
+                    ${cardLabelHtml}
+                    ${cardItemsHtml}
+                  </div>
+                `;
+              }.bind(this)).join('');
+
+              var secId = section.id || ('sec-' + secIdx);
               return `
-                <a href="${item.href || '#'}" 
-                   class="nav-item ${isActive ? 'active' : ''} ${item.disabled ? 'disabled' : ''}" 
-                   data-route-id="${item.id}"
-                   ${item.external ? 'target="_blank" rel="noopener noreferrer"' : onclickAttr}>
-                  ${item.icon || ''}
-                  <span>${item.title}</span>
-                  ${badgeHtml}
-                  ${settingsArrow}
-                </a>
+                <div class="nav-section ${dividerClass}" id="${secId}">
+                  ${sectionTitleHtml}
+                  <div class="search-cards-container">
+                    ${cardsHtml}
+                  </div>
+                </div>
               `;
+            }
+
+            // 2. Legacy / single card group
+            if (section.card) {
+              var cardLabel = groupHeaderHtml || (section.labelHtml ? `<div class="nav-card-label">${section.labelHtml}</div>` : '');
+              var cardItems = (section.items || []).map(function(item) {
+                return this.renderNavItemHtml(item);
+              }.bind(this)).join('');
+              return `
+                ${sectionTitleHtml}
+                <div class="nav-group search-card" id="${section.id || ('sec-' + secIdx)}">
+                  ${cardLabel}
+                  ${cardItems}
+                </div>
+              `;
+            }
+
+            // 3. Regular group or standalone items
+            var regularItemsHtml = (section.items || []).map(function(item) {
+              return this.renderNavItemHtml(item);
             }.bind(this)).join('');
 
-            var groupId = groupBlock.id || ('nav-group-' + groupIndex + '-' + String(groupBlock.group || 'default').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''));
-            return `${groupBlock.sectionTitle ? `<div class="nav-section-title">${groupBlock.sectionTitle}</div>` : ''}
-              <div class="nav-group ${groupBlock.card ? 'search-card' : ''}" id="${groupId}">
-                ${groupHeader}
-                ${itemsHtml}
+            return `
+              <div class="nav-section ${dividerClass}" id="${section.id || ('sec-' + secIdx)}">
+                ${groupHeaderHtml}
+                <div class="nav-items-list">
+                  ${regularItemsHtml}
+                </div>
               </div>
             `;
           }.bind(this)).join('')}
@@ -467,6 +521,18 @@
 
     this.setWsDropdownOpen(false);
     this.trigger('org-change', { orgId: orgId, organization: org });
+  };
+
+  OctenSidebar.prototype.setActiveRoute = function(routeId) {
+    this.activeRoute = routeId;
+    if (!this.container) return;
+    this.container.querySelectorAll('.nav-item').forEach(function(el) {
+      if (el.getAttribute('data-route-id') === routeId) {
+        el.classList.add('active');
+      } else {
+        el.classList.remove('active');
+      }
+    });
   };
 
   OctenSidebar.prototype.on = function(event, callback) {

@@ -45,6 +45,7 @@ window.go = function (pageId) {
   let targetId = pageId;
   if (targetId === "broad-search") targetId = "answer";
   if (targetId === "news-search") targetId = "image-search";
+  if (targetId === "business-search" || targetId === "place-search") targetId = "web-search";
   if (targetId === "multimodal-chat" || targetId === "ground-generation") targetId = "multimodal-search";
   if (targetId === "model") targetId = "model-gateway";
 
