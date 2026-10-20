@@ -98,15 +98,8 @@
             var dividerClass = section.divider ? 'with-divider' : '';
             var isSearchSection = section.id === 'section-search';
 
-            var planToggleHtml = isSearchSection
-              ? `<div class="plan-toggle-badge" title="Switch Sidebar Plan">
-                   <button type="button" class="plan-toggle-btn ${this.plan === 'a' ? 'active' : ''}" data-plan-btn="a" title="Plan A: Dual Bento Cards">A</button>
-                   <button type="button" class="plan-toggle-btn ${this.plan === 'b' ? 'active' : ''}" data-plan-btn="b" title="Plan B: Structure Lines Hierarchy">B</button>
-                 </div>`
-              : '';
-
             var sectionTitleHtml = section.sectionTitle 
-              ? `<div class="nav-section-title ${isSearchSection ? 'search-title-row' : ''}"><span>${section.sectionTitle}</span>${planToggleHtml}</div>` 
+              ? `<div class="nav-section-title">${section.sectionTitle}</div>` 
               : '';
             var groupHeaderHtml = section.group 
               ? `<div class="nav-section-label">${section.labelHtml || section.group}</div>` 

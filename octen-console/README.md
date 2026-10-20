@@ -42,7 +42,7 @@ Navigate to `http://localhost:3000` to interact with the interface.
 - `octen-sidebar/` — Sidebar design engineering suite supporting two Search category navigation layouts:
   - **Plan A (Default)**: Bento dual-card layout separating `FAST` and `PREMIER` search endpoints.
   - **Plan B**: Directory hierarchy tree structure with rounded 90° connection lines (`border-bottom-left-radius: 8px`) dropping from an elevated `Search` parent card with a status dot indicator (matching user reference mockup).
-  - **Switching**: Switchable on the fly via the Search category header badge `[A | B]`, the user popover's `Sidebar Plan` segmented control, or programmatically with `window.setSidebarPlan('a' | 'b')` / `window.toggleSidebarPlan()`.
+  - **Switching**: Switchable exclusively via the user profile popover's `Sidebar Plan` segmented control (`[Plan A] [Plan B]`), or programmatically with `window.setSidebarPlan('a' | 'b')` / `window.toggleSidebarPlan()`. (Hidden from the sidebar navigation body for a clean interface).
   - **Strict Scope Boundary**: Plan switching strictly affects only the Search category; all other sections (Overview, Models, Tools, Application, Management, Org switcher, User footer) remain consistent.
 
 ## License
