@@ -12,7 +12,7 @@
     this.config = options.config || window.OCTEN_SIDEBAR_CONFIG || {};
     this.activeRoute = options.activeRoute || 'overview';
     this.currentOrgId = (this.config.workspace && this.config.workspace.currentId) || 'octen-family';
-    this.plan = options.plan || localStorage.getItem('octen-sidebar-plan') || 'a';
+    this.plan = options.plan || localStorage.getItem('octen-sidebar-plan') || 'b';
     this.isWsDropdownOpen = false;
     this.isAccountPopoverOpen = false;
     this.eventListeners = {};

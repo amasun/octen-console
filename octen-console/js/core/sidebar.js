@@ -11,7 +11,7 @@ window.initOctenSidebar = function() {
     ? window.OCTEN_SIDEBAR_CONFIG.getPlanAConfig()
     : (window.OCTEN_SIDEBAR_CONFIG || {});
 
-  var savedPlan = localStorage.getItem('octen-sidebar-plan') || 'a';
+  var savedPlan = localStorage.getItem('octen-sidebar-plan') || 'b';
 
   var sidebar = new OctenSidebar({
     container: container,
