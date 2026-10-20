@@ -33,6 +33,12 @@
   --sidebar-hover-bg: #eaeaea;
   --sidebar-hover-bg-subtle: #f5f5f5;
 
+  /* Plan B Tree Structure Lines & Card */
+  --sidebar-tree-line: #cbd5e1;
+  --sidebar-tree-card-bg: #ffffff;
+  --sidebar-tree-card-border: #e2e8f0;
+  --sidebar-tree-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 3px 8px rgba(0, 0, 0, 0.02);
+
   /* Popover & Floating Menus */
   --sidebar-popover-bg: #ffffff;
   --sidebar-popover-border: #dbdbdb;
@@ -70,6 +76,12 @@ html.dark,
   --sidebar-primary-active-bg: rgba(96, 255, 112, 0.12);
   --sidebar-hover-bg: rgba(255, 255, 255, 0.06);
   --sidebar-hover-bg-subtle: rgba(255, 255, 255, 0.04);
+
+  /* Plan B Tree Structure Lines & Card */
+  --sidebar-tree-line: rgba(255, 255, 255, 0.18);
+  --sidebar-tree-card-bg: #242424;
+  --sidebar-tree-card-border: rgba(255, 255, 255, 0.1);
+  --sidebar-tree-card-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
 
   /* Popover & Floating Menus */
   --sidebar-popover-bg: #262626;

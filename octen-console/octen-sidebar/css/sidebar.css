@@ -232,6 +232,46 @@ html.dark .nav-section-title {
   color: var(--sidebar-fg-muted);
 }
 
+.search-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.plan-toggle-badge {
+  display: inline-flex;
+  align-items: center;
+  background: var(--sidebar-seg-bg);
+  border: 1px solid var(--sidebar-seg-border);
+  border-radius: 6px;
+  padding: 1.5px;
+  gap: 2px;
+}
+
+.plan-toggle-btn {
+  padding: 1px 7px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  border: none;
+  background: transparent;
+  color: var(--sidebar-fg-muted);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.plan-toggle-btn:hover {
+  color: var(--sidebar-fg);
+}
+
+.plan-toggle-btn.active {
+  background: var(--sidebar-seg-active-bg);
+  color: var(--sidebar-seg-active-fg);
+  box-shadow: var(--sidebar-seg-active-shadow);
+}
+
 .search-cards-container {
   display: flex;
   flex-direction: column;
@@ -271,6 +311,234 @@ html.dark .search-card {
 
 html.dark .nav-card-label {
   color: var(--sidebar-fg-muted);
+}
+
+/* ==========================================================================
+   Plan B: Search Tree Structure with Curved Branch Lines (Reference Image)
+   ========================================================================== */
+.search-tree-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Elevated Parent Card (Reference: ':: Dashboard •') */
+.search-tree-card {
+  height: 42px;
+  background: var(--sidebar-tree-card-bg);
+  border: 1px solid var(--sidebar-tree-card-border);
+  border-radius: 12px;
+  box-shadow: var(--sidebar-tree-card-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  box-sizing: border-box;
+  margin: 2px 0 0 0;
+  user-select: none;
+  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.search-tree-card:hover {
+  border-color: rgba(0, 0, 0, 0.16);
+}
+
+html.dark .search-tree-card:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.search-tree-card-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-tree-grid-icon {
+  width: 16px;
+  height: 16px;
+  color: var(--sidebar-icon);
+  flex-shrink: 0;
+}
+
+.search-tree-card-title {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--sidebar-fg);
+  letter-spacing: -0.01em;
+}
+
+/* Indicator dot on the right of the parent card */
+.search-tree-card-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--sidebar-fg-faint);
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.search-tree-card-dot.active {
+  background-color: var(--sidebar-fg);
+  transform: scale(1.15);
+}
+
+html.dark .search-tree-card-dot.active {
+  background-color: var(--sidebar-primary);
+  box-shadow: 0 0 6px rgba(96, 255, 112, 0.5);
+}
+
+/* Vertical trunk line and connecting stem */
+.search-tree-list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 0;
+}
+
+.search-tree-stem-top {
+  width: 0;
+  height: 8px;
+  border-left: 1.5px solid var(--sidebar-tree-line);
+  margin-left: 22px; /* Center-aligned with the 2x2 grid icon */
+}
+
+/* Tier Headers (FAST & PREMIER) */
+.search-tree-tier-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 8px 0 4px 38px;
+  box-sizing: border-box;
+}
+
+.search-tree-tier-row::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 1.5px solid var(--sidebar-tree-line);
+  pointer-events: none;
+}
+
+.search-tree-tier-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  line-height: 1.2;
+  user-select: none;
+}
+
+.search-tree-tier-tag.fast {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  color: #039855;
+  background: rgba(3, 152, 85, 0.09);
+  border: 1px solid rgba(3, 152, 85, 0.18);
+}
+
+html.dark .search-tree-tier-tag.fast {
+  color: #60ff70;
+  background: rgba(96, 255, 112, 0.12);
+  border-color: rgba(96, 255, 112, 0.22);
+}
+
+.search-tree-tier-tag.premier {
+  font-family: 'Fraunces', Georgia, serif;
+  font-style: italic;
+  color: #793fff;
+  background: rgba(121, 63, 255, 0.09);
+  border: 1px solid rgba(121, 63, 255, 0.18);
+}
+
+html.dark .search-tree-tier-tag.premier {
+  color: #a78bfa;
+  background: rgba(167, 139, 250, 0.14);
+  border-color: rgba(167, 139, 250, 0.22);
+}
+
+/* Tree Navigation Item (Reference: clean text with smooth 90° curved branch line) */
+.search-tree-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  padding-left: 38px;
+  padding-right: 12px;
+  text-decoration: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.search-tree-item:hover {
+  background-color: var(--sidebar-hover-bg-subtle);
+}
+
+.search-tree-item-text {
+  font-size: 13.5px;
+  font-weight: 400;
+  color: var(--sidebar-fg-muted);
+  line-height: 1;
+  transition: color 0.15s ease, font-weight 0.15s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-tree-item:hover .search-tree-item-text {
+  color: var(--sidebar-fg);
+}
+
+/* Active Tree Item State (Bold & High Contrast like 'Performance Report' in reference) */
+.search-tree-item.active {
+  background-color: var(--sidebar-hover-bg-subtle);
+}
+
+.search-tree-item.active .search-tree-item-text {
+  font-weight: 600;
+  color: var(--sidebar-fg);
+}
+
+/* Structure Lines: 90° smooth curve with 8px radius */
+.search-tree-item::before {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 0;
+  width: 14px;
+  height: 50%;
+  border-left: 1.5px solid var(--sidebar-tree-line);
+  border-bottom: 1.5px solid var(--sidebar-tree-line);
+  border-bottom-left-radius: 8px;
+  box-sizing: border-box;
+  pointer-events: none;
+  transition: border-color 0.15s ease;
+}
+
+/* Continuation line downward for non-terminal items */
+.search-tree-item:not(.is-last)::after {
+  content: '';
+  position: absolute;
+  left: 22px;
+  top: 50%;
+  bottom: 0;
+  width: 0;
+  border-left: 1.5px solid var(--sidebar-tree-line);
+  pointer-events: none;
+}
+
+/* When tree item is active, highlight its branch curve */
+.search-tree-item.active::before {
+  border-left-color: var(--sidebar-primary);
+  border-bottom-color: var(--sidebar-primary);
 }
 
 .nav-items-list {
@@ -579,6 +847,41 @@ html.dark .user-avatar {
   background: var(--sidebar-seg-active-bg);
   color: var(--sidebar-seg-active-fg);
   box-shadow: var(--sidebar-seg-active-shadow);
+}
+
+/* Sidebar Plan switcher row */
+.popover-plan-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 4px;
+}
+
+.plan-segmented-btn {
+  padding: 2px 8px;
+  font-size: 11.5px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  color: var(--sidebar-fg-muted);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.plan-segmented-btn:hover {
+  color: var(--sidebar-fg);
+}
+
+.plan-segmented-btn.active {
+  background: var(--sidebar-seg-active-bg);
+  color: var(--sidebar-seg-active-fg);
+  box-shadow: var(--sidebar-seg-active-shadow);
+  font-weight: 600;
 }
 
 /* Popover Links */

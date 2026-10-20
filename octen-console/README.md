@@ -37,12 +37,13 @@ Navigate to `http://localhost:3000` to interact with the interface.
 - `css/styles.css` — Custom styling augmenting Tailwind.
 - `js/broad-search-api.js` — Logic for the interactive API playground, payload generation, and JSON rendering.
 - `js/syntax-highlight.js` — Syntax highlighting for generated code snippets.
-- `js/core/sidebar.js` — Plan A modular sidebar integration using `OctenSidebar` component.
+- `js/core/sidebar.js` — Modular sidebar integration using `OctenSidebar` component supporting Plan A & Plan B switching with persistent state in `localStorage` (`octen-sidebar-plan`).
 - `js/pages/overview/template.js` — Overview dashboard featuring the 6 capability panels (Search Ultra Fast, Search Fast, Search Premier, Models, Tools, Application) matching `https://octen.ai/platform/overview`.
-- `octen-sidebar/` — Standalone sidebar design engineering suite for previewing and customizing the navigation structure (aligned to Figma Node 13717:172917).
-  - Workspace: `Octen Family` organization switcher
-  - Primary Nav: Overview, Search (Fast & Premier dual cards), MODELS, TOOLS, APPLICATION, MANAGEMENT
-  - User footer: Cyrussun (`cyrussun@octen.ai`) account profile & theme switcher
+- `octen-sidebar/` — Sidebar design engineering suite supporting two Search category navigation layouts:
+  - **Plan A (Default)**: Bento dual-card layout separating `FAST` and `PREMIER` search endpoints.
+  - **Plan B**: Directory hierarchy tree structure with rounded 90° connection lines (`border-bottom-left-radius: 8px`) dropping from an elevated `Search` parent card with a status dot indicator (matching user reference mockup).
+  - **Switching**: Switchable on the fly via the Search category header badge `[A | B]`, the user popover's `Sidebar Plan` segmented control, or programmatically with `window.setSidebarPlan('a' | 'b')` / `window.toggleSidebarPlan()`.
+  - **Strict Scope Boundary**: Plan switching strictly affects only the Search category; all other sections (Overview, Models, Tools, Application, Management, Org switcher, User footer) remain consistent.
 
 ## License
 

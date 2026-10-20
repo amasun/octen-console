@@ -12,6 +12,7 @@
     this.config = options.config || window.OCTEN_SIDEBAR_CONFIG || {};
     this.activeRoute = options.activeRoute || 'overview';
     this.currentOrgId = (this.config.workspace && this.config.workspace.currentId) || 'octen-family';
+    this.plan = options.plan || localStorage.getItem('octen-sidebar-plan') || 'a';
     this.isWsDropdownOpen = false;
     this.isAccountPopoverOpen = false;
     this.eventListeners = {};
@@ -95,8 +96,17 @@
         <nav class="sidebar-nav" id="sidebar-nav">
           ${(this.config.navigation || []).map(function(section, secIdx) {
             var dividerClass = section.divider ? 'with-divider' : '';
+            var isSearchSection = section.id === 'section-search';
+
+            var planToggleHtml = isSearchSection
+              ? `<div class="plan-toggle-badge" title="Switch Sidebar Plan">
+                   <button type="button" class="plan-toggle-btn ${this.plan === 'a' ? 'active' : ''}" data-plan-btn="a" title="Plan A: Dual Bento Cards">A</button>
+                   <button type="button" class="plan-toggle-btn ${this.plan === 'b' ? 'active' : ''}" data-plan-btn="b" title="Plan B: Structure Lines Hierarchy">B</button>
+                 </div>`
+              : '';
+
             var sectionTitleHtml = section.sectionTitle 
-              ? `<div class="nav-section-title">${section.sectionTitle}</div>` 
+              ? `<div class="nav-section-title ${isSearchSection ? 'search-title-row' : ''}"><span>${section.sectionTitle}</span>${planToggleHtml}</div>` 
               : '';
             var groupHeaderHtml = section.group 
               ? `<div class="nav-section-label">${section.labelHtml || section.group}</div>` 
@@ -104,6 +114,83 @@
 
             // 1. If section has explicit cards (e.g. Search: Fast & Premier)
             if (section.cards && section.cards.length > 0) {
+              var secId = section.id || ('sec-' + secIdx);
+
+              // Plan B: Tree Structure Lines Hierarchy (Reference image layout)
+              if (this.plan === 'b' && isSearchSection) {
+                var allSearchItems = [];
+                section.cards.forEach(function(c) {
+                  allSearchItems = allSearchItems.concat(c.items || []);
+                });
+                var isSearchActive = allSearchItems.some(function(item) {
+                  return item.id === this.activeRoute;
+                }.bind(this));
+
+                var fastCard = section.cards.find(function(c) { return c.id === 'card-fast' || (c.title && c.title.toLowerCase().indexOf('fast') !== -1); }) || section.cards[0];
+                var premierCard = section.cards.find(function(c) { return c.id === 'card-premier' || (c.title && c.title.toLowerCase().indexOf('premier') !== -1); }) || section.cards[1];
+
+                var fastItems = fastCard ? (fastCard.items || []) : [];
+                var premierItems = premierCard ? (premierCard.items || []) : [];
+
+                var renderTreeItem = function(item, isLast) {
+                  var isActive = item.id === this.activeRoute;
+                  var badgeHtml = item.badge ? `<span class="nav-badge">${item.badge}</span>` : '';
+                  return `
+                    <a href="${item.href || '#'}" 
+                       class="search-tree-item ${isActive ? 'active' : ''} ${isLast ? 'is-last' : ''}" 
+                       data-route-id="${item.id}"
+                       onclick="if(typeof go==='function'){go('${item.id}');return false;}">
+                      <span class="search-tree-item-text">${item.title}</span>
+                      ${badgeHtml}
+                    </a>
+                  `;
+                }.bind(this);
+
+                var fastItemsHtml = fastItems.map(function(item) {
+                  return renderTreeItem(item, false);
+                }).join('');
+
+                var premierItemsHtml = premierItems.map(function(item, idx) {
+                  var isLast = idx === premierItems.length - 1;
+                  return renderTreeItem(item, isLast);
+                }).join('');
+
+                return `
+                  <div class="nav-section ${dividerClass}" id="${secId}">
+                    ${sectionTitleHtml}
+                    <div class="search-tree-wrapper">
+                      <div class="search-tree-card" id="search-tree-parent-card">
+                        <div class="search-tree-card-left">
+                          <svg class="search-tree-grid-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                            <rect x="2" y="2" width="4.5" height="4.5" rx="1.2"/>
+                            <rect x="9.5" y="2" width="4.5" height="4.5" rx="1.2"/>
+                            <rect x="2" y="9.5" width="4.5" height="4.5" rx="1.2"/>
+                            <rect x="9.5" y="9.5" width="4.5" height="4.5" rx="1.2"/>
+                          </svg>
+                          <span class="search-tree-card-title">Search</span>
+                        </div>
+                        <span class="search-tree-card-dot ${isSearchActive ? 'active' : ''}"></span>
+                      </div>
+
+                      <div class="search-tree-list">
+                        <div class="search-tree-stem-top"></div>
+
+                        <div class="search-tree-tier-row">
+                          <span class="search-tree-tier-tag fast">FAST</span>
+                        </div>
+                        ${fastItemsHtml}
+
+                        <div class="search-tree-tier-row">
+                          <span class="search-tree-tier-tag premier">PREMIER</span>
+                        </div>
+                        ${premierItemsHtml}
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }
+
+              // Plan A: Standard Dual Bento Cards
               var cardsHtml = section.cards.map(function(card) {
                 var cardLabelHtml = card.title ? `<div class="nav-card-label">${card.title}</div>` : '';
                 var cardItemsHtml = (card.items || []).map(function(item) {
@@ -117,7 +204,6 @@
                 `;
               }.bind(this)).join('');
 
-              var secId = section.id || ('sec-' + secIdx);
               return `
                 <div class="nav-section ${dividerClass}" id="${secId}">
                   ${sectionTitleHtml}
@@ -203,6 +289,27 @@
                 </button>
                 <button type="button" class="theme-segmented-btn" data-theme-btn="system" id="btn-theme-system" title="Follow System">
                   <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- Sidebar Plan Switcher -->
+            <div class="popover-plan-row" id="plan-switch-row">
+              <div class="popover-theme-label">
+                <svg class="popover-theme-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="7" height="7" rx="1.5"/>
+                  <rect x="14" y="3" width="7" height="7" rx="1.5"/>
+                  <rect x="14" y="14" width="7" height="7" rx="1.5"/>
+                  <rect x="3" y="14" width="7" height="7" rx="1.5"/>
+                </svg>
+                <span>Sidebar Plan</span>
+              </div>
+              <div class="theme-segmented-group" id="plan-segmented-group">
+                <button type="button" class="plan-segmented-btn ${this.plan === 'a' ? 'active' : ''}" data-popover-plan-btn="a" title="Plan A (Dual Bento Cards)">
+                  Plan A
+                </button>
+                <button type="button" class="plan-segmented-btn ${this.plan === 'b' ? 'active' : ''}" data-popover-plan-btn="b" title="Plan B (Structure Lines Hierarchy)">
+                  Plan B
                 </button>
               </div>
             </div>
@@ -350,6 +457,37 @@
       });
     });
 
+    // Plan B Search Tree Item Click
+    this.container.querySelectorAll('.search-tree-item').forEach(function(item) {
+      item.addEventListener('click', function(e) {
+        var routeId = item.getAttribute('data-route-id');
+        if (routeId) {
+          e.preventDefault();
+          self.setActiveRoute(routeId);
+          self.trigger('route-select', { routeId: routeId, isExternal: false });
+        }
+      });
+    });
+
+    // Plan Switchers (Search header toggle + popover segmented buttons)
+    this.container.querySelectorAll('[data-plan-btn]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var plan = btn.getAttribute('data-plan-btn');
+        self.setPlan(plan);
+      });
+    });
+
+    this.container.querySelectorAll('[data-popover-plan-btn]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        var plan = btn.getAttribute('data-popover-plan-btn');
+        self.setPlan(plan);
+      });
+    });
+
     // 3. User Profile Popover Toggle
     var footer = this.container.querySelector('#sidebar-footer');
     var userBtn = this.container.querySelector('#user-profile-btn');
@@ -416,6 +554,18 @@
     document.addEventListener('keydown', this._onDocumentKeyDown);
   };
 
+  OctenSidebar.prototype.setPlan = function(plan) {
+    if (plan !== 'a' && plan !== 'b') return;
+    this.plan = plan;
+    try {
+      localStorage.setItem('octen-sidebar-plan', plan);
+    } catch(e) {}
+    this.render();
+    this.bindEvents();
+    this.setActiveRoute(this.activeRoute);
+    this.trigger('plan-change', { plan: plan });
+  };
+
   OctenSidebar.prototype.setWsDropdownOpen = function(open) {
     this.isWsDropdownOpen = open;
     var wsWrap = this.container.querySelector('#ws-wrap');
@@ -442,6 +592,8 @@
 
   OctenSidebar.prototype.setActiveRoute = function(routeId) {
     this.activeRoute = routeId;
+    if (!this.container) return;
+
     this.container.querySelectorAll('.nav-item').forEach(function(item) {
       if (item.getAttribute('data-route-id') === routeId) {
         item.classList.add('active');
@@ -449,6 +601,24 @@
         item.classList.remove('active');
       }
     });
+
+    this.container.querySelectorAll('.search-tree-item').forEach(function(item) {
+      if (item.getAttribute('data-route-id') === routeId) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+
+    var isSearchRoute = ['web-search', 'broad-search-api', 'image-search', 'video-search', 'news-search', 'business-search', 'place-search'].indexOf(routeId) !== -1;
+    var dot = this.container.querySelector('.search-tree-card-dot');
+    if (dot) {
+      if (isSearchRoute) {
+        dot.classList.add('active');
+      } else {
+        dot.classList.remove('active');
+      }
+    }
   };
 
   OctenSidebar.prototype.showSettingsMenu = function() {
@@ -521,18 +691,6 @@
 
     this.setWsDropdownOpen(false);
     this.trigger('org-change', { orgId: orgId, organization: org });
-  };
-
-  OctenSidebar.prototype.setActiveRoute = function(routeId) {
-    this.activeRoute = routeId;
-    if (!this.container) return;
-    this.container.querySelectorAll('.nav-item').forEach(function(el) {
-      if (el.getAttribute('data-route-id') === routeId) {
-        el.classList.add('active');
-      } else {
-        el.classList.remove('active');
-      }
-    });
   };
 
   OctenSidebar.prototype.on = function(event, callback) {
