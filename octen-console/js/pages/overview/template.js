@@ -135,7 +135,7 @@
         {
           tier: { label: 'ULTRA FAST', tagClass: 'tier-tag-ultra' },
           tagline: 'Fastest, lowest-cost retrieval for common lookups.',
-          columns: 4,
+          columns: 1,
           cards: [
             {
               title: 'Pulse Search',
