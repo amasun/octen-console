@@ -66,11 +66,48 @@
 
   function renderPanel(p) {
     var violetCls = (p.accent === 'violet') ? ' capability-panel-violet' : '';
+
+    // Multi-tier panel (e.g. Search containing Pulse, FAST, Premier in one card)
+    if (p.tiers && p.tiers.length > 0) {
+      return '<section class="capability-panel' + violetCls + '">' +
+        '<div class="glow-dots"></div>' +
+        '<div class="relative flex flex-col gap-6">' +
+          p.tiers.map(function (t, idx) {
+            var gridCls = GRID_MAP[t.columns] || 'grid-cols-1';
+            var tierLabel = typeof t.tier === 'string' ? t.tier : (t.tier && t.tier.label);
+            var tierHtml = '';
+            if (tierLabel) {
+              tierHtml = '<span class="subtier-badge">' + tierLabel + '</span>';
+            }
+            var dividerHtml = (idx > 0)
+              ? '<div class="capability-tier-divider"></div>'
+              : '';
+            return dividerHtml +
+              '<div class="capability-tier-group flex flex-col gap-2.5">' +
+                '<div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-1.5 pt-0.5 pb-1">' +
+                  '<div class="flex items-center gap-2">' +
+                    ICONS[p.icon] +
+                    '<h3 class="font-sans text-base font-semibold text-[var(--fg-strong,#0a0a0a)] flex items-center gap-1.5">' +
+                      '<span>' + p.name + '</span>' +
+                      tierHtml +
+                    '</h3>' +
+                  '</div>' +
+                  (t.tagline ? '<p class="text-sm text-[var(--fg-muted,#737373)]">' + t.tagline + '</p>' : '') +
+                '</div>' +
+                '<div class="grid gap-3 ' + gridCls + '">' +
+                  t.cards.map(renderCard).join('') +
+                '</div>' +
+              '</div>';
+          }).join('') +
+        '</div>' +
+      '</section>';
+    }
+
+    // Standard single-tier panel
     var tierLabel = typeof p.tier === 'string' ? p.tier : (p.tier && p.tier.label);
     var tierHtml = '';
     if (tierLabel) {
-      tierHtml = '<span class="text-[var(--border,#a3a3a3)] font-normal mx-1.5">|</span>' +
-        '<span>' + tierLabel + '</span>';
+      tierHtml = '<span class="subtier-badge">' + tierLabel + '</span>';
     }
     var gridCls = GRID_MAP[p.columns] || 'grid-cols-1';
 
@@ -79,7 +116,7 @@
       '<div class="relative flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-1.5 pt-0.5 pb-3">' +
         '<div class="flex items-center gap-2">' +
           ICONS[p.icon] +
-          '<h3 class="font-sans text-base font-semibold text-[var(--fg-strong,#0a0a0a)] flex items-center">' +
+          '<h3 class="font-sans text-base font-semibold text-[var(--fg-strong,#0a0a0a)] flex items-center gap-1.5">' +
             '<span>' + p.name + '</span>' +
             tierHtml +
           '</h3>' +
@@ -95,82 +132,81 @@
   var CAPABILITY_PANELS = [
     {
       name: 'Search',
-      tier: 'Pulse',
       icon: 'search',
-      tagline: 'Fastest, lowest-cost retrieval for common lookups.',
-      columns: 1,
-      cards: [
+      tiers: [
         {
-          title: 'Pulse Search',
-          badge: 'New',
-          go: 'pulse-search',
-          description: 'Maps a query straight to the most relevant URLs. Fastest and lowest-cost search.',
-          bestFor: ['Navigation', 'Entity lookup', 'Official sites', 'Docs lookup']
-        }
-      ]
-    },
-    {
-      name: 'Search',
-      tier: 'FAST',
-      icon: 'search',
-      tagline: 'Low-latency retrieval from the live web.',
-      columns: 4,
-      cards: [
-        {
-          title: 'Web Search',
-          go: 'web-search',
-          description: 'LLM-native search with ranked results, highlights, and optional full content.',
-          bestFor: ['LLM tool calls', 'RAG', 'Agents', 'Fact-checking']
+          tier: 'Pulse',
+          tagline: 'Fastest, lowest-cost retrieval for common lookups.',
+          columns: 1,
+          cards: [
+            {
+              title: 'Pulse Search',
+              badge: 'New',
+              go: 'pulse-search',
+              description: 'Maps a query straight to the most relevant URLs. Fastest and lowest-cost search.',
+              bestFor: ['Navigation', 'Entity lookup', 'Official sites', 'Docs lookup']
+            }
+          ]
         },
         {
-          title: 'Broad Search',
-          go: 'broad-search-api',
-          description: 'Auto-decomposes one query into parallel subqueries.',
-          bestFor: ['Research agents', 'Deep questions', 'Comprehensive lookup']
+          tier: 'FAST',
+          tagline: 'Low-latency retrieval from the live web.',
+          columns: 4,
+          cards: [
+            {
+              title: 'Web Search',
+              go: 'web-search',
+              description: 'LLM-native search with ranked results, highlights, and optional full content.',
+              bestFor: ['LLM tool calls', 'RAG', 'Agents', 'Fact-checking']
+            },
+            {
+              title: 'Broad Search',
+              go: 'broad-search-api',
+              description: 'Auto-decomposes one query into parallel subqueries.',
+              bestFor: ['Research agents', 'Deep questions', 'Comprehensive lookup']
+            },
+            {
+              title: 'Image Search',
+              go: 'image-search',
+              description: 'Open-web image retrieval by text or reference image.',
+              bestFor: ['Design refs', 'Asset lookup', 'Content creation']
+            },
+            {
+              title: 'Video Search',
+              badge: 'Early Access',
+              go: 'video-search',
+              description: 'Video retrieval across the open web.',
+              bestFor: ['Media discovery', 'Tutorials', 'Reference footage']
+            }
+          ]
         },
         {
-          title: 'Image Search',
-          go: 'image-search',
-          description: 'Open-web image retrieval by text or reference image.',
-          bestFor: ['Design refs', 'Asset lookup', 'Content creation']
-        },
-        {
-          title: 'Video Search',
-          badge: 'Early Access',
-          go: 'video-search',
-          description: 'Video retrieval across the open web.',
-          bestFor: ['Media discovery', 'Tutorials', 'Reference footage']
-        }
-      ]
-    },
-    {
-      name: 'Search',
-      tier: 'Premier',
-      icon: 'search',
-      tagline: 'Specialized retrieval across verticals.',
-      accent: 'violet',
-      columns: 3,
-      cards: [
-        {
-          title: 'News Search',
-          badge: 'New',
-          go: 'news-search',
-          description: 'Real-time news, grouped by subject',
-          bestFor: ['Monitoring', 'Trend tracking', 'Breaking events']
-        },
-        {
-          title: 'Business Search',
-          badge: 'New',
-          req: 'Business Search',
-          description: 'Company and people search, as structured profiles.',
-          bestFor: ['Company profiles', 'People research', 'Competitive analysis']
-        },
-        {
-          title: 'Place Search',
-          badge: 'New',
-          req: 'Place Search',
-          description: 'Local places with ratings, hours, and reviews, plus web context.',
-          bestFor: ['Local discovery', 'Travel planning', 'Location-aware agents']
+          tier: 'Premier',
+          tagline: 'Specialized retrieval across verticals.',
+          columns: 3,
+          cards: [
+            {
+              title: 'News Search',
+              badge: 'New',
+              go: 'news-search',
+              description: 'Real-time news, grouped by subject',
+              bestFor: ['Monitoring', 'Trend tracking', 'Breaking events']
+            },
+            {
+              title: 'Business Search',
+              badge: 'New',
+              req: 'Business Search',
+              description: 'Company and people search, as structured profiles.',
+              bestFor: ['Company profiles', 'People research', 'Competitive analysis']
+            },
+            {
+              title: 'Place Search',
+              badge: 'New',
+              req: 'Place Search',
+              description: 'Local places with ratings, hours, and reviews, plus web context.',
+              bestFor: ['Local discovery', 'Travel planning', 'Location-aware agents']
+            }
+          ]
         }
       ]
     },

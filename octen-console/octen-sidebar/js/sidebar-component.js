@@ -299,10 +299,10 @@
               </div>
               <div class="theme-segmented-group" id="plan-segmented-group">
                 <button type="button" class="plan-segmented-btn ${this.plan === 'a' ? 'active' : ''}" data-popover-plan-btn="a" title="Plan A (Dual Bento Cards)">
-                  Plan A
+                  A
                 </button>
                 <button type="button" class="plan-segmented-btn ${this.plan === 'b' ? 'active' : ''}" data-popover-plan-btn="b" title="Plan B (Structure Lines Hierarchy)">
-                  Plan B
+                  B
                 </button>
               </div>
             </div>

@@ -77,3 +77,12 @@
     - `Clear` 按钮采用深色基底 `#262626` 配合 `rgba(229, 229, 229, 0.16)` 边框；
     - `Apply` 按钮采用品牌翡翠绿 `#60ff70` 配合黑字 `#141414`；
     - 外部触发选择框（`#bsa-date-btn`、`#ws-date-btn`、`[id$="-datebtn"]`）背景统一同步为表单沉浸黑 `#141414`，选中值显示明亮白，重置时呈现 `#737373`。
+
+- **Overview Capability Matrix Sub-Tier Badges (`.subtier-badge`, Figma Node 14006:6748)**:
+  - **参考 Figma 规范优化子组标题**: 在 Overview 能力矩阵面板（如 Search 多层级子组）中，将原有的文本管道符风格（`Search | Pulse`）优化为 Figma 14006:6748 规范的倾斜胶囊徽标样式。
+  - **徽标视觉规格 (`.subtier-badge`)**:
+    - **倾角造型**: `transform: skewX(-12deg)`，呈现极具科技与速度感的平行四边形倾斜质感。
+    - **背景与边框**: 浅色模式采用极深黑基底 `#0d0d0d` 搭配 `#0a0a0a` 边框，圆角 `4px`，内边距 `1.5px 5.5px`；暗色模式下适配为 `#050505` 搭配精致微白半透边框 `rgba(255, 255, 255, 0.18)`。
+    - **字体与排版**: 统一使用等宽字体 `'JetBrains Mono', monospace`，字重加粗 700，字号 11.5px，纯白高亮文字 `#ffffff`，紧凑单行对齐。
+    - **层级间细分隔线 (`.capability-tier-divider`)**: 在多层级子组（Pulse、FAST、Premier）之间增加微弱半透明横向基线分割，与 Figma 14006:6792 保持一致。
+

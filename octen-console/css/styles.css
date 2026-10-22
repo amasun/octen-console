@@ -2510,7 +2510,8 @@ html.dark .capability-panel:hover .glow-dots,
   white-space: nowrap;
 }
 
-.tier-tag-ultra {
+.tier-tag-ultra,
+.tier-tag-pulse {
   color: #0d9488;
   background-color: rgba(13, 148, 136, 0.08);
   border: 1px solid rgba(13, 148, 136, 0.22);
@@ -2526,6 +2527,41 @@ html.dark .capability-panel:hover .glow-dots,
   color: #793fff;
   background-color: rgba(121, 63, 255, 0.08);
   border: 1px solid rgba(121, 63, 255, 0.22);
+}
+
+/* Subtier Badge (Slanted Pill Badge from Figma 14006:6748) */
+.subtier-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transform: skewX(-12deg);
+  background-color: #0d0d0d;
+  border: 1px solid #0a0a0a;
+  border-radius: 4px;
+  padding: 1.5px 5.5px;
+  font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-weight: 700;
+  font-size: 11.5px;
+  line-height: 1;
+  color: #ffffff;
+  white-space: nowrap;
+  letter-spacing: -0.01em;
+  margin-left: 2px;
+  user-select: none;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  -webkit-font-smoothing: antialiased;
+}
+
+.capability-tier-divider {
+  border-top: 1px solid var(--line, #e5e5e5);
+  opacity: 0.6;
+  margin: 4px 0 8px;
+}
+
+html.dark .capability-tier-divider,
+[data-theme="dark"] .capability-tier-divider {
+  border-top-color: rgba(255, 255, 255, 0.08);
+  opacity: 1;
 }
 
 /* Dark theme overrides for capability components */
@@ -2562,7 +2598,9 @@ html.dark .capability-badge-docs,
 }
 
 html.dark .tier-tag-ultra,
-[data-theme="dark"] .tier-tag-ultra {
+[data-theme="dark"] .tier-tag-ultra,
+html.dark .tier-tag-pulse,
+[data-theme="dark"] .tier-tag-pulse {
   color: #2dd4bf;
   background-color: rgba(45, 212, 191, 0.12);
   border-color: rgba(45, 212, 191, 0.28);
@@ -2580,6 +2618,14 @@ html.dark .tier-tag-premier,
   color: #c084fc;
   background-color: rgba(167, 139, 250, 0.14);
   border-color: rgba(167, 139, 250, 0.32);
+}
+
+html.dark .subtier-badge,
+[data-theme="dark"] .subtier-badge {
+  background-color: #050505;
+  border-color: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
 }
 
 /* Backwards compatibility aliases for pb-* */

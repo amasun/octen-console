@@ -858,7 +858,9 @@ html.dark .user-avatar {
 }
 
 .plan-segmented-btn {
-  padding: 2px 8px;
+  padding: 0 10px;
+  min-width: 28px;
+  height: 24px;
   font-size: 11.5px;
   font-weight: 500;
   display: inline-flex;
