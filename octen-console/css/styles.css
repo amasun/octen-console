@@ -2495,6 +2495,39 @@ html.dark .capability-panel:hover .glow-dots,
   font-weight: 500;
 }
 
+/* Capability Tier Tags (DM Sans Badges) */
+.tier-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 2.5px 8px;
+  border-radius: 6px;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.tier-tag-ultra {
+  color: #0d9488;
+  background-color: rgba(13, 148, 136, 0.08);
+  border: 1px solid rgba(13, 148, 136, 0.22);
+}
+
+.tier-tag-fast {
+  color: #039855;
+  background-color: rgba(3, 152, 85, 0.08);
+  border: 1px solid rgba(3, 152, 85, 0.22);
+}
+
+.tier-tag-premier {
+  color: #793fff;
+  background-color: rgba(121, 63, 255, 0.08);
+  border: 1px solid rgba(121, 63, 255, 0.22);
+}
+
 /* Dark theme overrides for capability components */
 html.dark .capability-panel,
 [data-theme="dark"] .capability-panel {
@@ -2526,6 +2559,27 @@ html.dark .capability-badge-docs,
   background-color: rgba(254, 169, 0, 0.14);
   border-color: rgba(254, 169, 0, 0.35);
   color: #ffdf20;
+}
+
+html.dark .tier-tag-ultra,
+[data-theme="dark"] .tier-tag-ultra {
+  color: #2dd4bf;
+  background-color: rgba(45, 212, 191, 0.12);
+  border-color: rgba(45, 212, 191, 0.28);
+}
+
+html.dark .tier-tag-fast,
+[data-theme="dark"] .tier-tag-fast {
+  color: #60ff70;
+  background-color: rgba(96, 255, 112, 0.12);
+  border-color: rgba(96, 255, 112, 0.28);
+}
+
+html.dark .tier-tag-premier,
+[data-theme="dark"] .tier-tag-premier {
+  color: #c084fc;
+  background-color: rgba(167, 139, 250, 0.14);
+  border-color: rgba(167, 139, 250, 0.32);
 }
 
 /* Backwards compatibility aliases for pb-* */

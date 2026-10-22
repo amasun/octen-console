@@ -46,7 +46,7 @@ window.go = function (pageId) {
   if (targetId === "answer") targetId = "broad-search";
   if (targetId === "model-gateway") targetId = "model";
   if (targetId === "news-search") targetId = "image-search";
-  if (targetId === "business-search" || targetId === "place-search" || targetId === "flash-search" || targetId === "monitor") targetId = "web-search";
+  if (targetId === "business-search" || targetId === "place-search" || targetId === "flash-search" || targetId === "pulse-search" || targetId === "monitor") targetId = "web-search";
   if (targetId === "multimodal-chat" || targetId === "ground-generation") targetId = "multimodal-search";
 
   // Render page

@@ -91,7 +91,7 @@
             return dividerHtml +
               '<div class="capability-tier-group flex flex-col gap-2.5">' +
                 '<div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-1.5">' +
-                  '<span class="capability-tier font-serif text-sm font-bold italic ' + (t.tier.className || '') + '">' + t.tier.label + '</span>' +
+                  '<span class="tier-tag ' + (t.tier.tagClass || t.tier.className || '') + '">' + t.tier.label + '</span>' +
                   tierTagline +
                 '</div>' +
                 '<div class="grid gap-3 ' + gridCls + '">' +
@@ -107,7 +107,7 @@
     var tierHtml = '';
     if (p.tier) {
       tierHtml = '<span class="text-[var(--border,#d4d4d4)] font-normal mx-0.5">|</span>' +
-        '<span class="capability-tier font-serif text-base font-bold italic ' + (p.tier.className || '') + '">' + p.tier.label + '</span>';
+        '<span class="tier-tag ' + (p.tier.tagClass || p.tier.className || '') + '">' + p.tier.label + '</span>';
     }
     var gridCls = GRID_MAP[p.columns] || 'grid-cols-1';
 
@@ -133,21 +133,21 @@
       icon: 'search',
       tiers: [
         {
-          tier: { label: 'ULTRA FAST', className: 'text-[#0d9488]' },
+          tier: { label: 'ULTRA FAST', tagClass: 'tier-tag-ultra' },
           tagline: 'Fastest, lowest-cost retrieval for common lookups.',
           columns: 4,
           cards: [
             {
-              title: 'Flash Search',
+              title: 'Pulse Search',
               badge: 'New',
-              go: 'flash-search',
+              go: 'pulse-search',
               description: 'Maps a query straight to the most relevant URLs. Fastest and lowest-cost search.',
               bestFor: ['Navigation', 'Official sites', 'Docs lookup', 'Entity lookup']
             }
           ]
         },
         {
-          tier: { label: 'FAST', className: 'text-[#039855]' },
+          tier: { label: 'FAST', tagClass: 'tier-tag-fast' },
           tagline: 'Low-latency retrieval from the live web.',
           columns: 4,
           cards: [
@@ -179,7 +179,7 @@
           ]
         },
         {
-          tier: { label: 'Premier', className: 'text-[#793fff]' },
+          tier: { label: 'Premier', tagClass: 'tier-tag-premier' },
           tagline: 'Specialized retrieval across verticals.',
           columns: 3,
           cards: [
