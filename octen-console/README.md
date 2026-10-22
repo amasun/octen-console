@@ -38,7 +38,7 @@ Navigate to `http://localhost:3000` to interact with the interface.
 - `js/broad-search-api.js` — Logic for the interactive API playground, payload generation, and JSON rendering.
 - `js/syntax-highlight.js` — Syntax highlighting for generated code snippets.
 - `js/core/sidebar.js` — Modular sidebar integration using `OctenSidebar` component supporting Plan A & Plan B switching with persistent state in `localStorage` (`octen-sidebar-plan`).
-- `js/pages/overview/template.js` — Overview dashboard featuring the 4 unified capability panels (Search [with Ultra Fast, Fast, and Premier sub-tiers], Models, Tools, Application).
+- `js/pages/overview/template.js` — Overview dashboard featuring capability panels (Search [Search | Pulse, Search | FAST, Search | Premier], Models, Tools, Application).
 - `octen-sidebar/` — Sidebar design engineering suite supporting two Search category navigation layouts:
   - **Plan B (Default)**: Directory hierarchy tree structure with rounded 90° connection lines (`border-bottom-left-radius: 8px`) dropping from an elevated `Search` parent card with a status dot indicator (matching user reference mockup).
   - **Plan A**: Bento dual-card layout separating `FAST` and `PREMIER` search endpoints.
