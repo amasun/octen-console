@@ -2608,10 +2608,10 @@ html.dark .tier-tag-premier,
 
 html.dark .subtier-badge,
 [data-theme="dark"] .subtier-badge {
-  background-color: #050505;
-  border-color: rgba(255, 255, 255, 0.18);
-  color: #ffffff;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+  background-color: #ffffff;
+  border-color: #ffffff;
+  color: #0a0a0a;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 /* Backwards compatibility aliases for pb-* */
