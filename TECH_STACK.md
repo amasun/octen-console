@@ -103,4 +103,11 @@
   - **两端留白横向分割线 (`.search-subgroup-divider`)**: 在子组之间通过 `<div class="search-subgroup-divider"></div>` 进行物理分区，分割线高度设为 `1px`，左右留白外边距设为 `margin: 6px 12px`（完美呼应导航项与标题文字的 `12px` 内部对齐基准线，呈现克制精致的两端悬空/缩进质感）；浅色模式底色为 `var(--sidebar-divider, #e5e5e5)`，暗色模式底色适配为 `rgba(255, 255, 255, 0.1)`。
   - **多端与双目录同步**: 完整同步更新 `octen-sidebar/` 及 `octen-sidebar/src/` 的组件渲染逻辑（`sidebar-component.js`）、样式规范（`sidebar.css`）与画板挂载配置（`app.js`、`index.html`）。
 
+- **Overview Search Sub-Group Header Icons (Overview Search 子组标题图标区分)**:
+  - **差异化语义图标匹配**: 在 Overview 能力矩阵页面的 Search 大组中，根据各层级业务属性为三个子组标题配置对应专属图标，解除此前三组均使用单一搜索地球图标的重复感：
+    - **第一组 (`Pulse`)**: 采用闪电图标（`pulse`，极速响应与超低延迟）；
+    - **第二组 (`FAST`)**: 保持经典的搜索地球图标（`search`，全网标准与实时检索）；
+    - **第三组 (`Premier`)**: 采用资讯/新闻搜索图标（`newsSearch`，垂直领域专业检索）。
+  - **动态图标解析引擎**: 在 `renderPanel` 中通过 `(t.icon && ICONS[t.icon]) ? ICONS[t.icon] : ICONS[p.icon]` 自动识别子组级定义，若未定义则平滑回退至面板级默认图标，且图标采用 `fill="none"`、`stroke="currentColor"` 和 `text-[var(--fg-strong)]` 自适应全主题模式。
+
 
