@@ -2550,6 +2550,8 @@ html.dark .capability-panel:hover .glow-dots,
   user-select: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
   -webkit-font-smoothing: antialiased;
+}
+
 /* Dark theme overrides for capability components */
 html.dark .capability-panel,
 [data-theme="dark"] .capability-panel {
@@ -2608,9 +2610,9 @@ html.dark .tier-tag-premier,
 
 html.dark .subtier-badge,
 [data-theme="dark"] .subtier-badge {
-  background-color: #ffffff;
-  border-color: #ffffff;
-  color: #0a0a0a;
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #0a0a0a !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
