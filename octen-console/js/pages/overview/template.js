@@ -84,12 +84,8 @@
             var dividerHtml = idx > 0 ? '<div class="border-t border-[var(--line,#e5e5e5)] opacity-60 my-1"></div>' : '';
             return dividerHtml +
               '<div class="capability-tier-group flex flex-col gap-2.5">' +
-                '<div class="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-1.5">' +
-                  '<div class="flex items-center gap-2">' +
-                    '<span class="capability-tier font-serif text-sm font-bold italic ' + (t.tier.className || '') + '">' + t.tier.label + '</span>' +
-                    '<span class="text-[var(--border,#d4d4d4)] font-normal text-xs">|</span>' +
-                    '<span class="text-xs text-[var(--fg-muted,#737373)]">' + t.tagline + '</span>' +
-                  '</div>' +
+                '<div class="flex items-center px-1.5">' +
+                  '<span class="capability-tier font-serif text-sm font-bold italic ' + (t.tier.className || '') + '">' + t.tier.label + '</span>' +
                 '</div>' +
                 '<div class="grid gap-3 ' + gridCls + '">' +
                   t.cards.map(renderCard).join('') +
@@ -132,7 +128,6 @@
       tiers: [
         {
           tier: { label: 'ULTRA FAST', className: 'text-[#0d9488]' },
-          tagline: 'Fastest, lowest-cost retrieval for common lookups.',
           columns: 4,
           cards: [
             {
@@ -146,7 +141,6 @@
         },
         {
           tier: { label: 'FAST', className: 'text-[#039855]' },
-          tagline: 'Low-latency retrieval from the live web.',
           columns: 4,
           cards: [
             {
@@ -178,7 +172,6 @@
         },
         {
           tier: { label: 'Premier', className: 'text-[#793fff]' },
-          tagline: 'Specialized retrieval across verticals.',
           columns: 3,
           cards: [
             {
