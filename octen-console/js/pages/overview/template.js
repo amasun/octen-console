@@ -69,6 +69,9 @@
 
     // Multi-tier panel (e.g. Search containing ULTRA FAST, FAST, Premier)
     if (p.tiers && p.tiers.length > 0) {
+      var headerTagline = p.tagline
+        ? '<p class="text-sm text-[var(--fg-muted,#737373)]">' + p.tagline + '</p>'
+        : '';
       return '<section class="capability-panel' + violetCls + '">' +
         '<div class="glow-dots"></div>' +
         '<div class="relative flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-1.5 pt-0.5 pb-3">' +
@@ -76,16 +79,20 @@
             ICONS[p.icon] +
             '<span class="font-sans text-base font-semibold text-[var(--fg-strong,#0a0a0a)]">' + p.name + '</span>' +
           '</div>' +
-          '<p class="text-sm text-[var(--fg-muted,#737373)]">' + p.tagline + '</p>' +
+          headerTagline +
         '</div>' +
         '<div class="relative flex flex-col gap-4 pt-1">' +
           p.tiers.map(function (t, idx) {
             var gridCls = GRID_MAP[t.columns] || 'grid-cols-1';
             var dividerHtml = idx > 0 ? '<div class="border-t border-[var(--line,#e5e5e5)] opacity-60 my-1"></div>' : '';
+            var tierTagline = t.tagline
+              ? '<p class="text-sm text-[var(--fg-muted,#737373)]">' + t.tagline + '</p>'
+              : '';
             return dividerHtml +
               '<div class="capability-tier-group flex flex-col gap-2.5">' +
-                '<div class="flex items-center px-1.5">' +
+                '<div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-1.5">' +
                   '<span class="capability-tier font-serif text-sm font-bold italic ' + (t.tier.className || '') + '">' + t.tier.label + '</span>' +
+                  tierTagline +
                 '</div>' +
                 '<div class="grid gap-3 ' + gridCls + '">' +
                   t.cards.map(renderCard).join('') +
@@ -124,10 +131,10 @@
     {
       name: 'Search',
       icon: 'search',
-      tagline: 'Ultra-fast, low-latency, and specialized retrieval across open web and verticals.',
       tiers: [
         {
           tier: { label: 'ULTRA FAST', className: 'text-[#0d9488]' },
+          tagline: 'Fastest, lowest-cost retrieval for common lookups.',
           columns: 4,
           cards: [
             {
@@ -141,6 +148,7 @@
         },
         {
           tier: { label: 'FAST', className: 'text-[#039855]' },
+          tagline: 'Low-latency retrieval from the live web.',
           columns: 4,
           cards: [
             {
@@ -172,6 +180,7 @@
         },
         {
           tier: { label: 'Premier', className: 'text-[#793fff]' },
+          tagline: 'Specialized retrieval across verticals.',
           columns: 3,
           cards: [
             {
