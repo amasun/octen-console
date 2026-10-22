@@ -295,6 +295,25 @@ html.dark .search-card {
   border-color: rgba(255, 255, 255, 0.12);
 }
 
+.search-card-subgroup {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+.search-subgroup-divider {
+  height: 1px;
+  background-color: var(--sidebar-divider, #e5e5e5);
+  margin: 6px 12px;
+  border: 0;
+  flex-shrink: 0;
+}
+
+html.dark .search-subgroup-divider {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 .nav-card-label {
   height: 24px;
   display: flex;

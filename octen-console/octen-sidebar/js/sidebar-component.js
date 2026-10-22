@@ -158,14 +158,16 @@
                 `;
               }
 
-              // Plan A: Standard Dual Bento Cards
-              var cardsHtml = section.cards.map(function(card) {
+              // Plan A: Single Unified Bento Card enclosing all sub-groups, with in-between dividers
+              var subgroupsHtml = section.cards.map(function(card, cardIdx) {
                 var cardLabelHtml = card.title ? `<div class="nav-card-label">${card.title}</div>` : '';
                 var cardItemsHtml = (card.items || []).map(function(item) {
                   return this.renderNavItemHtml(item);
                 }.bind(this)).join('');
+                var dividerHtml = (cardIdx > 0) ? `<div class="search-subgroup-divider"></div>` : '';
                 return `
-                  <div class="search-card" id="${card.id || ''}">
+                  ${dividerHtml}
+                  <div class="search-card-subgroup" id="${card.id || ''}">
                     ${cardLabelHtml}
                     ${cardItemsHtml}
                   </div>
@@ -176,7 +178,9 @@
                 <div class="nav-section ${dividerClass}" id="${secId}">
                   ${sectionTitleHtml}
                   <div class="search-cards-container">
-                    ${cardsHtml}
+                    <div class="search-card search-card-unified">
+                      ${subgroupsHtml}
+                    </div>
                   </div>
                 </div>
               `;

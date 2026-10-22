@@ -97,4 +97,10 @@
     - **工程化双目录同步**: 完整同步更新 `octen-sidebar/` 与 `octen-sidebar/src/` 中的 `sidebar-config.js`、`sidebar-component.js` 以及 `sidebar.css`，保持全局一致性。
   - **Image Search 图标修正**: 按照设计最新矢量规范修正 `Image Search` 的 18x18 SVG 图标（图片相框 + 群山轮廓 + 聚焦放大镜），消除视口边界溢出问题，统一采用 `fill="currentColor"` 保持全主题自适应（浅色 `#171717`，暗色高对比 `#e5e5e5`）。
 
+- **Plan A Sidebar Search Group Unified Border & Inset Dividers (Plan A Search 三子组边框合并与两端留白分割线)**:
+  - **大外框统一封装 (`.search-card.search-card-unified`)**: 将原 Plan A 侧边栏中分散独立的 3 个子组小边框（`PULSE`、`FAST`、`PREMIER`）合并为单一的大卡片外框（`.search-card.search-card-unified`，统一 `1px solid #d9d9d9`，圆角 `12px`，内边距 `6px`，暗色下为 `rgba(255, 255, 255, 0.12)`）。
+  - **子组内部流式结构 (`.search-card-subgroup`)**: 内部各子组包裹于 `.search-card-subgroup` 容器中，保留各子组的标题与导航项结构，消除外部多余嵌套与边框间距堆叠。
+  - **两端留白横向分割线 (`.search-subgroup-divider`)**: 在子组之间通过 `<div class="search-subgroup-divider"></div>` 进行物理分区，分割线高度设为 `1px`，左右留白外边距设为 `margin: 6px 12px`（完美呼应导航项与标题文字的 `12px` 内部对齐基准线，呈现克制精致的两端悬空/缩进质感）；浅色模式底色为 `var(--sidebar-divider, #e5e5e5)`，暗色模式底色适配为 `rgba(255, 255, 255, 0.1)`。
+  - **多端与双目录同步**: 完整同步更新 `octen-sidebar/` 及 `octen-sidebar/src/` 的组件渲染逻辑（`sidebar-component.js`）、样式规范（`sidebar.css`）与画板挂载配置（`app.js`、`index.html`）。
+
 
