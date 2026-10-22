@@ -72,32 +72,28 @@
       return '<section class="capability-panel' + violetCls + '">' +
         '<div class="glow-dots"></div>' +
         '<div class="relative flex flex-col gap-6">' +
-          p.tiers.map(function (t, idx) {
+          p.tiers.map(function (t) {
             var gridCls = GRID_MAP[t.columns] || 'grid-cols-1';
             var tierLabel = typeof t.tier === 'string' ? t.tier : (t.tier && t.tier.label);
             var tierHtml = '';
             if (tierLabel) {
               tierHtml = '<span class="subtier-badge">' + tierLabel + '</span>';
             }
-            var dividerHtml = (idx > 0)
-              ? '<div class="capability-tier-divider"></div>'
-              : '';
-            return dividerHtml +
-              '<div class="capability-tier-group flex flex-col gap-2.5">' +
-                '<div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-1.5 pt-0.5 pb-1">' +
-                  '<div class="flex items-center gap-2">' +
-                    ICONS[p.icon] +
-                    '<h3 class="font-sans text-base font-semibold text-[var(--fg-strong,#0a0a0a)] flex items-center gap-1.5">' +
-                      '<span>' + p.name + '</span>' +
-                      tierHtml +
-                    '</h3>' +
-                  '</div>' +
-                  (t.tagline ? '<p class="text-sm text-[var(--fg-muted,#737373)]">' + t.tagline + '</p>' : '') +
+            return '<div class="capability-tier-group flex flex-col gap-2.5">' +
+              '<div class="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 px-1.5 pt-0.5 pb-1">' +
+                '<div class="flex items-center gap-2">' +
+                  ICONS[p.icon] +
+                  '<h3 class="font-sans text-base font-semibold text-[var(--fg-strong,#0a0a0a)] flex items-center gap-1.5">' +
+                    '<span>' + p.name + '</span>' +
+                    tierHtml +
+                  '</h3>' +
                 '</div>' +
-                '<div class="grid gap-3 ' + gridCls + '">' +
-                  t.cards.map(renderCard).join('') +
-                '</div>' +
-              '</div>';
+                (t.tagline ? '<p class="text-sm text-[var(--fg-muted,#737373)]">' + t.tagline + '</p>' : '') +
+              '</div>' +
+              '<div class="grid gap-3 ' + gridCls + '">' +
+                t.cards.map(renderCard).join('') +
+              '</div>' +
+            '</div>';
           }).join('') +
         '</div>' +
       '</section>';
