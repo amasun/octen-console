@@ -86,3 +86,14 @@
     - **字体与排版**: 统一使用等宽字体 `'JetBrains Mono', monospace`，字重加粗 700，字号 11.5px；浅色下白字 `#ffffff`，暗色下黑字 `#0a0a0a`，紧凑单行对齐。
     - **无分割线流式布局**: 去除子组之间的硬质横向分割线，完全依靠卡片网格和呼吸间距（`gap-6`）进行自然视觉分区，整体界面更加轻盈通透。
 
+- **Plan B Sidebar Search Group Redesign (`.search-group`, Figma Node 13942:158402 & 14006:6541)**:
+  - **结构重构与三级子组**: 依据 Figma `13942:158402` 与 `14006:6541` 最新规范，全面重构 Plan B 侧边栏的 Search 大组（Frame: `Search group`）。Search 大组下设立 3 个子组：`PULSE`（Pulse Search，搭配 `lucideZap` 图标）、`FAST`（Web Search, Broad Search, Image Search, Video Search）及 `PREMIER`（News Search, Business Search, Place Search）。
+  - **树形引导线与方块指示器**:
+    - 每个子组标题（`PULSE`, `FAST`, `PREMIER`）左侧均配有一根自顶向下的 `1px` 垂直连接贯通线（`#D9D9D9` / 暗色 `rgba(255,255,255,0.12)`）与顶部 `5px x 5px` 小方块指示器（`.search-subtier-square`）。
+    - 默认/未激活状态：方块为纯浅灰 `#D9D9D9`（暗色下 `rgba(255,255,255,0.25)`），子组标题为大写 12px 灰色 `#717680`。
+  - **精准状态解耦（Hover 与 Click/Active 交互规范）**:
+    - **激活/点击状态 (Active)**: 当某个子组包含当前激活的路由项时，该子组标题左侧方块点亮为标志性亮绿 `#2EA842`，子组标题同步变更为绿色 `#039855`（暗色模式 `#60ff70`），被激活的导航项背景呈现为 `#eaeaea`（暗色 `#262626`）。
+    - **悬浮状态 (Hover)**: 鼠标悬停任意导航项时，**仅改变被悬停项目的背景底色**（`#eaeaea` / 暗色 `#262626`），小方块严格保持原有颜色不变（方块不随 hover 变色，仅由激活状态驱动），完全符合 Figma 设计意图。
+    - **工程化双目录同步**: 完整同步更新 `octen-sidebar/` 与 `octen-sidebar/src/` 中的 `sidebar-config.js`、`sidebar-component.js` 以及 `sidebar.css`，保持全局一致性。
+
+

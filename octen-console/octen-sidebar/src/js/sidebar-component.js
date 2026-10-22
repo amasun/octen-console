@@ -109,75 +109,50 @@
             if (section.cards && section.cards.length > 0) {
               var secId = section.id || ('sec-' + secIdx);
 
-              // Plan B: Tree Structure Lines Hierarchy (Reference image layout)
+              // Plan B: Search Group with Connecting Stems & Sub-tier Square Indicators (Figma 13942:158402 / 14006:6541)
               if (this.plan === 'b' && isSearchSection) {
-                var allSearchItems = [];
-                section.cards.forEach(function(c) {
-                  allSearchItems = allSearchItems.concat(c.items || []);
-                });
-                var isSearchActive = allSearchItems.some(function(item) {
-                  return item.id === this.activeRoute;
-                }.bind(this));
+                var searchCards = section.cards || [];
 
-                var fastCard = section.cards.find(function(c) { return c.id === 'card-fast' || (c.title && c.title.toLowerCase().indexOf('fast') !== -1); }) || section.cards[0];
-                var premierCard = section.cards.find(function(c) { return c.id === 'card-premier' || (c.title && c.title.toLowerCase().indexOf('premier') !== -1); }) || section.cards[1];
+                var subtiersHtml = searchCards.map(function(card) {
+                  var cardItems = card.items || [];
+                  var isSubtierActive = cardItems.some(function(item) {
+                    return item.id === this.activeRoute;
+                  }.bind(this));
 
-                var fastItems = fastCard ? (fastCard.items || []) : [];
-                var premierItems = premierCard ? (premierCard.items || []) : [];
+                  var itemsHtml = cardItems.map(function(item) {
+                    var isActive = item.id === this.activeRoute;
+                    var badgeHtml = item.badge ? `<span class="nav-badge">${item.badge}</span>` : '';
+                    return `
+                      <a href="${item.href || '#'}" 
+                         class="search-subtier-item ${isActive ? 'active' : ''}" 
+                         data-route-id="${item.id}"
+                         onclick="if(typeof go==='function'){go('${item.id}');return false;}">
+                        <span class="search-subtier-item-icon">${item.icon || ''}</span>
+                        <span class="search-subtier-item-text">${item.title}</span>
+                        ${badgeHtml}
+                      </a>
+                    `;
+                  }.bind(this)).join('');
 
-                var renderTreeItem = function(item, isLast) {
-                  var isActive = item.id === this.activeRoute;
-                  var badgeHtml = item.badge ? `<span class="nav-badge">${item.badge}</span>` : '';
                   return `
-                    <a href="${item.href || '#'}" 
-                       class="search-tree-item ${isActive ? 'active' : ''} ${isLast ? 'is-last' : ''}" 
-                       data-route-id="${item.id}"
-                       onclick="if(typeof go==='function'){go('${item.id}');return false;}">
-                      <span class="search-tree-item-text">${item.title}</span>
-                      ${badgeHtml}
-                    </a>
+                    <div class="search-subtier-group ${isSubtierActive ? 'active' : ''}" data-subtier-id="${card.id}">
+                      <div class="search-subtier-header">
+                        <span class="search-subtier-title">${card.title}</span>
+                      </div>
+                      <span class="search-subtier-square"></span>
+                      <div class="search-subtier-stem"></div>
+                      <div class="search-subtier-items">
+                        ${itemsHtml}
+                      </div>
+                    </div>
                   `;
-                }.bind(this);
-
-                var fastItemsHtml = fastItems.map(function(item) {
-                  return renderTreeItem(item, false);
-                }).join('');
-
-                var premierItemsHtml = premierItems.map(function(item, idx) {
-                  var isLast = idx === premierItems.length - 1;
-                  return renderTreeItem(item, isLast);
-                }).join('');
+                }.bind(this)).join('');
 
                 return `
-                  <div class="nav-section ${dividerClass}" id="${secId}">
-                    ${sectionTitleHtml}
-                    <div class="search-tree-wrapper">
-                      <div class="search-tree-card" id="search-tree-parent-card">
-                        <div class="search-tree-card-left">
-                          <svg class="search-tree-grid-icon" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <rect x="2" y="2" width="4.5" height="4.5" rx="1.2"/>
-                            <rect x="9.5" y="2" width="4.5" height="4.5" rx="1.2"/>
-                            <rect x="2" y="9.5" width="4.5" height="4.5" rx="1.2"/>
-                            <rect x="9.5" y="9.5" width="4.5" height="4.5" rx="1.2"/>
-                          </svg>
-                          <span class="search-tree-card-title">Search</span>
-                        </div>
-                        <span class="search-tree-card-dot ${isSearchActive ? 'active' : ''}"></span>
-                      </div>
-
-                      <div class="search-tree-list">
-                        <div class="search-tree-stem-top"></div>
-
-                        <div class="search-tree-tier-row">
-                          <span class="search-tree-tier-tag fast">FAST</span>
-                        </div>
-                        ${fastItemsHtml}
-
-                        <div class="search-tree-tier-row">
-                          <span class="search-tree-tier-tag premier">PREMIER</span>
-                        </div>
-                        ${premierItemsHtml}
-                      </div>
+                  <div class="nav-section ${dividerClass} search-group" id="${secId}">
+                    <div class="search-group-title">Search</div>
+                    <div class="search-subtiers-container">
+                      ${subtiersHtml}
                     </div>
                   </div>
                 `;
@@ -450,8 +425,8 @@
       });
     });
 
-    // Plan B Search Tree Item Click
-    this.container.querySelectorAll('.search-tree-item').forEach(function(item) {
+    // Plan B Search Sub-tier Item Click
+    this.container.querySelectorAll('.search-subtier-item, .search-tree-item').forEach(function(item) {
       item.addEventListener('click', function(e) {
         var routeId = item.getAttribute('data-route-id');
         if (routeId) {
@@ -592,6 +567,23 @@
         item.classList.add('active');
       } else {
         item.classList.remove('active');
+      }
+    });
+
+    this.container.querySelectorAll('.search-subtier-item').forEach(function(item) {
+      if (item.getAttribute('data-route-id') === routeId) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+
+    this.container.querySelectorAll('.search-subtier-group').forEach(function(group) {
+      var hasActiveItem = group.querySelector('.search-subtier-item.active') !== null;
+      if (hasActiveItem) {
+        group.classList.add('active');
+      } else {
+        group.classList.remove('active');
       }
     });
 

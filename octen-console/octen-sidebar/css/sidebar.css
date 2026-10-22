@@ -314,231 +314,194 @@ html.dark .nav-card-label {
 }
 
 /* ==========================================================================
-   Plan B: Search Tree Structure with Curved Branch Lines (Reference Image)
+   Plan B: Search Group Sub-tiers (Figma Node 13942:158402 & 14006:6541)
    ========================================================================== */
-.search-tree-wrapper {
+.search-group-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #717680;
+  padding: 6px 12px 4px 12px;
+  letter-spacing: -0.01em;
+  user-select: none;
+}
+
+html.dark .search-group-title {
+  color: #8e8e93;
+}
+
+.search-subtiers-container {
   display: flex;
   flex-direction: column;
+  gap: 8px;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* Elevated Parent Card (Reference: ':: Dashboard •') */
-.search-tree-card {
-  height: 42px;
-  background: var(--sidebar-tree-card-bg);
-  border: 1px solid var(--sidebar-tree-card-border);
-  border-radius: 12px;
-  box-shadow: var(--sidebar-tree-card-shadow);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 14px;
-  box-sizing: border-box;
-  margin: 2px 0 0 0;
-  user-select: none;
-  transition: background-color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.search-tree-card:hover {
-  border-color: rgba(0, 0, 0, 0.16);
-}
-
-html.dark .search-tree-card:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-}
-
-.search-tree-card-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.search-tree-grid-icon {
-  width: 16px;
-  height: 16px;
-  color: var(--sidebar-icon);
-  flex-shrink: 0;
-}
-
-.search-tree-card-title {
-  font-size: 14.5px;
-  font-weight: 600;
-  color: var(--sidebar-fg);
-  letter-spacing: -0.01em;
-}
-
-/* Indicator dot on the right of the parent card */
-.search-tree-card-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: var(--sidebar-fg-faint);
-  transition: all 0.2s ease;
-  flex-shrink: 0;
-}
-
-.search-tree-card-dot.active {
-  background-color: var(--sidebar-fg);
-  transform: scale(1.15);
-}
-
-html.dark .search-tree-card-dot.active {
-  background-color: var(--sidebar-primary);
-  box-shadow: 0 0 6px rgba(96, 255, 112, 0.5);
-}
-
-/* Vertical trunk line and connecting stem */
-.search-tree-list {
+/* Sub-tier container (Pulse, Fast, Premier) */
+.search-subtier-group {
   position: relative;
   display: flex;
   flex-direction: column;
-  margin-top: 0;
-}
-
-.search-tree-stem-top {
-  width: 0;
-  height: 8px;
-  border-left: 1.5px solid var(--sidebar-tree-line);
-  margin-left: 22px; /* Center-aligned with the 2x2 grid icon */
-}
-
-/* Tier Headers (FAST & PREMIER) */
-.search-tree-tier-row {
-  position: relative;
-  display: flex;
-  align-items: center;
-  padding: 8px 0 4px 38px;
+  gap: 2px;
+  padding-left: 12px;
+  padding-bottom: 6px;
   box-sizing: border-box;
+  width: 100%;
 }
 
-.search-tree-tier-row::before {
-  content: '';
+/* 5px x 5px square indicator beside sub-tier title */
+.search-subtier-square {
   position: absolute;
-  left: 22px;
-  top: 0;
-  bottom: 0;
-  width: 0;
-  border-left: 1.5px solid var(--sidebar-tree-line);
+  left: 13.5px;
+  top: 9.5px;
+  width: 5px;
+  height: 5px;
+  background-color: #D9D9D9;
+  z-index: 2;
+  transition: background-color 0.2s ease;
   pointer-events: none;
 }
 
-.search-tree-tier-tag {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+/* Vertical connecting line / stem down the left side */
+.search-subtier-stem {
+  position: absolute;
+  left: 15.5px;
+  top: 12px;
+  bottom: 8px;
+  width: 1px;
+  background-color: #D9D9D9;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Sub-tier header containing title */
+.search-subtier-header {
+  height: 24px;
+  display: flex;
+  align-items: center;
+  padding: 6px 12px 4px 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.search-subtier-title {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
   text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: 4px;
-  line-height: 1.2;
+  color: #717680;
+  opacity: 0.8;
+  letter-spacing: 0.02em;
+  transition: color 0.2s ease, opacity 0.2s ease;
   user-select: none;
 }
 
-.search-tree-tier-tag.fast {
-  font-family: 'Fraunces', Georgia, serif;
-  font-style: italic;
-  color: #039855;
-  background: rgba(3, 152, 85, 0.09);
-  border: 1px solid rgba(3, 152, 85, 0.18);
-}
-
-html.dark .search-tree-tier-tag.fast {
-  color: #60ff70;
-  background: rgba(96, 255, 112, 0.12);
-  border-color: rgba(96, 255, 112, 0.22);
-}
-
-.search-tree-tier-tag.premier {
-  font-family: 'Fraunces', Georgia, serif;
-  font-style: italic;
-  color: #793fff;
-  background: rgba(121, 63, 255, 0.09);
-  border: 1px solid rgba(121, 63, 255, 0.18);
-}
-
-html.dark .search-tree-tier-tag.premier {
-  color: #a78bfa;
-  background: rgba(167, 139, 250, 0.14);
-  border-color: rgba(167, 139, 250, 0.22);
-}
-
-/* Tree Navigation Item (Reference: clean text with smooth 90° curved branch line) */
-.search-tree-item {
-  position: relative;
+/* Sub-tier items container */
+.search-subtier-items {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 32px;
-  padding-left: 38px;
-  padding-right: 12px;
-  text-decoration: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.15s ease;
+  flex-direction: column;
+  gap: 2px;
+  padding-left: 11px;
+  width: 100%;
   box-sizing: border-box;
 }
 
-.search-tree-item:hover {
-  background-color: var(--sidebar-hover-bg-subtle);
+/* Individual Search Nav Item */
+.search-subtier-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  color: #0a0a0a;
+  box-sizing: border-box;
+  width: 100%;
+  transition: background-color 0.15s ease;
+  cursor: pointer;
+  user-select: none;
 }
 
-.search-tree-item-text {
-  font-size: 13.5px;
+.search-subtier-item-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.search-subtier-item-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.search-subtier-item-text {
+  font-size: 14px;
   font-weight: 400;
-  color: var(--sidebar-fg-muted);
-  line-height: 1;
-  transition: color 0.15s ease, font-weight 0.15s ease;
+  line-height: normal;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: inherit;
 }
 
-.search-tree-item:hover .search-tree-item-text {
-  color: var(--sidebar-fg);
+/* Hover: ONLY change the hovered item background, the square does NOT change */
+.search-subtier-item:hover {
+  background-color: #eaeaea;
 }
 
-/* Active Tree Item State (Bold & High Contrast like 'Performance Report' in reference) */
-.search-tree-item.active {
-  background-color: var(--sidebar-hover-bg-subtle);
+/* Active item background */
+.search-subtier-item.active {
+  background-color: #eaeaea;
+  font-weight: 500;
 }
 
-.search-tree-item.active .search-tree-item-text {
-  font-weight: 600;
-  color: var(--sidebar-fg);
+/* ACTIVE Sub-tier: When any child item is active/clicked, square turns green & title turns green */
+.search-subtier-group.active .search-subtier-square {
+  background-color: #2EA842;
 }
 
-/* Structure Lines: 90° smooth curve with 8px radius */
-.search-tree-item::before {
-  content: '';
-  position: absolute;
-  left: 22px;
-  top: 0;
-  width: 14px;
-  height: 50%;
-  border-left: 1.5px solid var(--sidebar-tree-line);
-  border-bottom: 1.5px solid var(--sidebar-tree-line);
-  border-bottom-left-radius: 8px;
-  box-sizing: border-box;
-  pointer-events: none;
-  transition: border-color 0.15s ease;
+.search-subtier-group.active .search-subtier-title {
+  color: #039855;
+  opacity: 1;
 }
 
-/* Continuation line downward for non-terminal items */
-.search-tree-item:not(.is-last)::after {
-  content: '';
-  position: absolute;
-  left: 22px;
-  top: 50%;
-  bottom: 0;
-  width: 0;
-  border-left: 1.5px solid var(--sidebar-tree-line);
-  pointer-events: none;
+/* Dark Mode styles for Plan B Search Sub-tiers */
+html.dark .search-subtier-square {
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
-/* When tree item is active, highlight its branch curve */
-.search-tree-item.active::before {
-  border-left-color: var(--sidebar-primary);
-  border-bottom-color: var(--sidebar-primary);
+html.dark .search-subtier-stem {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+html.dark .search-subtier-title {
+  color: #8e8e93;
+}
+
+html.dark .search-subtier-group.active .search-subtier-square {
+  background-color: #2EA842;
+}
+
+html.dark .search-subtier-group.active .search-subtier-title {
+  color: #60ff70;
+}
+
+html.dark .search-subtier-item {
+  color: #e5e5e5;
+}
+
+html.dark .search-subtier-item:hover {
+  background-color: #262626;
+}
+
+html.dark .search-subtier-item.active {
+  background-color: #262626;
+  color: #ffffff;
 }
 
 .nav-items-list {
