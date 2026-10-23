@@ -24,10 +24,14 @@ setTimeout(openBrowser, 800);
 console.log('\x1b[33m%s\x1b[0m', `正在启动静态服务 (端口: ${PORT})...`);
 
 const isWin = process.platform === 'win32';
-const server = spawn(isWin ? 'npx.cmd' : 'npx', ['-y', 'serve', '-l', String(PORT), '.'], {
+const shellCmd = isWin ? 'cmd.exe' : 'sh';
+const shellArgs = isWin
+  ? ['/c', `where pnpm >nul 2>nul && pnpm dlx serve -l ${PORT} . || npx -y serve -l ${PORT} .`]
+  : ['-c', `command -v pnpm >/dev/null 2>&1 && pnpm dlx serve -l ${PORT} . || npx -y serve -l ${PORT} .`];
+
+const server = spawn(shellCmd, shellArgs, {
   cwd: APP_DIR,
-  stdio: 'inherit',
-  shell: true
+  stdio: 'inherit'
 });
 
 server.on('error', (err) => {
