@@ -1,0 +1,11 @@
+{
+  "name": "octen-console",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Octen Console - The Search infrastructure for AI",
+  "scripts": {
+    "dev": "node scripts/preview.js",
+    "preview": "node scripts/preview.js",
+    "serve": "pnpm dlx serve -l 3001 ."
+  }
+}
