@@ -2535,6 +2535,7 @@ html.dark .capability-panel:hover .glow-dots,
   align-items: center;
   justify-content: center;
   transform: skewX(-12deg);
+  text-transform: uppercase;
   background-color: #0d0d0d;
   border: 1px solid #0a0a0a;
   border-radius: 4px;
@@ -2545,7 +2546,7 @@ html.dark .capability-panel:hover .glow-dots,
   line-height: 1;
   color: #ffffff;
   white-space: nowrap;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
   margin-left: 2px;
   user-select: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);

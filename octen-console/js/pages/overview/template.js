@@ -139,7 +139,7 @@
       icon: 'search',
       tiers: [
         {
-          tier: 'Pulse',
+          tier: 'PULSE',
           icon: 'pulse',
           tagline: 'Fastest, lowest-cost retrieval for common lookups.',
           columns: 1,
@@ -187,7 +187,7 @@
           ]
         },
         {
-          tier: 'Premier',
+          tier: 'PREMIER',
           icon: 'newsSearch',
           tagline: 'Specialized retrieval across verticals.',
           columns: 3,
