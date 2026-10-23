@@ -98,11 +98,11 @@
             var dividerClass = section.divider ? 'with-divider' : '';
             var isSearchSection = section.id === 'section-search';
 
-            var sectionTitleHtml = section.sectionTitle 
-              ? `<div class="nav-section-title">${section.sectionTitle}</div>` 
+            var sectionTitleHtml = (section.sectionTitle || section.group) 
+              ? `<div class="nav-section-label">${section.labelHtml || section.group || section.sectionTitle}</div>` 
               : '';
-            var groupHeaderHtml = section.group 
-              ? `<div class="nav-section-label">${section.labelHtml || section.group}</div>` 
+            var groupHeaderHtml = (section.group || section.sectionTitle) 
+              ? `<div class="nav-section-label">${section.labelHtml || section.group || section.sectionTitle}</div>` 
               : '';
 
             // 1. If section has explicit cards (e.g. Search: Fast & Premier)
@@ -150,7 +150,7 @@
 
                 return `
                   <div class="nav-section ${dividerClass} search-group" id="${secId}">
-                    <div class="search-group-title">Search</div>
+                    <div class="nav-section-label">${section.labelHtml || section.group || section.sectionTitle || 'SEARCH'}</div>
                     <div class="search-subtiers-container">
                       ${subtiersHtml}
                     </div>

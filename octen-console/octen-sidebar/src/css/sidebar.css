@@ -223,9 +223,10 @@ html.dark .nav-section.with-divider {
   font-weight: 600;
   line-height: 20px;
   color: #717680;
-  opacity: 0.85;
+  letter-spacing: 0.05em;
   padding: 6px 12px 4px 12px;
-  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  opacity: 0.85;
 }
 
 html.dark .nav-section-title {
@@ -340,13 +341,15 @@ html.dark .nav-card-label {
   font-weight: 600;
   line-height: 20px;
   color: #717680;
+  letter-spacing: 0.05em;
   padding: 6px 12px 4px 12px;
-  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  opacity: 0.85;
   user-select: none;
 }
 
 html.dark .search-group-title {
-  color: #8e8e93;
+  color: var(--sidebar-fg-muted);
 }
 
 .search-subtiers-container {

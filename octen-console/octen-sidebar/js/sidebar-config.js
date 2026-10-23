@@ -83,7 +83,8 @@ window.OCTEN_SIDEBAR_CONFIG = {
     // Search Section: FAST & PREMIER Dual-Cards
     {
       id: 'section-search',
-      sectionTitle: 'Search',
+      group: 'SEARCH',
+      sectionTitle: 'SEARCH',
       divider: true,
       cards: [
         {
